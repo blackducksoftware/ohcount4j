@@ -1,5 +1,6 @@
 package net.ohloh.ohcount4j.detect;
 
+import net.ohloh.ohcount4j.scan.CSSScanner;
 import net.ohloh.ohcount4j.scan.CScanner;
 import net.ohloh.ohcount4j.scan.HTMLScanner;
 import net.ohloh.ohcount4j.scan.MakefileScanner;
@@ -13,6 +14,7 @@ public class OhcountDetector extends Detector {
 		// Map extensions
 		extension("c").scanUsing(CScanner.class);
 		extension("html").scanUsing(HTMLScanner.class);
+		extension("css").scanUsing(CSSScanner.class);
 		// map(extension())
 
 		// Dummy mapping
