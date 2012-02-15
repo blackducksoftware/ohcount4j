@@ -1,0 +1,6 @@
+bin
+test-output
+*.class
+target
+reports
+gen-src/net
