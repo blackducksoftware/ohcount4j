@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.LanguageEntity;
 
 public class LineEventHandler implements EventHandler {
@@ -18,17 +17,30 @@ public class LineEventHandler implements EventHandler {
 	}
 
 	@Override
-	public void languageStart(Language language, int position) {
-		currentLine = new Line(language);
-		startOffset = position;
+	public void scanStart() {
+
 	}
 
 	@Override
-	public void languageEnd(Language language) {
+	public void scanEnd(char[] data, int position) {
+		if (startOffset < position) {
+			currentLine.appendContent(Arrays.copyOfRange(data, startOffset, position));
+		}
+		lines.add(currentLine);
+	}
+
+	@Override
+	public void languageStart(ScanEvent event) {
+		currentLine = new Line(event.getLanguage());
+		startOffset = event.getPosition();
+	}
+
+	@Override
+	public void languageEnd(ScanEvent event) {
 
 	}
 
-	private void processEvent(ScanEvent event) {
+	private void processEvent(EntityScanEvent event) {
 		currentLine.appendContent(Arrays.copyOfRange(event.getContent(), startOffset, event.getPosition()));
 		startOffset = event.getPosition();
 		if (currentLine.getEntity() == null) {
@@ -47,19 +59,19 @@ public class LineEventHandler implements EventHandler {
 	}
 
 	@Override
-	public void entityStart(ScanEvent event) {
+	public void entityStart(EntityScanEvent event) {
 		processEvent(event);
 		currentEntity = LanguageEntity.COMMENT;
 	}
 
 	@Override
-	public void entityEnd(ScanEvent event) {
+	public void entityEnd(EntityScanEvent event) {
 		processEvent(event);
 		currentEntity = null;
 	}
 
 	@Override
-	public void newline(ScanEvent event) {
+	public void newline(EntityScanEvent event) {
 		currentLine.appendContent(Arrays.copyOfRange(event.getContent(), startOffset, event.getPosition()));
 		startOffset = event.getPosition();
 		lines.add(currentLine);

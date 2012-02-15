@@ -1,17 +1,19 @@
 package net.ohloh.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
-
 public interface EventHandler {
 
+	public void scanStart();
+
+	public void scanEnd(char[] data, int position);
+
 	// FIXME - remove position? it will always be 0
-	public void languageStart(Language language, int position);
+	public void languageStart(ScanEvent event);
 
-	public void languageEnd(Language language);
+	public void languageEnd(ScanEvent event);
 
-	public void entityStart(ScanEvent event);
+	public void entityStart(EntityScanEvent event);
 
-	public void entityEnd(ScanEvent event);
+	public void entityEnd(EntityScanEvent event);
 
-	public void newline(ScanEvent event);
+	public void newline(EntityScanEvent event);
 }

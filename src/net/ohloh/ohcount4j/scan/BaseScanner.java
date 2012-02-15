@@ -35,8 +35,10 @@ public abstract class BaseScanner implements Scanner {
 
 	@Override
 	public final void scan(Blob blob, EventHandler handler) throws IOException {
+		handler.scanStart();
 		data = blob.charContents();
 		scan(data, handler);
+		handler.scanEnd(data, p);
 	}
 
 	protected final void init() {
@@ -49,24 +51,24 @@ public abstract class BaseScanner implements Scanner {
 		this.handler = handler;
 		this.language = getLanguage();
 		pe = eof = data.length;
-		handler.languageStart(getLanguage(), 0);
+		handler.languageStart(new ScanEvent(getLanguage(), data, p));
 		doScan();
-		handler.languageEnd(getLanguage());
+		handler.languageEnd(new ScanEvent(getLanguage(), data, p));
 	}
 
 	protected void notifyNewline() {
 		if (inCode) {
 			notifyCodeEnd();
 		}
-		handler.newline(new ScanEvent(getLanguage(), LanguageEntity.NEWLINE, data, p));
+		handler.newline(new EntityScanEvent(getLanguage(), LanguageEntity.NEWLINE, data, p));
 	}
 
 	protected void notifyBlanks() {
 		if (inCode) {
 			notifyCodeEnd();
 		}
-		handler.entityStart(new ScanEvent(getLanguage(), LanguageEntity.BLANK, data, ts));
-		handler.entityEnd(new ScanEvent(getLanguage(), LanguageEntity.BLANK, data, te));
+		handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.BLANK, data, ts));
+		handler.entityEnd(new EntityScanEvent(getLanguage(), LanguageEntity.BLANK, data, te));
 	}
 
 	protected void notifyStartComment() {
@@ -74,11 +76,11 @@ public abstract class BaseScanner implements Scanner {
 			notifyCodeEnd();
 		}
 		mymark = p;
-		handler.entityStart(new ScanEvent(getLanguage(), LanguageEntity.COMMENT, data, mymark));
+		handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.COMMENT, data, mymark));
 	}
 
 	protected void notifyEndComment() {
-		handler.entityEnd(new ScanEvent(getLanguage(), LanguageEntity.COMMENT, data, p));
+		handler.entityEnd(new EntityScanEvent(getLanguage(), LanguageEntity.COMMENT, data, p));
 	}
 
 	protected void notifyStartString() {
@@ -86,11 +88,11 @@ public abstract class BaseScanner implements Scanner {
 			notifyCodeEnd();
 		}
 		mymark = p;
-		handler.entityStart(new ScanEvent(getLanguage(), LanguageEntity.CODE, data, mymark));
+		handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, mymark));
 	}
 
 	protected void notifyEndString() {
-		handler.entityEnd(new ScanEvent(getLanguage(), LanguageEntity.CODE, data, p));
+		handler.entityEnd(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, p));
 	}
 
 	protected void notifyCodeCharacter() {
@@ -99,12 +101,12 @@ public abstract class BaseScanner implements Scanner {
 		} else {
 			inCode = true;
 			mymark = p;
-			handler.entityStart(new ScanEvent(getLanguage(), LanguageEntity.CODE, data, mymark));
+			handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, mymark));
 		}
 	}
 
 	protected void notifyCodeEnd() {
 		inCode = false;
-		handler.entityEnd(new ScanEvent(getLanguage(), LanguageEntity.CODE, data, p));
+		handler.entityEnd(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, p));
 	}
 }
