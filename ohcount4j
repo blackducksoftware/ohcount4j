@@ -1,0 +1,4 @@
+#!/bin/sh
+
+java -cp bin:lib/* net.ohloh.ohcount4j.Ohcount "$@"
+
