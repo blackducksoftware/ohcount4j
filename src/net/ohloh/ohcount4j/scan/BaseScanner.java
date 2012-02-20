@@ -109,4 +109,42 @@ public abstract class BaseScanner implements Scanner {
 		inCode = false;
 		handler.entityEnd(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, p));
 	}
+
+	protected int match_begin_mark;
+	protected int match_end_mark;
+	protected int match_try_mark;
+
+	protected void beginDefineMatch() {
+		match_begin_mark = p;
+	}
+
+	protected void endDefineMatch() {
+		match_end_mark = p;
+	}
+
+	protected void beginTryMatch() {
+		match_try_mark = p;
+	}
+
+	protected boolean match() {
+		if (match_begin_mark >= match_end_mark) {
+			// No back reference has been defined
+			return false;
+		}
+
+		int definition_length = match_end_mark - match_begin_mark;
+		int try_length = p - match_try_mark + 1;
+
+		if (definition_length != try_length) {
+			return false;
+		}
+
+		for (int i = 0; i < try_length; i++) {
+			if (data[match_try_mark + i] != data[match_begin_mark + i]) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 }
