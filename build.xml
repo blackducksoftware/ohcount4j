@@ -37,7 +37,7 @@
   </target>
 
   <target name="compile" depends="gen-src" description="compile the source" >
-    <javac includeantruntime="false" destdir="${build}">
+    <javac includeantruntime="false" destdir="${build}" debug="true" debuglevel="lines,vars,source">
       <classpath refid="lib.jars"/>
       <src path="${gen-src}"/>
       <src path="${src}"/>
