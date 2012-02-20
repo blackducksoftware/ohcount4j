@@ -21,7 +21,6 @@ public abstract class BaseScanner implements Scanner {
 	protected int te = 0;
 	protected int act = 0;
 
-	protected int mymark = 0;
 	protected boolean inCode = false;
 
 	protected EventHandler handler = null;
@@ -75,8 +74,7 @@ public abstract class BaseScanner implements Scanner {
 		if (inCode) {
 			notifyCodeEnd();
 		}
-		mymark = p;
-		handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.COMMENT, data, mymark));
+		handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.COMMENT, data, p));
 	}
 
 	protected void notifyEndComment() {
@@ -87,8 +85,7 @@ public abstract class BaseScanner implements Scanner {
 		if (inCode) {
 			notifyCodeEnd();
 		}
-		mymark = p;
-		handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, mymark));
+		handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, p));
 	}
 
 	protected void notifyEndString() {
@@ -100,8 +97,7 @@ public abstract class BaseScanner implements Scanner {
 			// Do nothing
 		} else {
 			inCode = true;
-			mymark = p;
-			handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, mymark));
+			handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, p));
 		}
 	}
 
