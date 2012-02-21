@@ -61,7 +61,7 @@ public class LineEventHandler implements EventHandler {
 	@Override
 	public void entityStart(EntityScanEvent event) {
 		processEvent(event);
-		currentEntity = LanguageEntity.COMMENT;
+		currentEntity = currentLine.getEntity();
 	}
 
 	@Override
