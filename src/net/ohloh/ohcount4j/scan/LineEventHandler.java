@@ -26,6 +26,10 @@ public class LineEventHandler implements EventHandler {
 		if (startOffset < position) {
 			currentLine.appendContent(Arrays.copyOfRange(data, startOffset, position));
 		}
+		// This happens when file is empty of has only blank lines.
+		if (currentLine.getEntity() == null) {
+			currentLine.setEntity(LanguageEntity.BLANK);
+		}
 		lines.add(currentLine);
 	}
 
