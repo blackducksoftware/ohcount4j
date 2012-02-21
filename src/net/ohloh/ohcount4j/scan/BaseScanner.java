@@ -1,6 +1,7 @@
 package net.ohloh.ohcount4j.scan;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.LanguageEntity;
@@ -21,7 +22,9 @@ public abstract class BaseScanner implements Scanner {
 	protected int te = 0;
 	protected int act = 0;
 
-	protected boolean inCode = false;
+	protected boolean codeSeen = false;
+	protected boolean commentSeen = false;
+	protected int lineStart = 0;
 
 	protected EventHandler handler = null;
 
@@ -34,10 +37,8 @@ public abstract class BaseScanner implements Scanner {
 
 	@Override
 	public final void scan(Blob blob, EventHandler handler) throws IOException {
-		handler.scanStart();
 		data = blob.charContents();
 		scan(data, handler);
-		handler.scanEnd(data, p);
 	}
 
 	protected final void init() {
@@ -50,60 +51,34 @@ public abstract class BaseScanner implements Scanner {
 		this.handler = handler;
 		this.language = getLanguage();
 		pe = eof = data.length;
-		handler.languageStart(new ScanEvent(getLanguage(), data, p));
 		doScan();
-		handler.languageEnd(new ScanEvent(getLanguage(), data, p));
+	}
+
+	protected void notifyCode() {
+		codeSeen = true;
+	}
+
+	protected void notifyComment() {
+		commentSeen = true;
 	}
 
 	protected void notifyNewline() {
-		if (inCode) {
-			notifyCodeEnd();
-		}
-		handler.newline(new EntityScanEvent(getLanguage(), LanguageEntity.NEWLINE, data, p));
-	}
+		Line line = new Line(language);
+		line.appendContent(Arrays.copyOfRange(data, lineStart, p));
 
-	protected void notifyBlanks() {
-		if (inCode) {
-			notifyCodeEnd();
-		}
-		handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.BLANK, data, ts));
-		handler.entityEnd(new EntityScanEvent(getLanguage(), LanguageEntity.BLANK, data, te));
-	}
-
-	protected void notifyStartComment() {
-		if (inCode) {
-			notifyCodeEnd();
-		}
-		handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.COMMENT, data, p));
-	}
-
-	protected void notifyEndComment() {
-		handler.entityEnd(new EntityScanEvent(getLanguage(), LanguageEntity.COMMENT, data, p));
-	}
-
-	protected void notifyStartString() {
-		if (inCode) {
-			notifyCodeEnd();
-		}
-		handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, p));
-	}
-
-	protected void notifyEndString() {
-		handler.entityEnd(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, p));
-	}
-
-	protected void notifyCodeCharacter() {
-		if (inCode) {
-			// Do nothing
+		if (codeSeen) {
+			line.setEntity(LanguageEntity.CODE);
+		} else if (commentSeen) {
+			line.setEntity(LanguageEntity.COMMENT);
 		} else {
-			inCode = true;
-			handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, p));
+			line.setEntity(LanguageEntity.BLANK);
 		}
-	}
 
-	protected void notifyCodeEnd() {
-		inCode = false;
-		handler.entityEnd(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, p));
+		System.out.print(line.toString());
+
+		lineStart = p;
+		codeSeen = false;
+		commentSeen = false;
 	}
 
 	protected int match_begin_mark;

@@ -8,12 +8,12 @@ public class RubyScanner extends BaseScanner{
     machine ruby;
     include common "common.rl";
     
-    ruby_newline = newline %got_newline;
+    ruby_newline = newline %nl;
     text_with_newlines = ruby_newline | nonnewline;
 
     
-  	ruby_line_comment = (('#' [^\n]* ) >start_comment %end_comment) (newline %got_newline);
-  	ruby_block_comment = ('=begin' ( text_with_newlines )* :>> '=end') >start_comment %end_comment;
+  	ruby_line_comment = '#' @comment (nonnewline @comment)* (newline %nl);
+  	ruby_block_comment = '=begin' @comment ((nonnewline @comment) (newline %nl))* :>> '=end' @comment;
   	ruby_comment = ruby_line_comment | ruby_block_comment;
 
 		ruby_sq_str = '\'' string_char* :>> '\'';
@@ -34,14 +34,14 @@ public class RubyScanner extends BaseScanner{
     ruby_here_doc_body = nonnewline+ >begin_try_match ${ if(match()) { fhold; fgoto ruby; } };
     ruby_here_doc = '<<' '-'? ruby_here_doc_label ruby_newline (spaces* ruby_here_doc_body ruby_newline)*;
 
-    ruby_string = (ruby_sq_str | ruby_dq_str | ruby_regex | ruby_pct_str | ruby_here_doc) >start_str %end_str;
+    ruby_string = (ruby_sq_str | ruby_dq_str | ruby_regex | ruby_pct_str | ruby_here_doc) @code;
 
   	ruby := |*
-    	spaces => got_spaces;
+    	spaces;
     	ruby_comment;
     	ruby_string;
     	ruby_newline;
-    	(any - newline) => got_code_character;
+    	(any - newline) => code;
   	*|; 
   }%%
 

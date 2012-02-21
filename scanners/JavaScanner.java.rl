@@ -8,23 +8,23 @@ public class JavaScanner extends BaseScanner{
     machine java;
     include common "common.rl";
     
-    text_with_newlines = (newline %got_newline) | nonnewline;
+    text_with_newlines = (newline %nl) | nonnewline;
     
-  	java_line_comment = (('//' [^\n]* ) >start_comment %end_comment) (newline %got_newline);
-  	java_block_comment = ('/*' ( text_with_newlines )* :>> '*/') >start_comment %end_comment;
+  	java_line_comment = (('//' @comment [^\n]* @comment)) (newline %nl);
+  	java_block_comment = ('/*' @comment ( text_with_newlines @comment)* :>> '*/') @comment;
   	java_comment = java_line_comment | java_block_comment;
 
-  	java_sq_str = ('\'' ( text_with_newlines )* :>> '\'') >start_str %end_str;
-  	java_dq_str = ('"' ( text_with_newlines )* :>> '"') >start_str %end_str;
+  	java_sq_str = ('\'' @code ( text_with_newlines @code )* :>> '\'') @code;
+  	java_dq_str = ('"' @code ( text_with_newlines @code )* :>> '"') @code;
   	java_string = java_sq_str | java_dq_str;
-  	java_newline = newline %got_newline;
+  	java_newline = newline %nl;
 
   	java_line := |*
-    	spaces => got_spaces;
+    	spaces;
     	java_comment;
     	java_string;
     	java_newline;
-    	(any - newline) => got_code_character;
+    	(any - newline) => code;
   	*|; 
   }%%
 

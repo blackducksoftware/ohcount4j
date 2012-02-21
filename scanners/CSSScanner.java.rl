@@ -8,20 +8,20 @@ public class CSSScanner extends BaseScanner{
     machine css;
     include common "common.rl";
     
-    text_with_newlines = (newline %got_newline) | nonnewline;
+    text_with_newlines = (newline %nl) | nonnewline;
     
-  	css_comment = ('/*' ( text_with_newlines )* :>> '*/') >start_comment %end_comment;
-  	css_sq_str = ('\'' ( text_with_newlines )* :>> '\'') >start_str %end_str;
-  	css_dq_str = ('"' ( text_with_newlines )* :>> '"') >start_str %end_str;
+  	css_comment = '/*' @comment ( text_with_newlines @comment )* :>> '*/' @comment;
+  	css_sq_str = '\'' @code ( text_with_newlines @code )* :>> '\'' @code;
+  	css_dq_str = '"' @code ( text_with_newlines @code )* :>> '"' @code;
   	css_string = css_sq_str | css_dq_str;
-  	css_newline = newline %got_newline;
+  	css_newline = newline %nl;
 
   	html_line := |*
-    	spaces => got_spaces;
+    	spaces;
     	css_comment;
     	css_string;
     	css_newline;
-    	(any - newline) => got_code_character;
+    	(any - newline) => code;
   	*|; 
   }%%
 

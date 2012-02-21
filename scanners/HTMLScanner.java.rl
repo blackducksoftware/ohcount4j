@@ -8,20 +8,20 @@ public class HTMLScanner extends BaseScanner{
     machine html;
     include common "common.rl";
     
-    text_with_newlines = (newline %got_newline) | nonnewline;
+    text_with_newlines = (newline %nl) | nonnewline;
     
-    html_comment =  ('<!--' ( text_with_newlines )* :>> '-->') >start_comment %end_comment;
-  	html_sq_str = ('\'' ( text_with_newlines )* :>> '\'') >start_str %end_str;
-  	html_dq_str = ('"' ( text_with_newlines )* :>> '"') >start_str %end_str;
+    html_comment =  ('<!--' @comment ( text_with_newlines @comment )* :>> '-->') @comment;
+  	html_sq_str = ('\'' @code ( text_with_newlines )* :>> '\'') @code;
+  	html_dq_str = ('"' @code ( text_with_newlines @code )* :>> '"') @code;
   	html_string = html_sq_str | html_dq_str;
-  	html_newline = newline %got_newline;
+  	html_newline = newline %nl;
 
   	html_line := |*
-    	spaces => got_spaces;
+    	spaces;
     	html_comment;
     	html_string;
     	html_newline;
-    	(any - newline) => got_code_character;
+    	(any - newline) => code;
   	*|; 
   }%%
 
