@@ -20,8 +20,9 @@ public class BaseScannerTest {
 
 		for (int i=0; i<expected.length; i++) {
 			Line line = h.getLines().get(i);
-			assertEquals(expected[i].language, line.language);
-			assertEquals(expected[i].entity, line.entity);
+			String msg = String.format("at line %1$d: %2$s", i, line.getContent());
+			assertEquals(msg, expected[i].language, line.language);
+			assertEquals(msg, expected[i].entity, line.entity);
 		}
 	}
 

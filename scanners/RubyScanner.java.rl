@@ -13,7 +13,7 @@ public class RubyScanner extends BaseScanner{
 
     
   	ruby_line_comment = '#' @comment (nonnewline @comment)* (newline %nl);
-  	ruby_block_comment = '=begin' @comment ((nonnewline @comment) (newline %nl))* :>> '=end' @comment;
+  	ruby_block_comment = '=begin' @code ((nonnewline @comment)* (newline %nl))* :>> '=end' @code;
   	ruby_comment = ruby_line_comment | ruby_block_comment;
 
 		ruby_sq_str = '\'' string_char* :>> '\'';

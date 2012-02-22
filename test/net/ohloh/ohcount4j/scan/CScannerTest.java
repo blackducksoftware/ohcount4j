@@ -21,15 +21,15 @@ public class CScannerTest extends BaseScannerTest {
 
 	@Test
 	public void helloWorld() {
-		String code =
-			"/* Hello World\n" +
-			" * with multi-line comment */\n" +
-			"\n" +
-			"#include <stdio.h>\n" +
-			"\n" +
-			"main() {\n" +
-			"  printf(\"Hello world!\");\n" +
-			"}\n";
+		String code
+			= "/* Hello World\n"
+			+ " * with multi-line comment */\n"
+			+ "\n"
+			+ "#include <stdio.h>\n"
+			+ "\n"
+			+ "main() {\n"
+			+ "  printf(\"Hello world!\");\n"
+			+ "}\n";
 
 		Line[] expected = {
 			new Line(LANG_C, COMMENT),
