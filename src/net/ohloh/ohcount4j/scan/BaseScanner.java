@@ -1,11 +1,14 @@
 package net.ohloh.ohcount4j.scan;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.LanguageEntity;
 import net.ohloh.ohcount4j.io.Blob;
+import net.ohloh.ohcount4j.scan.Line;
 
 public abstract class BaseScanner implements Scanner {
 
@@ -26,8 +29,7 @@ public abstract class BaseScanner implements Scanner {
 	protected boolean commentSeen = false;
 	protected int lineStart = 0;
 
-	protected EventHandler handler = null;
-
+	List<Line> lines;
 	protected Language language = null;
 
 	// abstract method to be implemented by scanners
@@ -36,9 +38,9 @@ public abstract class BaseScanner implements Scanner {
 	public abstract Language getLanguage();
 
 	@Override
-	public final void scan(Blob blob, EventHandler handler) throws IOException {
+	public final List<Line> scan(Blob blob, EventHandler handler) throws IOException {
 		data = blob.charContents();
-		scan(data, handler);
+		return scan(data, handler);
 	}
 
 	protected final void init() {
@@ -46,12 +48,15 @@ public abstract class BaseScanner implements Scanner {
 	}
 
 	@Override
-	public final void scan(char[] data, EventHandler handler) {
+	public final List<Line> scan(char[] data, EventHandler handler) {
+		lines = new ArrayList<Line>();
+
 		this.data = data;
-		this.handler = handler;
 		this.language = getLanguage();
 		pe = eof = data.length;
 		doScan();
+
+		return lines;
 	}
 
 	protected void notifyCode() {
@@ -74,6 +79,7 @@ public abstract class BaseScanner implements Scanner {
 			line.setEntity(LanguageEntity.BLANK);
 		}
 
+		lines.add(line);
 		System.out.print(line.toString());
 
 		lineStart = p;
