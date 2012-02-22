@@ -1,14 +1,13 @@
 package net.ohloh.ohcount4j.scan;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import net.ohloh.ohcount4j.Language;
-import net.ohloh.ohcount4j.LanguageEntity;
+import net.ohloh.ohcount4j.Entity;
 import net.ohloh.ohcount4j.io.Blob;
 import net.ohloh.ohcount4j.scan.Line;
+import net.ohloh.ohcount4j.scan.LineHandler;
 
 public abstract class BaseScanner implements Scanner {
 
@@ -29,7 +28,7 @@ public abstract class BaseScanner implements Scanner {
 	protected boolean commentSeen = false;
 	protected int lineStart = 0;
 
-	List<Line> lines;
+	protected LineHandler handler = null;
 	protected Language language = null;
 
 	// abstract method to be implemented by scanners
@@ -37,26 +36,27 @@ public abstract class BaseScanner implements Scanner {
 
 	public abstract Language getLanguage();
 
-	@Override
-	public final List<Line> scan(Blob blob, EventHandler handler) throws IOException {
-		data = blob.charContents();
-		return scan(data, handler);
-	}
-
 	protected final void init() {
 		pe = eof = data.length;
 	}
 
 	@Override
-	public final List<Line> scan(char[] data, EventHandler handler) {
-		lines = new ArrayList<Line>();
+	public final void scan(Blob blob, LineHandler handler) throws IOException {
+		scan(blob.charContents(), handler);
+	}
 
+	@Override
+	public final void scan(String data, LineHandler handler) {
+		scan(data.toCharArray(), handler);
+	}
+
+	@Override
+	public final void scan(char[] data, LineHandler handler) {
 		this.data = data;
+		this.handler = handler;
 		this.language = getLanguage();
 		pe = eof = data.length;
 		doScan();
-
-		return lines;
 	}
 
 	protected void notifyCode() {
@@ -72,15 +72,16 @@ public abstract class BaseScanner implements Scanner {
 		line.appendContent(Arrays.copyOfRange(data, lineStart, p));
 
 		if (codeSeen) {
-			line.setEntity(LanguageEntity.CODE);
+			line.setEntity(Entity.CODE);
 		} else if (commentSeen) {
-			line.setEntity(LanguageEntity.COMMENT);
+			line.setEntity(Entity.COMMENT);
 		} else {
-			line.setEntity(LanguageEntity.BLANK);
+			line.setEntity(Entity.BLANK);
 		}
 
-		lines.add(line);
-		System.out.print(line.toString());
+		if (handler != null) {
+			handler.handleLine(line);
+		}
 
 		lineStart = p;
 		codeSeen = false;
