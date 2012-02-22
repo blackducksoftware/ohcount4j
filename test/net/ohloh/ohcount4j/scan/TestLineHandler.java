@@ -18,10 +18,6 @@ public class TestLineHandler implements LineHandler {
 		lines.add(line);
 	}
 
-	public String annotation() {
-		return("");
-	}
-
 	public List<Line> getLines() {
 		return lines;
 	}

@@ -1,22 +1,46 @@
 package net.ohloh.ohcount4j.scan;
 
-import static org.testng.AssertJUnit.assertEquals;
 import org.testng.annotations.Test;
 
-import net.ohloh.ohcount4j.Language;
-import net.ohloh.ohcount4j.Entity;
 import net.ohloh.ohcount4j.scan.CScanner;
+import static net.ohloh.ohcount4j.Entity.*;
+import static net.ohloh.ohcount4j.Language.*;
 
-public class CScannerTest {
+public class CScannerTest extends BaseScannerTest {
 
 	@Test
-	public void simple() {
-		Scanner scanner = new CScanner();
-		TestLineHandler h = new TestLineHandler();
-		scanner.scan("#include <stdio.h>\n", h);
-		assertEquals(1, h.getLines().size());
-		assertEquals(Language.LANG_C, h.getLines().get(0).language);
-		assertEquals(Entity.CODE, h.getLines().get(0).entity);
+	public void basic() {
+		assertLine(new CScanner(), new Line(LANG_C, BLANK),   "\n");
+		assertLine(new CScanner(), new Line(LANG_C, BLANK),   "     \n");
+		assertLine(new CScanner(), new Line(LANG_C, BLANK),   "\t\n");
+		assertLine(new CScanner(), new Line(LANG_C, CODE),    "#include <stdio.h>\n");
+		assertLine(new CScanner(), new Line(LANG_C, COMMENT), "/* Block Comment */\n");
+		assertLine(new CScanner(), new Line(LANG_C, COMMENT), "// Line comment\n");
+		assertLine(new CScanner(), new Line(LANG_C, CODE),    "#include <stdio.h> // with comment\n");
 	}
 
+	@Test
+	public void helloWorld() {
+		String code =
+			"/* Hello World\n" +
+			" * with multi-line comment */\n" +
+			"\n" +
+			"#include <stdio.h>\n" +
+			"\n" +
+			"main() {\n" +
+			"  printf(\"Hello world!\");\n" +
+			"}\n";
+
+		Line[] expected = {
+			new Line(LANG_C, COMMENT),
+			new Line(LANG_C, COMMENT),
+			new Line(LANG_C, BLANK),
+			new Line(LANG_C, CODE),
+			new Line(LANG_C, BLANK),
+			new Line(LANG_C, CODE),
+			new Line(LANG_C, CODE),
+			new Line(LANG_C, CODE)
+		};
+		assertLines(new CScanner(), expected, code);
+	}
 }

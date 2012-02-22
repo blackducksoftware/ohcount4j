@@ -14,7 +14,19 @@ public class Line {
 
 	public Line(Language language) {
 		this.language = language;
-		content = new StringBuilder();
+		this.content = new StringBuilder();
+	}
+
+	public Line(Language language, Entity entity) {
+		this.language = language;
+		this.entity = entity;
+		this.content = new StringBuilder();
+	}
+
+	public Line(Language language, Entity entity, String content) {
+		this.language = language;
+		this.entity = entity;
+		this.content = new StringBuilder(content);
 	}
 
 	@Override
