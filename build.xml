@@ -15,7 +15,10 @@
     </fileset>
   </path>
 
-  <taskdef resource="testngtasks" classpath="${lib}/testng-6.3.1.jar"/>
+  <path id="test.lib.jars">
+    <path refid="lib.jars"/>
+    <pathelement path="${build}"/>
+  </path>
 
   <target name="setup">
     <!-- Create the time stamp -->
@@ -25,7 +28,7 @@
     <mkdir dir="${test.build}"/>
   </target>
 
-  <target name="gen-src" depends="setup">
+  <target name="gen-src" depends="clean, setup">
     <apply executable="ragel" dest="${gen-src}/${scanner-package}" failonerror="true" parallel="false">
       <arg value="-J"/>
       <arg value="-o"/>
@@ -44,10 +47,23 @@
     </javac>
   </target>
 
-  <target name="test" depends="compile" description="run tests">
-    <testng classpathref="lib.jars" outputDir="${testng.report.dir}" haltOnFailure="true" verbose="2">
-      <classfileset dir="${test.build}" includes="**/*.class" />
-    </testng>
+  <target name="compile-tests" depends="compile">
+    <mkdir dir="testbin" />
+    <javac includeantruntime="false" destdir="testbin" classpathref="test.lib.jars" debug="true" debuglevel="lines,vars,source" failonerror="true">
+      <src path="test" />
+      <exclude name="data/*"/>
+    </javac>
+  </target>
+
+  <target name="run-tests" depends="compile-tests">
+      <taskdef resource="testngtasks" classpathref="lib.jars" />
+      <testng haltonfailure="false" outputdir="test-output" classpathref="test.lib.jars">
+          <classpath>
+            <pathelement location="testbin"/>
+          </classpath>
+          <classfileset dir="testbin" includes="**/*Test.class" />
+          <!-- reporter classname="org.testng.reporters.XMLReporter" /-->
+      </testng>
   </target>
 
   <target name="dist" depends="compile" description="generate the distribution" >
