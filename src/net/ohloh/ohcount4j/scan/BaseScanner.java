@@ -1,6 +1,7 @@
 package net.ohloh.ohcount4j.scan;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import net.ohloh.ohcount4j.Language;
@@ -24,8 +25,8 @@ public abstract class BaseScanner implements Scanner {
 	protected int te = 0;
 	protected int act = 0;
 
-	protected boolean codeSeen = false;
-	protected boolean commentSeen = false;
+	ArrayList<Language> codeSeen = new ArrayList<Language>();
+	ArrayList<Language> commentSeen = new ArrayList<Language>();
 	protected int lineStart = 0;
 
 	protected LineHandler handler = null;
@@ -62,33 +63,57 @@ public abstract class BaseScanner implements Scanner {
 		}
 	}
 
+	// Called by Ragel machine when moving in or out of an embedded language.
+	protected void setLanguage(Language lang) {
+		language = lang;
+	}
+
 	protected void notifyCode() {
-		codeSeen = true;
+		if (!codeSeen.contains(language)) {
+			codeSeen.add(language);
+		}
 	}
 
 	protected void notifyComment() {
-		commentSeen = true;
+		if (!commentSeen.contains(language)) {
+			commentSeen.add(language);
+		}
+	}
+
+	// Given lists of all the code and comment langauages we've seen on this line,
+	// choose one language and entity to represent the entire line.
+	protected Line chooseLine() {
+		// If we've seen any language besides the default language, use that one.
+		for (Language l : codeSeen) {
+			if ( l != getLanguage() ) {
+				return new Line(l, Entity.CODE);
+			}
+		}
+		for (Language l : commentSeen) {
+			if ( l != getLanguage() ) {
+				return new Line(l, Entity.COMMENT);
+			}
+		}
+		// No embedded languages. Return the default language.
+		if (codeSeen.size() > 0) {
+			return new Line(codeSeen.get(0), Entity.CODE);
+		} else if (commentSeen.size() > 0) {
+			return new Line(commentSeen.get(0), Entity.COMMENT);
+		} else {
+			return new Line(language, Entity.BLANK);
+		}
 	}
 
 	protected void notifyNewline() {
-		Line line = new Line(language);
-		line.appendContent(Arrays.copyOfRange(data, lineStart, p));
-
-		if (codeSeen) {
-			line.setEntity(Entity.CODE);
-		} else if (commentSeen) {
-			line.setEntity(Entity.COMMENT);
-		} else {
-			line.setEntity(Entity.BLANK);
-		}
+		Line line = chooseLine().appendContent(Arrays.copyOfRange(data, lineStart, p));
 
 		if (handler != null) {
 			handler.handleLine(line);
 		}
 
 		lineStart = p;
-		codeSeen = false;
-		commentSeen = false;
+		codeSeen.clear();
+		commentSeen.clear();
 	}
 
 	protected int match_begin_mark;

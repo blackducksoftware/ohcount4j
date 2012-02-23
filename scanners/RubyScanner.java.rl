@@ -9,8 +9,6 @@ public class RubyScanner extends BaseScanner{
     include common "common.rl";
     
     ruby_newline = newline %nl;
-    text_with_newlines = ruby_newline | nonnewline;
-
     
   	ruby_line_comment = '#' @comment (nonnewline* @comment);
   	ruby_block_comment = '=begin' @code ((nonnewline @comment)* (newline %nl))* :>> '=end' @code;

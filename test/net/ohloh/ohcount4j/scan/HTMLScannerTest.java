@@ -54,4 +54,68 @@ public class HTMLScannerTest extends BaseScannerTest {
 		};
 		assertLines(new HTMLScanner(), expected, code);
 	}
+
+	@Test
+	public void embeddedCSSOnSeparateLine() {
+		String code
+			= "<!doctype HTML>\n"
+			+ "<style>\n"
+			+ "  body:after { content:\"Hello, world!\"; }\n"
+			+ "</style>\n"
+			+ "<html>";
+
+		Line[] expected = {
+			new Line(LANG_HTML, CODE),
+			new Line(LANG_HTML, CODE),
+			new Line(LANG_CSS, CODE),
+			new Line(LANG_HTML, CODE),
+			new Line(LANG_HTML, CODE)
+		};
+		assertLines(new HTMLScanner(), expected, code);
+	}
+
+	@Test
+	public void embeddedCSSOnSameLine() {
+		String code
+			= "<!doctype HTML>\n"
+			+ "<style> body:after { content:\"Hello, world!\"; } </style>\n"
+			+ "<html>";
+
+		Line[] expected = {
+			new Line(LANG_HTML, CODE),
+			new Line(LANG_CSS, CODE),
+			new Line(LANG_HTML, CODE)
+		};
+		assertLines(new HTMLScanner(), expected, code);
+	}
+
+	@Test
+	public void emptyCSSOnSameLine() {
+		String code
+			= "<!doctype HTML>\n"
+			+ "<style></style>\n"
+			+ "<html>";
+
+		Line[] expected = {
+			new Line(LANG_HTML, CODE),
+			new Line(LANG_HTML, CODE),
+			new Line(LANG_HTML, CODE)
+		};
+		assertLines(new HTMLScanner(), expected, code);
+	}
+
+	@Test
+	public void commentCSSOnSameLine() {
+		String code
+			= "<!doctype HTML>\n"
+			+ "<style>/* No code just comment */</style>\n"
+			+ "<html>";
+
+		Line[] expected = {
+			new Line(LANG_HTML, CODE),
+			new Line(LANG_CSS, COMMENT),
+			new Line(LANG_HTML, CODE)
+		};
+		assertLines(new HTMLScanner(), expected, code);
+	}
 }

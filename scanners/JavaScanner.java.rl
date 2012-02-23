@@ -8,8 +8,6 @@ public class JavaScanner extends BaseScanner{
     machine java;
     include common "common.rl";
     
-    text_with_newlines = (newline %nl) | nonnewline;
-    
   	java_line_comment = '//' @comment (nonnewline* @comment);
   	java_block_comment = ('/*' @comment ( text_with_newlines @comment)* :>> '*/') @comment;
   	java_comment = java_line_comment | java_block_comment;

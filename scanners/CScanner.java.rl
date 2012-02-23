@@ -8,8 +8,6 @@ public class CScanner extends BaseScanner{
     machine c;
     include common "common.rl";
     
-    text_with_newlines = (newline %nl) | nonnewline;
-    
   	c_line_comment = '//' @comment (nonnewline @comment)*;
   	c_block_comment = '/*' @comment (text_with_newlines @comment)* :>> '*/' @comment;
   	c_comment = c_line_comment | c_block_comment;
