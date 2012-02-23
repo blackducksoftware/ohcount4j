@@ -20,6 +20,17 @@ public class JavaScannerTest extends BaseScannerTest {
 	}
 
 	@Test
+	public void eofHandling() {
+		// Note lack of trailing \n in all cases below
+		assertLine(new JavaScanner(), new Line(LANG_JAVA, BLANK),   "     ");
+		assertLine(new JavaScanner(), new Line(LANG_JAVA, BLANK),   "\t");
+		assertLine(new JavaScanner(), new Line(LANG_JAVA, CODE),    "import java.util.List;");
+		assertLine(new JavaScanner(), new Line(LANG_JAVA, COMMENT), "/* Block Comment */");
+		assertLine(new JavaScanner(), new Line(LANG_JAVA, COMMENT), "// Line comment");
+		assertLine(new JavaScanner(), new Line(LANG_JAVA, CODE),    "import java.util.List; // with comment");
+	}
+
+	@Test
 	public void helloWorld() {
 		String code
 			= "/* Hello World\n"
@@ -29,7 +40,7 @@ public class JavaScannerTest extends BaseScannerTest {
 			+ "\tpublic static void main(String[] args) {\n"
 			+ "\t\tSystem.out.println(\"Hello world!\");\n"
 			+ "\t}\n"
-			+ "}\n";
+			+ "}";
 
 		Line[] expected = {
 			new Line(LANG_JAVA, COMMENT),

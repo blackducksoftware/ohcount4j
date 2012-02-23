@@ -20,6 +20,17 @@ public class CScannerTest extends BaseScannerTest {
 	}
 
 	@Test
+	public void eofHandling() {
+		// Note lack of trailing \n in all cases below
+		assertLine(new CScanner(), new Line(LANG_C, BLANK),   "     ");
+		assertLine(new CScanner(), new Line(LANG_C, BLANK),   "\t");
+		assertLine(new CScanner(), new Line(LANG_C, CODE),    "#include <stdio.h>");
+		assertLine(new CScanner(), new Line(LANG_C, COMMENT), "/* Block Comment */");
+		assertLine(new CScanner(), new Line(LANG_C, COMMENT), "// Line comment");
+		assertLine(new CScanner(), new Line(LANG_C, CODE),    "#include <stdio.h> // with comment");
+	}
+
+	@Test
 	public void helloWorld() {
 		String code
 			= "/* Hello World\n"
@@ -29,7 +40,7 @@ public class CScannerTest extends BaseScannerTest {
 			+ "\n"
 			+ "main() {\n"
 			+ "  printf(\"Hello world!\");\n"
-			+ "}\n";
+			+ "}";
 
 		Line[] expected = {
 			new Line(LANG_C, COMMENT),

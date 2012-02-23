@@ -19,11 +19,21 @@ public class RubyScannerTest extends BaseScannerTest {
 	}
 
 	@Test
+	public void eofHandling() {
+		// Note lack of trailing \n in all cases below
+		assertLine(new RubyScanner(), new Line(LANG_RUBY, BLANK),   "     ");
+		assertLine(new RubyScanner(), new Line(LANG_RUBY, BLANK),   "\t");
+		assertLine(new RubyScanner(), new Line(LANG_RUBY, CODE),    "require 'lib'");
+		assertLine(new RubyScanner(), new Line(LANG_RUBY, COMMENT), "# line comment");
+		assertLine(new RubyScanner(), new Line(LANG_RUBY, CODE),    "require 'lib' // with comment");
+	}
+
+	@Test
 	public void helloWorld() {
 		String code
 			= "# Hello World\n"
 			+ "\n"
-			+ "puts 'Hello world!'\n";
+			+ "puts 'Hello world!'";
 
 		Line[] expected = {
 			new Line(LANG_RUBY, COMMENT),

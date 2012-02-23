@@ -12,7 +12,7 @@ public class RubyScanner extends BaseScanner{
     text_with_newlines = ruby_newline | nonnewline;
 
     
-  	ruby_line_comment = '#' @comment (nonnewline @comment)* (newline %nl);
+  	ruby_line_comment = '#' @comment (nonnewline* @comment);
   	ruby_block_comment = '=begin' @code ((nonnewline @comment)* (newline %nl))* :>> '=end' @code;
   	ruby_comment = ruby_line_comment | ruby_block_comment;
 

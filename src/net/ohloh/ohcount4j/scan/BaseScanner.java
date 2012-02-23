@@ -57,6 +57,9 @@ public abstract class BaseScanner implements Scanner {
 		this.language = getLanguage();
 		pe = eof = data.length;
 		doScan();
+		if (p != lineStart) { // EOF encountered without newline
+			notifyNewline();
+		}
 	}
 
 	protected void notifyCode() {
