@@ -5,10 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.ohloh.ohcount4j.AnnotationWriter;
 import net.ohloh.ohcount4j.detect.OhcountDetector;
 import net.ohloh.ohcount4j.io.FileBlob;
-import net.ohloh.ohcount4j.scan.Line;
-import net.ohloh.ohcount4j.scan.LineEventHandler;
 import net.ohloh.ohcount4j.scan.Scanner;
 
 import org.kohsuke.args4j.Argument;
@@ -43,12 +42,8 @@ public class Ohcount {
 		try {
 			FileBlob blob = new FileBlob(new File(fileName));
 			Scanner scanner = OhcountDetector.getInstance().detect(blob);
-			LineEventHandler eh = new LineEventHandler();
-			scanner.scan(blob, eh);
-			for (Line line : eh.getLines()) {
-				System.out.print(line);
-			}
-			System.out.print("\n");
+			AnnotationWriter handler = new AnnotationWriter();
+			scanner.scan(blob, handler);
 			System.exit(0);
 		} catch (OhcountException e) {
 			System.err.println("Error - " + e.getMessage());
