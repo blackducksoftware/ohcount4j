@@ -118,4 +118,39 @@ public class HTMLScannerTest extends BaseScannerTest {
 		};
 		assertLines(new HTMLScanner(), expected, code);
 	}
+
+	@Test
+	public void embeddedJavaScriptOnSeparateLine() {
+		String code
+			= "<!doctype HTML>\n"
+			+ "<script type=\"script/javascript\">\n"
+			+ "  document.write(\"Hello, world!\\n\");\n"
+			+ "</script>\n"
+			+ "<html>";
+
+		Line[] expected = {
+			new Line(LANG_HTML, CODE),
+			new Line(LANG_HTML, CODE),
+			new Line(LANG_JAVASCRIPT, CODE),
+			new Line(LANG_HTML, CODE),
+			new Line(LANG_HTML, CODE)
+		};
+		assertLines(new HTMLScanner(), expected, code);
+	}
+
+	@Test
+	public void embeddedJavaScriptOnSameLine() {
+		String code
+			= "<!doctype HTML>\n"
+			+ "<script type=\"script/javascript\">document.write(\"Hello, world!\\n\");</script>\n"
+			+ "<html>";
+
+		Line[] expected = {
+			new Line(LANG_HTML, CODE),
+			new Line(LANG_JAVASCRIPT, CODE),
+			new Line(LANG_HTML, CODE)
+		};
+		assertLines(new HTMLScanner(), expected, code);
+	}
+
 }
