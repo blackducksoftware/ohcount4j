@@ -1,10 +1,14 @@
 package net.ohloh.ohcount4j.scan;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import net.ohloh.ohcount4j.Language;
-import net.ohloh.ohcount4j.LanguageEntity;
+import net.ohloh.ohcount4j.Entity;
 import net.ohloh.ohcount4j.io.Blob;
+import net.ohloh.ohcount4j.scan.Line;
+import net.ohloh.ohcount4j.scan.LineHandler;
 
 public abstract class BaseScanner implements Scanner {
 
@@ -21,11 +25,11 @@ public abstract class BaseScanner implements Scanner {
 	protected int te = 0;
 	protected int act = 0;
 
-	protected int mymark = 0;
-	protected boolean inCode = false;
+	ArrayList<Language> codeSeen = new ArrayList<Language>();
+	ArrayList<Language> commentSeen = new ArrayList<Language>();
+	protected int lineStart = 0;
 
-	protected EventHandler handler = null;
-
+	protected LineHandler handler = null;
 	protected Language language = null;
 
 	// abstract method to be implemented by scanners
@@ -33,81 +37,83 @@ public abstract class BaseScanner implements Scanner {
 
 	public abstract Language getLanguage();
 
-	@Override
-	public final void scan(Blob blob, EventHandler handler) throws IOException {
-		handler.scanStart();
-		data = blob.charContents();
-		scan(data, handler);
-		handler.scanEnd(data, p);
-	}
-
 	protected final void init() {
 		pe = eof = data.length;
 	}
 
 	@Override
-	public final void scan(char[] data, EventHandler handler) {
+	public final void scan(Blob blob, LineHandler handler) throws IOException {
+		scan(blob.charContents(), handler);
+	}
+
+	@Override
+	public final void scan(String data, LineHandler handler) {
+		scan(data.toCharArray(), handler);
+	}
+
+	@Override
+	public final void scan(char[] data, LineHandler handler) {
 		this.data = data;
 		this.handler = handler;
 		this.language = getLanguage();
 		pe = eof = data.length;
-		handler.languageStart(new ScanEvent(getLanguage(), data, p));
 		doScan();
-		handler.languageEnd(new ScanEvent(getLanguage(), data, p));
+		if (p != lineStart) { // EOF encountered without newline
+			notifyNewline();
+		}
+	}
+
+	// Called by Ragel machine when moving in or out of an embedded language.
+	protected void setLanguage(Language lang) {
+		language = lang;
+	}
+
+	protected void notifyCode() {
+		if (!codeSeen.contains(language)) {
+			codeSeen.add(language);
+		}
+	}
+
+	protected void notifyComment() {
+		if (!commentSeen.contains(language)) {
+			commentSeen.add(language);
+		}
+	}
+
+	// Given lists of all the code and comment langauages we've seen on this line,
+	// choose one language and entity to represent the entire line.
+	protected Line chooseLine() {
+		// If we've seen any language besides the default language, use that one.
+		for (Language l : codeSeen) {
+			if ( l != getLanguage() ) {
+				return new Line(l, Entity.CODE);
+			}
+		}
+		for (Language l : commentSeen) {
+			if ( l != getLanguage() ) {
+				return new Line(l, Entity.COMMENT);
+			}
+		}
+		// No embedded languages. Return the default language.
+		if (codeSeen.size() > 0) {
+			return new Line(codeSeen.get(0), Entity.CODE);
+		} else if (commentSeen.size() > 0) {
+			return new Line(commentSeen.get(0), Entity.COMMENT);
+		} else {
+			return new Line(language, Entity.BLANK);
+		}
 	}
 
 	protected void notifyNewline() {
-		if (inCode) {
-			notifyCodeEnd();
+		Line line = chooseLine().appendContent(Arrays.copyOfRange(data, lineStart, p));
+
+		if (handler != null) {
+			handler.handleLine(line);
 		}
-		handler.newline(new EntityScanEvent(getLanguage(), LanguageEntity.NEWLINE, data, p));
-	}
 
-	protected void notifyBlanks() {
-		if (inCode) {
-			notifyCodeEnd();
-		}
-		handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.BLANK, data, ts));
-		handler.entityEnd(new EntityScanEvent(getLanguage(), LanguageEntity.BLANK, data, te));
-	}
-
-	protected void notifyStartComment() {
-		if (inCode) {
-			notifyCodeEnd();
-		}
-		mymark = p;
-		handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.COMMENT, data, mymark));
-	}
-
-	protected void notifyEndComment() {
-		handler.entityEnd(new EntityScanEvent(getLanguage(), LanguageEntity.COMMENT, data, p));
-	}
-
-	protected void notifyStartString() {
-		if (inCode) {
-			notifyCodeEnd();
-		}
-		mymark = p;
-		handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, mymark));
-	}
-
-	protected void notifyEndString() {
-		handler.entityEnd(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, p));
-	}
-
-	protected void notifyCodeCharacter() {
-		if (inCode) {
-			// Do nothing
-		} else {
-			inCode = true;
-			mymark = p;
-			handler.entityStart(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, mymark));
-		}
-	}
-
-	protected void notifyCodeEnd() {
-		inCode = false;
-		handler.entityEnd(new EntityScanEvent(getLanguage(), LanguageEntity.CODE, data, p));
+		lineStart = p;
+		codeSeen.clear();
+		commentSeen.clear();
 	}
 
 	protected int match_begin_mark;

@@ -2,20 +2,20 @@ package net.ohloh.ohcount4j.scan;
 
 import net.ohloh.ohcount4j.Language;
 
-public class CSSScanner extends BaseScanner{
+public class JavaScriptScanner extends BaseScanner{
 
 	%%{
 
-	machine css;
+	machine js;
 
 	include common "common.rl";
-	include css "css.rl";
+	include js "js.rl";
 
-	css_line := |*
+	js_line := |*
 		spaces;
-		css_comment;
-		css_string;
-		css_newline;
+		js_comment;
+		js_string;
+		js_newline;
 		(any - newline) => code;
 	*|; 
 
@@ -32,6 +32,6 @@ public class CSSScanner extends BaseScanner{
 
 	@Override
 	public Language getLanguage(){
-		return Language.LANG_CSS;
+		return Language.LANG_JAVASCRIPT;
 	}
 }

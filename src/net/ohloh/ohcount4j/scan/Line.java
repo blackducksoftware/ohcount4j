@@ -1,11 +1,11 @@
 package net.ohloh.ohcount4j.scan;
 
 import net.ohloh.ohcount4j.Language;
-import net.ohloh.ohcount4j.LanguageEntity;
+import net.ohloh.ohcount4j.Entity;
 
 public class Line {
 	Language language;
-	LanguageEntity entity;
+	Entity entity;
 	StringBuilder content;
 
 	public Line() {
@@ -14,7 +14,19 @@ public class Line {
 
 	public Line(Language language) {
 		this.language = language;
-		content = new StringBuilder();
+		this.content = new StringBuilder();
+	}
+
+	public Line(Language language, Entity entity) {
+		this.language = language;
+		this.entity = entity;
+		this.content = new StringBuilder();
+	}
+
+	public Line(Language language, Entity entity, String content) {
+		this.language = language;
+		this.entity = entity;
+		this.content = new StringBuilder(content);
 	}
 
 	@Override
@@ -31,11 +43,11 @@ public class Line {
 		return this;
 	}
 
-	public LanguageEntity getEntity() {
+	public Entity getEntity() {
 		return entity;
 	}
 
-	public Line setEntity(LanguageEntity entity) {
+	public Line setEntity(Entity entity) {
 		this.entity = entity;
 		return this;
 	}

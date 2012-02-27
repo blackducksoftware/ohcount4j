@@ -8,25 +8,21 @@ public class CScanner extends BaseScanner{
     machine c;
     include common "common.rl";
     
-    text_with_newlines = (newline %got_newline) | nonnewline;
-    
-  	c_line_comment = (('//' [^\n]* ) >start_comment %end_comment) (newline %got_newline);
-  	c_block_comment = ('/*' ( text_with_newlines )* :>> '*/') >start_comment %end_comment;
+  	c_line_comment = '//' @comment (nonnewline @comment)*;
+  	c_block_comment = '/*' @comment (text_with_newlines @comment)* :>> '*/' @comment;
   	c_comment = c_line_comment | c_block_comment;
 
-  	c_sq_str = ('\'' ( text_with_newlines )* :>> '\'') >start_str %end_str;
-  	c_dq_str = ('"' ( text_with_newlines )* :>> '"') >start_str %end_str;
+  	c_sq_str = '\'' @code (text_with_newlines @code)* :>> '\'' @code;
+  	c_dq_str = '"' @code (text_with_newlines @code)* :>> '"' @code;
   	c_string = c_sq_str | c_dq_str;
-  	c_newline = newline %got_newline;
-  	# c_code = (any* - [spaces| c_string | c_comment | newline]) >start_code %end_code (newline %got_newline);
+  	c_newline = newline %nl;
 
   	c_line := |*
-    	spaces => got_spaces;
+    	spaces;
     	c_comment;
     	c_string;
     	c_newline;
-    	(any - newline) => got_code_character;
-    	#c_code;
+    	(any - newline) => code;
   	*|; 
   }%%
 

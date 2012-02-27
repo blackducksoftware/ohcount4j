@@ -6,6 +6,7 @@ public enum Language {
 	LANG_CSS("css", "CSS"),
 	LANG_HTML("html", "HTML"),
 	LANG_JAVA("java", "Java"),
+	LANG_JAVASCRIPT("javascript", "JavaScript"),
 	LANG_MAKEFILE("make", "Make"),
 	LANG_RUBY("ruby", "Ruby");
 
