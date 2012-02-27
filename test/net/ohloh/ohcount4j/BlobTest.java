@@ -33,7 +33,7 @@ public class BlobTest {
 		assertEquals(str, new String(source.charContents()));
 	}
 
-	@Test
+	@Test(enabled = false)
 	public void inputStreamBlobTest() throws IOException {
 		String name = "/data/input.c";
 		InputStreamBlob blob = new InputStreamBlob(name,
