@@ -48,6 +48,7 @@ public class Ohcount {
 			for (Line line : eh.getLines()) {
 				System.out.print(line);
 			}
+			System.out.print("\n");
 			System.exit(0);
 		} catch (OhcountException e) {
 			System.err.println("Error - " + e.getMessage());
