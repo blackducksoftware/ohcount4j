@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.ohloh.ohcount4j.AnnotationWriter;
-import net.ohloh.ohcount4j.detect.OhcountDetector;
+import net.ohloh.ohcount4j.detect.SimpleDetector;
 import net.ohloh.ohcount4j.io.FileBlob;
 import net.ohloh.ohcount4j.scan.Scanner;
 
@@ -56,7 +56,7 @@ public class Ohcount {
 		AnnotationWriter handler = new AnnotationWriter();
 		for (String filename : targets) {
 			FileBlob blob = new FileBlob(new File(filename));
-			Scanner scanner = OhcountDetector.getInstance().detect(blob);
+			Scanner scanner = SimpleDetector.detect(blob);
 			if (scanner != null) {
 				scanner.scan(blob, handler);
 			}
@@ -65,12 +65,9 @@ public class Ohcount {
 
 	static void summarize(List<String> targets) throws OhcountException, IOException {
 		SummaryWriter handler = new SummaryWriter();
+		DirectoryScanner ds = new DirectoryScanner(handler);
 		for (String filename : targets) {
-			FileBlob blob = new FileBlob(new File(filename));
-			Scanner scanner = OhcountDetector.getInstance().detect(blob);
-			if (scanner != null) {
-				scanner.scan(blob, handler);
-			}
+			ds.scan(new File(filename));
 		}
 		handler.printResults();
 	}
