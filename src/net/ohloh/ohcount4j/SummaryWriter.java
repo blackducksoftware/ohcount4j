@@ -16,4 +16,34 @@ public class SummaryWriter implements LineHandler {
 	public void handleLine(Line line) {
 		countList.add(line);
 	}
+
+ 	public void printResults() {
+ 		System.out.println("                        Ohcount4j Line Count Summary");
+ 		System.out.println();
+ 		System.out.println("Language          Files       Code    Comment  Comment %      Blank      Total");
+ 		System.out.println("----------------  -----  ---------  ---------  ---------  ---------  ---------");
+
+ 		countList.sort();
+
+ 		for (Count count : countList.getCounts()) {
+ 			System.out.format("%-16s %6d %10d %10d %9.1f%% %10d %10d\n",
+ 					count.getLanguage().niceName(),
+ 					0,
+ 					count.getCode(),
+ 					count.getComment(),
+ 					0.0f,
+ 					count.getBlank(),
+ 					count.getTotal());
+ 		}
+
+ 	 	System.out.println("----------------  -----  ---------  ---------  ---------  ---------  ---------");
+			System.out.format("%-16s %6d %10d %10d %9.1f%% %10d %10d\n",
+				"Total",
+				0,
+				countList.getCode(),
+				countList.getComment(),
+				0.0f,
+				countList.getBlank(),
+				countList.getTotal());
+ 	}
 }

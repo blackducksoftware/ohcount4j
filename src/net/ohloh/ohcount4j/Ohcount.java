@@ -27,7 +27,7 @@ public class Ohcount {
 			System.exit(-1);
 		}
 
-		if (!opts.annotate) {
+		if (!opts.annotate && !opts.summary) {
 			// FIXME - show usage when opts.targets.size() <= 0
 			optParser.printUsage(System.out);
 			System.exit(-2);
@@ -42,8 +42,14 @@ public class Ohcount {
 		try {
 			FileBlob blob = new FileBlob(new File(fileName));
 			Scanner scanner = OhcountDetector.getInstance().detect(blob);
-			AnnotationWriter handler = new AnnotationWriter();
-			scanner.scan(blob, handler);
+			if (opts.annotate) {
+				AnnotationWriter handler = new AnnotationWriter();
+				scanner.scan(blob, handler);
+			} else {
+				SummaryWriter handler = new SummaryWriter();
+				scanner.scan(blob, handler);
+				handler.printResults();
+			}
 			System.exit(0);
 		} catch (OhcountException e) {
 			System.err.println("Error - " + e.getMessage());
@@ -62,6 +68,9 @@ public class Ohcount {
 
 		@Option(name = "-h", usage = "display this message")
 		boolean help = false;
+
+		@Option(name = "-s", usage = "show line count summary")
+		boolean summary = false;
 
 		@Option(name = "-a", usage = "show annotated source code")
 		boolean annotate = false;
