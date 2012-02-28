@@ -50,6 +50,14 @@ public class Count implements Comparable<Count> {
 		return code + comment + blank;
 	}
 
+	public float getCommentRatio() {
+		if (comment == 0) {
+			return 0.0f;
+		} else {
+			return ((float) comment / (float) (code + comment));
+		}
+	}
+
 	public Count add(Count other) {
 		code += other.code;
 		comment += other.comment;

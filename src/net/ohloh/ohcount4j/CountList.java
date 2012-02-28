@@ -82,4 +82,12 @@ public class CountList {
 		}
 		return total;
  	}
+
+	public float getCommentRatio() {
+		if (getComment() == 0) {
+			return 0.0f;
+		} else {
+			return (float) getComment() / (float)(getCode() + getComment());
+		}
+	}
 }

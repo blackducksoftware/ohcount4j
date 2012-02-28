@@ -31,7 +31,7 @@ public class SummaryWriter implements LineHandler {
  					0,
  					count.getCode(),
  					count.getComment(),
- 					0.0f,
+ 					count.getCommentRatio() * 100.0f,
  					count.getBlank(),
  					count.getTotal());
  		}
@@ -42,7 +42,7 @@ public class SummaryWriter implements LineHandler {
 				0,
 				countList.getCode(),
 				countList.getComment(),
-				0.0f,
+				countList.getCommentRatio() * 100.0f,
 				countList.getBlank(),
 				countList.getTotal());
  	}

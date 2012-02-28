@@ -58,4 +58,13 @@ public class CountTest {
 		c.add(new Line(LANG_C, BLANK));
 		assertEquals(new Count(LANG_C, 3, 2, 1), c);
 	}
+
+	@Test
+	public void commentRatio() {
+		assertEquals(0.0f, new Count(LANG_C, 0, 0, 0).getCommentRatio());
+		assertEquals(0.0f, new Count(LANG_C, 1, 0, 0).getCommentRatio());
+		assertEquals(1.0f, new Count(LANG_C, 0, 1, 0).getCommentRatio());
+		assertEquals(1.0f, new Count(LANG_C, 0, 1, 1).getCommentRatio());
+		assertEquals(0.5f, new Count(LANG_C, 1, 1, 0).getCommentRatio());
+	}
 }

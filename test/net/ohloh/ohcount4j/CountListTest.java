@@ -1,8 +1,5 @@
 package net.ohloh.ohcount4j;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -93,6 +90,7 @@ public class CountListTest {
 		assertEquals(6, l.getComment());
 		assertEquals(8, l.getBlank());
 		assertEquals(18, l.getTotal());
+		assertEquals(0.6f, l.getCommentRatio());
 	}
 
 	@Test
