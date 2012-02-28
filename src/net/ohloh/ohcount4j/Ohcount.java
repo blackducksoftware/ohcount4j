@@ -27,28 +27,20 @@ public class Ohcount {
 			System.exit(-1);
 		}
 
-		if (!opts.annotate && !opts.summary) {
-			// FIXME - show usage when opts.targets.size() <= 0
+		if (opts.help) {
 			optParser.printUsage(System.out);
-			System.exit(-2);
+			System.exit(0);
 		}
-
-		String fileName = "test/data/input.c"; // FIXME - remove this, testing
-												// only.
-		if (opts.targets.size() > 0) {
-			fileName = opts.targets.get(0);
+		if (opts.targets.size() < 1) {
+			optParser.printUsage(System.out);
+			System.exit(-1);
 		}
 
 		try {
-			FileBlob blob = new FileBlob(new File(fileName));
-			Scanner scanner = OhcountDetector.getInstance().detect(blob);
 			if (opts.annotate) {
-				AnnotationWriter handler = new AnnotationWriter();
-				scanner.scan(blob, handler);
+				annotate(opts.targets);
 			} else {
-				SummaryWriter handler = new SummaryWriter();
-				scanner.scan(blob, handler);
-				handler.printResults();
+				summarize(opts.targets);
 			}
 			System.exit(0);
 		} catch (OhcountException e) {
@@ -58,23 +50,43 @@ public class Ohcount {
 			System.err.println("Error - " + e.getMessage());
 			System.exit(-1);
 		}
+	}
 
+	static void annotate(List<String> targets) throws OhcountException, IOException {
+		AnnotationWriter handler = new AnnotationWriter();
+		for (String filename : targets) {
+			FileBlob blob = new FileBlob(new File(filename));
+			Scanner scanner = OhcountDetector.getInstance().detect(blob);
+			if (scanner != null) {
+				scanner.scan(blob, handler);
+			}
+		}
+	}
+
+	static void summarize(List<String> targets) throws OhcountException, IOException {
+		SummaryWriter handler = new SummaryWriter();
+		for (String filename : targets) {
+			FileBlob blob = new FileBlob(new File(filename));
+			Scanner scanner = OhcountDetector.getInstance().detect(blob);
+			if (scanner != null) {
+				scanner.scan(blob, handler);
+			}
+		}
+		handler.printResults();
 	}
 
 	static class OhcountOptions {
-
 		@Argument(metaVar = "[file]", usage = "target")
 		List<String> targets = new ArrayList<String>();
 
 		@Option(name = "-h", usage = "display this message")
 		boolean help = false;
 
-		@Option(name = "-s", usage = "show line count summary")
-		boolean summary = false;
+		@Option(name = "-s", usage = "show line count summary (default)")
+		boolean summary = true;
 
 		@Option(name = "-a", usage = "show annotated source code")
 		boolean annotate = false;
-
 	}
 
 }
