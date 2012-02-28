@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
 import net.ohloh.ohcount4j.Count;
+import net.ohloh.ohcount4j.scan.Line;
+import static net.ohloh.ohcount4j.Entity.*;
 import static net.ohloh.ohcount4j.Language.*;
 
 public class CountTest {
@@ -43,5 +45,17 @@ public class CountTest {
 				new Count(LANG_C, 33, 55, 77),
 				new Count(LANG_C, 3, 5, 7).add(new Count(LANG_C, 30, 50, 70))
 				);
+	}
+
+	@Test
+	public void addLine() {
+		Count c = new Count(LANG_C, 0, 0, 0);
+		c.add(new Line(LANG_C, CODE));
+		c.add(new Line(LANG_C, CODE));
+		c.add(new Line(LANG_C, CODE));
+		c.add(new Line(LANG_C, COMMENT));
+		c.add(new Line(LANG_C, COMMENT));
+		c.add(new Line(LANG_C, BLANK));
+		assertEquals(new Count(LANG_C, 3, 2, 1), c);
 	}
 }

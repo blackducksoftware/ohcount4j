@@ -1,5 +1,7 @@
 package net.ohloh.ohcount4j;
 
+import net.ohloh.ohcount4j.scan.Line;
+
 public class Count implements Comparable<Count> {
 	protected Language language;
 	protected int code;
@@ -18,6 +20,14 @@ public class Count implements Comparable<Count> {
 		this.code = code;
 		this.comment = comment;
 		this.blank = blank;
+	}
+
+	public Count(Line line) {
+		this.language = line.getLanguage();
+		this.code = 0;
+		this.comment = 0;
+		this.blank = 0;
+		add(line);
 	}
 
 	public Language getLanguage() {
@@ -44,6 +54,21 @@ public class Count implements Comparable<Count> {
 		code += other.code;
 		comment += other.comment;
 		blank += other.blank;
+		return this;
+	}
+
+	public Count add(Line line) {
+		switch(line.getEntity()) {
+		case CODE:
+			code += 1;
+			break;
+		case COMMENT:
+			comment += 1;
+			break;
+		case BLANK:
+			blank += 1;
+			break;
+		}
 		return this;
 	}
 
