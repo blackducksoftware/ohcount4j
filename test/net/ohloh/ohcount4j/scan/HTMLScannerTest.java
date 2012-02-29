@@ -152,5 +152,4 @@ public class HTMLScannerTest extends BaseScannerTest {
 		};
 		assertLines(new HTMLScanner(), expected, code);
 	}
-
 }

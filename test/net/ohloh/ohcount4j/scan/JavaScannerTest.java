@@ -54,4 +54,30 @@ public class JavaScannerTest extends BaseScannerTest {
 		};
 		assertLines(new JavaScanner(), expected, code);
 	}
+
+	@Test
+	public void unterminatedMultilineStringCrash() {
+		// This minimal case caused an Arrays.copyOfRange() crash
+		String code = "'\nA\n\n";
+
+		Line[] expected = {
+				new Line(LANG_JAVA, CODE),
+				new Line(LANG_JAVA, CODE),
+				new Line(LANG_JAVA, BLANK)
+			};
+		assertLines(new JavaScanner(), expected, code);
+	}
+
+	@Test
+	public void unterminatedBlockCommentCrash() {
+		// This minimal case caused an Arrays.copyOfRange() crash
+		String code = "/*\n\n\n";
+
+		Line[] expected = {
+				new Line(LANG_JAVA, COMMENT),
+				new Line(LANG_JAVA, BLANK),
+				new Line(LANG_JAVA, BLANK)
+			};
+		assertLines(new JavaScanner(), expected, code);
+	}
 }
