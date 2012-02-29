@@ -1,123 +1,19 @@
-<project name="ohcount4j" default="compile" basedir=".">
-	<description>simple example build file</description>
-	<property name="src" location="src"/>
-	<property name="build" location="bin"/>
-	<property name="test.build" location="test-output"/>
-	<property name="dist" location="dist>"/>
-	<property name="scanners" location="'scanners"/>
-	<property name="gen-src" location="gen-src" />
-	<property name="scanner-package" value="net/ohloh/ohcount4j/scan"/>
-	<property name="lib" location="lib"/>
+<!--
+	Sample xml file for testing
+	xml scanner
 	
-	<!--
-  	<path id="lib.jars">
-    	<fileset dir="${lib}">
-      		<include name="**/*.jar"/>
-    	</fileset>
-  	</path>
-	-->
-	<taskdef resource="testngtasks" classpath="${lib}/testng-6.3.1.jar"/>
-
-	<target name="setup">
-		<!-- Create the time stamp -->
-		<tstamp><!--this is a very long comment --></tstamp>
-		<mkdir dir="${gen-src}/${scanner-package}"/>
-		
-		<script>
-		<![CDATA[
-			function matchwo(a,b)
-			{
-			<!--  this is a comment inside a cdata string
-				if (a < b && a < 0) then
-			-->
-			  	{
-			  		return 1;
-			  	}
-				else
-			 	{
-			  		return 0;
-			  	}
-			}
-		]]>
-		</script>
-
-		<script>
-		<!--<![CDATA[
-			function matchwo(a,b)
-			{
-				if (a < b && a < 0) then
-			  	{
-			  		return 1;
-			  	}
-				else
-			 	{
-			  		return 0;
-			  	}
-			}
-		]]>-->
-		</script>
-		
-		<mkdir dir="${build}"/>
-		<mkdir dir="${test.build}"/>
-	</target>
-
-	<target name="gen-src" depends="setup">
-		<apply executable="ragel" dest="${gen-src}/${scanner-package}" failonerror="true" parallel="false">
-			<arg value="-J"/>
-			<arg value="-o"/>
-			<targetfile/>
-			<srcfile/>
-			<fileset dir="${scanners}" includes="*.java.rl"/>
-			<mapper type="glob" from="*.java.rl" to="*.java"/>
-		</apply>
-	</target>
-
-	<target name="compile" depends="gen-src" description="compile the source" >
-		<javac includeantruntime="false" destdir="${build}" debug="true" debuglevel="lines,vars,source">
-			<classpath refid="lib.jars"/>
-			<src path="${gen-src}"/>
-			<src path="${src}"/>
-		</javac>
-	</target>
-
-	<target name="test" depends="compile" description="run tests">
-		<testng classpathref="lib.jars" outputDir="${testng.report.dir}" haltOnFailure="true" verbose="2">
-			<classfileset dir="${test.build}" includes="**/*.class" />
-		</testng>
-	</target>
-
-	<target name="dist" depends="compile" description="generate the distribution" >
-		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-		<jar jarfile="${dist}/ohcount4j-${DSTAMP}.jar" basedir="${build}"/>
-	</target>
-
-	<target name="clean"
-        description="clean up" >
-		<delete includeemptydirs="true">
-			<fileset dir="${build}" includes="**/*"/>
-		</delete>
-		<delete includeemptydirs="true">
-			<fileset dir="${test.build}" includes="**/*"/>
-		</delete>
-		<delete dir="${dist}"/>
-		<delete includeemptydirs="true">
-			<fileset dir="${gen-src}" includes="**/*" excludes=".gitkeep"/>
-		</delete>
-	</target>
-
-	<target name="data">
-		<copy todir="${build}/data">
-			<fileset dir="test/data"/>
-		</copy>
-	</target>
-
-	<target name="smoke" depends="compile,data" description="run a minimal C scanner smoke test">
-		<java classname="net.ohloh.ohcount4j.Ohcount" classpathref="lib.jars">
-			<arg value="-a"/>
-			<classpath>
-				<pathelement location="${build}"/>
-			</classpath>
-		</java>
-	</target>
-
+-->
+<project name="sample" basedir=".">
+	<description>simple xml for scanner test</description>
+	<!-- Single Line Comment -->
+	
+	<tstamp><!--comment between code --></tstamp>
+	<script>
+	<![CDATA[
+		<!--  
+		comment inside a cdata string
+		-->
+	]]>
+	</script>
+	<!--<![CDATA[ Commented out CDATA string ]]>-->	
 </project>
