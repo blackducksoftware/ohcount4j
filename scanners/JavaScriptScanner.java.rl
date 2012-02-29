@@ -4,22 +4,20 @@ import net.ohloh.ohcount4j.Language;
 
 public class JavaScriptScanner extends BaseScanner{
 
-	%%{
-
-	machine js;
-
-	include common "common.rl";
-	include js "js.rl";
-
-	js_line := |*
-		spaces;
-		js_comment;
-		js_string;
-		js_newline;
-		(any - newline) => code;
-	*|; 
-
-	}%%
+  %%{
+    machine js;
+    include common "common.rl";
+		include c "c.rl";
+    
+  	js_line := |*
+			c_block_comment_begin => { fcall c_block_comment; };
+    	c_line_comment;
+    	spaces;
+    	newline;
+    	string_literal;
+    	(any - newline) => code;
+  	*|; 
+  }%%
 
 	%% write data;
 

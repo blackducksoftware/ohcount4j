@@ -15,22 +15,20 @@ public class MakefileScanner extends BaseScanner{
   }%%
 
   %% write data;
-  
+
   @Override
   public void doScan(){
-	// variables and data is set up in BaseScanner
-
+		// variables and data is set up in BaseScanner
     %% write init;
     init();
     %% write exec;
-
   }
 
   @Override
-  public Language getLanguage(){
-  	return Language.LANG_MAKEFILE;
-  } 
-  
+  public Language getLanguage() {
+		return Language.LANG_MAKEFILE;
+  }
+
   public int getAbCount() {
     return ab_count;
   }
@@ -38,5 +36,4 @@ public class MakefileScanner extends BaseScanner{
   public int getCdCount() {
     return cd_count;
   }
-  
 }

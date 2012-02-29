@@ -8,21 +8,30 @@ public class XmlScanner extends BaseScanner{
     machine xml;
     include common "common.rl";
     
-  	xml_comment = ('<!--' @comment ( text_with_newlines @comment )* :>> '-->') @comment;
-  	
-  	xml_sq_str = ('\'' @code ( text_with_newlines @code )* :>> '\'') @code;
-  	xml_dq_str = ('"' @code ( text_with_newlines @code )* :>> '"') @code;
-  	
-  	# Comments inside cdata strings are not recognized as comments
-  	xml_cdata_str = ('<![CDATA[' @code ( (text_with_newlines | xml_comment) @code )* :>> ']]>') @code;
-  	xml_string = xml_sq_str | xml_dq_str | xml_cdata_str @code;
-  	xml_newline = newline %nl;
+		xml_cdata_begin = '<![CDATA[' @code;
+		xml_cdata_end = ']]>' @code;
+		xml_cdata := |*
+			xml_cdata_end => { fret; };
+			spaces;
+			newline;
+			(any - newline) => code;
+		*|;
+
+		xml_comment_begin = '<!--' @comment;
+		xml_comment_end = '-->' @comment;
+		xml_comment := |*
+			xml_comment_end => { fret; };
+			spaces;
+			newline;
+			(any - newline) => comment;
+		*|;
 
   	xml_line := |*
+			xml_comment_begin => { fcall xml_comment; };
+			xml_cdata_begin => { fcall xml_cdata; };
     	spaces;
-    	xml_comment;
-    	xml_string;
-    	xml_newline;
+			string_literal;
+    	newline;
     	(any - newline) => code;
   	*|; 
   }%%
@@ -41,7 +50,4 @@ public class XmlScanner extends BaseScanner{
   public Language getLanguage(){
   	return Language.LANG_XML;
   }
-  
-  
-  
 }

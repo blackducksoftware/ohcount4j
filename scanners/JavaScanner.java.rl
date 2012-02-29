@@ -7,21 +7,14 @@ public class JavaScanner extends BaseScanner{
   %%{
     machine java;
     include common "common.rl";
+    include c "c.rl";
     
-  	java_line_comment = '//' @comment (nonnewline* @comment);
-  	java_block_comment = ('/*' @comment ( text_with_newlines @comment)* :>> '*/') @comment;
-  	java_comment = java_line_comment | java_block_comment;
-
-  	java_sq_str = ('\'' @code ( text_with_newlines @code )* :>> '\'') @code;
-  	java_dq_str = ('"' @code ( text_with_newlines @code )* :>> '"') @code;
-  	java_string = java_sq_str | java_dq_str;
-  	java_newline = newline %nl;
-
   	java_line := |*
+			c_block_comment_begin => { fcall c_block_comment; };
+    	c_line_comment;
     	spaces;
-    	java_comment;
-    	java_string;
-    	java_newline;
+    	string_literal;
+    	newline;
     	(any - newline) => code;
   	*|; 
   }%%

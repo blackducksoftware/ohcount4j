@@ -7,21 +7,14 @@ public class CScanner extends BaseScanner{
   %%{
     machine c;
     include common "common.rl";
+		include c "c.rl";
     
-  	c_line_comment = '//' @comment (nonnewline @comment)*;
-  	c_block_comment = '/*' @comment (text_with_newlines @comment)* :>> '*/' @comment;
-  	c_comment = c_line_comment | c_block_comment;
-
-  	c_sq_str = '\'' @code (text_with_newlines @code)* :>> '\'' @code;
-  	c_dq_str = '"' @code (text_with_newlines @code)* :>> '"' @code;
-  	c_string = c_sq_str | c_dq_str;
-  	c_newline = newline %nl;
-
   	c_line := |*
+			c_block_comment_begin => { fcall c_block_comment; };
+    	c_line_comment;
     	spaces;
-    	c_comment;
-    	c_string;
-    	c_newline;
+    	newline;
+    	string_literal;
     	(any - newline) => code;
   	*|; 
   }%%
@@ -40,7 +33,4 @@ public class CScanner extends BaseScanner{
   public Language getLanguage(){
   	return Language.LANG_C;
   }
-  
-  
-  
 }

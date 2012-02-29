@@ -9,13 +9,13 @@ public class CSSScanner extends BaseScanner{
 	machine css;
 
 	include common "common.rl";
-	include css "css.rl";
+	include c "c.rl";
 
 	css_line := |*
+		c_block_comment_begin => { fcall c_block_comment; };
+   	c_line_comment;
 		spaces;
-		css_comment;
-		css_string;
-		css_newline;
+		newline;
 		(any - newline) => code;
 	*|; 
 

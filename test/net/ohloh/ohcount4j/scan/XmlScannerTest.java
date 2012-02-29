@@ -42,7 +42,7 @@ public class XmlScannerTest extends BaseScannerTest {
 		Line[] expected = {
 			new Line(LANG_XML, CODE),
 			new Line(LANG_XML, COMMENT),
-			new Line(LANG_XML, COMMENT),
+			new Line(LANG_XML, BLANK),
 			new Line(LANG_XML, COMMENT),
 			new Line(LANG_XML, CODE),
 			new Line(LANG_XML, CODE),

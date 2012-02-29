@@ -26,11 +26,14 @@
   }
 
   spaces = [\t ]+; 
-  newline = ('\r\n' | '\n' | '\f' | '\r' when { p+1 < pe && data[p+1] != '\n' });
+  newline = ('\r\n' | '\n' | '\f' | '\r' when { p+1 < pe && data[p+1] != '\n' }) %nl;
   nonnewline = any - [\r\n\f];
   text_with_newlines = (newline %nl) | nonnewline;
     
   escape_seq = '\\' nonnewline;
   string_char = (nonnewline - '\\') | escape_seq;
+	string_literal_sq = '\'' string_char* :>> '\'';
+	string_literal_dq = '"' string_char* :>> '"';
+	string_literal = (string_literal_sq | string_literal_dq) @code;
   
 }%%  
