@@ -21,11 +21,19 @@ public class DirectoryScanner extends DirectoryWalker<Object> {
 	}
 
 	public void scan(File startPath) throws IOException {
-		this.walk(startPath, new ArrayList<Object>());
+		if (startPath.isDirectory()) {
+			this.walk(startPath, new ArrayList<Object>());
+		} else {
+			scanFile(startPath);
+		}
 	}
 
 	@Override
 	protected void handleFile(File file, int depth, Collection<Object> results) throws IOException {
+		scanFile(file);
+	}
+
+	protected void scanFile(File file) throws IOException {
 		FileBlob blob = new FileBlob(file);
 		Scanner scanner = SimpleDetector.detect(blob);
 		if (scanner != null) {
