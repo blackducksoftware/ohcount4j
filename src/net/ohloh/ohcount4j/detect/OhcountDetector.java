@@ -7,6 +7,7 @@ import net.ohloh.ohcount4j.scan.JavaScanner;
 import net.ohloh.ohcount4j.scan.MakefileScanner;
 import net.ohloh.ohcount4j.scan.RubyScanner;
 import net.ohloh.ohcount4j.scan.JavaScriptScanner;
+import net.ohloh.ohcount4j.scan.XmlScanner;
 
 public class OhcountDetector extends Detector {
 
@@ -21,6 +22,7 @@ public class OhcountDetector extends Detector {
 		extension("java").scanUsing(JavaScanner.class);
 		extension("rb").scanUsing(RubyScanner.class);
 		extension("js").scanUsing(JavaScriptScanner.class);
+		extension("xml").scanUsing(XmlScanner.class);
 		// map(extension())
 
 		// Dummy mapping
