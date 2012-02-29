@@ -1,0 +1,19 @@
+<!--
+	Sample xml file for testing
+	xml scanner
+	
+-->
+<project name="sample" basedir=".">
+	<description>simple xml for scanner test</description>
+	<!-- Single Line Comment -->
+	
+	<tstamp><!--comment between code --></tstamp>
+	<script>
+	<![CDATA[
+		<!--  
+		comment inside a cdata string
+		-->
+	]]>
+	</script>
+	<!--<![CDATA[ Commented out CDATA string ]]>-->	
+</project>
