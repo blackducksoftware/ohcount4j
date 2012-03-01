@@ -37,25 +37,28 @@ public class Ohcount {
 		}
 
 		try {
+			FileFinder ff = new FileFinder();
+			for (String path : opts.targets) {
+				ff.addPath(path);
+			}
+			ArrayList<File> files = ff.getFiles();
+
 			if (opts.annotate) {
-				annotate(opts.targets);
+				annotate(files);
 			} else {
-				summarize(opts.targets);
+				summarize(files);
 			}
 			System.exit(0);
-		} catch (OhcountException e) {
-			System.err.println("Error - " + e.getMessage());
-			System.exit(-1);
 		} catch (IOException e) {
 			System.err.println("Error - " + e.getMessage());
 			System.exit(-1);
 		}
 	}
 
-	static void annotate(List<String> targets) throws OhcountException, IOException {
+	static void annotate(List<File> files) throws IOException {
 		AnnotationWriter handler = new AnnotationWriter();
-		for (String filename : targets) {
-			FileBlob blob = new FileBlob(new File(filename));
+		for (File file : files) {
+			FileBlob blob = new FileBlob(file);
 			Scanner scanner = SimpleDetector.detect(blob);
 			if (scanner != null) {
 				scanner.scan(blob, handler);
@@ -63,13 +66,18 @@ public class Ohcount {
 		}
 	}
 
-	static void summarize(List<String> targets) throws OhcountException, IOException {
-		SummaryWriter handler = new SummaryWriter();
-		DirectoryScanner ds = new DirectoryScanner(handler);
-		for (String filename : targets) {
-			ds.scan(new File(filename));
+	static void summarize(List<File> files) throws IOException {
+		SummaryWriter summary = new SummaryWriter();
+		for (File file : files) {
+			FileBlob blob = new FileBlob(file);
+			Scanner scanner = SimpleDetector.detect(blob);
+			if (scanner != null) {
+				summary.beginFile();
+				scanner.scan(blob, summary);
+				summary.endFile();
+			}
 		}
-		handler.printResults();
+		summary.printResults();
 	}
 
 	static class OhcountOptions {

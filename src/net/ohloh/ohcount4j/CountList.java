@@ -8,6 +8,7 @@ import net.ohloh.ohcount4j.scan.Line;
 
 public class CountList {
 	protected ArrayList<Count> list;
+	protected int fileCount = 0;
 
 	public CountList() {
 		list = new ArrayList<Count>();
@@ -90,4 +91,13 @@ public class CountList {
 			return (float) getComment() / (float)(getCode() + getComment());
 		}
 	}
+
+	public void incrementFileCount() {
+		this.fileCount++;
+	}
+
+	public int getFileCount() {
+		return this.fileCount;
+	}
+
 }
