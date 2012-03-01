@@ -45,6 +45,8 @@ public class Ohcount {
 
 			if (opts.annotate) {
 				annotate(files);
+			} else if (opts.detect) {
+				detect(files);
 			} else {
 				summarize(files);
 			}
@@ -62,6 +64,17 @@ public class Ohcount {
 			Scanner scanner = SimpleDetector.detect(blob);
 			if (scanner != null) {
 				scanner.scan(blob, handler);
+			}
+		}
+	}
+
+	static void detect(List<File> files) throws IOException {
+		for (File file : files) {
+			FileBlob blob = new FileBlob(file);
+			Scanner scanner = SimpleDetector.detect(blob);
+			if (scanner != null) {
+				System.out.printf("%s\t%s\n", 
+					scanner.getLanguage().niceName(), file.getPath());
 			}
 		}
 	}
@@ -92,6 +105,9 @@ public class Ohcount {
 
 		@Option(name = "-a", usage = "show annotated source code")
 		boolean annotate = false;
+
+		@Option(name = "-d", usage = "show detected file types only")
+		boolean detect = true;
 	}
 
 }
