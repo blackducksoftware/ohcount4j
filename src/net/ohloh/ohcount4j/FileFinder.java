@@ -7,7 +7,7 @@ import java.util.Collection;
 
 import org.apache.commons.io.DirectoryWalker;
 
-public class FileFinder extends DirectoryWalker<Object> {
+public class FileFinder extends DirectoryWalker<File> {
 	protected ArrayList<File> results;
 
 	public FileFinder() {
@@ -21,14 +21,14 @@ public class FileFinder extends DirectoryWalker<Object> {
 	public void addPath(String path) throws IOException {
 		File f = new File(path);
 		if (f.isDirectory()) {
-			this.walk(f, (Collection) results);
+			this.walk(f, (Collection<File>) results);
 		} else {
 			results.add(f);
 		}
 	}
 
 	@Override
-	protected void handleFile(File file, int depth, Collection results) throws IOException {
+	protected void handleFile(File file, int depth, Collection<File> results) throws IOException {
 		results.add(file);
 	}
 }
