@@ -107,7 +107,7 @@ public class Ohcount {
 		boolean annotate = false;
 
 		@Option(name = "-d", usage = "show detected file types only")
-		boolean detect = true;
+		boolean detect = false;
 	}
 
 }
