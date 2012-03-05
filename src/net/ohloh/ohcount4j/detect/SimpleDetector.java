@@ -25,6 +25,10 @@ public class SimpleDetector {
 			return new RubyScanner();
 		} else if (extension.equals("ru")) {
 			return new RubyScanner();
+		} else if (extension.equals("xml")) {
+			return new XmlScanner();
+		} else if (extension.equals("sh")) {
+			return new ShellScanner();
 		}
 
 		String filename = blob.getName();
