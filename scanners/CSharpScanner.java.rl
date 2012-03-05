@@ -9,10 +9,6 @@ public class CSharpScanner extends BaseScanner{
     include common "common.rl";
     include c "c.rl";
   	
-  	csharp_sq_str = ('\'' @code ( text_with_newlines @code )* :>> '\'') @code;
-  	csharp_dq_str = ('"' @code ( text_with_newlines @code )* :>> '"') @code;
-  	csharp_string = csharp_sq_str | csharp_dq_str;
-  	
   	csharp_line := |*
 		c_block_comment_begin => { fcall c_block_comment; };
     	c_line_comment;
