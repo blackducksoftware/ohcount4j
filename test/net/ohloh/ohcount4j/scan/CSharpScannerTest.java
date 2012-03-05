@@ -98,4 +98,30 @@ public class CSharpScannerTest extends BaseScannerTest {
 		return null;
 	}
 	
+	@Test
+	public void unterminatedMultilineStringCrash() {
+		// This minimal case caused an Arrays.copyOfRange() crash
+		String code = "'\nA\n\n";
+
+		Line[] expected = {
+				new Line(LANG_CSHARP, CODE),
+				new Line(LANG_CSHARP, CODE),
+				new Line(LANG_CSHARP, BLANK)
+			};
+		assertLines(new CSharpScanner(), expected, code);
+	}
+
+	@Test
+	public void unterminatedBlockCommentCrash() {
+		// This minimal case caused an Arrays.copyOfRange() crash
+		String code = "/*\n\n\n";
+
+		Line[] expected = {
+				new Line(LANG_CSHARP, COMMENT),
+				new Line(LANG_CSHARP, BLANK),
+				new Line(LANG_CSHARP, BLANK)
+			};
+		assertLines(new CSharpScanner(), expected, code);
+	}
+	
 }
