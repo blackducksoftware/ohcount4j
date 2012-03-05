@@ -70,7 +70,7 @@ public class SqlScannerTest extends BaseScannerTest {
 	}
 
 	@Test
-	public void unterminatedBlockCommentCrash() {
+	public void unterminatedCBlockCommentCrash() {
 		// This minimal case caused an Arrays.copyOfRange() crash
 		String code = "/*\n\n\n";
 
@@ -82,4 +82,17 @@ public class SqlScannerTest extends BaseScannerTest {
 		assertLines(new SqlScanner(), expected, code);
 	}
 
+	@Test
+	public void unterminatedSqlBlockCommentCrash() {
+		// This minimal case caused an Arrays.copyOfRange() crash
+		String code = "{\n\n\n";
+
+		Line[] expected = {
+				new Line(LANG_SQL, COMMENT),
+				new Line(LANG_SQL, BLANK),
+				new Line(LANG_SQL, BLANK)
+			};
+		assertLines(new SqlScanner(), expected, code);
+	}
+	
 }
