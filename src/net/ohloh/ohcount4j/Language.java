@@ -9,7 +9,8 @@ public enum Language {
 	LANG_JAVASCRIPT("javascript", "JavaScript"),
 	LANG_MAKEFILE("make", "Make"),
 	LANG_RUBY("ruby", "Ruby"),
-	LANG_XML("xml", "XML");
+	LANG_XML("xml", "XML"),
+	LANG_SQL("sql", "SQL");
 
 	private final String uname;
 	private final String niceName;
