@@ -7,12 +7,14 @@ public class Count implements Comparable<Count> {
 	protected int code;
 	protected int comment;
 	protected int blank;
+	protected int fileCount;
 
 	public Count(Language language) {
 		this.language = language;
 		this.code = 0;
 		this.comment = 0;
 		this.blank = 0;
+		this.fileCount = 0;
 	}
 
 	public Count(Language language, int code, int comment, int blank) {
@@ -20,6 +22,7 @@ public class Count implements Comparable<Count> {
 		this.code = code;
 		this.comment = comment;
 		this.blank = blank;
+		this.fileCount = 0;
 	}
 
 	public Count(Line line) {
@@ -27,6 +30,7 @@ public class Count implements Comparable<Count> {
 		this.code = 0;
 		this.comment = 0;
 		this.blank = 0;
+		this.fileCount = 0;
 		add(line);
 	}
 
@@ -78,6 +82,14 @@ public class Count implements Comparable<Count> {
 			break;
 		}
 		return this;
+	}
+
+	public void incrementFileCount() {
+		this.fileCount++;
+	}
+
+	public int getFileCount() {
+		return this.fileCount;
 	}
 
 	public boolean equals(Object object) {
