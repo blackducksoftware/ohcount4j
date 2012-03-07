@@ -18,28 +18,20 @@ public class OhcountDetector extends Detector {
 
 	private OhcountDetector() {
 
-		// Map extensions
 		extension("c").scanUsing(CScanner.class);
-		extension("html").scanUsing(HTMLScanner.class);
-		extension("css").scanUsing(CSSScanner.class);
-		extension("java").scanUsing(JavaScanner.class);
-		extension("rb").scanUsing(RubyScanner.class);
-		extension("js").scanUsing(JavaScriptScanner.class);
-		extension("xml").scanUsing(XmlScanner.class);
 		extension("cs").scanUsing(CSharpScanner.class);
+		extension("css").scanUsing(CSSScanner.class);
+		extensions("htm", "html").scanUsing(HTMLScanner.class);
+		extension("java").scanUsing(JavaScanner.class);
+		extension("js").scanUsing(JavaScriptScanner.class);
+		extensions("rb", "ru").scanUsing(RubyScanner.class);
 		extension("sql").scanUsing(SqlScanner.class);
 		extension("sh").scanUsing(ShellScanner.class);
-		// map(extension())
-
-		// Dummy mapping
-		extensions("x", "y", "z").scanUsing(CScanner.class);
+		extension("xml").scanUsing(XmlScanner.class);
 
 		name("Makefile").scanUsing(MakefileScanner.class);
+		names("Rakefile", "Gemfile").scanUsing(RubyScanner.class);
 
-		// Dummy name mapping
-		names("Rakefile", "Gemfile", "config.ru").scanUsing(CScanner.class);
-
-		// Map ambiguous extensions
 		extension("h").resolveUsing(ExtnHResolver.class);
 	}
 

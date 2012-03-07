@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.ohloh.ohcount4j.AnnotationWriter;
-import net.ohloh.ohcount4j.detect.SimpleDetector;
+import net.ohloh.ohcount4j.detect.OhcountDetector;
 import net.ohloh.ohcount4j.io.FileBlob;
 import net.ohloh.ohcount4j.scan.Scanner;
 
@@ -51,27 +51,30 @@ public class Ohcount {
 				summarize(files);
 			}
 			System.exit(0);
+		} catch (OhcountException e) {
+			System.err.println("Error - " + e.getMessage());
+			System.exit(-1);
 		} catch (IOException e) {
 			System.err.println("Error - " + e.getMessage());
 			System.exit(-1);
 		}
 	}
 
-	static void annotate(List<File> files) throws IOException {
+	static void annotate(List<File> files) throws IOException, OhcountException {
 		AnnotationWriter handler = new AnnotationWriter();
 		for (File file : files) {
 			FileBlob blob = new FileBlob(file);
-			Scanner scanner = SimpleDetector.detect(blob);
+			Scanner scanner = OhcountDetector.getInstance().detect(blob);
 			if (scanner != null) {
 				scanner.scan(blob, handler);
 			}
 		}
 	}
 
-	static void detect(List<File> files) throws IOException {
+	static void detect(List<File> files) throws IOException, OhcountException {
 		for (File file : files) {
 			FileBlob blob = new FileBlob(file);
-			Scanner scanner = SimpleDetector.detect(blob);
+			Scanner scanner = OhcountDetector.getInstance().detect(blob);
 			if (scanner != null) {
 				System.out.printf("%s\t%s\n", 
 					scanner.getLanguage().niceName(), file.getPath());
@@ -79,11 +82,11 @@ public class Ohcount {
 		}
 	}
 
-	static void summarize(List<File> files) throws IOException {
+	static void summarize(List<File> files) throws IOException, OhcountException {
 		SummaryWriter summary = new SummaryWriter();
 		for (File file : files) {
 			FileBlob blob = new FileBlob(file);
-			Scanner scanner = SimpleDetector.detect(blob);
+			Scanner scanner = OhcountDetector.getInstance().detect(blob);
 			if (scanner != null) {
 				summary.beginFile();
 				scanner.scan(blob, summary);
