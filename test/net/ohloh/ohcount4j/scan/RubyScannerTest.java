@@ -15,6 +15,7 @@ public class RubyScannerTest extends BaseScannerTest {
 		assertLine(new RubyScanner(), new Line(LANG_RUBY, BLANK),   "\t\n");
 		assertLine(new RubyScanner(), new Line(LANG_RUBY, CODE),    "require 'lib'\n");
 		assertLine(new RubyScanner(), new Line(LANG_RUBY, COMMENT), "# line comment\n");
+		assertLine(new RubyScanner(), new Line(LANG_RUBY, COMMENT), "#\n");
 		assertLine(new RubyScanner(), new Line(LANG_RUBY, CODE),    "require 'lib' // with comment\n");
 	}
 
@@ -25,6 +26,7 @@ public class RubyScannerTest extends BaseScannerTest {
 		assertLine(new RubyScanner(), new Line(LANG_RUBY, BLANK),   "\t");
 		assertLine(new RubyScanner(), new Line(LANG_RUBY, CODE),    "require 'lib'");
 		assertLine(new RubyScanner(), new Line(LANG_RUBY, COMMENT), "# line comment");
+		assertLine(new RubyScanner(), new Line(LANG_RUBY, COMMENT), "#");
 		assertLine(new RubyScanner(), new Line(LANG_RUBY, CODE),    "require 'lib' // with comment");
 	}
 

@@ -16,6 +16,7 @@ public class JavaScannerTest extends BaseScannerTest {
 		assertLine(new JavaScanner(), new Line(LANG_JAVA, CODE),    "import java.util.List;\n");
 		assertLine(new JavaScanner(), new Line(LANG_JAVA, COMMENT), "/* Block Comment */\n");
 		assertLine(new JavaScanner(), new Line(LANG_JAVA, COMMENT), "// Line comment\n");
+		assertLine(new JavaScanner(), new Line(LANG_JAVA, COMMENT), "//\n");
 		assertLine(new JavaScanner(), new Line(LANG_JAVA, CODE),    "import java.util.List; // with comment\n");
 	}
 
@@ -27,6 +28,7 @@ public class JavaScannerTest extends BaseScannerTest {
 		assertLine(new JavaScanner(), new Line(LANG_JAVA, CODE),    "import java.util.List;");
 		assertLine(new JavaScanner(), new Line(LANG_JAVA, COMMENT), "/* Block Comment */");
 		assertLine(new JavaScanner(), new Line(LANG_JAVA, COMMENT), "// Line comment");
+		assertLine(new JavaScanner(), new Line(LANG_JAVA, COMMENT), "//");
 		assertLine(new JavaScanner(), new Line(LANG_JAVA, CODE),    "import java.util.List; // with comment");
 	}
 

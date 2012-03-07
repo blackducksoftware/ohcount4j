@@ -16,6 +16,7 @@ public class CScannerTest extends BaseScannerTest {
 		assertLine(new CScanner(), new Line(LANG_C, CODE),    "#include <stdio.h>\n");
 		assertLine(new CScanner(), new Line(LANG_C, COMMENT), "/* Block Comment */\n");
 		assertLine(new CScanner(), new Line(LANG_C, COMMENT), "// Line comment\n");
+		assertLine(new CScanner(), new Line(LANG_C, COMMENT), "//\n");
 		assertLine(new CScanner(), new Line(LANG_C, CODE),    "#include <stdio.h> // with comment\n");
 	}
 
@@ -27,6 +28,7 @@ public class CScannerTest extends BaseScannerTest {
 		assertLine(new CScanner(), new Line(LANG_C, CODE),    "#include <stdio.h>");
 		assertLine(new CScanner(), new Line(LANG_C, COMMENT), "/* Block Comment */");
 		assertLine(new CScanner(), new Line(LANG_C, COMMENT), "// Line comment");
+		assertLine(new CScanner(), new Line(LANG_C, COMMENT), "//");
 		assertLine(new CScanner(), new Line(LANG_C, CODE),    "#include <stdio.h> // with comment");
 	}
 
