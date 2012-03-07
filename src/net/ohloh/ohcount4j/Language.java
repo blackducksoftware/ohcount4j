@@ -10,7 +10,8 @@ public enum Language {
 	LANG_MAKEFILE("make", "Make"),
 	LANG_RUBY("ruby", "Ruby"),
 	LANG_XML("xml", "XML"),
-	LANG_CSHARP("cs", "C#");
+	LANG_CSHARP("cs", "C#"),
+	LANG_SQL("sql", "SQL");
 
 	private final String uname;
 	private final String niceName;

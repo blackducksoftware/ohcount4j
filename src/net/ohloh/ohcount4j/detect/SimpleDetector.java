@@ -29,6 +29,8 @@ public class SimpleDetector {
 			return new XmlScanner();
 		} else if (extension.equals("cs")) {
 			return new CSharpScanner();
+		} else if (extension.equals("sql")) {
+			return new SqlScanner();
 		}
 
 		String filename = blob.getName();
