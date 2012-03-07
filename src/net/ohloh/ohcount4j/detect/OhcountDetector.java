@@ -11,6 +11,7 @@ import net.ohloh.ohcount4j.scan.SqlScanner;
 import net.ohloh.ohcount4j.scan.XmlScanner;
 import net.ohloh.ohcount4j.scan.CSharpScanner;
 import net.ohloh.ohcount4j.scan.ShellScanner;
+import net.ohloh.ohcount4j.scan.AdaScanner;
 
 public class OhcountDetector extends Detector {
 
@@ -29,6 +30,9 @@ public class OhcountDetector extends Detector {
 		extension("cs").scanUsing(CSharpScanner.class);
 		extension("sql").scanUsing(SqlScanner.class);
 		extension("sh").scanUsing(ShellScanner.class);
+		extension("adb").scanUsing(AdaScanner.class);
+		extension("ads").scanUsing(AdaScanner.class);
+		//extension("a").scanUsing(AdaScanner.class);
 		// map(extension())
 
 		// Dummy mapping

@@ -33,6 +33,8 @@ public class SimpleDetector {
 			return new SqlScanner();
 		} else if (extension.equals("sh")) {
 			return new ShellScanner();
+		} else if (extension.equals("adb")) {
+			return new AdaScanner();
 		}
 
 		String filename = blob.getName();

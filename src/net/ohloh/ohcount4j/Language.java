@@ -12,7 +12,8 @@ public enum Language {
 	LANG_XML("xml", "XML"),
 	LANG_CSHARP("cs", "C#"),
 	LANG_SQL("sql", "SQL"),
-	LANG_SHELL("shellscript", "ShellScript");
+	LANG_SHELL("shellscript", "ShellScript"),
+	LANG_ADA("ada", "Ada");
 
 	private final String uname;
 	private final String niceName;
