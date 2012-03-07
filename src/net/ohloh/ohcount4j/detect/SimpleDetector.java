@@ -31,6 +31,8 @@ public class SimpleDetector {
 			return new CSharpScanner();
 		} else if (extension.equals("sql")) {
 			return new SqlScanner();
+		} else if (extension.equals("sh")) {
+			return new ShellScanner();
 		}
 
 		String filename = blob.getName();

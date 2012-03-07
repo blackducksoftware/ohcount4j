@@ -11,7 +11,8 @@ public enum Language {
 	LANG_RUBY("ruby", "Ruby"),
 	LANG_XML("xml", "XML"),
 	LANG_CSHARP("cs", "C#"),
-	LANG_SQL("sql", "SQL");
+	LANG_SQL("sql", "SQL"),
+	LANG_SHELL("shellscript", "ShellScript");
 
 	private final String uname;
 	private final String niceName;
