@@ -11,6 +11,7 @@ import net.ohloh.ohcount4j.scan.SqlScanner;
 import net.ohloh.ohcount4j.scan.XmlScanner;
 import net.ohloh.ohcount4j.scan.CSharpScanner;
 import net.ohloh.ohcount4j.scan.ShellScanner;
+import net.ohloh.ohcount4j.scan.AssemblyScanner;
 
 public class OhcountDetector extends Detector {
 
@@ -28,6 +29,11 @@ public class OhcountDetector extends Detector {
 		extension("sql").scanUsing(SqlScanner.class);
 		extension("sh").scanUsing(ShellScanner.class);
 		extension("xml").scanUsing(XmlScanner.class);
+		extension("asm").scanUsing(AssemblyScanner.class);
+		// map(extension())
+
+		// Dummy mapping
+		extensions("x", "y", "z").scanUsing(CScanner.class);
 
 		name("Makefile").scanUsing(MakefileScanner.class);
 		names("Rakefile", "Gemfile").scanUsing(RubyScanner.class);
