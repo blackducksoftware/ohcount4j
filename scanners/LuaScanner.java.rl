@@ -7,10 +7,9 @@ public class LuaScanner extends BaseScanner{
   %%{
     machine lua;
     include common "common.rl";
-    include c "c.rl";
     	
-    lua_line_comment = '--' @comment (nonnewline? @comment 
-    	| (([^\[] nonnewline) | (nonnewline [^\[])) @comment nonnewline* @comment);
+    lua_line_comment = '--' @comment (nonnewline? @comment | 
+    	(([^\[] nonnewline) | (nonnewline [^\[])) @comment nonnewline* @comment);
     
     lua_block_comment_begin = '--[[' @comment;
     lua_block_comment_end = ']]' @comment;
