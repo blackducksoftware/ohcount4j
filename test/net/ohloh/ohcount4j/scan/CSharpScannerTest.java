@@ -1,9 +1,5 @@
 package net.ohloh.ohcount4j.scan;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 import org.testng.annotations.Test;
 
 import static net.ohloh.ohcount4j.Entity.*;
@@ -16,10 +12,10 @@ public class CSharpScannerTest extends BaseScannerTest {
 		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, BLANK),   "\n");
 		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, BLANK),   "     \n");
 		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, BLANK),   "\t\n");
-		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, CODE),    "#include <stdio.h>\n");
+		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, CODE),    "using System;\n");
 		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, COMMENT), "/* Block Comment */\n");
 		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, COMMENT), "// Line comment\n");
-		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, CODE),    "#include <stdio.h> // with comment\n");
+		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, CODE),    "Console.WriteLine(\"Hello, World!\"); // Single line comment on code line\n");
 	}
 
 	@Test
@@ -27,42 +23,29 @@ public class CSharpScannerTest extends BaseScannerTest {
 		// Note lack of trailing \n in all cases below
 		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, BLANK),   "     ");
 		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, BLANK),   "\t");
-		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, CODE),    "#include <stdio.h>");
+		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, CODE),    "using System;");
 		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, COMMENT), "/* Block Comment */");
 		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, COMMENT), "// Line comment");
-		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, CODE),    "#include <stdio.h> // with comment");
+		assertLine(new CSharpScanner(), new Line(LANG_CSHARP, CODE),    "Console.WriteLine(\"Hello, World!\"); // Single line comment on code line");
 	}
 
 	@Test
 	public void helloWorld() {
 		String code
-			= "/* Hello World\n"
+			= "/*\n"
+			+ "	* HelloWorld\n"
 			+ "\t\n"
-			+ " * with multi-line comment */\n"
+			+ " * Simple C# program for testing purposes\n"
+			+ " */\n"
+			+ "using System;\n"
 			+ "\n"
-			+ "#include <stdio.h>\n"
-			+ "\n"
-			+ "main() {\n"
-			+ "  printf(\"Hello world!\");\n"
-			+ "}";
+			+ "public class HelloWorld {\n"
+			+ "		// Single line comment\n"
+			+ "		public static void Main() {\n"
+			+ "			Console.WriteLine(\"Hello, World!\"); // Single line comment on code line\n"
+			+ "		}\n"
+			+ "}\n";
 
-		Line[] expected = {
-			new Line(LANG_CSHARP, COMMENT),
-			new Line(LANG_CSHARP, BLANK),
-			new Line(LANG_CSHARP, COMMENT),
-			new Line(LANG_CSHARP, BLANK),
-			new Line(LANG_CSHARP, CODE),
-			new Line(LANG_CSHARP, BLANK),
-			new Line(LANG_CSHARP, CODE),
-			new Line(LANG_CSHARP, CODE),
-			new Line(LANG_CSHARP, CODE)
-		};
-		assertLines(new CSharpScanner(), expected, code);
-	}
-	
-	@Test
-	public void testFile() {
-		String s = readFile("test/data/sample.cs");
 		Line[] expected = {
 				new Line(LANG_CSHARP, COMMENT),
 				new Line(LANG_CSHARP, COMMENT),
@@ -78,49 +61,6 @@ public class CSharpScannerTest extends BaseScannerTest {
 				new Line(LANG_CSHARP, CODE),
 				new Line(LANG_CSHARP, CODE)
 		};
-		assertLines(new CSharpScanner(), expected, s);
-	}
-	
-	public String readFile(String loc) {
-		try {
-			String s = "";
-			BufferedReader reader = new BufferedReader(new FileReader(loc));
-			String line = reader.readLine();
-			while (line != null) {
-				s += line + "\n";
-				line = reader.readLine();
-			}
-			return s;
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	@Test
-	public void unterminatedMultilineStringCrash() {
-		// This minimal case caused an Arrays.copyOfRange() crash
-		String code = "'\nA\n\n";
-
-		Line[] expected = {
-				new Line(LANG_CSHARP, CODE),
-				new Line(LANG_CSHARP, CODE),
-				new Line(LANG_CSHARP, BLANK)
-			};
-		assertLines(new CSharpScanner(), expected, code);
-	}
-
-	@Test
-	public void unterminatedBlockCommentCrash() {
-		// This minimal case caused an Arrays.copyOfRange() crash
-		String code = "/*\n\n\n";
-
-		Line[] expected = {
-				new Line(LANG_CSHARP, COMMENT),
-				new Line(LANG_CSHARP, BLANK),
-				new Line(LANG_CSHARP, BLANK)
-			};
 		assertLines(new CSharpScanner(), expected, code);
 	}
 	
