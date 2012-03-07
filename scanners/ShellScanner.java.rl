@@ -8,7 +8,7 @@ public class ShellScanner extends BaseScanner {
     machine shell;
     include common "common.rl";
 
-    shell_line_comment = '#' nonnewline* @comment;
+    shell_line_comment = '#' @comment nonnewline* @comment;
     
   	shell_line := |*
     	shell_line_comment;

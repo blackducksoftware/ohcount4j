@@ -16,6 +16,7 @@ public class ShellScannerTest extends BaseScannerTest {
 		assertLine(new ShellScanner(), new Line(LANG_SHELL, BLANK),   "\t\n");
 		assertLine(new ShellScanner(), new Line(LANG_SHELL, CODE),    "echo \"hello\"\n");
 		assertLine(new ShellScanner(), new Line(LANG_SHELL, COMMENT), "# Line comment\n");
+		assertLine(new ShellScanner(), new Line(LANG_SHELL, COMMENT), "#\n");
 		assertLine(new ShellScanner(), new Line(LANG_SHELL, CODE),    "ls # with comment\n");
 	}
 
@@ -26,6 +27,7 @@ public class ShellScannerTest extends BaseScannerTest {
 		assertLine(new ShellScanner(), new Line(LANG_SHELL, BLANK),   "\t");
 		assertLine(new ShellScanner(), new Line(LANG_SHELL, CODE),    "echo \"hello\"");
 		assertLine(new ShellScanner(), new Line(LANG_SHELL, COMMENT), "# Line comment");
+		assertLine(new ShellScanner(), new Line(LANG_SHELL, COMMENT), "#");
 		assertLine(new ShellScanner(), new Line(LANG_SHELL, CODE),    "ls # with comment");
 	}
 
@@ -49,19 +51,6 @@ public class ShellScannerTest extends BaseScannerTest {
 			new Line(LANG_SHELL, CODE),
 			new Line(LANG_SHELL, CODE)
 		};
-		assertLines(new ShellScanner(), expected, code);
-	}
-
-	@Test
-	public void unterminatedMultilineStringCrash() {
-		// This minimal case caused an Arrays.copyOfRange() crash
-		String code = "'\nA\n\n";
-
-		Line[] expected = {
-				new Line(LANG_SHELL, CODE),
-				new Line(LANG_SHELL, CODE),
-				new Line(LANG_SHELL, BLANK)
-			};
 		assertLines(new ShellScanner(), expected, code);
 	}
 	
