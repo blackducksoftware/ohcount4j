@@ -1,8 +1,6 @@
 package net.ohloh.ohcount4j.scan;
 
-import static net.ohloh.ohcount4j.Entity.BLANK;
-import static net.ohloh.ohcount4j.Entity.CODE;
-import static net.ohloh.ohcount4j.Entity.COMMENT;
+import static net.ohloh.ohcount4j.Entity.*;
 import static net.ohloh.ohcount4j.Language.LANG_SQL;
 
 import org.testng.annotations.Test;
@@ -17,6 +15,7 @@ public class SqlScannerTest extends BaseScannerTest {
 		assertLine(new SqlScanner(), new Line(LANG_SQL, CODE),    "SELECT * FROM test\n");
 		assertLine(new SqlScanner(), new Line(LANG_SQL, COMMENT), "/* Block Comment */\n");
 		assertLine(new SqlScanner(), new Line(LANG_SQL, COMMENT), "-- Line comment\n");
+		assertLine(new SqlScanner(), new Line(LANG_SQL, COMMENT), "--\n");
 		assertLine(new SqlScanner(), new Line(LANG_SQL, CODE),    "CREATE TABLE 'test'( // with comment\n");
 	}
 
@@ -28,6 +27,7 @@ public class SqlScannerTest extends BaseScannerTest {
 		assertLine(new SqlScanner(), new Line(LANG_SQL, CODE),    "SELECT * FROM test");
 		assertLine(new SqlScanner(), new Line(LANG_SQL, COMMENT), "/* Block Comment */");
 		assertLine(new SqlScanner(), new Line(LANG_SQL, COMMENT), "-- Line comment");
+		assertLine(new SqlScanner(), new Line(LANG_SQL, COMMENT), "--");
 		assertLine(new SqlScanner(), new Line(LANG_SQL, CODE),    "CREATE TABLE 'test'( // with comment");
 	}
 
@@ -57,32 +57,6 @@ public class SqlScannerTest extends BaseScannerTest {
 	}
 
 	@Test
-	public void unterminatedMultilineStringCrash() {
-		// This minimal case caused an Arrays.copyOfRange() crash
-		String code = "'\nA\n\n";
-
-		Line[] expected = {
-				new Line(LANG_SQL, CODE),
-				new Line(LANG_SQL, CODE),
-				new Line(LANG_SQL, BLANK)
-			};
-		assertLines(new SqlScanner(), expected, code);
-	}
-
-	@Test
-	public void unterminatedCBlockCommentCrash() {
-		// This minimal case caused an Arrays.copyOfRange() crash
-		String code = "/*\n\n\n";
-
-		Line[] expected = {
-				new Line(LANG_SQL, COMMENT),
-				new Line(LANG_SQL, BLANK),
-				new Line(LANG_SQL, BLANK)
-			};
-		assertLines(new SqlScanner(), expected, code);
-	}
-
-	@Test
 	public void unterminatedSqlBlockCommentCrash() {
 		// This minimal case caused an Arrays.copyOfRange() crash
 		String code = "{\n\n\n";
@@ -91,7 +65,7 @@ public class SqlScannerTest extends BaseScannerTest {
 				new Line(LANG_SQL, COMMENT),
 				new Line(LANG_SQL, BLANK),
 				new Line(LANG_SQL, BLANK)
-			};
+		};
 		assertLines(new SqlScanner(), expected, code);
 	}
 	

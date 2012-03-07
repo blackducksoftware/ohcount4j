@@ -9,7 +9,7 @@ public class SqlScanner extends BaseScanner{
     include common "common.rl";
     include c "c.rl";
     
-    sql_line_comment = "--" nonnewline* @comment | "#" nonnewline* @comment;
+    sql_line_comment = "--" @comment nonnewline* @comment | "#" @comment nonnewline* @comment;
     
     sql_block_comment_begin = '{' @comment;
 	sql_block_comment_end = '}' @comment;
