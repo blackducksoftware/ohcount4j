@@ -30,7 +30,7 @@ public class AdaScannerTest extends BaseScannerTest {
 	}
 
 	@Test
-	public void helloWorld() {
+	public void sampleTest() {
 		String code
 			= "-- Sample Test Program\n"
 			+ "--\n"
