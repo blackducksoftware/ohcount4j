@@ -48,7 +48,8 @@ public class MatlabScannerTest extends BaseScannerTest {
 			+ "% Single Line Comment\n"
 			+ "			...continued on next line with line continue function\n"
 			+ "plot(y);\n"
-			+ "hold;\n";
+			+ "hold;\n"
+			+ "%";
 
 		Line[] expected = {
 			new Line(LANG_MATLAB, COMMENT),
@@ -61,7 +62,8 @@ public class MatlabScannerTest extends BaseScannerTest {
 			new Line(LANG_MATLAB, COMMENT),
 			new Line(LANG_MATLAB, COMMENT),
 			new Line(LANG_MATLAB, CODE),
-			new Line(LANG_MATLAB, CODE)
+			new Line(LANG_MATLAB, CODE),
+			new Line(LANG_MATLAB, COMMENT)
 		};
 		assertLines(new MatlabScanner(), expected, code);
 	}

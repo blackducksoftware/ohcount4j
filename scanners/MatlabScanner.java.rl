@@ -8,8 +8,11 @@ public class MatlabScanner extends BaseScanner{
     machine matlab;
     include common "common.rl";
     
-    matlab_line_comment = ('%' | '...') @comment ([^{] & nonnewline)* @comment;
-       
+    matlab_continue_comment = '...' @comment nonnewline* @comment;
+    
+    matlab_line_comment = '%' @comment ( nonnewline? @comment 
+    		| ( (nonnewline - [{]) nonnewline* @comment) );
+    
     matlab_block_comment_begin = '%{' @comment;
     matlab_block_comment_end = '%}' @comment;
     
@@ -23,6 +26,7 @@ public class MatlabScanner extends BaseScanner{
   	matlab_line := |*
 		matlab_block_comment_begin => { fcall matlab_block_comment; };
 		matlab_line_comment;
+		matlab_continue_comment;
     	spaces;
     	string_literal;
     	newline;
