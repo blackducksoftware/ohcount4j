@@ -25,6 +25,7 @@ public class LuaScannerTest extends BaseScannerTest {
 		 */
 		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "--[ [ ]]\n");
 		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "-- [[ ]]\n");
+		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "--[\n");
 	}
 
 	@Test
@@ -39,6 +40,7 @@ public class LuaScannerTest extends BaseScannerTest {
 		assertLine(new LuaScanner(), new Line(LANG_LUA, CODE),    "function factorial(n) -- with comment");
 		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "--[ [ ]]");
 		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "-- [[ ]]");
+		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "--[");
 	}
 
 	@Test
