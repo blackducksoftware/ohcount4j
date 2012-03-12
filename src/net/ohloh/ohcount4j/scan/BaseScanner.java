@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.Entity;
-import net.ohloh.ohcount4j.io.Blob;
+import net.ohloh.ohcount4j.io.Source;
 import net.ohloh.ohcount4j.scan.Line;
 import net.ohloh.ohcount4j.scan.LineHandler;
 
@@ -42,8 +42,8 @@ public abstract class BaseScanner implements Scanner {
 	}
 
 	@Override
-	public final void scan(Blob blob, LineHandler handler) throws IOException {
-		scan(blob.charContents(), handler);
+	public final void scan(Source source, LineHandler handler) throws IOException {
+		scan(source.getContents(), handler);
 	}
 
 	@Override

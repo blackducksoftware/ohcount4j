@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.ohloh.ohcount4j.AnnotationWriter;
-import net.ohloh.ohcount4j.detect.OhcountDetector;
-import net.ohloh.ohcount4j.io.FileBlob;
+import net.ohloh.ohcount4j.detect.Detector;
+import net.ohloh.ohcount4j.io.SourceFile;
 import net.ohloh.ohcount4j.scan.Scanner;
 
 import org.kohsuke.args4j.Argument;
@@ -31,9 +31,10 @@ public class Ohcount {
 			optParser.printUsage(System.out);
 			System.exit(0);
 		}
-		if (opts.targets.size() < 1) {
-			optParser.printUsage(System.out);
-			System.exit(-1);
+
+		// Count the current directory by default
+		if (opts.targets.size() == 0) {
+			opts.targets.add(".");
 		}
 
 		try {
@@ -63,18 +64,18 @@ public class Ohcount {
 	static void annotate(List<File> files) throws IOException, OhcountException {
 		AnnotationWriter handler = new AnnotationWriter();
 		for (File file : files) {
-			FileBlob blob = new FileBlob(file);
-			Scanner scanner = OhcountDetector.getInstance().detect(blob);
+			SourceFile sourceFile = new SourceFile(file);
+			Scanner scanner = Detector.detect(sourceFile);
 			if (scanner != null) {
-				scanner.scan(blob, handler);
+				scanner.scan(sourceFile, handler);
 			}
 		}
 	}
 
 	static void detect(List<File> files) throws IOException, OhcountException {
 		for (File file : files) {
-			FileBlob blob = new FileBlob(file);
-			Scanner scanner = OhcountDetector.getInstance().detect(blob);
+			SourceFile sourceFile = new SourceFile(file);
+			Scanner scanner = Detector.detect(sourceFile);
 			if (scanner != null) {
 				System.out.printf("%s\t%s\n", 
 					scanner.getLanguage().niceName(), file.getPath());
@@ -85,11 +86,11 @@ public class Ohcount {
 	static void summarize(List<File> files) throws IOException, OhcountException {
 		SummaryWriter summary = new SummaryWriter();
 		for (File file : files) {
-			FileBlob blob = new FileBlob(file);
-			Scanner scanner = OhcountDetector.getInstance().detect(blob);
+			SourceFile sourceFile = new SourceFile(file);
+			Scanner scanner = Detector.detect(sourceFile);
 			if (scanner != null) {
 				summary.beginFile();
-				scanner.scan(blob, summary);
+				scanner.scan(sourceFile, summary);
 				summary.endFile();
 			}
 		}
