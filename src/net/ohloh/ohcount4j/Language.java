@@ -24,7 +24,8 @@ public enum Language {
 	LANG_MATLAB("matlab", "Matlab"),
 	LANG_LUA("lua", "Lua"),
 	LANG_LISP("lisp", "Lisp"),
-	LANG_GROOVY("groovy", "Groovy");
+	LANG_GROOVY("groovy", "Groovy"),
+	LANG_FSHARP("fs", "F#");
 
 	private final String uname;
 	private final String niceName;
