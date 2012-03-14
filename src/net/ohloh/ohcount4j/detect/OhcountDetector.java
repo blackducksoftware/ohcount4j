@@ -24,6 +24,7 @@ import net.ohloh.ohcount4j.scan.LuaScanner;
 import net.ohloh.ohcount4j.scan.LispScanner;
 import net.ohloh.ohcount4j.scan.GroovyScanner;
 import net.ohloh.ohcount4j.scan.FSharpScanner;
+import net.ohloh.ohcount4j.scan.ErlangScanner;
 
 public class OhcountDetector extends Detector {
 
@@ -54,6 +55,7 @@ public class OhcountDetector extends Detector {
 		extension("lisp").scanUsing(LispScanner.class);
 		extension("groovy").scanUsing(GroovyScanner.class);
 		extension("fs").scanUsing(FSharpScanner.class);
+		extension("erl").scanUsing(ErlangScanner.class);
 
 		name("Makefile").scanUsing(MakefileScanner.class);
 		names("Rakefile", "Gemfile").scanUsing(RubyScanner.class);
