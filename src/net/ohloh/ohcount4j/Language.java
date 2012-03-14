@@ -20,6 +20,7 @@ public enum Language {
 	LANG_PYTHON("python", "Python");
 	LANG_PROLOG("prolog", "Prolog");
 	LANG_PASCAL("pascal", "Pascal");
+	LANG_OBJECTIVEC("objectivec", "ObjectiveC");
 
 	private final String uname;
 	private final String niceName;
