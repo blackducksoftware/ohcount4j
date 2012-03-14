@@ -15,6 +15,7 @@ public enum Language {
 	LANG_SHELL("shellscript", "ShellScript"),
 	LANG_VB("vb", "VisualBasic");
 	LANG_SMALLTALK("smalltalk", "Smalltalk");
+	LANG_REBOL("rebol", "REBOL");
 
 	private final String uname;
 	private final String niceName;
