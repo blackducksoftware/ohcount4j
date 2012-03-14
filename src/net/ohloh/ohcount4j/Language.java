@@ -29,6 +29,7 @@ public enum Language {
 	HTML("HTML", HTMLScanner.class),
 	JAVA("Java", CStyleScanner.class),
 	JAVASCRIPT("JavaScript", CStyleScanner.class),
+	JSP("JSP", JspScanner.class),
 	LISP("Lisp", LispScanner.class),
 	LUA("Lua", LuaScanner.class),
 	MAKE("Make", MakeScanner.class),
