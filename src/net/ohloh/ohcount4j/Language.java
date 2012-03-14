@@ -13,17 +13,18 @@ public enum Language {
 	LANG_CSHARP("cs", "C#"),
 	LANG_SQL("sql", "SQL"),
 	LANG_SHELL("shellscript", "ShellScript"),
-	LANG_VB("vb", "VisualBasic");
-	LANG_SMALLTALK("smalltalk", "Smalltalk");
-	LANG_REBOL("rebol", "REBOL");
-	LANG_TCL("tcl", "Tcl");
-	LANG_PYTHON("python", "Python");
-	LANG_PROLOG("prolog", "Prolog");
-	LANG_PASCAL("pascal", "Pascal");
-	LANG_OBJECTIVEC("objectivec", "Objective-C");
-	LANG_MATLAB("matlab", "Matlab");
-	LANG_LUA("lua", "Lua");
-	LANG_LISP("lisp", "Lisp");
+	LANG_VB("vb", "VisualBasic"),
+	LANG_SMALLTALK("smalltalk", "Smalltalk"),
+	LANG_REBOL("rebol", "REBOL"),
+	LANG_TCL("tcl", "Tcl"),
+	LANG_PYTHON("python", "Python"),
+	LANG_PROLOG("prolog", "Prolog"),
+	LANG_PASCAL("pascal", "Pascal"),
+	LANG_OBJECTIVEC("objectivec", "Objective-C"),
+	LANG_MATLAB("matlab", "Matlab"),
+	LANG_LUA("lua", "Lua"),
+	LANG_LISP("lisp", "Lisp"),
+	LANG_GROOVY("groovy", "Groovy");
 
 	private final String uname;
 	private final String niceName;
