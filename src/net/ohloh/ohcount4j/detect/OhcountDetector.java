@@ -27,6 +27,7 @@ import net.ohloh.ohcount4j.scan.FSharpScanner;
 import net.ohloh.ohcount4j.scan.ErlangScanner;
 import net.ohloh.ohcount4j.scan.EiffelScanner;
 import net.ohloh.ohcount4j.scan.BooScanner;
+import net.ohloh.ohcount4j.scan.AssemblyScanner;
 
 public class OhcountDetector extends Detector {
 
@@ -60,6 +61,7 @@ public class OhcountDetector extends Detector {
 		extension("erl").scanUsing(ErlangScanner.class);
 		extension("e").scanUsing(EiffelScanner.class);
 		extension("boo").scanUsing(BooScanner.class);
+		extension("asm").scanUsing(AssemblyScanner.class);
 
 		name("Makefile").scanUsing(MakefileScanner.class);
 		names("Rakefile", "Gemfile").scanUsing(RubyScanner.class);
