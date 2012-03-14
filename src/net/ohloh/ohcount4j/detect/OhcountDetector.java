@@ -15,6 +15,7 @@ import net.ohloh.ohcount4j.scan.VisualBasicScanner;
 import net.ohloh.ohcount4j.scan.SmalltalkScanner;
 import net.ohloh.ohcount4j.scan.RebolScanner;
 import net.ohloh.ohcount4j.scan.TclScanner;
+import net.ohloh.ohcount4j.scan.PythonScanner;
 
 public class OhcountDetector extends Detector {
 
@@ -28,9 +29,10 @@ public class OhcountDetector extends Detector {
 		extensions("htm", "html").scanUsing(HTMLScanner.class);
 		extension("java").scanUsing(JavaScanner.class);
 		extension("js").scanUsing(JavaScriptScanner.class);
+		extension("py").scanUsing(PythonScanner.class);
 		extensions("rb", "ru").scanUsing(RubyScanner.class);
-		extension("sql").scanUsing(SqlScanner.class);
 		extension("sh").scanUsing(ShellScanner.class);
+		extension("sql").scanUsing(SqlScanner.class);
 		extension("xml").scanUsing(XmlScanner.class);
 		extension("vb").scanUsing(VisualBasicScanner.class);
 		extension("st").scanUsing(SmalltalkScanner.class);
