@@ -13,9 +13,13 @@ public enum Language {
 	LANG_CSHARP("cs", "C#"),
 	LANG_SQL("sql", "SQL"),
 	LANG_SHELL("shellscript", "ShellScript"),
+<<<<<<< HEAD
 	LANG_VB("vb", "VisualBasic");
 	LANG_SMALLTALK("smalltalk", "Smalltalk");
 	LANG_REBOL("rebol", "REBOL");
+=======
+	LANG_TCL("tcl", "Tcl");
+>>>>>>> 6f009f42cd6fbc94539c7a41080d264b61919a4e
 
 	private final String uname;
 	private final String niceName;
