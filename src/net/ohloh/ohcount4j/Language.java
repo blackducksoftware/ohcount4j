@@ -22,6 +22,7 @@ public enum Language {
 	LANG_PASCAL("pascal", "Pascal");
 	LANG_OBJECTIVEC("objectivec", "Objective-C");
 	LANG_MATLAB("matlab", "Matlab");
+	LANG_LUA("lua", "Lua");
 
 	private final String uname;
 	private final String niceName;
