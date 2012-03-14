@@ -13,7 +13,6 @@ public enum Language {
 	LANG_CSHARP("cs", "C#"),
 	LANG_SQL("sql", "SQL"),
 	LANG_SHELL("shellscript", "ShellScript"),
-<<<<<<< HEAD
 	LANG_VB("vb", "VisualBasic"),
 	LANG_SMALLTALK("smalltalk", "Smalltalk"),
 	LANG_REBOL("rebol", "REBOL"),
@@ -29,10 +28,9 @@ public enum Language {
 	LANG_FSHARP("fs", "F#"),
 	LANG_ERLANG("erlang", "Erlang"),
 	LANG_EIFFEL("eiffel", "Eiffel"),
-	LANG_BOO("boo", "Boo");
-=======
-	LANG_ASM("asm", "Assembly");
->>>>>>> f781df5db4c6de6b87683b80bac5d2999734cc80
+	LANG_BOO("boo", "Boo"),
+	LANG_ASM("asm", "Assembly"),
+	LANG_ADA("ada", "Ada");
 
 	private final String uname;
 	private final String niceName;
