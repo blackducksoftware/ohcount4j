@@ -27,7 +27,8 @@ public enum Language {
 	LANG_GROOVY("groovy", "Groovy"),
 	LANG_FSHARP("fs", "F#"),
 	LANG_ERLANG("erlang", "Erlang"),
-	LANG_EIFFEL("eiffel", "Eiffel");
+	LANG_EIFFEL("eiffel", "Eiffel"),
+	LANG_BOO("boo", "Boo");
 
 	private final String uname;
 	private final String niceName;
