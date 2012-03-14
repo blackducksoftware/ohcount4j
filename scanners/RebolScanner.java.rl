@@ -4,33 +4,31 @@ import net.ohloh.ohcount4j.Language;
 
 public class RebolScanner extends BaseScanner{
 
-	protected int str_nested_level = 0;
+	protected int nested_level = 0;
 
   	%%{
 	    machine rebol;
 	    include common "common.rl";
 	    
-	    action inc_str_nested_level { str_nested_level++; }
-	 	action dec_str_nested_level { str_nested_level--; if(str_nested_level == 0) fret; }
-	  	action is_nested { str_nested_level > 0 }
+	    action inc_nested_level { nested_level++; }
+	 	action dec_nested_level { nested_level--; if(nested_level == 0) fret; }
+	  	action is_nested { nested_level > 0 }
 
 	    rebol_line_comment = ';' @comment nonnewline* @comment;
 	    
-	    # Anything between curly brackets { } is considered a string
-	    # Brackets may be nested so string does not end until matching bracket is found
-	    # If not enough terminating brackets, rest of file is considered part of the string
-	    rebol_cb_string_begin = '{' @code;
-	    rebol_cb_string_end = '}' @code;
+	    # For handeling nested nature of bracket strings { }
+	    rebol_cb_string_begin = '{' @code @inc_nested_level;
+	    rebol_cb_string_end = '}' @code when is_nested @dec_nested_level;
 	    rebol_cb_string := |*
 	   		newline;
 	   		spaces;
 	   		(any - newline) => code;
-	    	rebol_cb_string_begin @inc_str_nested_level;
-	    	rebol_cb_string_end when is_nested @dec_str_nested_level;
+	    	rebol_cb_string_begin;
+	    	rebol_cb_string_end;
 	    *|;
 	    
 	  	rebol_line := |*
-	  		rebol_cb_string_begin => { fhold; fcall rebol_cb_string; };
+	  		rebol_cb_string_begin => { fcall rebol_cb_string; };
 	  		string_literal_dq;
 	    	rebol_line_comment;
 	    	spaces;
