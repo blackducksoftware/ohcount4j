@@ -1,37 +1,6 @@
 package net.ohloh.ohcount4j.detect;
 
-import net.ohloh.ohcount4j.scan.CSSScanner;
-import net.ohloh.ohcount4j.scan.CScanner;
-import net.ohloh.ohcount4j.scan.HTMLScanner;
-import net.ohloh.ohcount4j.scan.JavaScanner;
-import net.ohloh.ohcount4j.scan.MakefileScanner;
-import net.ohloh.ohcount4j.scan.RubyScanner;
-import net.ohloh.ohcount4j.scan.JavaScriptScanner;
-import net.ohloh.ohcount4j.scan.SqlScanner;
-import net.ohloh.ohcount4j.scan.XmlScanner;
-import net.ohloh.ohcount4j.scan.CSharpScanner;
-import net.ohloh.ohcount4j.scan.ShellScanner;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import net.ohloh.ohcount4j.scan.VisualBasicScanner;
-import net.ohloh.ohcount4j.scan.SmalltalkScanner;
-import net.ohloh.ohcount4j.scan.RebolScanner;
-import net.ohloh.ohcount4j.scan.TclScanner;
-import net.ohloh.ohcount4j.scan.PythonScanner;
-import net.ohloh.ohcount4j.scan.PrologScanner;
-import net.ohloh.ohcount4j.scan.PascalScanner;
-import net.ohloh.ohcount4j.scan.ObjectiveCScanner;
-import net.ohloh.ohcount4j.scan.MatlabScanner;
-import net.ohloh.ohcount4j.scan.LuaScanner;
-import net.ohloh.ohcount4j.scan.LispScanner;
-import net.ohloh.ohcount4j.scan.GroovyScanner;
-import net.ohloh.ohcount4j.scan.FSharpScanner;
-import net.ohloh.ohcount4j.scan.ErlangScanner;
-import net.ohloh.ohcount4j.scan.EiffelScanner;
-import net.ohloh.ohcount4j.scan.BooScanner;
-import net.ohloh.ohcount4j.scan.AssemblyScanner;
-import net.ohloh.ohcount4j.scan.AdaScanner;
-import net.ohloh.ohcount4j.scan.ActionScriptScanner;
+import net.ohloh.ohcount4j.scan.*;
 
 public class OhcountDetector extends Detector {
 
