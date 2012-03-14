@@ -30,7 +30,8 @@ public enum Language {
 	LANG_EIFFEL("eiffel", "Eiffel"),
 	LANG_BOO("boo", "Boo"),
 	LANG_ASM("asm", "Assembly"),
-	LANG_ADA("ada", "Ada");
+	LANG_ADA("ada", "Ada"),
+	LANG_ACTIONSCRIPT("actionscript", "ActionScript");
 
 	private final String uname;
 	private final String niceName;
