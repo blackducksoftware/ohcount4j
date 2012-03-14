@@ -23,6 +23,7 @@ public enum Language {
 	LANG_OBJECTIVEC("objectivec", "Objective-C");
 	LANG_MATLAB("matlab", "Matlab");
 	LANG_LUA("lua", "Lua");
+	LANG_LISP("lisp", "Lisp");
 
 	private final String uname;
 	private final String niceName;
