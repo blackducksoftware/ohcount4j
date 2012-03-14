@@ -16,6 +16,7 @@ import net.ohloh.ohcount4j.scan.SmalltalkScanner;
 import net.ohloh.ohcount4j.scan.RebolScanner;
 import net.ohloh.ohcount4j.scan.TclScanner;
 import net.ohloh.ohcount4j.scan.PythonScanner;
+import net.ohloh.ohcount4j.scan.PrologScanner;
 
 public class OhcountDetector extends Detector {
 
@@ -38,6 +39,7 @@ public class OhcountDetector extends Detector {
 		extension("st").scanUsing(SmalltalkScanner.class);
 		extension("r").scanUsing(RebolScanner.class);
 		extension("tcl").scanUsing(TclScanner.class);
+		extension("pl").scanUsing(PrologScanner.class);
 
 		name("Makefile").scanUsing(MakefileScanner.class);
 		names("Rakefile", "Gemfile").scanUsing(RubyScanner.class);

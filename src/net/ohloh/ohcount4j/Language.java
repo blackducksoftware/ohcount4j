@@ -18,6 +18,7 @@ public enum Language {
 	LANG_REBOL("rebol", "REBOL");
 	LANG_TCL("tcl", "Tcl");
 	LANG_PYTHON("python", "Python");
+	LANG_PROLOG("prolog", "Prolog");
 
 	private final String uname;
 	private final String niceName;
