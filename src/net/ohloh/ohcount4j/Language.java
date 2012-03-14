@@ -19,6 +19,7 @@ public enum Language {
 	LANG_TCL("tcl", "Tcl");
 	LANG_PYTHON("python", "Python");
 	LANG_PROLOG("prolog", "Prolog");
+	LANG_PASCAL("pascal", "Pascal");
 
 	private final String uname;
 	private final String niceName;
