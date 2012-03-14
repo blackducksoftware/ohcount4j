@@ -21,6 +21,7 @@ public enum Language {
 	LANG_PROLOG("prolog", "Prolog");
 	LANG_PASCAL("pascal", "Pascal");
 	LANG_OBJECTIVEC("objectivec", "Objective-C");
+	LANG_MATLAB("matlab", "Matlab");
 
 	private final String uname;
 	private final String niceName;

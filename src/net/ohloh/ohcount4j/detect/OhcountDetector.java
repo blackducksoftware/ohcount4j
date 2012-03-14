@@ -11,6 +11,7 @@ import net.ohloh.ohcount4j.scan.SqlScanner;
 import net.ohloh.ohcount4j.scan.XmlScanner;
 import net.ohloh.ohcount4j.scan.CSharpScanner;
 import net.ohloh.ohcount4j.scan.ShellScanner;
+<<<<<<< HEAD
 import net.ohloh.ohcount4j.scan.VisualBasicScanner;
 import net.ohloh.ohcount4j.scan.SmalltalkScanner;
 import net.ohloh.ohcount4j.scan.RebolScanner;
@@ -19,6 +20,9 @@ import net.ohloh.ohcount4j.scan.PythonScanner;
 import net.ohloh.ohcount4j.scan.PrologScanner;
 import net.ohloh.ohcount4j.scan.PascalScanner;
 import net.ohloh.ohcount4j.scan.ObjectiveCScanner;
+=======
+import net.ohloh.ohcount4j.scan.MatlabScanner;
+>>>>>>> d14080f3709e9e5ef238babf3f5d563f1031da20
 
 public class OhcountDetector extends Detector {
 
@@ -44,6 +48,7 @@ public class OhcountDetector extends Detector {
 		extension("pl").scanUsing(PrologScanner.class);
 		extension("pas").scanUsing(PascalScanner.class);
 		extension("m").scanUsing(ObjectiveCScanner.class);
+		// extension("m").scanUsing(MatlabScanner.class); // TODO Disambiguate from Objective-C
 
 		name("Makefile").scanUsing(MakefileScanner.class);
 		names("Rakefile", "Gemfile").scanUsing(RubyScanner.class);
