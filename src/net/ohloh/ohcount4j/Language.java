@@ -14,6 +14,7 @@ public enum Language {
 	LANG_SQL("sql", "SQL"),
 	LANG_SHELL("shellscript", "ShellScript"),
 	LANG_VB("vb", "VisualBasic");
+	LANG_SMALLTALK("smalltalk", "Smalltalk");
 
 	private final String uname;
 	private final String niceName;

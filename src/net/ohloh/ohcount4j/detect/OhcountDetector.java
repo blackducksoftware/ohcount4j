@@ -12,6 +12,7 @@ import net.ohloh.ohcount4j.scan.XmlScanner;
 import net.ohloh.ohcount4j.scan.CSharpScanner;
 import net.ohloh.ohcount4j.scan.ShellScanner;
 import net.ohloh.ohcount4j.scan.VisualBasicScanner;
+import net.ohloh.ohcount4j.scan.SmalltalkScanner;
 
 public class OhcountDetector extends Detector {
 
@@ -30,10 +31,7 @@ public class OhcountDetector extends Detector {
 		extension("sh").scanUsing(ShellScanner.class);
 		extension("xml").scanUsing(XmlScanner.class);
 		extension("vb").scanUsing(VisualBasicScanner.class);
-		// map(extension())
-
-		// Dummy mapping
-		extensions("x", "y", "z").scanUsing(CScanner.class);
+		extension("st").scanUsing(SmalltalkScanner.class);
 
 		name("Makefile").scanUsing(MakefileScanner.class);
 		names("Rakefile", "Gemfile").scanUsing(RubyScanner.class);
