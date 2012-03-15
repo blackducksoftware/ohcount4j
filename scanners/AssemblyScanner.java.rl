@@ -34,7 +34,7 @@ public class AssemblyScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_ASM;
+  	return Language.ASM;
   }
   
 }

@@ -1,7 +1,7 @@
 package net.ohloh.ohcount4j.scan;
 
 import static net.ohloh.ohcount4j.Entity.*;
-import static net.ohloh.ohcount4j.Language.LANG_SQL;
+import net.ohloh.ohcount4j.Language;
 
 import org.testng.annotations.Test;
 
@@ -9,26 +9,26 @@ public class SqlScannerTest extends BaseScannerTest {
 	
 	@Test
 	public void basic() {
-		assertLine(new SqlScanner(), new Line(LANG_SQL, BLANK),   "\n");
-		assertLine(new SqlScanner(), new Line(LANG_SQL, BLANK),   "     \n");
-		assertLine(new SqlScanner(), new Line(LANG_SQL, BLANK),   "\t\n");
-		assertLine(new SqlScanner(), new Line(LANG_SQL, CODE),    "SELECT * FROM test\n");
-		assertLine(new SqlScanner(), new Line(LANG_SQL, COMMENT), "/* Block Comment */\n");
-		assertLine(new SqlScanner(), new Line(LANG_SQL, COMMENT), "-- Line comment\n");
-		assertLine(new SqlScanner(), new Line(LANG_SQL, COMMENT), "--\n");
-		assertLine(new SqlScanner(), new Line(LANG_SQL, CODE),    "CREATE TABLE 'test'( // with comment\n");
+		assertLine(new SqlScanner(), new Line(Language.SQL, BLANK),   "\n");
+		assertLine(new SqlScanner(), new Line(Language.SQL, BLANK),   "     \n");
+		assertLine(new SqlScanner(), new Line(Language.SQL, BLANK),   "\t\n");
+		assertLine(new SqlScanner(), new Line(Language.SQL, CODE),    "SELECT * FROM test\n");
+		assertLine(new SqlScanner(), new Line(Language.SQL, COMMENT), "/* Block Comment */\n");
+		assertLine(new SqlScanner(), new Line(Language.SQL, COMMENT), "-- Line comment\n");
+		assertLine(new SqlScanner(), new Line(Language.SQL, COMMENT), "--\n");
+		assertLine(new SqlScanner(), new Line(Language.SQL, CODE),    "CREATE TABLE 'test'( // with comment\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new SqlScanner(), new Line(LANG_SQL, BLANK),   "     ");
-		assertLine(new SqlScanner(), new Line(LANG_SQL, BLANK),   "\t");
-		assertLine(new SqlScanner(), new Line(LANG_SQL, CODE),    "SELECT * FROM test");
-		assertLine(new SqlScanner(), new Line(LANG_SQL, COMMENT), "/* Block Comment */");
-		assertLine(new SqlScanner(), new Line(LANG_SQL, COMMENT), "-- Line comment");
-		assertLine(new SqlScanner(), new Line(LANG_SQL, COMMENT), "--");
-		assertLine(new SqlScanner(), new Line(LANG_SQL, CODE),    "CREATE TABLE 'test'( // with comment");
+		assertLine(new SqlScanner(), new Line(Language.SQL, BLANK),   "     ");
+		assertLine(new SqlScanner(), new Line(Language.SQL, BLANK),   "\t");
+		assertLine(new SqlScanner(), new Line(Language.SQL, CODE),    "SELECT * FROM test");
+		assertLine(new SqlScanner(), new Line(Language.SQL, COMMENT), "/* Block Comment */");
+		assertLine(new SqlScanner(), new Line(Language.SQL, COMMENT), "-- Line comment");
+		assertLine(new SqlScanner(), new Line(Language.SQL, COMMENT), "--");
+		assertLine(new SqlScanner(), new Line(Language.SQL, CODE),    "CREATE TABLE 'test'( // with comment");
 	}
 
 	@Test
@@ -44,14 +44,14 @@ public class SqlScannerTest extends BaseScannerTest {
 			+ "SELECT * FROM test -- comment on code line\n";
 
 		Line[] expected = {
-			new Line(LANG_SQL, COMMENT),
-			new Line(LANG_SQL, BLANK),
-			new Line(LANG_SQL, COMMENT),
-			new Line(LANG_SQL, BLANK),
-			new Line(LANG_SQL, CODE),
-			new Line(LANG_SQL, CODE),
-			new Line(LANG_SQL, BLANK),
-			new Line(LANG_SQL, CODE)
+			new Line(Language.SQL, COMMENT),
+			new Line(Language.SQL, BLANK),
+			new Line(Language.SQL, COMMENT),
+			new Line(Language.SQL, BLANK),
+			new Line(Language.SQL, CODE),
+			new Line(Language.SQL, CODE),
+			new Line(Language.SQL, BLANK),
+			new Line(Language.SQL, CODE)
 		};
 		assertLines(new SqlScanner(), expected, code);
 	}
@@ -62,9 +62,9 @@ public class SqlScannerTest extends BaseScannerTest {
 		String code = "{\n\n\n";
 
 		Line[] expected = {
-				new Line(LANG_SQL, COMMENT),
-				new Line(LANG_SQL, BLANK),
-				new Line(LANG_SQL, BLANK)
+				new Line(Language.SQL, COMMENT),
+				new Line(Language.SQL, BLANK),
+				new Line(Language.SQL, BLANK)
 		};
 		assertLines(new SqlScanner(), expected, code);
 	}

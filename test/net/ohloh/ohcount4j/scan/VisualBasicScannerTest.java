@@ -3,34 +3,34 @@ package net.ohloh.ohcount4j.scan;
 import org.testng.annotations.Test;
 
 import static net.ohloh.ohcount4j.Entity.*;
-import static net.ohloh.ohcount4j.Language.*;
+import net.ohloh.ohcount4j.Language;
 
 public class VisualBasicScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, BLANK),   "\n");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, BLANK),   "     \n");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, BLANK),   "\t\n");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, CODE),    "Private testVar As Integer\n");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, COMMENT), "REM Line comment started with REM\n");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, COMMENT), "' Line comment\n");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, COMMENT), "'\n");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, COMMENT), "REM\n");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, CODE),    "Set(ByVal value As Integer) ' with comment\n");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, BLANK),   "\n");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, BLANK),   "     \n");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, BLANK),   "\t\n");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, CODE),    "Private testVar As Integer\n");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, COMMENT), "REM Line comment started with REM\n");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, COMMENT), "' Line comment\n");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, COMMENT), "'\n");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, COMMENT), "REM\n");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, CODE),    "Set(ByVal value As Integer) ' with comment\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, BLANK),   "     ");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, BLANK),   "\t");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, CODE),    "Private testVar As Integer");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, COMMENT), "REM Line comment started");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, COMMENT), "' Line comment");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, COMMENT), "'");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, COMMENT), "REM");
-		assertLine(new VisualBasicScanner(), new Line(LANG_VB, CODE),    "Set(ByVal value As Integer) ' with comment");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, BLANK),   "     ");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, BLANK),   "\t");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, CODE),    "Private testVar As Integer");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, COMMENT), "REM Line comment started");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, COMMENT), "' Line comment");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, COMMENT), "'");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, COMMENT), "REM");
+		assertLine(new VisualBasicScanner(), new Line(Language.VB, CODE),    "Set(ByVal value As Integer) ' with comment");
 	}
 
 	@Test
@@ -49,16 +49,16 @@ public class VisualBasicScannerTest extends BaseScannerTest {
 		
 
 		Line[] expected = {
-			new Line(LANG_VB, COMMENT),
-			new Line(LANG_VB, CODE),
-			new Line(LANG_VB, CODE),
-			new Line(LANG_VB, CODE),
-			new Line(LANG_VB, COMMENT),
-			new Line(LANG_VB, CODE),
-			new Line(LANG_VB, CODE),
-			new Line(LANG_VB, CODE),
-			new Line(LANG_VB, CODE),
-			new Line(LANG_VB, CODE)
+			new Line(Language.VB, COMMENT),
+			new Line(Language.VB, CODE),
+			new Line(Language.VB, CODE),
+			new Line(Language.VB, CODE),
+			new Line(Language.VB, COMMENT),
+			new Line(Language.VB, CODE),
+			new Line(Language.VB, CODE),
+			new Line(Language.VB, CODE),
+			new Line(Language.VB, CODE),
+			new Line(Language.VB, CODE)
 		};
 		assertLines(new VisualBasicScanner(), expected, code);
 	}
@@ -69,9 +69,9 @@ public class VisualBasicScannerTest extends BaseScannerTest {
 		String code = "\"\nA\n\n";
 
 		Line[] expected = {
-				new Line(LANG_VB, CODE),
-				new Line(LANG_VB, CODE),
-				new Line(LANG_VB, BLANK)
+				new Line(Language.VB, CODE),
+				new Line(Language.VB, CODE),
+				new Line(Language.VB, BLANK)
 			};
 		assertLines(new VisualBasicScanner(), expected, code);
 	}

@@ -59,7 +59,7 @@ public class BooScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_BOO;
+  	return Language.BOO;
   }
   
   

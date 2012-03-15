@@ -18,7 +18,7 @@ public class DetectorTest {
 		assertDetect("main.html", HTMLScanner.class);
 		assertDetect("main.java", JavaScanner.class);
 		assertDetect("main.js", JavaScriptScanner.class);
-		assertDetect("Makefile", MakefileScanner.class);
+		assertDetect("Makefile", MakeScanner.class);
 		assertDetect("main.rb", RubyScanner.class);
 		assertDetect("config.ru", RubyScanner.class);
 		assertDetect("Gemfile", RubyScanner.class);

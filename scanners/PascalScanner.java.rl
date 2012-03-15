@@ -52,6 +52,6 @@ public class PascalScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_PASCAL;
+  	return Language.PASCAL;
   }
 }

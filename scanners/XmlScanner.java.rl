@@ -48,6 +48,6 @@ public class XmlScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_XML;
+  	return Language.XML;
   }
 }

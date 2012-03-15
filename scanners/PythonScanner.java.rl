@@ -57,7 +57,7 @@ public class PythonScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_PYTHON;
+  	return Language.PYTHON;
   }
   
   

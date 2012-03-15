@@ -3,28 +3,28 @@ package net.ohloh.ohcount4j.scan;
 import org.testng.annotations.Test;
 
 import static net.ohloh.ohcount4j.Entity.*;
-import static net.ohloh.ohcount4j.Language.*;
+import net.ohloh.ohcount4j.Language;
 
 public class XmlScannerTest extends BaseScannerTest {
 	
 	@Test
 	public void basic() {
-		assertLine(new XmlScanner(), new Line(LANG_XML, BLANK),   "\n");
-		assertLine(new XmlScanner(), new Line(LANG_XML, BLANK),   "     \n");
-		assertLine(new XmlScanner(), new Line(LANG_XML, BLANK),   "\t\n");
-		assertLine(new XmlScanner(), new Line(LANG_XML, CODE),    "<taskdef resource=\"testngtasks\" classpath=\"${lib}/testng-6.3.1.jar\"/>\n");
-		assertLine(new XmlScanner(), new Line(LANG_XML, COMMENT), "<!--comment-->\n");
-		assertLine(new XmlScanner(), new Line(LANG_XML, CODE),    "<property name=\"lib\" location=\"lib\"/> <!-- with comment -->\n");
+		assertLine(new XmlScanner(), new Line(Language.XML, BLANK),   "\n");
+		assertLine(new XmlScanner(), new Line(Language.XML, BLANK),   "     \n");
+		assertLine(new XmlScanner(), new Line(Language.XML, BLANK),   "\t\n");
+		assertLine(new XmlScanner(), new Line(Language.XML, CODE),    "<taskdef resource=\"testngtasks\" classpath=\"${lib}/testng-6.3.1.jar\"/>\n");
+		assertLine(new XmlScanner(), new Line(Language.XML, COMMENT), "<!--comment-->\n");
+		assertLine(new XmlScanner(), new Line(Language.XML, CODE),    "<property name=\"lib\" location=\"lib\"/> <!-- with comment -->\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new XmlScanner(), new Line(LANG_XML, BLANK),   "     ");
-		assertLine(new XmlScanner(), new Line(LANG_XML, BLANK),   "\t");
-		assertLine(new XmlScanner(), new Line(LANG_XML, CODE),    "<taskdef resource=\"testngtasks\" classpath=\"${lib}/testng-6.3.1.jar\"/>");
-		assertLine(new XmlScanner(), new Line(LANG_XML, COMMENT), "<!--comment-->");
-		assertLine(new XmlScanner(), new Line(LANG_XML, CODE),    "<property name=\"lib\" location=\"lib\"/> <!-- with comment -->");
+		assertLine(new XmlScanner(), new Line(Language.XML, BLANK),   "     ");
+		assertLine(new XmlScanner(), new Line(Language.XML, BLANK),   "\t");
+		assertLine(new XmlScanner(), new Line(Language.XML, CODE),    "<taskdef resource=\"testngtasks\" classpath=\"${lib}/testng-6.3.1.jar\"/>");
+		assertLine(new XmlScanner(), new Line(Language.XML, COMMENT), "<!--comment-->");
+		assertLine(new XmlScanner(), new Line(Language.XML, CODE),    "<property name=\"lib\" location=\"lib\"/> <!-- with comment -->");
 	}
 
 	@Test
@@ -40,15 +40,15 @@ public class XmlScannerTest extends BaseScannerTest {
 					+ "</path>";
 
 		Line[] expected = {
-			new Line(LANG_XML, CODE),
-			new Line(LANG_XML, COMMENT),
-			new Line(LANG_XML, BLANK),
-			new Line(LANG_XML, COMMENT),
-			new Line(LANG_XML, CODE),
-			new Line(LANG_XML, CODE),
-			new Line(LANG_XML, CODE),
-			new Line(LANG_XML, BLANK),
-			new Line(LANG_XML, CODE)
+			new Line(Language.XML, CODE),
+			new Line(Language.XML, COMMENT),
+			new Line(Language.XML, BLANK),
+			new Line(Language.XML, COMMENT),
+			new Line(Language.XML, CODE),
+			new Line(Language.XML, CODE),
+			new Line(Language.XML, CODE),
+			new Line(Language.XML, BLANK),
+			new Line(Language.XML, CODE)
 		};
 		assertLines(new XmlScanner(), expected, code);
 	}
@@ -62,11 +62,11 @@ public class XmlScannerTest extends BaseScannerTest {
 				+ "]]>\n"
 				+ "<!--<![CDATA[ This is a commented cdata string ]]>-->";
 		Line[] expected = {
-				new Line(LANG_XML, COMMENT),
-				new Line(LANG_XML, CODE),
-				new Line(LANG_XML, CODE),
-				new Line(LANG_XML, CODE),
-				new Line(LANG_XML, COMMENT)
+				new Line(Language.XML, COMMENT),
+				new Line(Language.XML, CODE),
+				new Line(Language.XML, CODE),
+				new Line(Language.XML, CODE),
+				new Line(Language.XML, COMMENT)
 		};
 		assertLines(new XmlScanner(), expected, code);
 	}

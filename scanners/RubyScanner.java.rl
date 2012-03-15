@@ -60,6 +60,6 @@ public class RubyScanner extends BaseScanner{
 
 	@Override
 	public Language getLanguage(){
-		return Language.LANG_RUBY;
+		return Language.RUBY;
 	}
 }

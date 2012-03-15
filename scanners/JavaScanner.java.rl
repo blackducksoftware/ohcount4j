@@ -31,7 +31,7 @@ public class JavaScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_JAVA;
+  	return Language.JAVA;
   }
   
   

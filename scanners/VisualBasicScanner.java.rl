@@ -31,7 +31,7 @@ public class VisualBasicScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_VB;
+  	return Language.VB;
   }
   
 }

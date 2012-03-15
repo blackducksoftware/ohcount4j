@@ -15,7 +15,7 @@ public class HTMLScanner extends BaseScanner{
 	html_css_line := |*
 		c_block_comment_begin => { fcall c_block_comment; };
 		c_line_comment;
-		html_css_end => { setLanguage(Language.LANG_HTML); p = ts; fret; };
+		html_css_end => { setLanguage(Language.HTML); p = ts; fret; };
 		spaces;
 		string_literal;
 		newline;
@@ -27,7 +27,7 @@ public class HTMLScanner extends BaseScanner{
 	html_js_line := |*
 		c_block_comment_begin => { fcall c_block_comment; };
 		c_line_comment;
-		html_js_end => { setLanguage(Language.LANG_HTML); p = ts; fret; };
+		html_js_end => { setLanguage(Language.HTML); p = ts; fret; };
 		spaces;
 		string_literal;
 		newline;
@@ -44,8 +44,8 @@ public class HTMLScanner extends BaseScanner{
 	*|;
 
 	html_line := |*
-		html_css_begin => { setLanguage(Language.LANG_CSS); fcall html_css_line; };
-		html_js_begin => { setLanguage(Language.LANG_JAVASCRIPT); fcall html_js_line; };
+		html_css_begin => { setLanguage(Language.CSS); fcall html_css_line; };
+		html_js_begin => { setLanguage(Language.JAVASCRIPT); fcall html_js_line; };
 		html_comment_begin => { fcall html_comment; };
 		spaces;
 		newline;
@@ -66,6 +66,6 @@ public class HTMLScanner extends BaseScanner{
 
 	@Override
 	public Language getLanguage() {
-		return Language.LANG_HTML;
+		return Language.HTML;
 	}
 }

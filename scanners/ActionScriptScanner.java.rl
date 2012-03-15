@@ -41,7 +41,7 @@ public class ActionScriptScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_ACTIONSCRIPT;
+  	return Language.ACTIONSCRIPT;
   }
   
   

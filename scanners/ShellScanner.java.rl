@@ -31,7 +31,7 @@ public class ShellScanner extends BaseScanner {
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_SHELL;
+  	return Language.SHELL;
   }
   
 }

@@ -43,7 +43,7 @@ public class LuaScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_LUA;
+  	return Language.LUA;
   }
   
 }

@@ -31,6 +31,6 @@ public class CScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_C;
+  	return Language.C;
   }
 }

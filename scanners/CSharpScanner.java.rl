@@ -31,7 +31,7 @@ public class CSharpScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_CSHARP;
+  	return Language.CSHARP;
   }
   
 }

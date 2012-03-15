@@ -30,6 +30,6 @@ public class JavaScriptScanner extends BaseScanner{
 
 	@Override
 	public Language getLanguage(){
-		return Language.LANG_JAVASCRIPT;
+		return Language.JAVASCRIPT;
 	}
 }

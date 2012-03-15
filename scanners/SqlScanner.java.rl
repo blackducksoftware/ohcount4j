@@ -44,7 +44,7 @@ public class SqlScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_SQL;
+  	return Language.SQL;
   }
 
 }

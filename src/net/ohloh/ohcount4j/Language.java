@@ -6,38 +6,37 @@ import java.util.Map;
 import net.ohloh.ohcount4j.scan.*;
 
 public enum Language {
-	LANG_ACTIONSCRIPT("actionscript", "ActionScript", ActionScriptScanner.class),
-	LANG_ADA("ada", "Ada", AdaScanner.class),
-	LANG_ASM("asm", "Assembly", AssemblyScanner.class),
-	LANG_BOO("boo", "Boo", BooScanner.class),
-	LANG_C("c", "C", CScanner.class),
-	LANG_CSHARP("cs", "C#", CSharpScanner.class),
-	LANG_CSS("css", "CSS", CSSScanner.class),
-	LANG_EIFFEL("eiffel", "Eiffel", EiffelScanner.class),
-	LANG_ERLANG("erlang", "Erlang", ErlangScanner.class),
-	LANG_FSHARP("fs", "F#", FSharpScanner.class),
-	LANG_GROOVY("groovy", "Groovy", GroovyScanner.class),
-	LANG_HTML("html", "HTML", HTMLScanner.class),
-	LANG_JAVA("java", "Java", JavaScanner.class),
-	LANG_JAVASCRIPT("javascript", "JavaScript", JavaScriptScanner.class),
-	LANG_LISP("lisp", "Lisp", LispScanner.class),
-	LANG_LUA("lua", "Lua", LuaScanner.class),
-	LANG_MAKEFILE("make", "Make", MakefileScanner.class),
-	LANG_MATLAB("matlab", "Matlab", MatlabScanner.class),
-	LANG_OBJECTIVEC("objectivec", "Objective-C", ObjectiveCScanner.class),
-	LANG_PASCAL("pascal", "Pascal", PascalScanner.class),
-	LANG_PROLOG("prolog", "Prolog", PrologScanner.class),
-	LANG_PYTHON("python", "Python", PythonScanner.class),
-	LANG_REBOL("rebol", "REBOL", RebolScanner.class),
-	LANG_RUBY("ruby", "Ruby", RubyScanner.class),
-	LANG_SHELL("shellscript", "ShellScript", ShellScanner.class),
-	LANG_SMALLTALK("smalltalk", "Smalltalk", SmalltalkScanner.class),
-	LANG_SQL("sql", "SQL", SqlScanner.class),
-	LANG_TCL("tcl", "Tcl", TclScanner.class),
-	LANG_VB("vb", "VisualBasic", VisualBasicScanner.class),
-	LANG_XML("xml", "XML", XmlScanner.class);
+	ACTIONSCRIPT("ActionScript", ActionScriptScanner.class),
+	ADA("Ada", AdaScanner.class),
+	ASM("Assembly", AssemblyScanner.class),
+	BOO("Boo", BooScanner.class),
+	C("C", CScanner.class),
+	CSHARP("C#", CSharpScanner.class),
+	CSS("CSS", CSSScanner.class),
+	EIFFEL("Eiffel", EiffelScanner.class),
+	ERLANG("Erlang", ErlangScanner.class),
+	FSHARP("F#", FSharpScanner.class),
+	GROOVY("Groovy", GroovyScanner.class),
+	HTML("HTML", HTMLScanner.class),
+	JAVA("Java", JavaScanner.class),
+	JAVASCRIPT("JavaScript", JavaScriptScanner.class),
+	LISP("Lisp", LispScanner.class),
+	LUA("Lua", LuaScanner.class),
+	MAKE("Make", MakeScanner.class),
+	MATLAB("Matlab", MatlabScanner.class),
+	OBJECTIVE_C("Objective-C", ObjectiveCScanner.class),
+	PASCAL("Pascal", PascalScanner.class),
+	PROLOG("Prolog", PrologScanner.class),
+	PYTHON("Python", PythonScanner.class),
+	REBOL("REBOL", RebolScanner.class),
+	RUBY("Ruby", RubyScanner.class),
+	SHELL("Shell", ShellScanner.class),
+	SMALLTALK("Smalltalk", SmalltalkScanner.class),
+	SQL("SQL", SqlScanner.class),
+	TCL("Tcl", TclScanner.class),
+	VB("VisualBasic", VisualBasicScanner.class),
+	XML("XML", XmlScanner.class);
 
-	private final String uname;
 	private final String niceName;
 	private final Class <? extends Scanner> scannerClass;
 
@@ -55,92 +54,92 @@ public enum Language {
 			nameMap.put(language.niceName().toLowerCase(), language);
 		}
 
-		LANG_ACTIONSCRIPT
+		ACTIONSCRIPT
 			.extension("as")
 			;
 
-		LANG_ADA
+		ADA
 			.extension("ada")
 			.extension("adb")
 			;
 
-		LANG_ASM
+		ASM
 			.extension("asm")
 			;
 
-		LANG_BOO
+		BOO
 			.extension("boo")
 			;
 
-		LANG_C
+		C
 			.extension("c")
 			;
 
-		LANG_CSHARP
+		CSHARP
 			.alias("C#")
 			.extension("cs")
 			;
 
-		LANG_CSS
+		CSS
 			.extension("css")
 			;
 
-		LANG_ERLANG
+		ERLANG
 			.extension("erl")
 			;
 
-		LANG_FSHARP
+		FSHARP
 			.alias("F#")
 			.extension("fs")
 			;
 
-		LANG_GROOVY
+		GROOVY
 			.extension("groovy")
 			;
 
-		LANG_HTML
+		HTML
 			.extension("html")
 			.extension("htm")
 			;
 
-		LANG_JAVA
+		JAVA
 			.extension("java")
 			;
 
-		LANG_JAVASCRIPT
+		JAVASCRIPT
 			.alias("js")
 			.extension("js")
 			;
 
-		LANG_LUA
+		LUA
 			.extension("lua")
 			;
 
-		LANG_MAKEFILE
+		MAKE
 			.filename("Makefile")
 			;
 
-		LANG_OBJECTIVEC
+		OBJECTIVE_C
 			.extension("m")
 			;
 
-		LANG_PASCAL
+		PASCAL
 			.extension("pas")
 			;
 
-		LANG_PROLOG
+		PROLOG
 			.extension("pl")
 			;
 
-		LANG_PYTHON
+		PYTHON
 			.extension("py")
 			;
 
-		LANG_REBOL
+		REBOL
 			.extension("r")
 			;
 
-		LANG_RUBY
+		RUBY
 			.alias("jruby")
 			.extension("rb")
 			.extension("ru")
@@ -148,40 +147,39 @@ public enum Language {
 			.filename("Gemfile")
 			;
 
-		LANG_SQL
+		SQL
 			.extension("sql")
 			;
 
-		LANG_SMALLTALK
+		SMALLTALK
 			.extension("st")
 			;
 
-		LANG_SHELL
+		SHELL
 			.extension("bash")
 			.extension("sh")
 			;
 
-		LANG_TCL
+		TCL
 			.extension("tcl")
 			;
 
-		LANG_VB
+		VB
 			.extension("vb")
 			;
 
-		LANG_XML
+		XML
 			.extension("xml")
 			;
 	}
 
-	Language(String uname, String niceName, Class<? extends Scanner> scannerClass) {
-		this.uname = uname;
+	Language(String niceName, Class<? extends Scanner> scannerClass) {
 		this.niceName = niceName;
 		this.scannerClass = scannerClass;
 	}
 
 	public String uname() {
-		return uname;
+		return this.toString().toLowerCase();
 	}
 
 	public String niceName() {

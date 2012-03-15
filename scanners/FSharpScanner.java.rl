@@ -40,7 +40,7 @@ public class FSharpScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_FSHARP;
+  	return Language.FSHARP;
   }
   
   

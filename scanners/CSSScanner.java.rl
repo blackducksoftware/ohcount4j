@@ -32,6 +32,6 @@ public class CSSScanner extends BaseScanner{
 
 	@Override
 	public Language getLanguage(){
-		return Language.LANG_CSS;
+		return Language.CSS;
 	}
 }

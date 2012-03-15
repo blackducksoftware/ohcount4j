@@ -31,7 +31,7 @@ public class AdaScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_ADA;
+  	return Language.ADA;
   }
   
   

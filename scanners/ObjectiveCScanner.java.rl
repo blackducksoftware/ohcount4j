@@ -31,6 +31,6 @@ public class ObjectiveCScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_OBJECTIVEC;
+  	return Language.OBJECTIVE_C;
   }
 }

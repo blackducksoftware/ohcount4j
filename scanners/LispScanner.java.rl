@@ -76,7 +76,7 @@ public class LispScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_LISP;
+  	return Language.LISP;
   }
   
   

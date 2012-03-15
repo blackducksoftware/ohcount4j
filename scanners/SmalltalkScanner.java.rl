@@ -38,7 +38,7 @@ public class SmalltalkScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_SMALLTALK;
+  	return Language.SMALLTALK;
   }
   
   

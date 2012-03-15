@@ -31,7 +31,7 @@ public class TclScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_TCL;
+  	return Language.TCL;
   }
   
   

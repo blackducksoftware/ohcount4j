@@ -31,7 +31,7 @@ public class GroovyScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_GROOVY;
+  	return Language.GROOVY;
   }
   
   

@@ -32,7 +32,7 @@ public class ErlangScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_ERLANG;
+  	return Language.ERLANG;
   }
   
   

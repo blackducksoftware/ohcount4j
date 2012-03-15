@@ -49,7 +49,7 @@ public class RebolScanner extends BaseScanner{
 	  
 	@Override
 	public Language getLanguage() {
-		return Language.LANG_REBOL;
+		return Language.REBOL;
 	}
   
 }

@@ -3,30 +3,30 @@ package net.ohloh.ohcount4j.scan;
 import org.testng.annotations.Test;
 
 import static net.ohloh.ohcount4j.Entity.*;
-import static net.ohloh.ohcount4j.Language.*;
+import net.ohloh.ohcount4j.Language;
 
 public class AdaScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new AdaScanner(), new Line(LANG_ADA, BLANK),   "\n");
-		assertLine(new AdaScanner(), new Line(LANG_ADA, BLANK),   "     \n");
-		assertLine(new AdaScanner(), new Line(LANG_ADA, BLANK),   "\t\n");
-		assertLine(new AdaScanner(), new Line(LANG_ADA, CODE),    "Ada.Text_IO.Put_Line (\"Hello World\");\n");
-		assertLine(new AdaScanner(), new Line(LANG_ADA, COMMENT), "-- Line comment\n");
-		assertLine(new AdaScanner(), new Line(LANG_ADA, COMMENT), "--\n");
-		assertLine(new AdaScanner(), new Line(LANG_ADA, CODE),    "Ada.Text_IO.Put_Line (\"Hello World\"); -- with comment\n");
+		assertLine(new AdaScanner(), new Line(Language.ADA, BLANK),   "\n");
+		assertLine(new AdaScanner(), new Line(Language.ADA, BLANK),   "     \n");
+		assertLine(new AdaScanner(), new Line(Language.ADA, BLANK),   "\t\n");
+		assertLine(new AdaScanner(), new Line(Language.ADA, CODE),    "Ada.Text_IO.Put_Line (\"Hello World\");\n");
+		assertLine(new AdaScanner(), new Line(Language.ADA, COMMENT), "-- Line comment\n");
+		assertLine(new AdaScanner(), new Line(Language.ADA, COMMENT), "--\n");
+		assertLine(new AdaScanner(), new Line(Language.ADA, CODE),    "Ada.Text_IO.Put_Line (\"Hello World\"); -- with comment\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new AdaScanner(), new Line(LANG_ADA, BLANK),   "     ");
-		assertLine(new AdaScanner(), new Line(LANG_ADA, BLANK),   "\t");
-		assertLine(new AdaScanner(), new Line(LANG_ADA, CODE),    "Ada.Text_IO.Put_Line (\"Hello World\");");
-		assertLine(new AdaScanner(), new Line(LANG_ADA, COMMENT), "-- Line comment");
-		assertLine(new AdaScanner(), new Line(LANG_ADA, COMMENT), "--");
-		assertLine(new AdaScanner(), new Line(LANG_ADA, CODE),    "Ada.Text_IO.Put_Line (\"Hello World\"); -- with comment");
+		assertLine(new AdaScanner(), new Line(Language.ADA, BLANK),   "     ");
+		assertLine(new AdaScanner(), new Line(Language.ADA, BLANK),   "\t");
+		assertLine(new AdaScanner(), new Line(Language.ADA, CODE),    "Ada.Text_IO.Put_Line (\"Hello World\");");
+		assertLine(new AdaScanner(), new Line(Language.ADA, COMMENT), "-- Line comment");
+		assertLine(new AdaScanner(), new Line(Language.ADA, COMMENT), "--");
+		assertLine(new AdaScanner(), new Line(Language.ADA, CODE),    "Ada.Text_IO.Put_Line (\"Hello World\"); -- with comment");
 	}
 
 	@Test
@@ -42,14 +42,14 @@ public class AdaScannerTest extends BaseScannerTest {
 			+ "end loop;\n";
 		
 		Line[] expected = {
-				new Line(LANG_ADA, COMMENT),
-				new Line(LANG_ADA, COMMENT),
-				new Line(LANG_ADA, BLANK),
-				new Line(LANG_ADA, CODE),
-				new Line(LANG_ADA, CODE),
-				new Line(LANG_ADA, CODE),
-				new Line(LANG_ADA, CODE),
-				new Line(LANG_ADA, CODE)
+				new Line(Language.ADA, COMMENT),
+				new Line(Language.ADA, COMMENT),
+				new Line(Language.ADA, BLANK),
+				new Line(Language.ADA, CODE),
+				new Line(Language.ADA, CODE),
+				new Line(Language.ADA, CODE),
+				new Line(Language.ADA, CODE),
+				new Line(Language.ADA, CODE)
 			};
 		
 		assertLines(new AdaScanner(), expected, code);
@@ -61,9 +61,9 @@ public class AdaScannerTest extends BaseScannerTest {
 		String code = "\"\nA\n\n";
 
 		Line[] expected = {
-				new Line(LANG_ADA, CODE),
-				new Line(LANG_ADA, CODE),
-				new Line(LANG_ADA, BLANK)
+				new Line(Language.ADA, CODE),
+				new Line(Language.ADA, CODE),
+				new Line(Language.ADA, BLANK)
 			};
 		assertLines(new AdaScanner(), expected, code);
 	}

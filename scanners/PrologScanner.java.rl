@@ -33,7 +33,7 @@ public class PrologScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_PROLOG;
+  	return Language.PROLOG;
   }
   
   

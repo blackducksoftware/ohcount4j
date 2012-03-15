@@ -46,7 +46,7 @@ public class MatlabScanner extends BaseScanner{
   
   @Override
   public Language getLanguage(){
-  	return Language.LANG_MATLAB;
+  	return Language.MATLAB;
   }
   
   
