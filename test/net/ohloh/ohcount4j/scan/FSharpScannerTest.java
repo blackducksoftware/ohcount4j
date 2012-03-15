@@ -9,26 +9,26 @@ public class FSharpScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, BLANK),   "\n");
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, BLANK),   "     \n");
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, BLANK),   "\t\n");
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, CODE),    "let bound = int (System.Math.Sqrt(float n))\n");
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, COMMENT), "(* Block Comment *)\n");
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, COMMENT), "// Line comment\n");
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, COMMENT), "//\n");
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, CODE),    "let x = 3 + (4 * 5) // with comment\n");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, BLANK),   "\n");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, BLANK),   "     \n");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, BLANK),   "\t\n");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, CODE),    "let bound = int (System.Math.Sqrt(float n))\n");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, COMMENT), "(* Block Comment *)\n");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, COMMENT), "// Line comment\n");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, COMMENT), "//\n");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, CODE),    "let x = 3 + (4 * 5) // with comment\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, BLANK),   "     ");
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, BLANK),   "\t");
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, CODE),    "let bound = int (System.Math.Sqrt(float n))");
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, COMMENT), "(* Block Comment *)");
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, COMMENT), "// Line comment");
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, COMMENT), "//");
-		assertLine(new FSharpScanner(), new Line(Language.FSHARP, CODE),    "let x = 3 + (4 * 5) // with comment");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, BLANK),   "     ");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, BLANK),   "\t");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, CODE),    "let bound = int (System.Math.Sqrt(float n))");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, COMMENT), "(* Block Comment *)");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, COMMENT), "// Line comment");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, COMMENT), "//");
+		assertLine(Language.FSHARP, new Line(Language.FSHARP, CODE),    "let x = 3 + (4 * 5) // with comment");
 	}
 
 	@Test
@@ -53,7 +53,7 @@ public class FSharpScannerTest extends BaseScannerTest {
 			new Line(Language.FSHARP, CODE),
 			new Line(Language.FSHARP, CODE)
 		};
-		assertLines(new FSharpScanner(), expected, code);
+		assertLines(Language.FSHARP, expected, code);
 	}
 
 	@Test
@@ -66,6 +66,6 @@ public class FSharpScannerTest extends BaseScannerTest {
 				new Line(Language.FSHARP, BLANK),
 				new Line(Language.FSHARP, BLANK)
 			};
-		assertLines(new FSharpScanner(), expected, code);
+		assertLines(Language.FSHARP, expected, code);
 	}
 }

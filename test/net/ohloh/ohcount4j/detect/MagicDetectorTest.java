@@ -1,7 +1,7 @@
 package net.ohloh.ohcount4j.detect;
 
+import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.OhcountException;
-import net.ohloh.ohcount4j.scan.RubyScanner;
 
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.assertEquals;
@@ -24,6 +24,6 @@ public class MagicDetectorTest {
 		assertEquals(null, MagicDetector.detect(""));
 		assertEquals(null, MagicDetector.detect("#!/usr/bin/env unknown_language\n"));
 
-		assertEquals(RubyScanner.class, MagicDetector.detect("#!/usr/bin/env ruby\n"));
+		assertEquals(Language.RUBY, MagicDetector.detect("#!/usr/bin/env ruby\n"));
 	}
 }

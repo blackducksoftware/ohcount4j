@@ -1,8 +1,6 @@
 package net.ohloh.ohcount4j.scan;
 
-import static net.ohloh.ohcount4j.Entity.BLANK;
-import static net.ohloh.ohcount4j.Entity.CODE;
-import static net.ohloh.ohcount4j.Entity.COMMENT;
+import static net.ohloh.ohcount4j.Entity.*;
 import net.ohloh.ohcount4j.Language;
 
 import org.testng.annotations.Test;
@@ -11,24 +9,24 @@ public class ShellScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new ShellScanner(), new Line(Language.SHELL, BLANK),   "\n");
-		assertLine(new ShellScanner(), new Line(Language.SHELL, BLANK),   "     \n");
-		assertLine(new ShellScanner(), new Line(Language.SHELL, BLANK),   "\t\n");
-		assertLine(new ShellScanner(), new Line(Language.SHELL, CODE),    "echo \"hello\"\n");
-		assertLine(new ShellScanner(), new Line(Language.SHELL, COMMENT), "# Line comment\n");
-		assertLine(new ShellScanner(), new Line(Language.SHELL, COMMENT), "#\n");
-		assertLine(new ShellScanner(), new Line(Language.SHELL, CODE),    "ls # with comment\n");
+		assertLine(Language.SHELL, new Line(Language.SHELL, BLANK),   "\n");
+		assertLine(Language.SHELL, new Line(Language.SHELL, BLANK),   "     \n");
+		assertLine(Language.SHELL, new Line(Language.SHELL, BLANK),   "\t\n");
+		assertLine(Language.SHELL, new Line(Language.SHELL, CODE),    "echo \"hello\"\n");
+		assertLine(Language.SHELL, new Line(Language.SHELL, COMMENT), "# Line comment\n");
+		assertLine(Language.SHELL, new Line(Language.SHELL, COMMENT), "#\n");
+		assertLine(Language.SHELL, new Line(Language.SHELL, CODE),    "ls # with comment\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new ShellScanner(), new Line(Language.SHELL, BLANK),   "     ");
-		assertLine(new ShellScanner(), new Line(Language.SHELL, BLANK),   "\t");
-		assertLine(new ShellScanner(), new Line(Language.SHELL, CODE),    "echo \"hello\"");
-		assertLine(new ShellScanner(), new Line(Language.SHELL, COMMENT), "# Line comment");
-		assertLine(new ShellScanner(), new Line(Language.SHELL, COMMENT), "#");
-		assertLine(new ShellScanner(), new Line(Language.SHELL, CODE),    "ls # with comment");
+		assertLine(Language.SHELL, new Line(Language.SHELL, BLANK),   "     ");
+		assertLine(Language.SHELL, new Line(Language.SHELL, BLANK),   "\t");
+		assertLine(Language.SHELL, new Line(Language.SHELL, CODE),    "echo \"hello\"");
+		assertLine(Language.SHELL, new Line(Language.SHELL, COMMENT), "# Line comment");
+		assertLine(Language.SHELL, new Line(Language.SHELL, COMMENT), "#");
+		assertLine(Language.SHELL, new Line(Language.SHELL, CODE),    "ls # with comment");
 	}
 
 	@Test
@@ -51,7 +49,7 @@ public class ShellScannerTest extends BaseScannerTest {
 			new Line(Language.SHELL, CODE),
 			new Line(Language.SHELL, CODE)
 		};
-		assertLines(new ShellScanner(), expected, code);
+		assertLines(Language.SHELL, expected, code);
 	}
 	
 }

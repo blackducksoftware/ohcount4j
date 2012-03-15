@@ -11,30 +11,30 @@ public class PascalScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, BLANK),   "\n");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, BLANK),   "     \n");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, BLANK),   "\t\n");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, CODE),    "Infile_name := 'A:\' + 'PROG006' + '.OUT';\n");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, COMMENT), "{ Bracket Comment }\n");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, COMMENT), "(* Starparen Comment *)\n");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, COMMENT), "{ (* Nested Comment *) }\n");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, COMMENT), "(* { Nested Comment } *)\n");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, COMMENT), "// Line comment\n");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, CODE),    "File_name = String[14]; { with comment }\n");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, BLANK),   "\n");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, BLANK),   "     \n");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, BLANK),   "\t\n");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, CODE),    "Infile_name := 'A:\' + 'PROG006' + '.OUT';\n");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, COMMENT), "{ Bracket Comment }\n");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, COMMENT), "(* Starparen Comment *)\n");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, COMMENT), "{ (* Nested Comment *) }\n");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, COMMENT), "(* { Nested Comment } *)\n");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, COMMENT), "// Line comment\n");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, CODE),    "File_name = String[14]; { with comment }\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, BLANK),   "     ");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, BLANK),   "\t");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, CODE),    "Infile_name := 'A:\' + 'PROG006' + '.OUT';");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, COMMENT), "{ Bracket Comment }");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, COMMENT), "(* Starparen Comment *)");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, COMMENT), "{ (* Nested Comment *) }");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, COMMENT), "(* { Nested Comment } *)");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, COMMENT), "// Line comment");
-		assertLine(new PascalScanner(), new Line(Language.PASCAL, CODE),    "File_name = String[14]; { with comment }");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, BLANK),   "     ");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, BLANK),   "\t");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, CODE),    "Infile_name := 'A:\' + 'PROG006' + '.OUT';");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, COMMENT), "{ Bracket Comment }");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, COMMENT), "(* Starparen Comment *)");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, COMMENT), "{ (* Nested Comment *) }");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, COMMENT), "(* { Nested Comment } *)");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, COMMENT), "// Line comment");
+		assertLine(Language.PASCAL, new Line(Language.PASCAL, CODE),    "File_name = String[14]; { with comment }");
 	}
 
 	@Test
@@ -59,7 +59,7 @@ public class PascalScannerTest extends BaseScannerTest {
 			new Line(Language.PASCAL, COMMENT),
 			new Line(Language.PASCAL, COMMENT)
 		};
-		assertLines(new PascalScanner(), expected, code);
+		assertLines(Language.PASCAL, expected, code);
 	}
 
 	@Test
@@ -72,7 +72,7 @@ public class PascalScannerTest extends BaseScannerTest {
 				new Line(Language.PASCAL, BLANK),
 				new Line(Language.PASCAL, BLANK)
 			};
-		assertLines(new PascalScanner(), expected, code);
+		assertLines(Language.PASCAL, expected, code);
 	}
 	
 	@Test
@@ -85,7 +85,7 @@ public class PascalScannerTest extends BaseScannerTest {
 				new Line(Language.PASCAL, BLANK),
 				new Line(Language.PASCAL, BLANK)
 			};
-		assertLines(new PascalScanner(), expected, code);
+		assertLines(Language.PASCAL, expected, code);
 	}
 	
 	@Test
@@ -100,7 +100,7 @@ public class PascalScannerTest extends BaseScannerTest {
 				new Line(Language.PASCAL, BLANK),
 				new Line(Language.PASCAL, COMMENT)
 			};
-		assertLines(new PascalScanner(), expected, code);
+		assertLines(Language.PASCAL, expected, code);
 	}
 	
 }

@@ -2,7 +2,6 @@ package net.ohloh.ohcount4j.scan;
 
 import org.testng.annotations.Test;
 
-import net.ohloh.ohcount4j.scan.JavaScanner;
 import static net.ohloh.ohcount4j.Entity.*;
 import net.ohloh.ohcount4j.Language;
 
@@ -10,26 +9,26 @@ public class JavaScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new JavaScanner(), new Line(Language.JAVA, BLANK),   "\n");
-		assertLine(new JavaScanner(), new Line(Language.JAVA, BLANK),   "     \n");
-		assertLine(new JavaScanner(), new Line(Language.JAVA, BLANK),   "\t\n");
-		assertLine(new JavaScanner(), new Line(Language.JAVA, CODE),    "import java.util.List;\n");
-		assertLine(new JavaScanner(), new Line(Language.JAVA, COMMENT), "/* Block Comment */\n");
-		assertLine(new JavaScanner(), new Line(Language.JAVA, COMMENT), "// Line comment\n");
-		assertLine(new JavaScanner(), new Line(Language.JAVA, COMMENT), "//\n");
-		assertLine(new JavaScanner(), new Line(Language.JAVA, CODE),    "import java.util.List; // with comment\n");
+		assertLine(Language.JAVA, new Line(Language.JAVA, BLANK),   "\n");
+		assertLine(Language.JAVA, new Line(Language.JAVA, BLANK),   "     \n");
+		assertLine(Language.JAVA, new Line(Language.JAVA, BLANK),   "\t\n");
+		assertLine(Language.JAVA, new Line(Language.JAVA, CODE),    "import java.util.List;\n");
+		assertLine(Language.JAVA, new Line(Language.JAVA, COMMENT), "/* Block Comment */\n");
+		assertLine(Language.JAVA, new Line(Language.JAVA, COMMENT), "// Line comment\n");
+		assertLine(Language.JAVA, new Line(Language.JAVA, COMMENT), "//\n");
+		assertLine(Language.JAVA, new Line(Language.JAVA, CODE),    "import java.util.List; // with comment\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new JavaScanner(), new Line(Language.JAVA, BLANK),   "     ");
-		assertLine(new JavaScanner(), new Line(Language.JAVA, BLANK),   "\t");
-		assertLine(new JavaScanner(), new Line(Language.JAVA, CODE),    "import java.util.List;");
-		assertLine(new JavaScanner(), new Line(Language.JAVA, COMMENT), "/* Block Comment */");
-		assertLine(new JavaScanner(), new Line(Language.JAVA, COMMENT), "// Line comment");
-		assertLine(new JavaScanner(), new Line(Language.JAVA, COMMENT), "//");
-		assertLine(new JavaScanner(), new Line(Language.JAVA, CODE),    "import java.util.List; // with comment");
+		assertLine(Language.JAVA, new Line(Language.JAVA, BLANK),   "     ");
+		assertLine(Language.JAVA, new Line(Language.JAVA, BLANK),   "\t");
+		assertLine(Language.JAVA, new Line(Language.JAVA, CODE),    "import java.util.List;");
+		assertLine(Language.JAVA, new Line(Language.JAVA, COMMENT), "/* Block Comment */");
+		assertLine(Language.JAVA, new Line(Language.JAVA, COMMENT), "// Line comment");
+		assertLine(Language.JAVA, new Line(Language.JAVA, COMMENT), "//");
+		assertLine(Language.JAVA, new Line(Language.JAVA, CODE),    "import java.util.List; // with comment");
 	}
 
 	@Test
@@ -54,7 +53,7 @@ public class JavaScannerTest extends BaseScannerTest {
 			new Line(Language.JAVA, CODE),
 			new Line(Language.JAVA, CODE)
 		};
-		assertLines(new JavaScanner(), expected, code);
+		assertLines(Language.JAVA, expected, code);
 	}
 
 	@Test
@@ -67,7 +66,7 @@ public class JavaScannerTest extends BaseScannerTest {
 				new Line(Language.JAVA, CODE),
 				new Line(Language.JAVA, BLANK)
 			};
-		assertLines(new JavaScanner(), expected, code);
+		assertLines(Language.JAVA, expected, code);
 	}
 
 	@Test
@@ -80,6 +79,6 @@ public class JavaScannerTest extends BaseScannerTest {
 				new Line(Language.JAVA, BLANK),
 				new Line(Language.JAVA, BLANK)
 			};
-		assertLines(new JavaScanner(), expected, code);
+		assertLines(Language.JAVA, expected, code);
 	}
 }

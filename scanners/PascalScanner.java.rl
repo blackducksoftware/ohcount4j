@@ -1,7 +1,5 @@
 package net.ohloh.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
-
 public class PascalScanner extends BaseScanner{
 
   %%{
@@ -48,10 +46,5 @@ public class PascalScanner extends BaseScanner{
     %% write init;
     init();
     %% write exec;
-  }
-  
-  @Override
-  public Language getLanguage(){
-  	return Language.PASCAL;
   }
 }

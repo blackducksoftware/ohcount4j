@@ -9,24 +9,24 @@ public class CSharpScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new CSharpScanner(), new Line(Language.CSHARP, BLANK),   "\n");
-		assertLine(new CSharpScanner(), new Line(Language.CSHARP, BLANK),   "     \n");
-		assertLine(new CSharpScanner(), new Line(Language.CSHARP, BLANK),   "\t\n");
-		assertLine(new CSharpScanner(), new Line(Language.CSHARP, CODE),    "using System;\n");
-		assertLine(new CSharpScanner(), new Line(Language.CSHARP, COMMENT), "/* Block Comment */\n");
-		assertLine(new CSharpScanner(), new Line(Language.CSHARP, COMMENT), "// Line comment\n");
-		assertLine(new CSharpScanner(), new Line(Language.CSHARP, CODE),    "Console.WriteLine(\"Hello, World!\"); // Single line comment on code line\n");
+		assertLine(Language.CSHARP, new Line(Language.CSHARP, BLANK),   "\n");
+		assertLine(Language.CSHARP, new Line(Language.CSHARP, BLANK),   "     \n");
+		assertLine(Language.CSHARP, new Line(Language.CSHARP, BLANK),   "\t\n");
+		assertLine(Language.CSHARP, new Line(Language.CSHARP, CODE),    "using System;\n");
+		assertLine(Language.CSHARP, new Line(Language.CSHARP, COMMENT), "/* Block Comment */\n");
+		assertLine(Language.CSHARP, new Line(Language.CSHARP, COMMENT), "// Line comment\n");
+		assertLine(Language.CSHARP, new Line(Language.CSHARP, CODE),    "Console.WriteLine(\"Hello, World!\"); // Single line comment on code line\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new CSharpScanner(), new Line(Language.CSHARP, BLANK),   "     ");
-		assertLine(new CSharpScanner(), new Line(Language.CSHARP, BLANK),   "\t");
-		assertLine(new CSharpScanner(), new Line(Language.CSHARP, CODE),    "using System;");
-		assertLine(new CSharpScanner(), new Line(Language.CSHARP, COMMENT), "/* Block Comment */");
-		assertLine(new CSharpScanner(), new Line(Language.CSHARP, COMMENT), "// Line comment");
-		assertLine(new CSharpScanner(), new Line(Language.CSHARP, CODE),    "Console.WriteLine(\"Hello, World!\"); // Single line comment on code line");
+		assertLine(Language.CSHARP, new Line(Language.CSHARP, BLANK),   "     ");
+		assertLine(Language.CSHARP, new Line(Language.CSHARP, BLANK),   "\t");
+		assertLine(Language.CSHARP, new Line(Language.CSHARP, CODE),    "using System;");
+		assertLine(Language.CSHARP, new Line(Language.CSHARP, COMMENT), "/* Block Comment */");
+		assertLine(Language.CSHARP, new Line(Language.CSHARP, COMMENT), "// Line comment");
+		assertLine(Language.CSHARP, new Line(Language.CSHARP, CODE),    "Console.WriteLine(\"Hello, World!\"); // Single line comment on code line");
 	}
 
 	@Test
@@ -61,7 +61,7 @@ public class CSharpScannerTest extends BaseScannerTest {
 				new Line(Language.CSHARP, CODE),
 				new Line(Language.CSHARP, CODE)
 		};
-		assertLines(new CSharpScanner(), expected, code);
+		assertLines(Language.CSHARP, expected, code);
 	}
 	
 }

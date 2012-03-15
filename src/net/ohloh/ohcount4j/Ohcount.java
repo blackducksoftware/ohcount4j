@@ -8,7 +8,6 @@ import java.util.List;
 import net.ohloh.ohcount4j.AnnotationWriter;
 import net.ohloh.ohcount4j.detect.Detector;
 import net.ohloh.ohcount4j.io.SourceFile;
-import net.ohloh.ohcount4j.scan.Scanner;
 
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
@@ -65,9 +64,9 @@ public class Ohcount {
 		AnnotationWriter handler = new AnnotationWriter();
 		for (File file : files) {
 			SourceFile sourceFile = new SourceFile(file);
-			Scanner scanner = Detector.detect(sourceFile);
-			if (scanner != null) {
-				scanner.scan(sourceFile, handler);
+			Language language = Detector.detect(sourceFile);
+			if (language != null) {
+				language.makeScanner().scan(sourceFile, handler);
 			}
 		}
 	}
@@ -75,10 +74,9 @@ public class Ohcount {
 	static void detect(List<File> files) throws IOException, OhcountException {
 		for (File file : files) {
 			SourceFile sourceFile = new SourceFile(file);
-			Scanner scanner = Detector.detect(sourceFile);
-			if (scanner != null) {
-				System.out.printf("%s\t%s\n", 
-					scanner.getLanguage().niceName(), file.getPath());
+			Language language = Detector.detect(sourceFile);
+			if (language != null) {
+				System.out.printf("%s\t%s\n", language.niceName(), file.getPath());
 			}
 		}
 	}
@@ -87,10 +85,10 @@ public class Ohcount {
 		SummaryWriter summary = new SummaryWriter();
 		for (File file : files) {
 			SourceFile sourceFile = new SourceFile(file);
-			Scanner scanner = Detector.detect(sourceFile);
-			if (scanner != null) {
+			Language language = Detector.detect(sourceFile);
+			if (language != null) {
 				summary.beginFile();
-				scanner.scan(sourceFile, summary);
+				language.makeScanner().scan(sourceFile, summary);
 				summary.endFile();
 			}
 		}

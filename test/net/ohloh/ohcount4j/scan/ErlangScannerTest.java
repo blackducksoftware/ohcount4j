@@ -9,24 +9,24 @@ public class ErlangScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new ErlangScanner(), new Line(Language.ERLANG, BLANK),   "\n");
-		assertLine(new ErlangScanner(), new Line(Language.ERLANG, BLANK),   "     \n");
-		assertLine(new ErlangScanner(), new Line(Language.ERLANG, BLANK),   "\t\n");
-		assertLine(new ErlangScanner(), new Line(Language.ERLANG, CODE),    "import Erlang.util.List;\n");
-		assertLine(new ErlangScanner(), new Line(Language.ERLANG, COMMENT), "%% Line comment\n");
-		assertLine(new ErlangScanner(), new Line(Language.ERLANG, COMMENT), "%\n");
-		assertLine(new ErlangScanner(), new Line(Language.ERLANG, CODE),    "import Erlang.util.List; % with comment\n");
+		assertLine(Language.ERLANG, new Line(Language.ERLANG, BLANK),   "\n");
+		assertLine(Language.ERLANG, new Line(Language.ERLANG, BLANK),   "     \n");
+		assertLine(Language.ERLANG, new Line(Language.ERLANG, BLANK),   "\t\n");
+		assertLine(Language.ERLANG, new Line(Language.ERLANG, CODE),    "import Erlang.util.List;\n");
+		assertLine(Language.ERLANG, new Line(Language.ERLANG, COMMENT), "%% Line comment\n");
+		assertLine(Language.ERLANG, new Line(Language.ERLANG, COMMENT), "%\n");
+		assertLine(Language.ERLANG, new Line(Language.ERLANG, CODE),    "import Erlang.util.List; % with comment\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new ErlangScanner(), new Line(Language.ERLANG, BLANK),   "     ");
-		assertLine(new ErlangScanner(), new Line(Language.ERLANG, BLANK),   "\t");
-		assertLine(new ErlangScanner(), new Line(Language.ERLANG, CODE),    "import Erlang.util.List;");
-		assertLine(new ErlangScanner(), new Line(Language.ERLANG, COMMENT), "%% Line comment");
-		assertLine(new ErlangScanner(), new Line(Language.ERLANG, COMMENT), "%");
-		assertLine(new ErlangScanner(), new Line(Language.ERLANG, CODE),    "import Erlang.util.List; % with comment");
+		assertLine(Language.ERLANG, new Line(Language.ERLANG, BLANK),   "     ");
+		assertLine(Language.ERLANG, new Line(Language.ERLANG, BLANK),   "\t");
+		assertLine(Language.ERLANG, new Line(Language.ERLANG, CODE),    "import Erlang.util.List;");
+		assertLine(Language.ERLANG, new Line(Language.ERLANG, COMMENT), "%% Line comment");
+		assertLine(Language.ERLANG, new Line(Language.ERLANG, COMMENT), "%");
+		assertLine(Language.ERLANG, new Line(Language.ERLANG, CODE),    "import Erlang.util.List; % with comment");
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class ErlangScannerTest extends BaseScannerTest {
 			new Line(Language.ERLANG, CODE),
 			new Line(Language.ERLANG, CODE)
 		};
-		assertLines(new ErlangScanner(), expected, code);
+		assertLines(Language.ERLANG, expected, code);
 	}
 
 }

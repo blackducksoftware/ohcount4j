@@ -2,7 +2,6 @@ package net.ohloh.ohcount4j.scan;
 
 import org.testng.annotations.Test;
 
-import net.ohloh.ohcount4j.scan.RubyScanner;
 import static net.ohloh.ohcount4j.Entity.*;
 import net.ohloh.ohcount4j.Language;
 
@@ -10,24 +9,24 @@ public class RubyScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new RubyScanner(), new Line(Language.RUBY, BLANK),   "\n");
-		assertLine(new RubyScanner(), new Line(Language.RUBY, BLANK),   "     \n");
-		assertLine(new RubyScanner(), new Line(Language.RUBY, BLANK),   "\t\n");
-		assertLine(new RubyScanner(), new Line(Language.RUBY, CODE),    "require 'lib'\n");
-		assertLine(new RubyScanner(), new Line(Language.RUBY, COMMENT), "# line comment\n");
-		assertLine(new RubyScanner(), new Line(Language.RUBY, COMMENT), "#\n");
-		assertLine(new RubyScanner(), new Line(Language.RUBY, CODE),    "require 'lib' // with comment\n");
+		assertLine(Language.RUBY, new Line(Language.RUBY, BLANK),   "\n");
+		assertLine(Language.RUBY, new Line(Language.RUBY, BLANK),   "     \n");
+		assertLine(Language.RUBY, new Line(Language.RUBY, BLANK),   "\t\n");
+		assertLine(Language.RUBY, new Line(Language.RUBY, CODE),    "require 'lib'\n");
+		assertLine(Language.RUBY, new Line(Language.RUBY, COMMENT), "# line comment\n");
+		assertLine(Language.RUBY, new Line(Language.RUBY, COMMENT), "#\n");
+		assertLine(Language.RUBY, new Line(Language.RUBY, CODE),    "require 'lib' // with comment\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new RubyScanner(), new Line(Language.RUBY, BLANK),   "     ");
-		assertLine(new RubyScanner(), new Line(Language.RUBY, BLANK),   "\t");
-		assertLine(new RubyScanner(), new Line(Language.RUBY, CODE),    "require 'lib'");
-		assertLine(new RubyScanner(), new Line(Language.RUBY, COMMENT), "# line comment");
-		assertLine(new RubyScanner(), new Line(Language.RUBY, COMMENT), "#");
-		assertLine(new RubyScanner(), new Line(Language.RUBY, CODE),    "require 'lib' // with comment");
+		assertLine(Language.RUBY, new Line(Language.RUBY, BLANK),   "     ");
+		assertLine(Language.RUBY, new Line(Language.RUBY, BLANK),   "\t");
+		assertLine(Language.RUBY, new Line(Language.RUBY, CODE),    "require 'lib'");
+		assertLine(Language.RUBY, new Line(Language.RUBY, COMMENT), "# line comment");
+		assertLine(Language.RUBY, new Line(Language.RUBY, COMMENT), "#");
+		assertLine(Language.RUBY, new Line(Language.RUBY, CODE),    "require 'lib' // with comment");
 	}
 
 	@Test
@@ -42,7 +41,7 @@ public class RubyScannerTest extends BaseScannerTest {
 			new Line(Language.RUBY, BLANK),
 			new Line(Language.RUBY, CODE)
 		};
-		assertLines(new RubyScanner(), expected, code);
+		assertLines(Language.RUBY, expected, code);
 	}
 
 	@Test
@@ -65,7 +64,7 @@ public class RubyScannerTest extends BaseScannerTest {
 			new Line(Language.RUBY, CODE),
 			new Line(Language.RUBY, CODE)
 		};
-		assertLines(new RubyScanner(), expected, code);
+		assertLines(Language.RUBY, expected, code);
 	}
 
 	@Test
@@ -84,7 +83,7 @@ public class RubyScannerTest extends BaseScannerTest {
 			new Line(Language.RUBY, CODE),
 			new Line(Language.RUBY, COMMENT)
 		};
-		assertLines(new RubyScanner(), expected, code);
+		assertLines(Language.RUBY, expected, code);
 	}
 
 	@Test
@@ -103,7 +102,7 @@ public class RubyScannerTest extends BaseScannerTest {
 			new Line(Language.RUBY, CODE),
 			new Line(Language.RUBY, COMMENT)
 		};
-		assertLines(new RubyScanner(), expected, code);
+		assertLines(Language.RUBY, expected, code);
 	}
 
 }

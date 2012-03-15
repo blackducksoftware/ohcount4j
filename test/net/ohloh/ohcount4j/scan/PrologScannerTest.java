@@ -9,26 +9,26 @@ public class PrologScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, BLANK),   "\n");
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, BLANK),   "     \n");
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, BLANK),   "\t\n");
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, CODE),    "hello_world :- write('Hello World!').\n");
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, COMMENT), "/* Block Comment */\n");
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, COMMENT), "% Line comment\n");
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, COMMENT), "%\n");
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, CODE),    "hello_world :- write('Hello World!'). // with comment\n");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, BLANK),   "\n");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, BLANK),   "     \n");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, BLANK),   "\t\n");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, CODE),    "hello_world :- write('Hello World!').\n");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, COMMENT), "/* Block Comment */\n");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, COMMENT), "% Line comment\n");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, COMMENT), "%\n");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, CODE),    "hello_world :- write('Hello World!'). // with comment\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, BLANK),   "     ");
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, BLANK),   "\t");
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, CODE),    "hello_world :- write('Hello World!').");
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, COMMENT), "/* Block Comment */");
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, COMMENT), "% Line comment");
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, COMMENT), "%");
-		assertLine(new PrologScanner(), new Line(Language.PROLOG, CODE),    "hello_world :- write('Hello World!'). // with comment");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, BLANK),   "     ");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, BLANK),   "\t");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, CODE),    "hello_world :- write('Hello World!').");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, COMMENT), "/* Block Comment */");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, COMMENT), "% Line comment");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, COMMENT), "%");
+		assertLine(Language.PROLOG, new Line(Language.PROLOG, CODE),    "hello_world :- write('Hello World!'). // with comment");
 	}
 
 	@Test
@@ -71,7 +71,7 @@ public class PrologScannerTest extends BaseScannerTest {
 			new Line(Language.PROLOG, CODE),
 			new Line(Language.PROLOG, CODE)
 		};
-		assertLines(new PrologScanner(), expected, code);
+		assertLines(Language.PROLOG, expected, code);
 	}
 
 }

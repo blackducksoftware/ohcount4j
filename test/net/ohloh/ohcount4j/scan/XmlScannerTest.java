@@ -9,22 +9,22 @@ public class XmlScannerTest extends BaseScannerTest {
 	
 	@Test
 	public void basic() {
-		assertLine(new XmlScanner(), new Line(Language.XML, BLANK),   "\n");
-		assertLine(new XmlScanner(), new Line(Language.XML, BLANK),   "     \n");
-		assertLine(new XmlScanner(), new Line(Language.XML, BLANK),   "\t\n");
-		assertLine(new XmlScanner(), new Line(Language.XML, CODE),    "<taskdef resource=\"testngtasks\" classpath=\"${lib}/testng-6.3.1.jar\"/>\n");
-		assertLine(new XmlScanner(), new Line(Language.XML, COMMENT), "<!--comment-->\n");
-		assertLine(new XmlScanner(), new Line(Language.XML, CODE),    "<property name=\"lib\" location=\"lib\"/> <!-- with comment -->\n");
+		assertLine(Language.XML, new Line(Language.XML, BLANK),   "\n");
+		assertLine(Language.XML, new Line(Language.XML, BLANK),   "     \n");
+		assertLine(Language.XML, new Line(Language.XML, BLANK),   "\t\n");
+		assertLine(Language.XML, new Line(Language.XML, CODE),    "<taskdef resource=\"testngtasks\" classpath=\"${lib}/testng-6.3.1.jar\"/>\n");
+		assertLine(Language.XML, new Line(Language.XML, COMMENT), "<!--comment-->\n");
+		assertLine(Language.XML, new Line(Language.XML, CODE),    "<property name=\"lib\" location=\"lib\"/> <!-- with comment -->\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new XmlScanner(), new Line(Language.XML, BLANK),   "     ");
-		assertLine(new XmlScanner(), new Line(Language.XML, BLANK),   "\t");
-		assertLine(new XmlScanner(), new Line(Language.XML, CODE),    "<taskdef resource=\"testngtasks\" classpath=\"${lib}/testng-6.3.1.jar\"/>");
-		assertLine(new XmlScanner(), new Line(Language.XML, COMMENT), "<!--comment-->");
-		assertLine(new XmlScanner(), new Line(Language.XML, CODE),    "<property name=\"lib\" location=\"lib\"/> <!-- with comment -->");
+		assertLine(Language.XML, new Line(Language.XML, BLANK),   "     ");
+		assertLine(Language.XML, new Line(Language.XML, BLANK),   "\t");
+		assertLine(Language.XML, new Line(Language.XML, CODE),    "<taskdef resource=\"testngtasks\" classpath=\"${lib}/testng-6.3.1.jar\"/>");
+		assertLine(Language.XML, new Line(Language.XML, COMMENT), "<!--comment-->");
+		assertLine(Language.XML, new Line(Language.XML, CODE),    "<property name=\"lib\" location=\"lib\"/> <!-- with comment -->");
 	}
 
 	@Test
@@ -50,7 +50,7 @@ public class XmlScannerTest extends BaseScannerTest {
 			new Line(Language.XML, BLANK),
 			new Line(Language.XML, CODE)
 		};
-		assertLines(new XmlScanner(), expected, code);
+		assertLines(Language.XML, expected, code);
 	}
 	
 	@Test
@@ -68,6 +68,6 @@ public class XmlScannerTest extends BaseScannerTest {
 				new Line(Language.XML, CODE),
 				new Line(Language.XML, COMMENT)
 		};
-		assertLines(new XmlScanner(), expected, code);
+		assertLines(Language.XML, expected, code);
 	}
 }

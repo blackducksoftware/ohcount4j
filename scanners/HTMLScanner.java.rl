@@ -63,9 +63,4 @@ public class HTMLScanner extends BaseScanner{
 		init();
 		%% write exec;
 	}
-
-	@Override
-	public Language getLanguage() {
-		return Language.HTML;
-	}
 }

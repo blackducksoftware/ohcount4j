@@ -1,7 +1,5 @@
 package net.ohloh.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
-
 public class VisualBasicScanner extends BaseScanner{
 
   %%{
@@ -27,11 +25,6 @@ public class VisualBasicScanner extends BaseScanner{
     %% write init;
     init();
     %% write exec;
-  }
-  
-  @Override
-  public Language getLanguage(){
-  	return Language.VB;
   }
   
 }

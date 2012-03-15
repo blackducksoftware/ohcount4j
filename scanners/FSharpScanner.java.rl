@@ -1,7 +1,5 @@
 package net.ohloh.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
-
 public class FSharpScanner extends BaseScanner{
 
   %%{
@@ -37,12 +35,4 @@ public class FSharpScanner extends BaseScanner{
     init();
     %% write exec;
   }
-  
-  @Override
-  public Language getLanguage(){
-  	return Language.FSHARP;
-  }
-  
-  
-  
 }

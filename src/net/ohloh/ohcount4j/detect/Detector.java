@@ -5,74 +5,45 @@ import java.io.IOException;
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.OhcountException;
 import net.ohloh.ohcount4j.io.Source;
-import net.ohloh.ohcount4j.scan.Scanner;
 
 public class Detector {
 
-	public static Scanner detect(Source source) throws OhcountException {
+	public static Language detect(Source source) throws OhcountException {
 
 		if (isBinary(source.getExtension())) {
 			return null;
 		}
 
-		Class<? extends Scanner> klass = null;
+		Language language = null;
 
 		try {
 
-			if (klass == null) {
-				klass = EmacsModeDetector.detect(source.head(100));
+			if (language == null) {
+				language = EmacsModeDetector.detect(source.head(100));
 			}
-			if (klass == null) {
-				klass = extensionDetect(source.getExtension(), source);
+			if (language == null) {
+				language = extensionDetect(source.getExtension(), source);
 			}
-			if (klass == null) {
-				klass = extensionDetect(source.getExtension().toLowerCase(), source);
+			if (language == null) {
+				language = extensionDetect(source.getExtension().toLowerCase(), source);
 			}
-			if (klass == null) {
-				klass = filenameDetect(source.getName());
+			if (language == null) {
+				language = Language.fromFilename(source.getName());
 			}
-			if (klass == null) {
-				klass = MagicDetector.detect(source.head(100));
+			if (language == null) {
+				language = MagicDetector.detect(source.head(100));
 			}
 
 		} catch (IOException e) {
 			throw new OhcountException(e);
 		}
 
-		return createInstance(klass);
-	}
-
-	private static Scanner createInstance(Class<? extends Scanner> klass) throws OhcountException {
-		if (klass == null) {
-			return null;
-		}
-
-		try {
-			return klass.newInstance();
-		} catch (InstantiationException e) {
-			throw new OhcountException(e);
-		} catch (IllegalAccessException e) {
-			throw new OhcountException(e);
-		}
-	}
-
-	private static Class<? extends Scanner> filenameDetect(String filename) {
-		Language language = Language.fromFilename(filename);
-		if (language != null) {
-			return language.scannerClass();
-		} else {
-			return null;
-		}
+		return language;
 	}
 
 	// Currently assumes extensions map uniquely to scanners.
-	private static Class<? extends Scanner> extensionDetect(String ext, Source source) {
-		Language language = Language.fromExtension(ext);
-		if (language != null) {
-			return language.scannerClass();
-		} else {
-			return null;
-		}
+	private static Language extensionDetect(String ext, Source source) {
+		return Language.fromExtension(ext);
 	}
 
 	public static boolean isBinary(String extension) {

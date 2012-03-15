@@ -9,30 +9,30 @@ public class MatlabScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, BLANK),   "\n");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, BLANK),   "     \n");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, BLANK),   "\t\n");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, CODE),    "Horiz = [1,2,3];\n");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, COMMENT), "%{ Block comment }%\n");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, COMMENT), "% Line comment\n");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, COMMENT), "...Line comment\n");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, COMMENT), "%\n");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, COMMENT), "...\n");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, CODE),    "f = inline('2*x*y', 'x', 'y'); % with comment\n");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, BLANK),   "\n");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, BLANK),   "     \n");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, BLANK),   "\t\n");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, CODE),    "Horiz = [1,2,3];\n");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, COMMENT), "%{ Block comment }%\n");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, COMMENT), "% Line comment\n");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, COMMENT), "...Line comment\n");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, COMMENT), "%\n");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, COMMENT), "...\n");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, CODE),    "f = inline('2*x*y', 'x', 'y'); % with comment\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, BLANK),   "     ");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, BLANK),   "\t");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, CODE),    "Horiz = [1,2,3];");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, COMMENT), "%{ Block comment }%");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, COMMENT), "% Line comment");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, COMMENT), "...Line comment");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, COMMENT), "%");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, COMMENT), "...");
-		assertLine(new MatlabScanner(), new Line(Language.MATLAB, CODE),    "f = inline('2*x*y', 'x', 'y'); % with comment");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, BLANK),   "     ");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, BLANK),   "\t");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, CODE),    "Horiz = [1,2,3];");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, COMMENT), "%{ Block comment }%");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, COMMENT), "% Line comment");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, COMMENT), "...Line comment");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, COMMENT), "%");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, COMMENT), "...");
+		assertLine(Language.MATLAB, new Line(Language.MATLAB, CODE),    "f = inline('2*x*y', 'x', 'y'); % with comment");
 	}
 
 	@Test
@@ -65,7 +65,7 @@ public class MatlabScannerTest extends BaseScannerTest {
 			new Line(Language.MATLAB, CODE),
 			new Line(Language.MATLAB, COMMENT)
 		};
-		assertLines(new MatlabScanner(), expected, code);
+		assertLines(Language.MATLAB, expected, code);
 	}
 
 	@Test
@@ -78,6 +78,6 @@ public class MatlabScannerTest extends BaseScannerTest {
 				new Line(Language.MATLAB, BLANK),
 				new Line(Language.MATLAB, BLANK)
 			};
-		assertLines(new MatlabScanner(), expected, code);
+		assertLines(Language.MATLAB, expected, code);
 	}
 }

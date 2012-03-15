@@ -1,7 +1,5 @@
 package net.ohloh.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
-
 public class ErlangScanner extends BaseScanner{
 
   %%{
@@ -29,12 +27,5 @@ public class ErlangScanner extends BaseScanner{
     init();
     %% write exec;
   }
-  
-  @Override
-  public Language getLanguage(){
-  	return Language.ERLANG;
-  }
-  
-  
   
 }

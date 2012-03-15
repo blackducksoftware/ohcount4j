@@ -5,22 +5,16 @@ import java.util.regex.Pattern;
 
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.OhcountException;
-import net.ohloh.ohcount4j.scan.Scanner;
 
 public class MagicDetector {
 
 	// Use libmagic to identify the buffer contents.
 	// Returns a Scanner class if the file type is recognized, otherwise null.
-	public static Class<? extends Scanner> detect(String buffer) throws OhcountException {
+	public static Language detect(String buffer) throws OhcountException {
 		String description = getMagicDescription(buffer);
 		String languageName = getLanguageName(description);
 
-		Language language = Language.fromName(languageName);
-		if (language != null) {
-			return language.scannerClass();
-		} else {
-			return null;
-		}
+		return Language.fromName(languageName);
 	}
 
 	protected static Pattern patterns[] = {

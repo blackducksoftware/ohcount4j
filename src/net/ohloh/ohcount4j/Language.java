@@ -8,23 +8,23 @@ import net.ohloh.ohcount4j.scan.*;
 public enum Language {
 	ACTIONSCRIPT("ActionScript", ActionScriptScanner.class),
 	ADA("Ada", AdaScanner.class),
-	ASM("Assembly", AssemblyScanner.class),
+	ASSEMBLY("Assembly", AssemblyScanner.class),
 	BOO("Boo", BooScanner.class),
 	C("C", CScanner.class),
-	CSHARP("C#", CSharpScanner.class),
-	CSS("CSS", CSSScanner.class),
+	CSHARP("C#", CScanner.class),
+	CSS("CSS", CScanner.class),
 	EIFFEL("Eiffel", EiffelScanner.class),
 	ERLANG("Erlang", ErlangScanner.class),
 	FSHARP("F#", FSharpScanner.class),
-	GROOVY("Groovy", GroovyScanner.class),
+	GROOVY("Groovy", CScanner.class),
 	HTML("HTML", HTMLScanner.class),
-	JAVA("Java", JavaScanner.class),
-	JAVASCRIPT("JavaScript", JavaScriptScanner.class),
+	JAVA("Java", CScanner.class),
+	JAVASCRIPT("JavaScript", CScanner.class),
 	LISP("Lisp", LispScanner.class),
 	LUA("Lua", LuaScanner.class),
 	MAKE("Make", MakeScanner.class),
 	MATLAB("Matlab", MatlabScanner.class),
-	OBJECTIVE_C("Objective-C", ObjectiveCScanner.class),
+	OBJECTIVE_C("Objective-C", CScanner.class),
 	PASCAL("Pascal", PascalScanner.class),
 	PROLOG("Prolog", PrologScanner.class),
 	PYTHON("Python", PythonScanner.class),
@@ -38,7 +38,7 @@ public enum Language {
 	XML("XML", XmlScanner.class);
 
 	private final String niceName;
-	private final Class <? extends Scanner> scannerClass;
+	private final Class<? extends Scanner> scannerClass;
 
 	private static Map<String, Language> extensionMap;
 	private static Map<String, Language> filenameMap;
@@ -63,7 +63,7 @@ public enum Language {
 			.extension("adb")
 			;
 
-		ASM
+		ASSEMBLY
 			.extension("asm")
 			;
 
@@ -89,7 +89,6 @@ public enum Language {
 			;
 
 		FSHARP
-			.alias("F#")
 			.extension("fs")
 			;
 
@@ -188,6 +187,18 @@ public enum Language {
 
 	public Class<? extends Scanner> scannerClass() {
 		return scannerClass;
+	}
+
+	public Scanner makeScanner() throws OhcountException {
+		try {
+			Scanner scanner = this.scannerClass.newInstance();
+			scanner.setDefaultLanguage(this);
+			return scanner;
+		} catch (InstantiationException e) {
+			throw new OhcountException(e);
+		} catch (IllegalAccessException e) {
+			throw new OhcountException(e);
+		}
 	}
 
 	public Language extension(String ext) {

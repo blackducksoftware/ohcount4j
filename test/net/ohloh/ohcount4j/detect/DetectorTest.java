@@ -1,9 +1,10 @@
 package net.ohloh.ohcount4j.detect;
 
+import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.OhcountException;
 import net.ohloh.ohcount4j.detect.Detector;
 import net.ohloh.ohcount4j.io.SourceBuffer;
-import net.ohloh.ohcount4j.scan.*;
+import static net.ohloh.ohcount4j.Language.*;
 
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -12,20 +13,20 @@ public class DetectorTest {
 
 	@Test
 	public void basic() throws OhcountException {
-		assertDetect("main.c", CScanner.class);
-		assertDetect("main.css", CSSScanner.class);
-		assertDetect("main.htm", HTMLScanner.class);
-		assertDetect("main.html", HTMLScanner.class);
-		assertDetect("main.java", JavaScanner.class);
-		assertDetect("main.js", JavaScriptScanner.class);
-		assertDetect("Makefile", MakeScanner.class);
-		assertDetect("main.rb", RubyScanner.class);
-		assertDetect("config.ru", RubyScanner.class);
-		assertDetect("Gemfile", RubyScanner.class);
-		assertDetect("Rakefile", RubyScanner.class);
+		assertDetect("main.c",    C);
+		assertDetect("main.css",  CSS);
+		assertDetect("main.htm",  HTML);
+		assertDetect("main.html", HTML);
+		assertDetect("main.java", JAVA);
+		assertDetect("main.js",   JAVASCRIPT);
+		assertDetect("Makefile",  MAKE);
+		assertDetect("main.rb",   RUBY);
+		assertDetect("config.ru", RUBY);
+		assertDetect("Gemfile",   RUBY);
+		assertDetect("Rakefile",  RUBY);
 	}
 
-	protected void assertDetect(String filename, Class<?> c) throws OhcountException {
-		assertEquals(c, Detector.detect(new SourceBuffer(filename, "")).getClass());
+	protected void assertDetect(String filename, Language language) throws OhcountException {
+		assertEquals(language, Detector.detect(new SourceBuffer(filename, "")));
 	}
 }

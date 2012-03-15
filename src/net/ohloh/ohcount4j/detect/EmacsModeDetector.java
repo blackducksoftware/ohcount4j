@@ -4,7 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.ohloh.ohcount4j.Language;
-import net.ohloh.ohcount4j.scan.Scanner;
 
 public class EmacsModeDetector {
 
@@ -29,14 +28,8 @@ public class EmacsModeDetector {
 
 	// Inspect the buffer for a possible Emacs mode header.
 	// Returns a Scanner if a mode header is recognized, otherwise null.
-	public static Class<? extends Scanner> detect(String buffer) {
+	public static Language detect(String buffer) {
 		String mode = getMode(buffer);
-
-		Language language = Language.fromName(mode);
-		if (language != null) {
-			return language.scannerClass();
-		} else {
-			return null;
-		}
+		return Language.fromName(mode);
 	}
 }

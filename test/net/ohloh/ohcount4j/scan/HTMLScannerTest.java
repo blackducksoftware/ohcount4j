@@ -2,7 +2,6 @@ package net.ohloh.ohcount4j.scan;
 
 import org.testng.annotations.Test;
 
-import net.ohloh.ohcount4j.scan.HTMLScanner;
 import static net.ohloh.ohcount4j.Entity.*;
 import net.ohloh.ohcount4j.Language;
 
@@ -10,22 +9,22 @@ public class HTMLScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new HTMLScanner(), new Line(Language.HTML, BLANK),   "\n");
-		assertLine(new HTMLScanner(), new Line(Language.HTML, BLANK),   "     \n");
-		assertLine(new HTMLScanner(), new Line(Language.HTML, BLANK),   "\t\n");
-		assertLine(new HTMLScanner(), new Line(Language.HTML, CODE),    "<html>\n");
-		assertLine(new HTMLScanner(), new Line(Language.HTML, COMMENT), "<!-- comment -->\n");
-		assertLine(new HTMLScanner(), new Line(Language.HTML, CODE),    "<html><!-- with comment -->\n");
+		assertLine(Language.HTML, new Line(Language.HTML, BLANK),   "\n");
+		assertLine(Language.HTML, new Line(Language.HTML, BLANK),   "     \n");
+		assertLine(Language.HTML, new Line(Language.HTML, BLANK),   "\t\n");
+		assertLine(Language.HTML, new Line(Language.HTML, CODE),    "<html>\n");
+		assertLine(Language.HTML, new Line(Language.HTML, COMMENT), "<!-- comment -->\n");
+		assertLine(Language.HTML, new Line(Language.HTML, CODE),    "<html><!-- with comment -->\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new HTMLScanner(), new Line(Language.HTML, BLANK),   "     ");
-		assertLine(new HTMLScanner(), new Line(Language.HTML, BLANK),   "\t");
-		assertLine(new HTMLScanner(), new Line(Language.HTML, CODE),    "<html>");
-		assertLine(new HTMLScanner(), new Line(Language.HTML, COMMENT), "<!-- comment -->");
-		assertLine(new HTMLScanner(), new Line(Language.HTML, CODE),    "<html><!-- with comment -->");
+		assertLine(Language.HTML, new Line(Language.HTML, BLANK),   "     ");
+		assertLine(Language.HTML, new Line(Language.HTML, BLANK),   "\t");
+		assertLine(Language.HTML, new Line(Language.HTML, CODE),    "<html>");
+		assertLine(Language.HTML, new Line(Language.HTML, COMMENT), "<!-- comment -->");
+		assertLine(Language.HTML, new Line(Language.HTML, CODE),    "<html><!-- with comment -->");
 	}
 
 	@Test
@@ -52,7 +51,7 @@ public class HTMLScannerTest extends BaseScannerTest {
 			new Line(Language.HTML, CODE),
 			new Line(Language.HTML, CODE)
 		};
-		assertLines(new HTMLScanner(), expected, code);
+		assertLines(Language.HTML, expected, code);
 	}
 
 	@Test
@@ -71,7 +70,7 @@ public class HTMLScannerTest extends BaseScannerTest {
 			new Line(Language.HTML, CODE),
 			new Line(Language.HTML, CODE)
 		};
-		assertLines(new HTMLScanner(), expected, code);
+		assertLines(Language.HTML, expected, code);
 	}
 
 	@Test
@@ -86,7 +85,7 @@ public class HTMLScannerTest extends BaseScannerTest {
 			new Line(Language.CSS, CODE),
 			new Line(Language.HTML, CODE)
 		};
-		assertLines(new HTMLScanner(), expected, code);
+		assertLines(Language.HTML, expected, code);
 	}
 
 	@Test
@@ -101,7 +100,7 @@ public class HTMLScannerTest extends BaseScannerTest {
 			new Line(Language.HTML, CODE),
 			new Line(Language.HTML, CODE)
 		};
-		assertLines(new HTMLScanner(), expected, code);
+		assertLines(Language.HTML, expected, code);
 	}
 
 	@Test
@@ -116,7 +115,7 @@ public class HTMLScannerTest extends BaseScannerTest {
 			new Line(Language.CSS, COMMENT),
 			new Line(Language.HTML, CODE)
 		};
-		assertLines(new HTMLScanner(), expected, code);
+		assertLines(Language.HTML, expected, code);
 	}
 
 	@Test
@@ -135,7 +134,7 @@ public class HTMLScannerTest extends BaseScannerTest {
 			new Line(Language.HTML, CODE),
 			new Line(Language.HTML, CODE)
 		};
-		assertLines(new HTMLScanner(), expected, code);
+		assertLines(Language.HTML, expected, code);
 	}
 
 	@Test
@@ -150,6 +149,6 @@ public class HTMLScannerTest extends BaseScannerTest {
 			new Line(Language.JAVASCRIPT, CODE),
 			new Line(Language.HTML, CODE)
 		};
-		assertLines(new HTMLScanner(), expected, code);
+		assertLines(Language.HTML, expected, code);
 	}
 }

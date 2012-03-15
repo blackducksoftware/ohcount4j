@@ -2,7 +2,6 @@ package net.ohloh.ohcount4j.scan;
 
 import org.testng.annotations.Test;
 
-import net.ohloh.ohcount4j.scan.CScanner;
 import static net.ohloh.ohcount4j.Entity.*;
 import net.ohloh.ohcount4j.Language;
 
@@ -10,26 +9,26 @@ public class CScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new CScanner(), new Line(Language.C, BLANK),   "\n");
-		assertLine(new CScanner(), new Line(Language.C, BLANK),   "     \n");
-		assertLine(new CScanner(), new Line(Language.C, BLANK),   "\t\n");
-		assertLine(new CScanner(), new Line(Language.C, CODE),    "#include <stdio.h>\n");
-		assertLine(new CScanner(), new Line(Language.C, COMMENT), "/* Block Comment */\n");
-		assertLine(new CScanner(), new Line(Language.C, COMMENT), "// Line comment\n");
-		assertLine(new CScanner(), new Line(Language.C, COMMENT), "//\n");
-		assertLine(new CScanner(), new Line(Language.C, CODE),    "#include <stdio.h> // with comment\n");
+		assertLine(Language.C, new Line(Language.C, BLANK),   "\n");
+		assertLine(Language.C, new Line(Language.C, BLANK),   "     \n");
+		assertLine(Language.C, new Line(Language.C, BLANK),   "\t\n");
+		assertLine(Language.C, new Line(Language.C, CODE),    "#include <stdio.h>\n");
+		assertLine(Language.C, new Line(Language.C, COMMENT), "/* Block Comment */\n");
+		assertLine(Language.C, new Line(Language.C, COMMENT), "// Line comment\n");
+		assertLine(Language.C, new Line(Language.C, COMMENT), "//\n");
+		assertLine(Language.C, new Line(Language.C, CODE),    "#include <stdio.h> // with comment\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new CScanner(), new Line(Language.C, BLANK),   "     ");
-		assertLine(new CScanner(), new Line(Language.C, BLANK),   "\t");
-		assertLine(new CScanner(), new Line(Language.C, CODE),    "#include <stdio.h>");
-		assertLine(new CScanner(), new Line(Language.C, COMMENT), "/* Block Comment */");
-		assertLine(new CScanner(), new Line(Language.C, COMMENT), "// Line comment");
-		assertLine(new CScanner(), new Line(Language.C, COMMENT), "//");
-		assertLine(new CScanner(), new Line(Language.C, CODE),    "#include <stdio.h> // with comment");
+		assertLine(Language.C, new Line(Language.C, BLANK),   "     ");
+		assertLine(Language.C, new Line(Language.C, BLANK),   "\t");
+		assertLine(Language.C, new Line(Language.C, CODE),    "#include <stdio.h>");
+		assertLine(Language.C, new Line(Language.C, COMMENT), "/* Block Comment */");
+		assertLine(Language.C, new Line(Language.C, COMMENT), "// Line comment");
+		assertLine(Language.C, new Line(Language.C, COMMENT), "//");
+		assertLine(Language.C, new Line(Language.C, CODE),    "#include <stdio.h> // with comment");
 	}
 
 	@Test
@@ -54,7 +53,7 @@ public class CScannerTest extends BaseScannerTest {
 			new Line(Language.C, CODE),
 			new Line(Language.C, CODE)
 		};
-		assertLines(new CScanner(), expected, code);
+		assertLines(Language.C, expected, code);
 	}
 
 	@Test
@@ -67,7 +66,7 @@ public class CScannerTest extends BaseScannerTest {
 				new Line(Language.C, CODE),
 				new Line(Language.C, BLANK)
 			};
-		assertLines(new CScanner(), expected, code);
+		assertLines(Language.C, expected, code);
 	}
 
 	@Test
@@ -80,6 +79,6 @@ public class CScannerTest extends BaseScannerTest {
 				new Line(Language.C, BLANK),
 				new Line(Language.C, BLANK)
 			};
-		assertLines(new CScanner(), expected, code);
+		assertLines(Language.C, expected, code);
 	}
 }

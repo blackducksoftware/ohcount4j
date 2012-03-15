@@ -9,26 +9,26 @@ public class AssemblyScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, BLANK),   "\n");
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, BLANK),   "     \n");
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, BLANK),   "\t\n");
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, CODE),    "mov(ax, bx);\n");
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, COMMENT), "/* Block Comment */\n");
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, COMMENT), "# Line comment\n");
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, COMMENT), "#\n");
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, CODE),    "mov ax, bx    ;we move bx into ax\n");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, BLANK),   "\n");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, BLANK),   "     \n");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, BLANK),   "\t\n");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, CODE),    "mov(ax, bx);\n");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, COMMENT), "/* Block Comment */\n");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, COMMENT), "# Line comment\n");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, COMMENT), "#\n");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, CODE),    "mov ax, bx    ;we move bx into ax\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, BLANK),   "     ");
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, BLANK),   "\t");
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, CODE),    "mov(ax, bx);");
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, COMMENT), "/* Block Comment */");
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, COMMENT), "# Line comment");
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, COMMENT), "#");
-		assertLine(new AssemblyScanner(), new Line(Language.ASM, CODE),    "mov ax, bx    ;we move bx into ax");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, BLANK),   "     ");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, BLANK),   "\t");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, CODE),    "mov(ax, bx);");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, COMMENT), "/* Block Comment */");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, COMMENT), "# Line comment");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, COMMENT), "#");
+		assertLine(Language.ASSEMBLY, new Line(Language.ASSEMBLY, CODE),    "mov ax, bx    ;we move bx into ax");
 	}
 
 	@Test
@@ -48,20 +48,20 @@ public class AssemblyScannerTest extends BaseScannerTest {
 			+ "\n";
 
 		Line[] expected = {
-			new Line(Language.ASM, COMMENT),
-			new Line(Language.ASM, BLANK),
-			new Line(Language.ASM, COMMENT),
-			new Line(Language.ASM, COMMENT),
-			new Line(Language.ASM, CODE),
-			new Line(Language.ASM, COMMENT),
-			new Line(Language.ASM, CODE),
-			new Line(Language.ASM, COMMENT),
-			new Line(Language.ASM, CODE),
-			new Line(Language.ASM, CODE),
-			new Line(Language.ASM, CODE),
-			new Line(Language.ASM, BLANK)
+			new Line(Language.ASSEMBLY, COMMENT),
+			new Line(Language.ASSEMBLY, BLANK),
+			new Line(Language.ASSEMBLY, COMMENT),
+			new Line(Language.ASSEMBLY, COMMENT),
+			new Line(Language.ASSEMBLY, CODE),
+			new Line(Language.ASSEMBLY, COMMENT),
+			new Line(Language.ASSEMBLY, CODE),
+			new Line(Language.ASSEMBLY, COMMENT),
+			new Line(Language.ASSEMBLY, CODE),
+			new Line(Language.ASSEMBLY, CODE),
+			new Line(Language.ASSEMBLY, CODE),
+			new Line(Language.ASSEMBLY, BLANK)
 		};
-		assertLines(new AssemblyScanner(), expected, code);
+		assertLines(Language.ASSEMBLY, expected, code);
 	}
 
 }

@@ -1,7 +1,6 @@
 package net.ohloh.ohcount4j.detect;
 
-import net.ohloh.ohcount4j.scan.CScanner;
-import net.ohloh.ohcount4j.scan.RubyScanner;
+import net.ohloh.ohcount4j.Language;
 
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.assertEquals;
@@ -14,8 +13,8 @@ public class EmacsModeDetectorTest {
 		assertEquals(null, EmacsModeDetector.detect(""));
 		assertEquals(null, EmacsModeDetector.detect("# -*- mode: not_a_language_name -*-"));
 
-		assertEquals(RubyScanner.class, EmacsModeDetector.detect("# -*- mode: Ruby -*-"));
-		assertEquals(CScanner.class,    EmacsModeDetector.detect("/* -*- mode: C; -*- */"));
+		assertEquals(Language.RUBY, EmacsModeDetector.detect("# -*- mode: Ruby -*-"));
+		assertEquals(Language.C,    EmacsModeDetector.detect("/* -*- mode: C; -*- */"));
 	}
 
 	@Test
