@@ -4,6 +4,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import net.ohloh.ohcount4j.scan.Scanner;
 import net.ohloh.ohcount4j.scan.Line;
+import net.ohloh.ohcount4j.scan.TestLineHandler;
 
 public class BaseScannerTest {
 

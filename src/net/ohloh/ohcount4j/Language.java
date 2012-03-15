@@ -12,7 +12,26 @@ public enum Language {
 	LANG_XML("xml", "XML"),
 	LANG_CSHARP("cs", "C#"),
 	LANG_SQL("sql", "SQL"),
-	LANG_SHELL("shellscript", "ShellScript");
+	LANG_SHELL("shellscript", "ShellScript"),
+	LANG_VB("vb", "VisualBasic"),
+	LANG_SMALLTALK("smalltalk", "Smalltalk"),
+	LANG_REBOL("rebol", "REBOL"),
+	LANG_TCL("tcl", "Tcl"),
+	LANG_PYTHON("python", "Python"),
+	LANG_PROLOG("prolog", "Prolog"),
+	LANG_PASCAL("pascal", "Pascal"),
+	LANG_OBJECTIVEC("objectivec", "Objective-C"),
+	LANG_MATLAB("matlab", "Matlab"),
+	LANG_LUA("lua", "Lua"),
+	LANG_LISP("lisp", "Lisp"),
+	LANG_GROOVY("groovy", "Groovy"),
+	LANG_FSHARP("fs", "F#"),
+	LANG_ERLANG("erlang", "Erlang"),
+	LANG_EIFFEL("eiffel", "Eiffel"),
+	LANG_BOO("boo", "Boo"),
+	LANG_ASM("asm", "Assembly"),
+	LANG_ADA("ada", "Ada"),
+	LANG_ACTIONSCRIPT("actionscript", "ActionScript");
 
 	private final String uname;
 	private final String niceName;
