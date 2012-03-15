@@ -3,6 +3,7 @@ package net.ohloh.ohcount4j.detect;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.OhcountException;
 import net.ohloh.ohcount4j.scan.Scanner;
 
@@ -13,7 +14,13 @@ public class MagicDetector {
 	public static Class<? extends Scanner> detect(String buffer) throws OhcountException {
 		String description = getMagicDescription(buffer);
 		String languageName = getLanguageName(description);
-		return LanguageNameDetector.detect(languageName);
+
+		Language language = Language.fromName(languageName);
+		if (language != null) {
+			return language.scannerClass();
+		} else {
+			return null;
+		}
 	}
 
 	protected static Pattern patterns[] = {

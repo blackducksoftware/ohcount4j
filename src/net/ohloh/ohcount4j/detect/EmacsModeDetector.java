@@ -3,6 +3,7 @@ package net.ohloh.ohcount4j.detect;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.scan.Scanner;
 
 public class EmacsModeDetector {
@@ -31,6 +32,11 @@ public class EmacsModeDetector {
 	public static Class<? extends Scanner> detect(String buffer) {
 		String mode = getMode(buffer);
 
-		return LanguageNameDetector.detect(mode);
+		Language language = Language.fromName(mode);
+		if (language != null) {
+			return language.scannerClass();
+		} else {
+			return null;
+		}
 	}
 }
