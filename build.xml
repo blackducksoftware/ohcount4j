@@ -78,6 +78,7 @@
     </delete>
     <delete includeemptydirs="true">
       <fileset dir="${test.build}" includes="**/*"/>
+      <fileset dir="testbin" includes="**/*"/>
     </delete>
 		<delete dir="${dist}"/>
     <delete includeemptydirs="true">
