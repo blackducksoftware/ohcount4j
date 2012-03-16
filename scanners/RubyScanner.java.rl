@@ -1,7 +1,5 @@
 package net.ohloh.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
-
 public class RubyScanner extends BaseScanner{
 
 	%%{
@@ -58,8 +56,4 @@ public class RubyScanner extends BaseScanner{
 		%% write exec;
 	}
 
-	@Override
-	public Language getLanguage(){
-		return Language.LANG_RUBY;
-	}
 }

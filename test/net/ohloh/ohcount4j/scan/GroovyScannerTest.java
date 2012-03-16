@@ -3,32 +3,32 @@ package net.ohloh.ohcount4j.scan;
 import org.testng.annotations.Test;
 
 import static net.ohloh.ohcount4j.Entity.*;
-import static net.ohloh.ohcount4j.Language.LANG_GROOVY;
+import net.ohloh.ohcount4j.Language;
 
 public class GroovyScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, BLANK),   "\n");
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, BLANK),   "     \n");
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, BLANK),   "\t\n");
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, CODE),    "def name='World'; println \"Hello $name!\"\n");
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, COMMENT), "/* Block Comment */\n");
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, COMMENT), "// Line comment\n");
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, COMMENT), "//\n");
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, CODE),    "def name='World'; println \"Hello $name!\" // with comment\n");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, BLANK),   "\n");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, BLANK),   "     \n");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, BLANK),   "\t\n");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, CODE),    "def name='World'; println \"Hello $name!\"\n");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, COMMENT), "/* Block Comment */\n");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, COMMENT), "// Line comment\n");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, COMMENT), "//\n");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, CODE),    "def name='World'; println \"Hello $name!\" // with comment\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, BLANK),   "     ");
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, BLANK),   "\t");
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, CODE),    "def name='World'; println \"Hello $name!\"");
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, COMMENT), "/* Block Comment */");
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, COMMENT), "// Line comment");
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, COMMENT), "//");
-		assertLine(new GroovyScanner(), new Line(LANG_GROOVY, CODE),    "def name='World'; println \"Hello $name!\" // with comment");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, BLANK),   "     ");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, BLANK),   "\t");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, CODE),    "def name='World'; println \"Hello $name!\"");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, COMMENT), "/* Block Comment */");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, COMMENT), "// Line comment");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, COMMENT), "//");
+		assertLine(Language.GROOVY, new Line(Language.GROOVY, CODE),    "def name='World'; println \"Hello $name!\" // with comment");
 	}
 
 	@Test
@@ -50,20 +50,20 @@ public class GroovyScannerTest extends BaseScannerTest {
 
 
 		Line[] expected = {
-			new Line(LANG_GROOVY, COMMENT),
-			new Line(LANG_GROOVY, BLANK),
-			new Line(LANG_GROOVY, COMMENT),
-			new Line(LANG_GROOVY, CODE),
-			new Line(LANG_GROOVY, CODE),
-			new Line(LANG_GROOVY, CODE),
-			new Line(LANG_GROOVY, CODE),
-			new Line(LANG_GROOVY, CODE),
-			new Line(LANG_GROOVY, CODE),
-			new Line(LANG_GROOVY, BLANK),
-			new Line(LANG_GROOVY, CODE),
-			new Line(LANG_GROOVY, CODE)
+			new Line(Language.GROOVY, COMMENT),
+			new Line(Language.GROOVY, BLANK),
+			new Line(Language.GROOVY, COMMENT),
+			new Line(Language.GROOVY, CODE),
+			new Line(Language.GROOVY, CODE),
+			new Line(Language.GROOVY, CODE),
+			new Line(Language.GROOVY, CODE),
+			new Line(Language.GROOVY, CODE),
+			new Line(Language.GROOVY, CODE),
+			new Line(Language.GROOVY, BLANK),
+			new Line(Language.GROOVY, CODE),
+			new Line(Language.GROOVY, CODE)
 		};
-		assertLines(new GroovyScanner(), expected, code);
+		assertLines(Language.GROOVY, expected, code);
 	}
 
 }

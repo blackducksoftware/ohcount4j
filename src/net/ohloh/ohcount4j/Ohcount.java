@@ -6,9 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.ohloh.ohcount4j.AnnotationWriter;
-import net.ohloh.ohcount4j.detect.OhcountDetector;
-import net.ohloh.ohcount4j.io.FileBlob;
-import net.ohloh.ohcount4j.scan.Scanner;
+import net.ohloh.ohcount4j.detect.Detector;
+import net.ohloh.ohcount4j.io.SourceFile;
 
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
@@ -31,9 +30,10 @@ public class Ohcount {
 			optParser.printUsage(System.out);
 			System.exit(0);
 		}
-		if (opts.targets.size() < 1) {
-			optParser.printUsage(System.out);
-			System.exit(-1);
+
+		// Count the current directory by default
+		if (opts.targets.size() == 0) {
+			opts.targets.add(".");
 		}
 
 		try {
@@ -63,21 +63,20 @@ public class Ohcount {
 	static void annotate(List<File> files) throws IOException, OhcountException {
 		AnnotationWriter handler = new AnnotationWriter();
 		for (File file : files) {
-			FileBlob blob = new FileBlob(file);
-			Scanner scanner = OhcountDetector.getInstance().detect(blob);
-			if (scanner != null) {
-				scanner.scan(blob, handler);
+			SourceFile sourceFile = new SourceFile(file);
+			Language language = Detector.detect(sourceFile);
+			if (language != null) {
+				language.makeScanner().scan(sourceFile, handler);
 			}
 		}
 	}
 
 	static void detect(List<File> files) throws IOException, OhcountException {
 		for (File file : files) {
-			FileBlob blob = new FileBlob(file);
-			Scanner scanner = OhcountDetector.getInstance().detect(blob);
-			if (scanner != null) {
-				System.out.printf("%s\t%s\n", 
-					scanner.getLanguage().niceName(), file.getPath());
+			SourceFile sourceFile = new SourceFile(file);
+			Language language = Detector.detect(sourceFile);
+			if (language != null) {
+				System.out.printf("%s\t%s\n", language.niceName(), file.getPath());
 			}
 		}
 	}
@@ -85,11 +84,11 @@ public class Ohcount {
 	static void summarize(List<File> files) throws IOException, OhcountException {
 		SummaryWriter summary = new SummaryWriter();
 		for (File file : files) {
-			FileBlob blob = new FileBlob(file);
-			Scanner scanner = OhcountDetector.getInstance().detect(blob);
-			if (scanner != null) {
+			SourceFile sourceFile = new SourceFile(file);
+			Language language = Detector.detect(sourceFile);
+			if (language != null) {
 				summary.beginFile();
-				scanner.scan(blob, summary);
+				language.makeScanner().scan(sourceFile, summary);
 				summary.endFile();
 			}
 		}

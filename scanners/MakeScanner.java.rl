@@ -1,8 +1,6 @@
 package net.ohloh.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
-
-public class MakefileScanner extends BaseScanner{
+public class MakeScanner extends BaseScanner{
   int ab_count = 0;
   int cd_count = 0;
   %%{
@@ -24,16 +22,4 @@ public class MakefileScanner extends BaseScanner{
     %% write exec;
   }
 
-  @Override
-  public Language getLanguage() {
-		return Language.LANG_MAKEFILE;
-  }
-
-  public int getAbCount() {
-    return ab_count;
-  }
-
-  public int getCdCount() {
-    return cd_count;
-  }
 }

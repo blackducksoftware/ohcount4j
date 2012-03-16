@@ -1,51 +1,234 @@
 package net.ohloh.ohcount4j;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import net.ohloh.ohcount4j.scan.*;
+
 public enum Language {
-	LANG_C("c", "C"),
-	LANG_CPP("cpp", "C++"),
-	LANG_CSS("css", "CSS"),
-	LANG_HTML("html", "HTML"),
-	LANG_JAVA("java", "Java"),
-	LANG_JAVASCRIPT("javascript", "JavaScript"),
-	LANG_MAKEFILE("make", "Make"),
-	LANG_RUBY("ruby", "Ruby"),
-	LANG_XML("xml", "XML"),
-	LANG_CSHARP("cs", "C#"),
-	LANG_SQL("sql", "SQL"),
-	LANG_SHELL("shellscript", "ShellScript"),
-	LANG_VB("vb", "VisualBasic"),
-	LANG_SMALLTALK("smalltalk", "Smalltalk"),
-	LANG_REBOL("rebol", "REBOL"),
-	LANG_TCL("tcl", "Tcl"),
-	LANG_PYTHON("python", "Python"),
-	LANG_PROLOG("prolog", "Prolog"),
-	LANG_PASCAL("pascal", "Pascal"),
-	LANG_OBJECTIVEC("objectivec", "Objective-C"),
-	LANG_MATLAB("matlab", "Matlab"),
-	LANG_LUA("lua", "Lua"),
-	LANG_LISP("lisp", "Lisp"),
-	LANG_GROOVY("groovy", "Groovy"),
-	LANG_FSHARP("fs", "F#"),
-	LANG_ERLANG("erlang", "Erlang"),
-	LANG_EIFFEL("eiffel", "Eiffel"),
-	LANG_BOO("boo", "Boo"),
-	LANG_ASM("asm", "Assembly"),
-	LANG_ADA("ada", "Ada"),
-	LANG_ACTIONSCRIPT("actionscript", "ActionScript");
+	ACTIONSCRIPT("ActionScript", ActionScriptScanner.class),
+	ADA("Ada", AdaScanner.class),
+	ASSEMBLY("Assembly", AssemblyScanner.class),
+	BOO("Boo", BooScanner.class),
+	C("C", CScanner.class),
+	CSHARP("C#", CScanner.class),
+	CSS("CSS", CScanner.class),
+	EIFFEL("Eiffel", EiffelScanner.class),
+	ERLANG("Erlang", ErlangScanner.class),
+	FSHARP("F#", FSharpScanner.class),
+	GROOVY("Groovy", CScanner.class),
+	HTML("HTML", HTMLScanner.class),
+	JAVA("Java", CScanner.class),
+	JAVASCRIPT("JavaScript", CScanner.class),
+	LISP("Lisp", LispScanner.class),
+	LUA("Lua", LuaScanner.class),
+	MAKE("Make", MakeScanner.class),
+	MATLAB("Matlab", MatlabScanner.class),
+	OBJECTIVE_C("Objective-C", CScanner.class),
+	PASCAL("Pascal", PascalScanner.class),
+	PROLOG("Prolog", PrologScanner.class),
+	PYTHON("Python", PythonScanner.class),
+	REBOL("REBOL", RebolScanner.class),
+	RUBY("Ruby", RubyScanner.class),
+	SHELL("Shell", ShellScanner.class),
+	SMALLTALK("Smalltalk", SmalltalkScanner.class),
+	SQL("SQL", SqlScanner.class),
+	TCL("Tcl", TclScanner.class),
+	VB("VisualBasic", VisualBasicScanner.class),
+	XML("XML", XmlScanner.class);
 
-	private final String uname;
 	private final String niceName;
+	private final Class<? extends Scanner> scannerClass;
 
-	Language(String uname, String niceName) {
-		this.uname = uname;
+	private static Map<String, Language> extensionMap;
+	private static Map<String, Language> filenameMap;
+	private static Map<String, Language> nameMap;
+
+	static {
+		extensionMap = new HashMap<String, Language>();
+		filenameMap = new HashMap<String, Language>();
+		nameMap = new HashMap<String, Language>();
+
+		for (Language language : Language.values()) {
+			nameMap.put(language.uname().toLowerCase(), language);
+			nameMap.put(language.niceName().toLowerCase(), language);
+		}
+
+		ACTIONSCRIPT
+			.extension("as")
+			;
+
+		ADA
+			.extension("ada")
+			.extension("adb")
+			;
+
+		ASSEMBLY
+			.extension("asm")
+			;
+
+		BOO
+			.extension("boo")
+			;
+
+		C
+			.extension("c")
+			;
+
+		CSHARP
+			.alias("C#")
+			.extension("cs")
+			;
+
+		CSS
+			.extension("css")
+			;
+
+		ERLANG
+			.extension("erl")
+			;
+
+		FSHARP
+			.extension("fs")
+			;
+
+		GROOVY
+			.extension("groovy")
+			;
+
+		HTML
+			.extension("html")
+			.extension("htm")
+			;
+
+		JAVA
+			.extension("java")
+			;
+
+		JAVASCRIPT
+			.alias("js")
+			.extension("js")
+			;
+
+		LUA
+			.extension("lua")
+			;
+
+		MAKE
+			.filename("Makefile")
+			;
+
+		OBJECTIVE_C
+			.extension("m")
+			;
+
+		PASCAL
+			.extension("pas")
+			;
+
+		PROLOG
+			.extension("pl")
+			;
+
+		PYTHON
+			.extension("py")
+			;
+
+		REBOL
+			.extension("r")
+			;
+
+		RUBY
+			.alias("jruby")
+			.extension("rb")
+			.extension("ru")
+			.filename("Rakefile")
+			.filename("Gemfile")
+			;
+
+		SQL
+			.extension("sql")
+			;
+
+		SMALLTALK
+			.extension("st")
+			;
+
+		SHELL
+			.extension("bash")
+			.extension("sh")
+			;
+
+		TCL
+			.extension("tcl")
+			;
+
+		VB
+			.extension("vb")
+			;
+
+		XML
+			.extension("xml")
+			;
+	}
+
+	Language(String niceName, Class<? extends Scanner> scannerClass) {
 		this.niceName = niceName;
+		this.scannerClass = scannerClass;
 	}
 
 	public String uname() {
-		return uname;
+		return this.toString().toLowerCase();
 	}
 
 	public String niceName() {
 		return niceName;
+	}
+
+	public Class<? extends Scanner> scannerClass() {
+		return scannerClass;
+	}
+
+	public Scanner makeScanner() throws OhcountException {
+		try {
+			Scanner scanner = this.scannerClass.newInstance();
+			scanner.setDefaultLanguage(this);
+			return scanner;
+		} catch (InstantiationException e) {
+			throw new OhcountException(e);
+		} catch (IllegalAccessException e) {
+			throw new OhcountException(e);
+		}
+	}
+
+	public Language extension(String ext) {
+		extensionMap.put(ext, this);
+		return this;
+	}
+
+	public static Language fromExtension(String ext) {
+		return extensionMap.get(ext);
+	}
+
+	public Language filename(String filename) {
+		filenameMap.put(filename, this);
+		return this;
+	}
+
+	public static Language fromFilename(String filename) {
+		return filenameMap.get(filename);
+	}
+
+	public Language alias(String alias) {
+		nameMap.put(alias, this);
+		return this;
+	}
+
+	public static Language fromName(String name) {
+		if (name != null) {
+			return nameMap.get(name.toLowerCase());
+		} else {
+			return null;
+		}
 	}
 }

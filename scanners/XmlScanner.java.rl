@@ -1,7 +1,5 @@
 package net.ohloh.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
-
 public class XmlScanner extends BaseScanner{
 
   %%{
@@ -46,8 +44,4 @@ public class XmlScanner extends BaseScanner{
     %% write exec;
   }
   
-  @Override
-  public Language getLanguage(){
-  	return Language.LANG_XML;
-  }
 }

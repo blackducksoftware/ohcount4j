@@ -1,7 +1,5 @@
 package net.ohloh.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
-
 public class RebolScanner extends BaseScanner{
 
 	protected int nested_level = 0;
@@ -47,9 +45,4 @@ public class RebolScanner extends BaseScanner{
 	    %% write exec;
 	}
 	  
-	@Override
-	public Language getLanguage() {
-		return Language.LANG_REBOL;
-	}
-  
 }

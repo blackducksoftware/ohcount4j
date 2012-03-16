@@ -1,7 +1,5 @@
 package net.ohloh.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
-
 public class EiffelScanner extends BaseScanner{
 
   %%{
@@ -28,12 +26,5 @@ public class EiffelScanner extends BaseScanner{
     init();
     %% write exec;
   }
-  
-  @Override
-  public Language getLanguage(){
-  	return Language.LANG_EIFFEL;
-  }
-  
-  
   
 }

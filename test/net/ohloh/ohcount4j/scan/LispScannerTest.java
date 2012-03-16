@@ -3,32 +3,32 @@ package net.ohloh.ohcount4j.scan;
 import org.testng.annotations.Test;
 
 import static net.ohloh.ohcount4j.Entity.*;
-import static net.ohloh.ohcount4j.Language.LANG_LISP;
+import net.ohloh.ohcount4j.Language;
 
 public class LispScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new LispScanner(), new Line(LANG_LISP, BLANK),   "\n");
-		assertLine(new LispScanner(), new Line(LANG_LISP, BLANK),   "     \n");
-		assertLine(new LispScanner(), new Line(LANG_LISP, BLANK),   "\t\n");
-		assertLine(new LispScanner(), new Line(LANG_LISP, CODE),    "((lambda (arg) (+ arg 1)) 5)\n");
-		assertLine(new LispScanner(), new Line(LANG_LISP, COMMENT), "#| Block Comment |#\n");
-		assertLine(new LispScanner(), new Line(LANG_LISP, COMMENT), "; Line comment\n");
-		assertLine(new LispScanner(), new Line(LANG_LISP, COMMENT), ";\n");
-		assertLine(new LispScanner(), new Line(LANG_LISP, CODE),    "((lambda (arg) (+ arg 1)) 5) ; with comment\n");
+		assertLine(Language.LISP, new Line(Language.LISP, BLANK),   "\n");
+		assertLine(Language.LISP, new Line(Language.LISP, BLANK),   "     \n");
+		assertLine(Language.LISP, new Line(Language.LISP, BLANK),   "\t\n");
+		assertLine(Language.LISP, new Line(Language.LISP, CODE),    "((lambda (arg) (+ arg 1)) 5)\n");
+		assertLine(Language.LISP, new Line(Language.LISP, COMMENT), "#| Block Comment |#\n");
+		assertLine(Language.LISP, new Line(Language.LISP, COMMENT), "; Line comment\n");
+		assertLine(Language.LISP, new Line(Language.LISP, COMMENT), ";\n");
+		assertLine(Language.LISP, new Line(Language.LISP, CODE),    "((lambda (arg) (+ arg 1)) 5) ; with comment\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new LispScanner(), new Line(LANG_LISP, BLANK),   "     ");
-		assertLine(new LispScanner(), new Line(LANG_LISP, BLANK),   "\t");
-		assertLine(new LispScanner(), new Line(LANG_LISP, CODE),    "((lambda (arg) (+ arg 1)) 5)");
-		assertLine(new LispScanner(), new Line(LANG_LISP, COMMENT), "#| Block Comment |#");
-		assertLine(new LispScanner(), new Line(LANG_LISP, COMMENT), "; Line comment");
-		assertLine(new LispScanner(), new Line(LANG_LISP, COMMENT), ";");
-		assertLine(new LispScanner(), new Line(LANG_LISP, CODE),    "((lambda (arg) (+ arg 1)) 5) ; with comment");
+		assertLine(Language.LISP, new Line(Language.LISP, BLANK),   "     ");
+		assertLine(Language.LISP, new Line(Language.LISP, BLANK),   "\t");
+		assertLine(Language.LISP, new Line(Language.LISP, CODE),    "((lambda (arg) (+ arg 1)) 5)");
+		assertLine(Language.LISP, new Line(Language.LISP, COMMENT), "#| Block Comment |#");
+		assertLine(Language.LISP, new Line(Language.LISP, COMMENT), "; Line comment");
+		assertLine(Language.LISP, new Line(Language.LISP, COMMENT), ";");
+		assertLine(Language.LISP, new Line(Language.LISP, CODE),    "((lambda (arg) (+ arg 1)) 5) ; with comment");
 	}
 
 	@Test
@@ -48,20 +48,20 @@ public class LispScannerTest extends BaseScannerTest {
 			+ ";"; 
 
 		Line[] expected = {
-			new Line(LANG_LISP, COMMENT),
-			new Line(LANG_LISP, COMMENT),
-			new Line(LANG_LISP, BLANK),
-			new Line(LANG_LISP, COMMENT),
-			new Line(LANG_LISP, BLANK),
-			new Line(LANG_LISP, CODE),
-			new Line(LANG_LISP, COMMENT),
-			new Line(LANG_LISP, COMMENT),
-			new Line(LANG_LISP, CODE),
-			new Line(LANG_LISP, CODE),
-			new Line(LANG_LISP, CODE),
-			new Line(LANG_LISP, COMMENT)
+			new Line(Language.LISP, COMMENT),
+			new Line(Language.LISP, COMMENT),
+			new Line(Language.LISP, BLANK),
+			new Line(Language.LISP, COMMENT),
+			new Line(Language.LISP, BLANK),
+			new Line(Language.LISP, CODE),
+			new Line(Language.LISP, COMMENT),
+			new Line(Language.LISP, COMMENT),
+			new Line(Language.LISP, CODE),
+			new Line(Language.LISP, CODE),
+			new Line(Language.LISP, CODE),
+			new Line(Language.LISP, COMMENT)
 		};
-		assertLines(new LispScanner(), expected, code);
+		assertLines(Language.LISP, expected, code);
 	}
 
 	@Test
@@ -70,11 +70,11 @@ public class LispScannerTest extends BaseScannerTest {
 		String code = "#|\n\n\n";
 
 		Line[] expected = {
-				new Line(LANG_LISP, COMMENT),
-				new Line(LANG_LISP, BLANK),
-				new Line(LANG_LISP, BLANK)
+				new Line(Language.LISP, COMMENT),
+				new Line(Language.LISP, BLANK),
+				new Line(Language.LISP, BLANK)
 			};
-		assertLines(new LispScanner(), expected, code);
+		assertLines(Language.LISP, expected, code);
 	}
 	
 }

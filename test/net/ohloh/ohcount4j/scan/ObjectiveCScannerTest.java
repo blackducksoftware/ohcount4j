@@ -3,32 +3,32 @@ package net.ohloh.ohcount4j.scan;
 import org.testng.annotations.Test;
 
 import static net.ohloh.ohcount4j.Entity.*;
-import static net.ohloh.ohcount4j.Language.*;
+import net.ohloh.ohcount4j.Language;
 
 public class ObjectiveCScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, BLANK),   "\n");
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, BLANK),   "     \n");
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, BLANK),   "\t\n");
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, CODE),    "NSMutableArray *myArray = nil;\n");
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, COMMENT), "/* Block Comment */\n");
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, COMMENT), "// Line comment\n");
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, COMMENT), "//\n");
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, CODE),    "NSMutableArray *myArray = nil;  // nil is essentially the same as NULL\n");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, BLANK),   "\n");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, BLANK),   "     \n");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, BLANK),   "\t\n");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, CODE),    "NSMutableArray *myArray = nil;\n");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, COMMENT), "/* Block Comment */\n");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, COMMENT), "// Line comment\n");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, COMMENT), "//\n");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, CODE),    "NSMutableArray *myArray = nil;  // nil is essentially the same as NULL\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, BLANK),   "     ");
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, BLANK),   "\t");
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, CODE),    "NSMutableArray *myArray = nil;");
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, COMMENT), "/* Block Comment */");
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, COMMENT), "// Line comment");
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, COMMENT), "//");
-		assertLine(new ObjectiveCScanner(), new Line(LANG_OBJECTIVEC, CODE),    "NSMutableArray *myArray = nil;  // nil is essentially the same as NULL");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, BLANK),   "     ");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, BLANK),   "\t");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, CODE),    "NSMutableArray *myArray = nil;");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, COMMENT), "/* Block Comment */");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, COMMENT), "// Line comment");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, COMMENT), "//");
+		assertLine(Language.OBJECTIVE_C, new Line(Language.OBJECTIVE_C, CODE),    "NSMutableArray *myArray = nil;  // nil is essentially the same as NULL");
 	}
 
 	@Test
@@ -50,22 +50,22 @@ public class ObjectiveCScannerTest extends BaseScannerTest {
 			+ "//";
 
 		Line[] expected = {
-			new Line(LANG_OBJECTIVEC, COMMENT),
-			new Line(LANG_OBJECTIVEC, COMMENT),
-			new Line(LANG_OBJECTIVEC, BLANK),
-			new Line(LANG_OBJECTIVEC, COMMENT),
-			new Line(LANG_OBJECTIVEC, CODE),
-			new Line(LANG_OBJECTIVEC, BLANK),
-			new Line(LANG_OBJECTIVEC, CODE),
-			new Line(LANG_OBJECTIVEC, CODE),
-			new Line(LANG_OBJECTIVEC, CODE),
-			new Line(LANG_OBJECTIVEC, CODE),
-			new Line(LANG_OBJECTIVEC, CODE),
-			new Line(LANG_OBJECTIVEC, CODE),
-			new Line(LANG_OBJECTIVEC, CODE),
-			new Line(LANG_OBJECTIVEC, COMMENT)
+			new Line(Language.OBJECTIVE_C, COMMENT),
+			new Line(Language.OBJECTIVE_C, COMMENT),
+			new Line(Language.OBJECTIVE_C, BLANK),
+			new Line(Language.OBJECTIVE_C, COMMENT),
+			new Line(Language.OBJECTIVE_C, CODE),
+			new Line(Language.OBJECTIVE_C, BLANK),
+			new Line(Language.OBJECTIVE_C, CODE),
+			new Line(Language.OBJECTIVE_C, CODE),
+			new Line(Language.OBJECTIVE_C, CODE),
+			new Line(Language.OBJECTIVE_C, CODE),
+			new Line(Language.OBJECTIVE_C, CODE),
+			new Line(Language.OBJECTIVE_C, CODE),
+			new Line(Language.OBJECTIVE_C, CODE),
+			new Line(Language.OBJECTIVE_C, COMMENT)
 		};
-		assertLines(new ObjectiveCScanner(), expected, code);
+		assertLines(Language.OBJECTIVE_C, expected, code);
 	}
 
 }

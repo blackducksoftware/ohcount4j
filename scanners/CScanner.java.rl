@@ -1,7 +1,5 @@
 package net.ohloh.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
-
 public class CScanner extends BaseScanner{
 
   %%{
@@ -27,10 +25,5 @@ public class CScanner extends BaseScanner{
     %% write init;
     init();
     %% write exec;
-  }
-  
-  @Override
-  public Language getLanguage(){
-  	return Language.LANG_C;
   }
 }

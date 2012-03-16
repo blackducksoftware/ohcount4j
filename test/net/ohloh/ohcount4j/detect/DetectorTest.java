@@ -1,83 +1,32 @@
 package net.ohloh.ohcount4j.detect;
 
-import net.ohloh.ohcount4j.scan.CScanner;
-import net.ohloh.ohcount4j.scan.JavaScanner;
+import net.ohloh.ohcount4j.Language;
+import net.ohloh.ohcount4j.OhcountException;
+import net.ohloh.ohcount4j.detect.Detector;
+import net.ohloh.ohcount4j.io.SourceBuffer;
+import static net.ohloh.ohcount4j.Language.*;
 
 import org.testng.annotations.Test;
+import static org.testng.AssertJUnit.*;
 
 public class DetectorTest {
 
-	@Test(expectedExceptions = { IllegalArgumentException.class })
-	public void errorCreateDuplicateExtensionMapping() {
-		TestDetector td = new TestDetector();
-		td.createDuplicateExtensionMapping();
+	@Test
+	public void basic() throws OhcountException {
+		assertDetect("main.c",    C);
+		assertDetect("main.css",  CSS);
+		assertDetect("main.htm",  HTML);
+		assertDetect("main.html", HTML);
+		assertDetect("main.java", JAVA);
+		assertDetect("main.js",   JAVASCRIPT);
+		assertDetect("Makefile",  MAKE);
+		assertDetect("main.rb",   RUBY);
+		assertDetect("config.ru", RUBY);
+		assertDetect("Gemfile",   RUBY);
+		assertDetect("Rakefile",  RUBY);
 	}
 
-	@Test(expectedExceptions = { IllegalArgumentException.class })
-	public void errorCreateDuplicateExtensionsMapping() {
-		TestDetector td = new TestDetector();
-		td.createDuplicateExtensionsMapping();
-	}
-
-	@Test(expectedExceptions = { IllegalArgumentException.class })
-	public void errorCreateDuplicateNameMapping() {
-		TestDetector td = new TestDetector();
-		td.createDuplicateNameMapping();
-	}
-
-	@Test(expectedExceptions = { IllegalArgumentException.class })
-	public void errorCreateDuplicateNamesMapping() {
-		TestDetector td = new TestDetector();
-		td.createDuplicateNamesMapping();
-	}
-
-	@Test(expectedExceptions = { IllegalArgumentException.class })
-	public void errorCreateDuplicateMapResolveByExtn() {
-		TestDetector td = new TestDetector();
-		td.createDuplicateMapResolveByExtn();
-	}
-
-	@Test(expectedExceptions = { IllegalArgumentException.class })
-	public void errorCreateDuplicateMapResolveByName() {
-		TestDetector td = new TestDetector();
-		td.createDuplicateMapResolveByName();
-	}
-
-	class TestDetector extends Detector {
-
-		public TestDetector() {
-			extension("java").scanUsing(JavaScanner.class);
-			name("Somefile").scanUsing(JavaScanner.class);
-			extension(".h").resolveUsing(ExtnHResolver.class);
-			extension("Header").resolveUsing(ExtnHResolver.class);
-		}
-
-		void createDuplicateExtensionMapping() {
-			extension("c").scanUsing(CScanner.class);
-			extension("c").scanUsing(CScanner.class);
-		}
-
-		void createDuplicateExtensionsMapping() {
-			extensions("c", "c").scanUsing(CScanner.class);
-		}
-
-		void createDuplicateNameMapping() {
-			name("c").scanUsing(CScanner.class);
-			name("c").scanUsing(CScanner.class);
-		}
-
-		void createDuplicateNamesMapping() {
-			names("c", "c").scanUsing(CScanner.class);
-		}
-
-		void createDuplicateMapResolveByExtn() {
-			extension("c").scanUsing(CScanner.class);
-			extension("c").resolveUsing(ExtnHResolver.class);
-		}
-
-		void createDuplicateMapResolveByName() {
-			name("c").scanUsing(CScanner.class);
-			name("c").resolveUsing(ExtnHResolver.class);
-		}
+	protected void assertDetect(String filename, Language language) throws OhcountException {
+		assertEquals(language, Detector.detect(new SourceBuffer(filename, "")));
 	}
 }

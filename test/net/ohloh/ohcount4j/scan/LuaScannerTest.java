@@ -3,7 +3,7 @@ package net.ohloh.ohcount4j.scan;
 import static net.ohloh.ohcount4j.Entity.BLANK;
 import static net.ohloh.ohcount4j.Entity.CODE;
 import static net.ohloh.ohcount4j.Entity.COMMENT;
-import static net.ohloh.ohcount4j.Language.LANG_LUA;
+import net.ohloh.ohcount4j.Language;
 
 import org.testng.annotations.Test;
 
@@ -11,36 +11,36 @@ public class LuaScannerTest extends BaseScannerTest {
 
 	@Test
 	public void basic() {
-		assertLine(new LuaScanner(), new Line(LANG_LUA, BLANK),   "\n");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, BLANK),   "     \n");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, BLANK),   "\t\n");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, CODE),    "function factorial(n)\n");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "--[[ Block Comment ]]\n");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "-- Line comment\n");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "--\n");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, CODE),    "function factorial(n) -- with comment\n");
+		assertLine(Language.LUA, new Line(Language.LUA, BLANK),   "\n");
+		assertLine(Language.LUA, new Line(Language.LUA, BLANK),   "     \n");
+		assertLine(Language.LUA, new Line(Language.LUA, BLANK),   "\t\n");
+		assertLine(Language.LUA, new Line(Language.LUA, CODE),    "function factorial(n)\n");
+		assertLine(Language.LUA, new Line(Language.LUA, COMMENT), "--[[ Block Comment ]]\n");
+		assertLine(Language.LUA, new Line(Language.LUA, COMMENT), "-- Line comment\n");
+		assertLine(Language.LUA, new Line(Language.LUA, COMMENT), "--\n");
+		assertLine(Language.LUA, new Line(Language.LUA, CODE),    "function factorial(n) -- with comment\n");
 		/* 
 		 * These test to ensure that improperly formatted block comments that have proper
 		 * line comment start are still seen as line comments
 		 */
-		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "--[ [ ]]\n");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "-- [[ ]]\n");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "--[\n");
+		assertLine(Language.LUA, new Line(Language.LUA, COMMENT), "--[ [ ]]\n");
+		assertLine(Language.LUA, new Line(Language.LUA, COMMENT), "-- [[ ]]\n");
+		assertLine(Language.LUA, new Line(Language.LUA, COMMENT), "--[\n");
 	}
 
 	@Test
 	public void eofHandling() {
 		// Note lack of trailing \n in all cases below
-		assertLine(new LuaScanner(), new Line(LANG_LUA, BLANK),   "     ");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, BLANK),   "\t");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, CODE),    "function factorial(n)");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "--[[ Block Comment ]]");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "-- Line comment");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "--");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, CODE),    "function factorial(n) -- with comment");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "--[ [ ]]");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "-- [[ ]]");
-		assertLine(new LuaScanner(), new Line(LANG_LUA, COMMENT), "--[");
+		assertLine(Language.LUA, new Line(Language.LUA, BLANK),   "     ");
+		assertLine(Language.LUA, new Line(Language.LUA, BLANK),   "\t");
+		assertLine(Language.LUA, new Line(Language.LUA, CODE),    "function factorial(n)");
+		assertLine(Language.LUA, new Line(Language.LUA, COMMENT), "--[[ Block Comment ]]");
+		assertLine(Language.LUA, new Line(Language.LUA, COMMENT), "-- Line comment");
+		assertLine(Language.LUA, new Line(Language.LUA, COMMENT), "--");
+		assertLine(Language.LUA, new Line(Language.LUA, CODE),    "function factorial(n) -- with comment");
+		assertLine(Language.LUA, new Line(Language.LUA, COMMENT), "--[ [ ]]");
+		assertLine(Language.LUA, new Line(Language.LUA, COMMENT), "-- [[ ]]");
+		assertLine(Language.LUA, new Line(Language.LUA, COMMENT), "--[");
 	}
 
 	@Test
@@ -62,22 +62,22 @@ public class LuaScannerTest extends BaseScannerTest {
 			+ "--";
 			
 		Line[] expected = {
-			new Line(LANG_LUA, COMMENT),
-			new Line(LANG_LUA, BLANK),
-			new Line(LANG_LUA, COMMENT),
-			new Line(LANG_LUA, COMMENT),
-			new Line(LANG_LUA, CODE),
-			new Line(LANG_LUA, COMMENT),
-			new Line(LANG_LUA, CODE),
-			new Line(LANG_LUA, CODE),
-			new Line(LANG_LUA, CODE),
-			new Line(LANG_LUA, CODE),
-			new Line(LANG_LUA, CODE),
-			new Line(LANG_LUA, BLANK),
-			new Line(LANG_LUA, CODE),
-			new Line(LANG_LUA, COMMENT)
+			new Line(Language.LUA, COMMENT),
+			new Line(Language.LUA, BLANK),
+			new Line(Language.LUA, COMMENT),
+			new Line(Language.LUA, COMMENT),
+			new Line(Language.LUA, CODE),
+			new Line(Language.LUA, COMMENT),
+			new Line(Language.LUA, CODE),
+			new Line(Language.LUA, CODE),
+			new Line(Language.LUA, CODE),
+			new Line(Language.LUA, CODE),
+			new Line(Language.LUA, CODE),
+			new Line(Language.LUA, BLANK),
+			new Line(Language.LUA, CODE),
+			new Line(Language.LUA, COMMENT)
 		};
-		assertLines(new LuaScanner(), expected, code);
+		assertLines(Language.LUA, expected, code);
 	}
 
 	@Test
@@ -86,11 +86,11 @@ public class LuaScannerTest extends BaseScannerTest {
 		String code = "--[[\n\n\n";
 
 		Line[] expected = {
-				new Line(LANG_LUA, COMMENT),
-				new Line(LANG_LUA, BLANK),
-				new Line(LANG_LUA, BLANK)
+				new Line(Language.LUA, COMMENT),
+				new Line(Language.LUA, BLANK),
+				new Line(Language.LUA, BLANK)
 			};
-		assertLines(new LuaScanner(), expected, code);
+		assertLines(Language.LUA, expected, code);
 	}
 	
 }

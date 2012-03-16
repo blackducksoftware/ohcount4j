@@ -1,7 +1,5 @@
 package net.ohloh.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
-
 public class BooScanner extends BaseScanner{
 
   protected int nested_level = 0;
@@ -56,12 +54,4 @@ public class BooScanner extends BaseScanner{
     init();
     %% write exec;
   }
-  
-  @Override
-  public Language getLanguage(){
-  	return Language.LANG_BOO;
-  }
-  
-  
-  
 }

@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.Entity;
-import net.ohloh.ohcount4j.io.Blob;
+import net.ohloh.ohcount4j.io.Source;
 import net.ohloh.ohcount4j.scan.Line;
 import net.ohloh.ohcount4j.scan.LineHandler;
 
@@ -30,20 +30,27 @@ public abstract class BaseScanner implements Scanner {
 	protected int lineStart = 0;
 
 	protected LineHandler handler = null;
+	protected Language defaultLanguage = null;
 	protected Language language = null;
 
 	// abstract method to be implemented by scanners
 	public abstract void doScan();
 
-	public abstract Language getLanguage();
-
 	protected final void init() {
 		pe = eof = data.length;
 	}
 
+	public void setDefaultLanguage(Language language) {
+		this.defaultLanguage = language;
+	}
+
+	public Language getDefaultLanguage() {
+		return this.defaultLanguage;
+	}
+
 	@Override
-	public final void scan(Blob blob, LineHandler handler) throws IOException {
-		scan(blob.charContents(), handler);
+	public final void scan(Source source, LineHandler handler) throws IOException {
+		scan(source.getContents(), handler);
 	}
 
 	@Override
@@ -55,7 +62,7 @@ public abstract class BaseScanner implements Scanner {
 	public final void scan(char[] data, LineHandler handler) {
 		this.data = data;
 		this.handler = handler;
-		this.language = getLanguage();
+		this.language = this.defaultLanguage;
 		pe = eof = data.length;
 		doScan();
 		if (p != lineStart) { // EOF encountered without newline
@@ -85,12 +92,12 @@ public abstract class BaseScanner implements Scanner {
 	protected Line chooseLine() {
 		// If we've seen any language besides the default language, use that one.
 		for (Language l : codeSeen) {
-			if ( l != getLanguage() ) {
+			if ( l != defaultLanguage ) {
 				return new Line(l, Entity.CODE);
 			}
 		}
 		for (Language l : commentSeen) {
-			if ( l != getLanguage() ) {
+			if ( l != defaultLanguage ) {
 				return new Line(l, Entity.COMMENT);
 			}
 		}
