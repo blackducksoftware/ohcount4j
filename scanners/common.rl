@@ -32,8 +32,8 @@
     
   escape_seq = '\\' nonnewline;
   string_char = (nonnewline - '\\') | escape_seq;
-	string_literal_sq = '\'' string_char* :>> '\'';
-	string_literal_dq = '"' string_char* :>> '"';
-	string_literal = (string_literal_sq | string_literal_dq) @code;
+  string_literal_sq = '\'' string_char* :>> '\'' @code;
+  string_literal_dq = '"' string_char* :>> '"' @code;
+  string_literal = string_literal_sq | string_literal_dq;
   
 }%%  
