@@ -8,6 +8,8 @@ import static net.ohloh.ohcount4j.Language.*;
 
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 public class DetectorTest {
 
@@ -24,6 +26,15 @@ public class DetectorTest {
 		assertDetect("config.ru", RUBY);
 		assertDetect("Gemfile",   RUBY);
 		assertDetect("Rakefile",  RUBY);
+	}
+
+	@Test
+	public void isBinaryTest() {
+		assertFalse(Detector.isBinary(""));
+		assertFalse(Detector.isBinary("txt"));
+
+		assertTrue(Detector.isBinary("jpg"));
+		assertTrue(Detector.isBinary("JPG"));
 	}
 
 	protected void assertDetect(String filename, Language language) throws OhcountException {

@@ -1,6 +1,8 @@
 package net.ohloh.ohcount4j.detect;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.OhcountException;
@@ -47,61 +49,58 @@ public class Detector {
 	}
 
 	public static boolean isBinary(String extension) {
-		for (String binaryExtension : binaryExtensions) {
-			if (binaryExtension.equalsIgnoreCase(extension)) {
-				return true;
-			}
-		}
-		return false;
+		return binaryExtensions.contains(extension.toLowerCase());
 	}
 
-	private static String[] binaryExtensions = {
-		"a",
-		"aiff",
-		"au",
-		"avi",
-		"bin",
-		"bmp",
-		"cache",
-		"class",
-		"dat",
-		"dll",
-		"doc",
-		"docx",
-		"dylib",
-		"exe",
-		"gif",
-		"gz",
-		"icns",
-		"jar",
-		"jpeg",
-		"jpg",
-		"m4a",
-		"mov",
-		"mp3",
-		"mpg",
-		"ogg",
-		"pdf",
-		"png",
-		"pnt",
-		"ppt",
-		"pptx",
-		"qt",
-		"ra",
-		"so",
-		"svg",
-		"svgz",
-		"svn",
-		"swf",
-		"tar",
-		"tgz",
-		"tif",
-		"tiff",
-		"wav",
-		"xls",
-		"xlsx",
-		"xlw",
-		"zip"
-	};
+	@SuppressWarnings("serial")
+	private static Set<String> binaryExtensions = new HashSet<String>() {{
+		add("a");
+		add("aiff");
+		add("au");
+		add("avi");
+		add("bin");
+		add("bmp");
+		add("cache");
+		add("class");
+		add("dat");
+		add("dll");
+		add("doc");
+		add("docx");
+		add("dylib");
+		add("exe");
+		add("gif");
+		add("gz");
+		add("ico");
+		add("icns");
+		add("jar");
+		add("jpeg");
+		add("jpg");
+		add("m4a");
+		add("mov");
+		add("mp3");
+		add("mpg");
+		add("ogg");
+		add("pdf");
+		add("png");
+		add("pnt");
+		add("ppt");
+		add("pptx");
+		add("qt");
+		add("ra");
+		add("so");
+		add("svg");
+		add("svgz");
+		add("svn");
+		add("swf");
+		add("tar");
+		add("tgz");
+		add("tif");
+		add("tiff");
+		add("wav");
+		add("xls");
+		add("xlsx");
+		add("xlw");
+		add("zip");
+	}};
 
 }
