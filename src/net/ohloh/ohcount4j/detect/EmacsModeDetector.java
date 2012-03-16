@@ -30,6 +30,6 @@ public class EmacsModeDetector {
 	// Returns a Scanner if a mode header is recognized, otherwise null.
 	public static Language detect(String buffer) {
 		String mode = getMode(buffer);
-		return Language.fromName(mode);
+		return Detector.detectByLanguageName(mode);
 	}
 }

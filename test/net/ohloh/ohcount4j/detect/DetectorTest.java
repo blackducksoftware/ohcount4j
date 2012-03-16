@@ -28,6 +28,10 @@ public class DetectorTest {
 		assertDetect("Rakefile",  RUBY);
 	}
 
+	protected void assertDetect(String filename, Language language) throws OhcountException {
+		assertEquals(language, Detector.detect(new SourceBuffer(filename, "")));
+	}
+
 	@Test
 	public void isBinaryTest() {
 		assertFalse(Detector.isBinary(""));
@@ -37,7 +41,11 @@ public class DetectorTest {
 		assertTrue(Detector.isBinary("JPG"));
 	}
 
-	protected void assertDetect(String filename, Language language) throws OhcountException {
-		assertEquals(language, Detector.detect(new SourceBuffer(filename, "")));
+	@Test
+	public void getResolverTest() throws OhcountException {
+		//assertEquals(null, Detector.getResolver(""));
+		//assertEquals(null, Detector.getResolver("notfound"));
+
+		assertTrue(Detector.getResolver("h") instanceof ExtnHResolver);
 	}
 }
