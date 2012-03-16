@@ -63,6 +63,7 @@ public enum Language {
 		C.extensions("c", "h");
 		CSHARP.aliases("C#", "cs").extension("cs");
 		CSS.extension("css");
+		EIFFEL.extension("e");
 		ERLANG.extension("erl");
 		FSHARP.extension("fs");
 		GROOVY.extension("groovy");
