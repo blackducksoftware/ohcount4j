@@ -60,7 +60,7 @@ public enum Language {
 		ADA.extensions("ada", "adb");
 		ASSEMBLY.extension("asm");
 		BOO.extension("boo");
-		C.extension("c");
+		C.extensions("c", "h");
 		CSHARP.aliases("C#", "cs").extension("cs");
 		CSS.extension("css");
 		ERLANG.extension("erl");
@@ -71,7 +71,7 @@ public enum Language {
 		JAVASCRIPT.alias("js").extension("js");
 		LUA.extension("lua");
 		MAKE.filename("Makefile");
-		OBJECTIVE_C.extension("m");
+		OBJECTIVE_C.extensions("m", "h");
 		PASCAL.extension("pas");
 		PROLOG.extension("pl");
 		PYTHON.extension("py");
@@ -111,7 +111,7 @@ public enum Language {
 		return scannerClass;
 	}
 
-	public Scanner makeScanner() throws OhcountException {
+	public Scanner makeScanner() {
 		try {
 			Scanner scanner = this.scannerClass.newInstance();
 			scanner.setDefaultLanguage(this);

@@ -10,7 +10,7 @@ public class MagicDetector {
 
 	// Use libmagic to identify the buffer contents.
 	// Returns a Scanner class if the file type is recognized, otherwise null.
-	public static Language detect(String buffer) throws OhcountException {
+	public static Language detect(String buffer) {
 		String description = getMagicDescription(buffer);
 		String languageName = getLanguageName(description);
 
@@ -23,7 +23,7 @@ public class MagicDetector {
 		Pattern.compile("(\\w+) program text", 0),
 	};
 
-	public static String getLanguageName(String description) throws OhcountException {
+	public static String getLanguageName(String description) {
 		if (description == null) {
 			return null;
 		}
@@ -37,7 +37,7 @@ public class MagicDetector {
 		return null;
 	}
 
-	public static String getMagicDescription(String buffer) throws OhcountException {
+	public static String getMagicDescription(String buffer) {
 		if (buffer == null) {
 			return null;
 		}

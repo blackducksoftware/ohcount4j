@@ -1,7 +1,7 @@
 package net.ohloh.ohcount4j;
 
 @SuppressWarnings("serial")
-public class OhcountException extends Exception {
+public class OhcountException extends RuntimeException {
 
 	public OhcountException() {
 		// TODO Auto-generated constructor stub

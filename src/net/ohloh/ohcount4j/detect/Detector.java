@@ -12,31 +12,28 @@ import net.ohloh.ohcount4j.io.Source;
 
 public class Detector {
 
-	public static Language detect(Source source) throws OhcountException {
+	public static Language detect(Source source) throws IOException {
 
 		if (isBinary(source.getExtension())) {
 			return null;
 		}
 
 		Language language = null;
-		try {
-			if (language == null) {
-				language = EmacsModeDetector.detect(source.head(100));
-			}
-			if (language == null) {
-				language = detectByExtension(source.getExtension(), source);
-			}
-			if (language == null) {
-				language = detectByExtension(source.getExtension().toLowerCase(), source);
-			}
-			if (language == null) {
-				language = detectByFilename(source.getName());
-			}
-			if (language == null) {
-				language = MagicDetector.detect(source.head(100));
-			}
-		} catch (IOException e) {
-			throw new OhcountException(e);
+
+		if (language == null) {
+			language = EmacsModeDetector.detect(source.head(100));
+		}
+		if (language == null) {
+			language = detectByExtension(source.getExtension(), source);
+		}
+		if (language == null) {
+			language = detectByExtension(source.getExtension().toLowerCase(), source);
+		}
+		if (language == null) {
+			language = detectByFilename(source.getName());
+		}
+		if (language == null) {
+			language = MagicDetector.detect(source.head(100));
 		}
 		return language;
 	}
@@ -44,11 +41,13 @@ public class Detector {
 	private static Map<String, Language> nameMap;
 	private static Map<String, Language> extensionMap;
 	private static Map<String, Language> filenameMap;
+	private static Map<String, Resolver> resolverExtensionMap;
 
 	private static void initialize() {
 		extensionMap = new HashMap<String, Language>();
 		filenameMap = new HashMap<String, Language>();
 		nameMap = new HashMap<String, Language>();
+		resolverExtensionMap = new HashMap<String, Resolver>();
 
 		for (Language language : Language.values()) {
 
@@ -61,10 +60,40 @@ public class Detector {
 			for (String filename : language.getFilenames()) {
 				filenameMap.put(filename, language);
 			}
-			for (String filename : language.getExtensions()) {
-				extensionMap.put(filename, language);
+			for (String ext : language.getExtensions()) {
+				addExtension(ext, language);
 			}
+		}
 
+		// Remove any ambiguous extensions we've discovered from the
+		// fixed extension map, forcing them to be resolved instead.
+		for (String ext : resolverExtensionMap.keySet()) {
+			extensionMap.remove(ext);
+		}
+	}
+
+	private static void addExtension(String ext, Language language) {
+		Language existing = extensionMap.get(ext);
+
+		if (existing == null) {
+			extensionMap.put(ext, language);
+
+		} else {
+			/* Collision: two languages, one extension.
+			 * Confirm that a resolver exists for this extension,
+			 * and that it can distinguish both of these languages.
+			 */
+			Resolver resolver = getResolver(ext);
+
+			if (resolver.canResolve(existing) && resolver.canResolve(language)) {
+				resolverExtensionMap.put(ext, resolver);
+			} else {
+				String msg = "File extension conflict: Languages " +
+						language.niceName() + " and " + existing.niceName() +
+						" both use extension '*." + ext + "'," +
+						" but no Resolver exists to distinguish them.";
+				throw new OhcountException(msg);
+			}
 		}
 	}
 
@@ -73,7 +102,12 @@ public class Detector {
 		if (extensionMap == null) {
 			initialize();
 		}
-		return extensionMap.get(ext);
+		Resolver resolver = resolverExtensionMap.get(ext);
+		if (resolver != null) {
+			return resolver.resolve(source);
+		} else {
+			return extensionMap.get(ext);
+		}
 	}
 
 	public static Language detectByFilename(String filename) {
@@ -93,7 +127,7 @@ public class Detector {
 		return nameMap.get(name.toLowerCase());
 	}
 
-	public static Resolver getResolver(String ext) throws OhcountException {
+	public static Resolver getResolver(String ext) {
 		String resolverName =
 			"net.ohloh.ohcount4j.detect.Extn" + ext.toUpperCase() + "Resolver";
 
