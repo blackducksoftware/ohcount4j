@@ -1,6 +1,6 @@
 package net.ohloh.ohcount4j.scan;
 
-public class CScanner extends BaseScanner{
+public class CStyleScanner extends BaseScanner{
 
   %%{
     machine c;
