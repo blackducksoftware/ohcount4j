@@ -35,6 +35,7 @@ public enum Language {
 	MAKE("Make", MakeScanner.class),
 	MATLAB("Matlab", MatlabScanner.class),
 	OBJECTIVE_C("Objective-C", CStyleScanner.class),
+	OCAML("OCaml", OCamlScanner.class),
 	PASCAL("Pascal", PascalScanner.class),
 	PROLOG("Prolog", PrologScanner.class),
 	PYTHON("Python", PythonScanner.class),
@@ -78,6 +79,7 @@ public enum Language {
 		LUA.extension("lua");
 		MAKE.filename("Makefile");
 		OBJECTIVE_C.extensions("m", "h");
+		OCAML.extensions("ml", "mli");
 		PASCAL.extension("pas");
 		PROLOG.extension("pl");
 		PYTHON.extension("py");
