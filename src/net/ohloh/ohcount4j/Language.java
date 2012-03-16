@@ -39,6 +39,7 @@ public enum Language {
 	PROLOG("Prolog", PrologScanner.class),
 	PYTHON("Python", PythonScanner.class),
 	REBOL("REBOL", RebolScanner.class),
+	REXX("Rexx", RexxScanner.class),
 	RUBY("Ruby", RubyScanner.class),
 	SHELL("Shell", ShellScanner.class),
 	SMALLTALK("Smalltalk", SmalltalkScanner.class),
@@ -73,6 +74,7 @@ public enum Language {
 		HTML.extensions("htm", "html");
 		JAVA.extension("java");
 		JAVASCRIPT.alias("js").extension("js");
+		JSP.extension("jsp");
 		LUA.extension("lua");
 		MAKE.filename("Makefile");
 		OBJECTIVE_C.extensions("m", "h");
@@ -80,6 +82,7 @@ public enum Language {
 		PROLOG.extension("pl");
 		PYTHON.extension("py");
 		REBOL.extension("r");
+		REXX.extensions("cmd", "exec", "rexx");
 		RUBY.alias("jruby").extensions("rb", "ru").filenames("Rakefile", "Gemfile");
 		SQL.extension("sql");
 		SMALLTALK.extension("st");
