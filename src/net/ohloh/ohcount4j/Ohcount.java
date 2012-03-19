@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.ohloh.ohcount4j.AnnotationWriter;
+import net.ohloh.ohcount4j.SourceFile;
 import net.ohloh.ohcount4j.detect.Detector;
-import net.ohloh.ohcount4j.io.SourceFile;
 
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
@@ -44,11 +44,11 @@ public class Ohcount {
 			ArrayList<File> files = ff.getFiles();
 
 			if (opts.annotate) {
-				annotate(files);
+				annotate(files, getFilenames(files));
 			} else if (opts.detect) {
-				detect(files);
+				detect(files, getFilenames(files));
 			} else {
-				summarize(files);
+				summarize(files, getFilenames(files));
 			}
 			System.exit(0);
 		} catch (OhcountException e) {
@@ -60,32 +60,32 @@ public class Ohcount {
 		}
 	}
 
-	static void annotate(List<File> files) throws IOException {
+	static void annotate(List<File> files, List<String> filenames) throws IOException {
 		AnnotationWriter handler = new AnnotationWriter();
 		for (File file : files) {
 			SourceFile sourceFile = new SourceFile(file);
-			Language language = Detector.detect(sourceFile);
+			Language language = Detector.detect(sourceFile, filenames);
 			if (language != null) {
 				language.makeScanner().scan(sourceFile, handler);
 			}
 		}
 	}
 
-	static void detect(List<File> files) throws IOException {
+	static void detect(List<File> files, List<String> filenames) throws IOException {
 		for (File file : files) {
 			SourceFile sourceFile = new SourceFile(file);
-			Language language = Detector.detect(sourceFile);
+			Language language = Detector.detect(sourceFile, filenames);
 			if (language != null) {
 				System.out.printf("%s\t%s\n", language.niceName(), file.getPath());
 			}
 		}
 	}
 
-	static void summarize(List<File> files) throws IOException {
+	static void summarize(List<File> files, List<String> filenames) throws IOException {
 		SummaryWriter summary = new SummaryWriter();
 		for (File file : files) {
 			SourceFile sourceFile = new SourceFile(file);
-			Language language = Detector.detect(sourceFile);
+			Language language = Detector.detect(sourceFile, filenames);
 			if (language != null) {
 				summary.beginFile();
 				language.makeScanner().scan(sourceFile, summary);
@@ -93,6 +93,14 @@ public class Ohcount {
 			}
 		}
 		summary.printResults();
+	}
+
+	static List<String> getFilenames(List<File> files) {
+		ArrayList<String> result = new ArrayList<String>();
+		for (File file : files) {
+			result.add(file.getPath());
+		}
+		return result;
 	}
 
 	static class OhcountOptions {
