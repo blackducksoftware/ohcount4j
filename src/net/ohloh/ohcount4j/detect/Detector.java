@@ -98,7 +98,7 @@ public class Detector {
 	}
 
 	// Currently assumes extensions map uniquely to scanners
-	public static Language detectByExtension(String ext, Source source) {
+	public static Language detectByExtension(String ext, Source source) throws IOException {
 		if (extensionMap == null) {
 			initialize();
 		}

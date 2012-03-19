@@ -19,6 +19,7 @@ public enum Language {
 	ASSEMBLY("Assembly", AssemblyScanner.class),
 	BOO("Boo", BooScanner.class),
 	C("C", CStyleScanner.class),
+	CPP("C++", CStyleScanner.class),
 	CSHARP("C#", CStyleScanner.class),
 	CSS("CSS", CStyleScanner.class),
 	EIFFEL("Eiffel", EiffelScanner.class),
@@ -61,6 +62,7 @@ public enum Language {
 		ASSEMBLY.extension("asm");
 		BOO.extension("boo");
 		C.extensions("c", "h");
+		CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
 		CSHARP.aliases("C#", "cs").extension("cs");
 		CSS.extension("css");
 		EIFFEL.extension("e");

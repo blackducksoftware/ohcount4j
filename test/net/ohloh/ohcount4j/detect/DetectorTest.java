@@ -34,15 +34,6 @@ public class DetectorTest {
 		assertDetect("Rakefile",  RUBY);
 	}
 
-	@Test
-	public void detectByResolverTest() throws IOException {
-		// For now, ExtnHResolver always returns Language.C.
-		// So this test doesn't cover actual resolution; it just makes
-		// sure that the Detector stack is properly wired up all the
-		// way to the Resolver.
-		assertDetect("main.h", C);
-	}
-
 	protected void assertDetect(String filename, Language language) throws IOException {
 		assertEquals(language, Detector.detect(new SourceBuffer(filename, "")));
 	}
