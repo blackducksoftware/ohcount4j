@@ -60,7 +60,7 @@ public class Ohcount {
 		}
 	}
 
-	static void annotate(List<File> files) throws IOException, OhcountException {
+	static void annotate(List<File> files) throws IOException {
 		AnnotationWriter handler = new AnnotationWriter();
 		for (File file : files) {
 			SourceFile sourceFile = new SourceFile(file);
@@ -71,7 +71,7 @@ public class Ohcount {
 		}
 	}
 
-	static void detect(List<File> files) throws IOException, OhcountException {
+	static void detect(List<File> files) throws IOException {
 		for (File file : files) {
 			SourceFile sourceFile = new SourceFile(file);
 			Language language = Detector.detect(sourceFile);
@@ -81,7 +81,7 @@ public class Ohcount {
 		}
 	}
 
-	static void summarize(List<File> files) throws IOException, OhcountException {
+	static void summarize(List<File> files) throws IOException {
 		SummaryWriter summary = new SummaryWriter();
 		for (File file : files) {
 			SourceFile sourceFile = new SourceFile(file);
