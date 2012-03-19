@@ -54,7 +54,7 @@ public class ExtnHResolver implements Resolver {
 	}
 
 	private static Pattern includePattern = Pattern.compile(
-		"^#include\\s*(?:<|\")([\\w/]+)(?:\\.h)?(?:>|\")", Pattern.MULTILINE
+		"^#include\\s*(?:<|\")([\\w\\.\\/]+)(?:>|\")", Pattern.MULTILINE
 	);
 
 	/* Returns the names of all libraries #included in this file

@@ -45,18 +45,18 @@ public class ExtnHResolverTest {
 
 		s = new SourceBuffer("main.h", "#include <stdio.h>");
 		assertEquals(1, r.findIncludes(s).size());
-		assertTrue(r.findIncludes(s).contains("stdio"));
+		assertTrue(r.findIncludes(s).contains("stdio.h"));
 
 		s = new SourceBuffer("main.h", "#include \"stdio.h\"");
 		assertEquals(1, r.findIncludes(s).size());
-		assertTrue(r.findIncludes(s).contains("stdio"));
+		assertTrue(r.findIncludes(s).contains("stdio.h"));
 
 		s = new SourceBuffer("main.h",
 				"/* Longer Example */\n" +
 				"#include \"stdio.h\"\n" +
 				"\n" +
 				"#include <string.h>\n" +
-				"#include <cassert.h>\n" +
+				"#include <cassert>\n" +
 				"//#include <foo.h>\n" +
 				"\n" +
 				"int main() {" +
@@ -64,10 +64,15 @@ public class ExtnHResolverTest {
 				")\n"
 			);
 		assertEquals(3, r.findIncludes(s).size());
+		assertFalse(r.findIncludes(s).contains("stdio"));
+		assertFalse(r.findIncludes(s).contains("string"));
 		assertFalse(r.findIncludes(s).contains("foo"));
+		assertFalse(r.findIncludes(s).contains("foo.h"));
 		assertFalse(r.findIncludes(s).contains("bar"));
-		assertTrue(r.findIncludes(s).contains("stdio"));
-		assertTrue(r.findIncludes(s).contains("string"));
+		assertFalse(r.findIncludes(s).contains("bar.h"));
+
+		assertTrue(r.findIncludes(s).contains("stdio.h"));
+		assertTrue(r.findIncludes(s).contains("string.h"));
 		assertTrue(r.findIncludes(s).contains("cassert"));
 	}
 
@@ -78,16 +83,16 @@ public class ExtnHResolverTest {
 		s = new SourceBuffer("main.h", "#include <foo.h>");
 		assertEquals(Language.C, r.resolve(s));
 
-		s = new SourceBuffer("main.h", "#include <stdio.h>");
+		s = new SourceBuffer("main.h", "#include <string.h>");
 		assertEquals(Language.C, r.resolve(s));
 
-		s = new SourceBuffer("main.h", "#include <string.h>");
+		s = new SourceBuffer("main.h", "#include <string>");
 		assertEquals(Language.CPP, r.resolve(s));
 
-		s = new SourceBuffer("main.h", "#include <tr1/memory.h>");
+		s = new SourceBuffer("main.h", "#include <string.h>\n#include<string>\n");
 		assertEquals(Language.CPP, r.resolve(s));
 
-		s = new SourceBuffer("main.h", "#include <foo.h>\n#include<string.h>\n");
+		s = new SourceBuffer("main.h", "#include <tr1/memory>");
 		assertEquals(Language.CPP, r.resolve(s));
 	}
 
