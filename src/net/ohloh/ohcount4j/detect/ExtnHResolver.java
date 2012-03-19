@@ -9,12 +9,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.ohloh.ohcount4j.Language;
-import net.ohloh.ohcount4j.io.Source;
+import net.ohloh.ohcount4j.SourceFile;
 
 public class ExtnHResolver implements Resolver {
 
 	@Override
-	public Language resolve(Source sourceFile, List<String> filenames) throws IOException {
+	public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
 		Language result = null;
 
 		if (result == null) {
@@ -34,7 +34,7 @@ public class ExtnHResolver implements Resolver {
 	}
 
 	@Override
-	public Language resolve(Source sourceFile) throws IOException {
+	public Language resolve(SourceFile sourceFile) throws IOException {
 		return resolve(sourceFile, new ArrayList<String>());
 	}
 
@@ -51,7 +51,7 @@ public class ExtnHResolver implements Resolver {
 	/* Does the source tree contain a *.m file to match this *.h file?
 	 * If so, likely Objective-C.
 	 */
-	private Language resolveByNearbyFiles(Source source, List<String> filenames) {
+	private Language resolveByNearbyFiles(SourceFile source, List<String> filenames) {
 
 		String path_with_m = source.getPath().replaceFirst("\\.h$", ".m");
 
@@ -66,7 +66,7 @@ public class ExtnHResolver implements Resolver {
 		"\\b(?:class|namespace|template|typename)\\b", Pattern.MULTILINE
 	);
 
-	private Language resolveByKeywords(Source source) throws IOException {
+	private Language resolveByKeywords(SourceFile source) throws IOException {
 		Matcher m = cppKeywordsPattern.matcher(new String(source.getContents()));
 		if (m.find()) {
 			return Language.CPP;
@@ -81,7 +81,7 @@ public class ExtnHResolver implements Resolver {
 
 	/* Returns the names of all libraries #included in this file
 	 */
-	public List<String> findIncludes(Source source) throws IOException {
+	public List<String> findIncludes(SourceFile source) throws IOException {
 		ArrayList<String> result = new ArrayList<String>();
 
 		Matcher m = includePattern.matcher(new String(source.getContents()));
@@ -93,7 +93,7 @@ public class ExtnHResolver implements Resolver {
 
 	/* Look for headers which are used by C++ only
 	 */
-	private Language resolveByIncludes(Source source) throws IOException {
+	private Language resolveByIncludes(SourceFile source) throws IOException {
 		for (String include : findIncludes(source)) {
 			if (cppIncludes.contains(include)) {
 				return Language.CPP;

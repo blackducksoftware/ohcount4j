@@ -10,11 +10,11 @@ import java.util.Set;
 
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.OhcountException;
-import net.ohloh.ohcount4j.io.Source;
+import net.ohloh.ohcount4j.SourceFile;
 
 public class Detector {
 
-	public static Language detect(Source source, List<String> filenames) throws IOException {
+	public static Language detect(SourceFile source, List<String> filenames) throws IOException {
 
 		if (isBinary(source.getExtension())) {
 			return null;
@@ -40,7 +40,7 @@ public class Detector {
 		return language;
 	}
 
-	public static Language detect(Source source) throws IOException {
+	public static Language detect(SourceFile source) throws IOException {
 		return detect(source, new ArrayList<String>());
 	}
 
@@ -104,7 +104,7 @@ public class Detector {
 	}
 
 	// Currently assumes extensions map uniquely to scanners
-	public static Language detectByExtension(String ext, Source source, List<String> filenames)
+	public static Language detectByExtension(String ext, SourceFile source, List<String> filenames)
 			throws IOException {
 		if (extensionMap == null) {
 			initialize();

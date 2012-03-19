@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.ohloh.ohcount4j.AnnotationWriter;
+import net.ohloh.ohcount4j.SourceFile;
 import net.ohloh.ohcount4j.detect.Detector;
-import net.ohloh.ohcount4j.io.SourceFile;
 
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;

@@ -1,20 +1,40 @@
-package net.ohloh.ohcount4j.io;
+package net.ohloh.ohcount4j;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
-public class Source {
+public class SourceFile {
 
 	private final String path;
 	private final Reader reader;
 	private char[] contents = null;
 
-	public Source(String path, Reader reader) {
+	public SourceFile(String path, Reader reader) {
 		this.path = path;
 		this.reader = reader;
+	}
+
+	public SourceFile(String path) throws FileNotFoundException {
+		this.path = path;
+		this.reader = new BufferedReader(new FileReader(path));
+	}
+
+	public SourceFile(File file) throws FileNotFoundException {
+		this.path = file.getPath();
+		this.reader = new BufferedReader(new FileReader(file));
+	}
+
+	public SourceFile(String path, String buffer) {
+		this.path = path;
+		this.reader = new StringReader(buffer);
 	}
 
 	public String getPath() {
@@ -46,4 +66,5 @@ public class Source {
 			return new String(getContents(), 0, maxLength);
 		}
 	}
+
 }

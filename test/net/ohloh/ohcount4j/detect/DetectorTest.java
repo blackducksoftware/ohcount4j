@@ -5,7 +5,7 @@ import java.io.IOException;
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.OhcountException;
 import net.ohloh.ohcount4j.detect.Detector;
-import net.ohloh.ohcount4j.io.SourceBuffer;
+import net.ohloh.ohcount4j.SourceFile;
 import static net.ohloh.ohcount4j.Language.*;
 
 import org.testng.annotations.Test;
@@ -35,7 +35,7 @@ public class DetectorTest {
 	}
 
 	protected void assertDetect(String filename, Language language) throws IOException {
-		assertEquals(language, Detector.detect(new SourceBuffer(filename, "")));
+		assertEquals(language, Detector.detect(new SourceFile(filename, "")));
 	}
 
 	@Test

@@ -8,8 +8,7 @@ import static org.testng.Assert.assertTrue;
 import java.io.IOException;
 import java.util.Arrays;
 
-import net.ohloh.ohcount4j.io.Source;
-import net.ohloh.ohcount4j.io.SourceBuffer;
+import net.ohloh.ohcount4j.SourceFile;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -34,25 +33,25 @@ public class ExtnHResolverTest {
 	@Test
 	// With no other clues, the resolver should pick C by default
 	public void returnsCByDefaultTest() throws IOException {
-		assertEquals(Language.C, r.resolve(new SourceBuffer("main.h", "")));
+		assertEquals(Language.C, r.resolve(new SourceFile("main.h", "")));
 	}
 
 	@Test
 	public void findIncludesTest() throws IOException {
-		Source s;
+		SourceFile s;
 
-		s = new SourceBuffer("main.h", "");
+		s = new SourceFile("main.h", "");
 		assertEquals(0, r.findIncludes(s).size());
 
-		s = new SourceBuffer("main.h", "#include <stdio.h>");
+		s = new SourceFile("main.h", "#include <stdio.h>");
 		assertEquals(1, r.findIncludes(s).size());
 		assertTrue(r.findIncludes(s).contains("stdio.h"));
 
-		s = new SourceBuffer("main.h", "#include \"stdio.h\"");
+		s = new SourceFile("main.h", "#include \"stdio.h\"");
 		assertEquals(1, r.findIncludes(s).size());
 		assertTrue(r.findIncludes(s).contains("stdio.h"));
 
-		s = new SourceBuffer("main.h",
+		s = new SourceFile("main.h",
 				"/* Longer Example */\n" +
 				"#include \"stdio.h\"\n" +
 				"\n" +
@@ -79,32 +78,32 @@ public class ExtnHResolverTest {
 
 	@Test
 	public void detectByIncludesTest() throws IOException {
-		Source s;
+		SourceFile s;
 
-		s = new SourceBuffer("main.h", "#include <foo.h>");
+		s = new SourceFile("main.h", "#include <foo.h>");
 		assertEquals(Language.C, r.resolve(s));
 
-		s = new SourceBuffer("main.h", "#include <string.h>");
+		s = new SourceFile("main.h", "#include <string.h>");
 		assertEquals(Language.C, r.resolve(s));
 
-		s = new SourceBuffer("main.h", "#include <string>");
+		s = new SourceFile("main.h", "#include <string>");
 		assertEquals(Language.CPP, r.resolve(s));
 
-		s = new SourceBuffer("main.h", "#include <string.h>\n#include<string>\n");
+		s = new SourceFile("main.h", "#include <string.h>\n#include<string>\n");
 		assertEquals(Language.CPP, r.resolve(s));
 
-		s = new SourceBuffer("main.h", "#include <tr1/memory>");
+		s = new SourceFile("main.h", "#include <tr1/memory>");
 		assertEquals(Language.CPP, r.resolve(s));
 	}
 
 	@Test
 	public void detectByKeywordsTest() throws IOException {
-		Source s;
+		SourceFile s;
 
-		s = new SourceBuffer("main.h", "namespace foo\n");
+		s = new SourceFile("main.h", "namespace foo\n");
 		assertEquals(Language.CPP, r.resolve(s));
 
-		s = new SourceBuffer("main.h",
+		s = new SourceFile("main.h",
 				"/* Multiline example */\n" +
 				"namespace foo {\n" +
 				"    template <typename> struct Foo;\n" +
@@ -116,22 +115,22 @@ public class ExtnHResolverTest {
 	@Test
 	public void detectObjectiveCTest() throws IOException {
 		// No filenames given -> default result
-		assertEquals(Language.C, r.resolve(new SourceBuffer("foo.h", "")));
+		assertEquals(Language.C, r.resolve(new SourceFile("foo.h", "")));
 
 		// Header has a corresponding *.c file
 		assertEquals(Language.C,
-			r.resolve(new SourceBuffer("foo.h", ""), Arrays.asList("foo.c")));
+			r.resolve(new SourceFile("foo.h", ""), Arrays.asList("foo.c")));
 
 		// Header has a corresponding *.m file
 		assertEquals(Language.OBJECTIVE_C,
-			r.resolve(new SourceBuffer("foo.h", ""), Arrays.asList("foo.m")));
+			r.resolve(new SourceFile("foo.h", ""), Arrays.asList("foo.m")));
 
 		// Header has a corresponding *.m file, this time with directory path
 		assertEquals(Language.OBJECTIVE_C,
-			r.resolve(new SourceBuffer("src/foo/foo.h", ""), Arrays.asList("src/foo/foo.m")));
+			r.resolve(new SourceFile("src/foo/foo.h", ""), Arrays.asList("src/foo/foo.m")));
 
 		// The *.m file is in another directory, so we do not see it.
 		assertEquals(Language.C,
-			r.resolve(new SourceBuffer("include/foo.h", ""), Arrays.asList("src/foo.m")));
+			r.resolve(new SourceFile("include/foo.h", ""), Arrays.asList("src/foo.m")));
 	}
 }
