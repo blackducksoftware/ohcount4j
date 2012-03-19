@@ -21,6 +21,9 @@ public class ExtnHResolver implements Resolver {
 			result = resolveByIncludes(sourceFile);
 		}
 		if (result == null) {
+			result = resolveByKeywords(sourceFile);
+		}
+		if (result == null) {
 			result = Language.C;
 		}
 
@@ -35,6 +38,19 @@ public class ExtnHResolver implements Resolver {
 			return true;
 		}
 		return false;
+	}
+
+	private static Pattern cppKeywordsPattern = Pattern.compile(
+		"\\b(?:class|namespace|template|typename)\\b", Pattern.MULTILINE
+	);
+
+	private Language resolveByKeywords(Source source) throws IOException {
+		Matcher m = cppKeywordsPattern.matcher(new String(source.getContents()));
+		if (m.find()) {
+			return Language.CPP;
+		} else {
+			return null;
+		}
 	}
 
 	private static Pattern includePattern = Pattern.compile(
@@ -53,7 +69,9 @@ public class ExtnHResolver implements Resolver {
 		return result;
 	}
 
-	public Language resolveByIncludes(Source source) throws IOException {
+	/* Look for headers which are used by C++ only
+	 */
+	private Language resolveByIncludes(Source source) throws IOException {
 		for (String include : findIncludes(source)) {
 			if (cppIncludes.contains(include)) {
 				return Language.CPP;

@@ -90,4 +90,20 @@ public class ExtnHResolverTest {
 		s = new SourceBuffer("main.h", "#include <foo.h>\n#include<string.h>\n");
 		assertEquals(Language.CPP, r.resolve(s));
 	}
+
+	@Test
+	public void detectByKeywordsTest() throws IOException {
+		Source s;
+
+		s = new SourceBuffer("main.h", "namespace foo\n");
+		assertEquals(Language.CPP, r.resolve(s));
+
+		s = new SourceBuffer("main.h",
+				"/* Multiline example */\n" +
+				"namespace foo {\n" +
+				"    template <typename> struct Foo;\n" +
+				"}\n"
+		);
+		assertEquals(Language.CPP, r.resolve(s));
+	}
 }
