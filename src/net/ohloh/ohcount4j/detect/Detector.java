@@ -1,8 +1,10 @@
 package net.ohloh.ohcount4j.detect;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,7 +14,7 @@ import net.ohloh.ohcount4j.io.Source;
 
 public class Detector {
 
-	public static Language detect(Source source) throws IOException {
+	public static Language detect(Source source, List<String> filenames) throws IOException {
 
 		if (isBinary(source.getExtension())) {
 			return null;
@@ -24,10 +26,10 @@ public class Detector {
 			language = EmacsModeDetector.detect(source.head(100));
 		}
 		if (language == null) {
-			language = detectByExtension(source.getExtension(), source);
+			language = detectByExtension(source.getExtension(), source, filenames);
 		}
 		if (language == null) {
-			language = detectByExtension(source.getExtension().toLowerCase(), source);
+			language = detectByExtension(source.getExtension().toLowerCase(), source, filenames);
 		}
 		if (language == null) {
 			language = detectByFilename(source.getName());
@@ -36,6 +38,10 @@ public class Detector {
 			language = MagicDetector.detect(source.head(100));
 		}
 		return language;
+	}
+
+	public static Language detect(Source source) throws IOException {
+		return detect(source, new ArrayList<String>());
 	}
 
 	private static Map<String, Language> nameMap;
@@ -98,13 +104,14 @@ public class Detector {
 	}
 
 	// Currently assumes extensions map uniquely to scanners
-	public static Language detectByExtension(String ext, Source source) throws IOException {
+	public static Language detectByExtension(String ext, Source source, List<String> filenames)
+			throws IOException {
 		if (extensionMap == null) {
 			initialize();
 		}
 		Resolver resolver = resolverExtensionMap.get(ext);
 		if (resolver != null) {
-			return resolver.resolve(source);
+			return resolver.resolve(source, filenames);
 		} else {
 			return extensionMap.get(ext);
 		}

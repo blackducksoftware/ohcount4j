@@ -14,9 +14,12 @@ import net.ohloh.ohcount4j.io.Source;
 public class ExtnHResolver implements Resolver {
 
 	@Override
-	public Language resolve(Source sourceFile) throws IOException {
+	public Language resolve(Source sourceFile, List<String> filenames) throws IOException {
 		Language result = null;
 
+		if (result == null) {
+			result = resolveByNearbyFiles(sourceFile, filenames);
+		}
 		if (result == null) {
 			result = resolveByIncludes(sourceFile);
 		}
@@ -31,6 +34,11 @@ public class ExtnHResolver implements Resolver {
 	}
 
 	@Override
+	public Language resolve(Source sourceFile) throws IOException {
+		return resolve(sourceFile, new ArrayList<String>());
+	}
+
+	@Override
 	public boolean canResolve(Language language) {
 		if (language == Language.C ||
 			language == Language.CPP ||
@@ -38,6 +46,20 @@ public class ExtnHResolver implements Resolver {
 			return true;
 		}
 		return false;
+	}
+
+	/* Does the source tree contain a *.m file to match this *.h file?
+	 * If so, likely Objective-C.
+	 */
+	private Language resolveByNearbyFiles(Source source, List<String> filenames) {
+
+		String path_with_m = source.getPath().replaceFirst("\\.h$", ".m");
+
+		if (filenames.contains(path_with_m)) {
+			return Language.OBJECTIVE_C;
+		} else {
+			return null;
+		}
 	}
 
 	private static Pattern cppKeywordsPattern = Pattern.compile(

@@ -6,6 +6,7 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import net.ohloh.ohcount4j.io.Source;
 import net.ohloh.ohcount4j.io.SourceBuffer;
@@ -110,5 +111,27 @@ public class ExtnHResolverTest {
 				"}\n"
 		);
 		assertEquals(Language.CPP, r.resolve(s));
+	}
+
+	@Test
+	public void detectObjectiveCTest() throws IOException {
+		// No filenames given -> default result
+		assertEquals(Language.C, r.resolve(new SourceBuffer("foo.h", "")));
+
+		// Header has a corresponding *.c file
+		assertEquals(Language.C,
+			r.resolve(new SourceBuffer("foo.h", ""), Arrays.asList("foo.c")));
+
+		// Header has a corresponding *.m file
+		assertEquals(Language.OBJECTIVE_C,
+			r.resolve(new SourceBuffer("foo.h", ""), Arrays.asList("foo.m")));
+
+		// Header has a corresponding *.m file, this time with directory path
+		assertEquals(Language.OBJECTIVE_C,
+			r.resolve(new SourceBuffer("src/foo/foo.h", ""), Arrays.asList("src/foo/foo.m")));
+
+		// The *.m file is in another directory, so we do not see it.
+		assertEquals(Language.C,
+			r.resolve(new SourceBuffer("include/foo.h", ""), Arrays.asList("src/foo.m")));
 	}
 }
