@@ -29,11 +29,13 @@ public enum Language {
 	HTML("HTML", HTMLScanner.class),
 	JAVA("Java", CStyleScanner.class),
 	JAVASCRIPT("JavaScript", CStyleScanner.class),
+	LIMBO("Limbo", CStyleScanner.class),
 	LISP("Lisp", LispScanner.class),
 	LUA("Lua", LuaScanner.class),
 	MAKE("Make", MakeScanner.class),
 	MATLAB("Matlab", MatlabScanner.class),
 	OBJECTIVE_C("Objective-C", CStyleScanner.class),
+	OCTAVE("Octave", MatlabScanner.class), // TODO. Octave also supports # comments
 	PASCAL("Pascal", PascalScanner.class),
 	PROLOG("Prolog", PrologScanner.class),
 	PYTHON("Python", PythonScanner.class),
@@ -72,9 +74,11 @@ public enum Language {
 		HTML.extensions("htm", "html");
 		JAVA.extension("java");
 		JAVASCRIPT.alias("js").extension("js");
+		LIMBO.extensions("b", "m");
 		LUA.extension("lua");
 		MAKE.filename("Makefile");
 		OBJECTIVE_C.extensions("m", "h");
+		OCTAVE.extensions("m", "octave");
 		PASCAL.extension("pas");
 		PROLOG.extension("pl");
 		PYTHON.extension("py");
