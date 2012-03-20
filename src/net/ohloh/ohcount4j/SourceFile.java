@@ -57,6 +57,11 @@ public class SourceFile {
 		return contents;
 	}
 
+	// Regular expressions require CharSequence input
+	public CharSequence getCharSequence() throws IOException {
+		return java.nio.CharBuffer.wrap(getContents());
+	}
+
 	// Ideally, head() should read only as much of the file as required.
 	// For now, we simply read in the entire file and return only the first portion.
 	public String head(int maxLength) throws IOException {
