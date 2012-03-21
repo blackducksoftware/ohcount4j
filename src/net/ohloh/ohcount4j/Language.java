@@ -27,6 +27,7 @@ public enum Language {
 	FSHARP("F#", FSharpScanner.class),
 	GROOVY("Groovy", CStyleScanner.class),
 	HTML("HTML", HTMLScanner.class),
+	HASKELL("Haskell", HaskellScanner.class),
 	JAVA("Java", CStyleScanner.class),
 	JAVASCRIPT("JavaScript", CStyleScanner.class),
 	JSP("JSP", JspScanner.class),
@@ -73,6 +74,7 @@ public enum Language {
 		FSHARP.extension("fs");
 		GROOVY.extension("groovy");
 		HTML.extensions("htm", "html");
+		HASKELL.extensions("hs", "lhs");
 		JAVA.extension("java");
 		JAVASCRIPT.alias("js").extension("js");
 		JSP.extension("jsp");
