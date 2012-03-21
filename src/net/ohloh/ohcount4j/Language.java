@@ -44,6 +44,7 @@ public enum Language {
 	REBOL("REBOL", RebolScanner.class),
 	REXX("Rexx", RexxScanner.class),
 	RUBY("Ruby", RubyScanner.class),
+	SCHEME("Scheme", SchemeScanner.class),
 	SHELL("Shell", ShellScanner.class),
 	SMALLTALK("Smalltalk", SmalltalkScanner.class),
 	SQL("SQL", SqlScanner.class),
@@ -90,9 +91,10 @@ public enum Language {
 		REBOL.extension("r");
 		REXX.extensions("cmd", "exec", "rexx");
 		RUBY.alias("jruby").extensions("rb", "ru").filenames("Rakefile", "Gemfile");
-		SQL.extension("sql");
-		SMALLTALK.extension("st");
+		SCHEME.extensions("scm", "ss");
 		SHELL.extensions("bash", "sh");
+		SMALLTALK.extension("st");
+		SQL.extension("sql");
 		TCL.extension("tcl");
 		VB.extension("vb");
 		XML.extension("xml");
