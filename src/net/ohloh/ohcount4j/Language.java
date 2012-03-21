@@ -38,6 +38,7 @@ public enum Language {
 	OBJECTIVE_C("Objective-C", CStyleScanner.class),
 	OCAML("OCaml", OCamlScanner.class),
 	PASCAL("Pascal", PascalScanner.class),
+	PERL("Perl", PerlScanner.class),
 	PROLOG("Prolog", PrologScanner.class),
 	PYTHON("Python", PythonScanner.class),
 	REBOL("REBOL", RebolScanner.class),
@@ -83,7 +84,8 @@ public enum Language {
 		OBJECTIVE_C.extensions("m", "h");
 		OCAML.extensions("ml", "mli");
 		PASCAL.extension("pas");
-		PROLOG.extension("pl");
+		PERL.extensions("pl", "pm");
+		//PROLOG.extensions("pl", "pro"); TODO: Disambiguiate from Perl
 		PYTHON.extension("py");
 		REBOL.extension("r");
 		REXX.extensions("cmd", "exec", "rexx");
