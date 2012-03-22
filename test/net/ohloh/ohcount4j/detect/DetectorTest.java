@@ -49,9 +49,8 @@ public class DetectorTest {
 
 	@Test
 	public void getResolverTest() throws OhcountException {
-		//assertEquals(null, Detector.getResolver(""));
-		//assertEquals(null, Detector.getResolver("notfound"));
-
 		assertTrue(Detector.getResolver("h") instanceof ExtnHResolver);
+		assertTrue(Detector.getResolver("m") instanceof ExtnMResolver);
+		assertTrue(Detector.getResolver("inc") instanceof ExtnINCResolver);
 	}
 }

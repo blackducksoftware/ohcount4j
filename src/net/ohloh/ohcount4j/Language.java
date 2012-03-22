@@ -17,6 +17,7 @@ public enum Language {
 	ACTIONSCRIPT("ActionScript", ActionScriptScanner.class),
 	ADA("Ada", AdaScanner.class),
 	ASSEMBLY("Assembly", AssemblyScanner.class),
+	BINARY("Binary", null), // Place holder for binary files. This "Language" will not trigger a scan.
 	BOO("Boo", BooScanner.class),
 	C("C", CStyleScanner.class),
 	CPP("C++", CStyleScanner.class),
@@ -37,6 +38,7 @@ public enum Language {
 	OBJECTIVE_C("Objective-C", CStyleScanner.class),
 	OCTAVE("Octave", MatlabScanner.class), // TODO. Octave also supports # comments
 	PASCAL("Pascal", PascalScanner.class),
+	PHP("PHP", GenericCodeScanner.class), // TODO.
 	PROLOG("Prolog", PrologScanner.class),
 	PYTHON("Python", PythonScanner.class),
 	REBOL("REBOL", RebolScanner.class),
@@ -62,6 +64,7 @@ public enum Language {
 		ACTIONSCRIPT.extension("as");
 		ADA.extensions("ada", "adb");
 		ASSEMBLY.extension("asm");
+		BINARY.extension("inc");
 		BOO.extension("boo");
 		C.extensions("c", "h");
 		CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
@@ -80,6 +83,7 @@ public enum Language {
 		OBJECTIVE_C.extensions("m", "h");
 		OCTAVE.extensions("m", "octave");
 		PASCAL.extension("pas");
+		PHP.extension("inc"); // TODO. Obviously there are more; this triggers ExtIncResolver.
 		PROLOG.extension("pl");
 		PYTHON.extension("py");
 		REBOL.extension("r");

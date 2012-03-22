@@ -14,8 +14,13 @@ import net.ohloh.ohcount4j.SourceFile;
 
 public class Detector {
 
+	/* Returns the base language of the provided SourceFile.
+	 * Returns null if no programming language is detected,
+	 * or if the provided SourceFile is a binary file.
+	 */
 	public static Language detect(SourceFile source, List<String> filenames) throws IOException {
 
+		// Initial fast rejection of binary files
 		if (isBinary(source.getExtension())) {
 			return null;
 		}
@@ -37,7 +42,13 @@ public class Detector {
 		if (language == null) {
 			language = MagicDetector.detect(source.head(100));
 		}
-		return language;
+
+		// A Detector or Resolver may have found a binary file.
+		if (language == Language.BINARY) {
+			return null;
+		} else {
+			return language;
+		}
 	}
 
 	public static Language detect(SourceFile source) throws IOException {
