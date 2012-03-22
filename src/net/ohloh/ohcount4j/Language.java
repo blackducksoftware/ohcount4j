@@ -38,6 +38,7 @@ public enum Language {
 	OBJECTIVE_C("Objective-C", CStyleScanner.class),
 	OCTAVE("Octave", MatlabScanner.class), // TODO. Octave also supports # comments
 	PASCAL("Pascal", PascalScanner.class),
+	PERL("Perl", GenericCodeScanner.class), // TODO.
 	PHP("PHP", GenericCodeScanner.class), // TODO.
 	PROLOG("Prolog", PrologScanner.class),
 	PYTHON("Python", PythonScanner.class),
@@ -83,6 +84,7 @@ public enum Language {
 		OBJECTIVE_C.extensions("m", "h");
 		OCTAVE.extensions("m", "octave");
 		PASCAL.extension("pas");
+		PERL.extension("pl"); // TODO. Obviously there are more; this triggers ExtnPLResolver.
 		PHP.extension("inc"); // TODO. Obviously there are more; this triggers ExtIncResolver.
 		PROLOG.extension("pl");
 		PYTHON.extension("py");
