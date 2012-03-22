@@ -52,5 +52,6 @@ public class DetectorTest {
 		assertTrue(Detector.getResolver("h") instanceof ExtnHResolver);
 		assertTrue(Detector.getResolver("m") instanceof ExtnMResolver);
 		assertTrue(Detector.getResolver("inc") instanceof ExtnINCResolver);
+		assertTrue(Detector.getResolver("pp") instanceof ExtnPPResolver);
 	}
 }

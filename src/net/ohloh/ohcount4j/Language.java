@@ -40,6 +40,7 @@ public enum Language {
 	PASCAL("Pascal", PascalScanner.class),
 	PERL("Perl", GenericCodeScanner.class), // TODO.
 	PHP("PHP", GenericCodeScanner.class), // TODO.
+	PUPPET("Puppet", GenericCodeScanner.class), // TODO.
 	PROLOG("Prolog", PrologScanner.class),
 	PYTHON("Python", PythonScanner.class),
 	REBOL("REBOL", RebolScanner.class),
@@ -83,10 +84,11 @@ public enum Language {
 		MAKE.filename("Makefile");
 		OBJECTIVE_C.extensions("m", "h");
 		OCTAVE.extensions("m", "octave");
-		PASCAL.extension("pas");
+		PASCAL.extensions("pas", "pp");
 		PERL.extension("pl"); // TODO. Obviously there are more; this triggers ExtnPLResolver.
 		PHP.extension("inc"); // TODO. Obviously there are more; this triggers ExtIncResolver.
 		PROLOG.extension("pl");
+		PUPPET.extension("pp");
 		PYTHON.extension("py");
 		REBOL.extension("r");
 		RUBY.alias("jruby").extensions("rb", "ru").filenames("Rakefile", "Gemfile");

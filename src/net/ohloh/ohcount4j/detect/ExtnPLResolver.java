@@ -3,7 +3,6 @@ package net.ohloh.ohcount4j.detect;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.ohloh.ohcount4j.Language;
