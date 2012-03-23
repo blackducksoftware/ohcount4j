@@ -16,6 +16,8 @@ public enum Language {
 	 */
 	ACTIONSCRIPT("ActionScript", ActionScriptScanner.class),
 	ADA("Ada", AdaScanner.class),
+	ASPX_CSHARP("ASP.NET (C#)", GenericCodeScanner.class), // TODO.
+	ASPX_VB("ASP.NET (VB)", GenericCodeScanner.class), // TODO.
 	ASSEMBLY("Assembly", AssemblyScanner.class),
 	BINARY("Binary", null), // Place holder for binary files. This "Language" will not trigger a scan.
 	BOO("Boo", BooScanner.class),
@@ -65,6 +67,8 @@ public enum Language {
 	static {
 		ACTIONSCRIPT.extension("as");
 		ADA.extensions("ada", "adb");
+		ASPX_CSHARP.extension("aspx");
+		ASPX_VB.extension("aspx");
 		ASSEMBLY.extension("asm");
 		BINARY.extension("inc");
 		BOO.extension("boo");
