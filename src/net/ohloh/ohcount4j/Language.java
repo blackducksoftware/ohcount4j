@@ -39,6 +39,7 @@ public enum Language {
 	OCAML("OCaml", OCamlScanner.class),
 	PASCAL("Pascal", PascalScanner.class),
 	PERL("Perl", PerlScanner.class),
+	PHP("Php", PhpScanner.class),
 	PROLOG("Prolog", PrologScanner.class),
 	PYTHON("Python", PythonScanner.class),
 	REBOL("REBOL", RebolScanner.class),
@@ -86,6 +87,7 @@ public enum Language {
 		OCAML.extensions("ml", "mli");
 		PASCAL.extension("pas");
 		PERL.extensions("pl", "pm");
+		PHP.extensions("php", "phtml", "php4", "php3", "php5", "phps");
 		//PROLOG.extensions("pl", "pro"); TODO: Disambiguiate from Perl
 		PYTHON.extension("py");
 		REBOL.extension("r");
