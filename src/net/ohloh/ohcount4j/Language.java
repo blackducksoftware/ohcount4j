@@ -22,6 +22,7 @@ public enum Language {
 	BINARY("Binary", null), // Place holder for binary files. This "Language" will not trigger a scan.
 	BOO("Boo", BooScanner.class),
 	C("C", CStyleScanner.class),
+	COBOL("COBOL", CobolScanner.class),
 	CPP("C++", CStyleScanner.class),
 	CSHARP("C#", CStyleScanner.class),
 	CSS("CSS", CStyleScanner.class),
@@ -30,24 +31,31 @@ public enum Language {
 	FSHARP("F#", FSharpScanner.class),
 	GROOVY("Groovy", CStyleScanner.class),
 	HTML("HTML", HTMLScanner.class),
+	HASKELL("Haskell", HaskellScanner.class),
 	JAVA("Java", CStyleScanner.class),
 	JAVASCRIPT("JavaScript", CStyleScanner.class),
 	LIMBO("Limbo", CStyleScanner.class),
+	JSP("JSP", JspScanner.class),
 	LISP("Lisp", LispScanner.class),
 	LUA("Lua", LuaScanner.class),
 	MAKE("Make", MakeScanner.class),
 	MATLAB("Matlab", MatlabScanner.class),
+	MODULA2("Modula 2", ModulaScanner.class),
+	MODULA3("Modula 3", ModulaScanner.class),
 	OBJECTIVE_C("Objective-C", CStyleScanner.class),
+	OCAML("OCaml", OCamlScanner.class),
 	OCTAVE("Octave", MatlabScanner.class), // TODO. Octave also supports # comments
 	PASCAL("Pascal", PascalScanner.class),
-	PERL("Perl", GenericCodeScanner.class), // TODO.
-	PHP("PHP", GenericCodeScanner.class), // TODO.
+	PERL("Perl", PerlScanner.class),
+	PHP("Php", PhpScanner.class),
 	PUPPET("Puppet", GenericCodeScanner.class), // TODO.
 	PVWAVE("IDL/PV-WAVE/GDL", GenericCodeScanner.class), // TODO.
 	PROLOG("Prolog", PrologScanner.class),
 	PYTHON("Python", PythonScanner.class),
 	REBOL("REBOL", RebolScanner.class),
+	REXX("Rexx", RexxScanner.class),
 	RUBY("Ruby", RubyScanner.class),
+	SCHEME("Scheme", SchemeScanner.class),
 	SHELL("Shell", ShellScanner.class),
 	SMALLTALK("Smalltalk", SmalltalkScanner.class),
 	SQL("SQL", SqlScanner.class),
@@ -74,6 +82,7 @@ public enum Language {
 		BINARY.extension("inc");
 		BOO.extension("boo");
 		C.extensions("c", "h");
+		COBOL.extension("cbl");
 		CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
 		CSHARP.aliases("C#", "cs").extension("cs");
 		CSS.extension("css");
@@ -82,25 +91,32 @@ public enum Language {
 		FSHARP.extension("fs");
 		GROOVY.extension("groovy");
 		HTML.extensions("htm", "html");
+		HASKELL.extensions("hs", "lhs");
 		JAVA.extension("java");
 		JAVASCRIPT.alias("js").extension("js");
+		JSP.extension("jsp");
 		LIMBO.extensions("b", "m");
 		LUA.extension("lua");
 		MAKE.filename("Makefile").extensions("mk", "pro");
+		MODULA2.extensions("mod", "m2");
+		MODULA3.extensions("m3", "i3");
 		OBJECTIVE_C.extensions("m", "h");
+		OCAML.extensions("ml", "mli");
 		OCTAVE.extensions("m", "octave");
 		PASCAL.extensions("pas", "pp");
-		PERL.extension("pl"); // TODO. Obviously there are more; this triggers ExtnPLResolver.
-		PHP.extension("inc"); // TODO. Obviously there are more; this triggers ExtIncResolver.
+		PERL.extensions("pl", "pm");
+		PHP.extensions("inc", "php", "phtml", "php4", "php3", "php5", "phps");
 		PVWAVE.extension("pro");
 		PROLOG.extension("pl");
 		PUPPET.extension("pp");
 		PYTHON.extension("py");
 		REBOL.extension("r");
+		REXX.extensions("cmd", "exec", "rexx");
 		RUBY.alias("jruby").extensions("rb", "ru").filenames("Rakefile", "Gemfile");
-		SQL.extension("sql");
-		SMALLTALK.extension("st");
+		SCHEME.extensions("scm", "ss");
 		SHELL.extensions("bash", "sh");
+		SMALLTALK.extension("st");
+		SQL.extension("sql");
 		TCL.extension("tcl");
 		VB.extension("vb");
 		XML.extensions("asx", "csproj", "xml", "mxml");
