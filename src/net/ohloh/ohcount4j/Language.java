@@ -23,6 +23,7 @@ public enum Language {
 	BOO("Boo", BooScanner.class),
 	C("C", CStyleScanner.class),
 	COBOL("COBOL", CobolScanner.class),
+	COLDFUSION("ColdFusion", ColdFusionScanner.class),
 	CPP("C++", CStyleScanner.class),
 	CSHARP("C#", CStyleScanner.class),
 	CSS("CSS", CStyleScanner.class),
@@ -84,6 +85,7 @@ public enum Language {
 		BOO.extension("boo");
 		C.extensions("c", "h");
 		COBOL.extension("cbl");
+		COLDFUSION.extensions("cfc", "cfm");
 		CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
 		CSHARP.aliases("C#", "cs").extension("cs");
 		CSS.extension("css");
