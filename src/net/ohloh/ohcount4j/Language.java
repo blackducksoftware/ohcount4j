@@ -43,6 +43,7 @@ public enum Language {
 	PERL("Perl", GenericCodeScanner.class), // TODO.
 	PHP("PHP", GenericCodeScanner.class), // TODO.
 	PUPPET("Puppet", GenericCodeScanner.class), // TODO.
+	PVWAVE("IDL/PV-WAVE/GDL", GenericCodeScanner.class), // TODO.
 	PROLOG("Prolog", PrologScanner.class),
 	PYTHON("Python", PythonScanner.class),
 	REBOL("REBOL", RebolScanner.class),
@@ -85,12 +86,13 @@ public enum Language {
 		JAVASCRIPT.alias("js").extension("js");
 		LIMBO.extensions("b", "m");
 		LUA.extension("lua");
-		MAKE.filename("Makefile");
+		MAKE.filename("Makefile").extensions("mk", "pro");
 		OBJECTIVE_C.extensions("m", "h");
 		OCTAVE.extensions("m", "octave");
 		PASCAL.extensions("pas", "pp");
 		PERL.extension("pl"); // TODO. Obviously there are more; this triggers ExtnPLResolver.
 		PHP.extension("inc"); // TODO. Obviously there are more; this triggers ExtIncResolver.
+		PVWAVE.extension("pro");
 		PROLOG.extension("pl");
 		PUPPET.extension("pp");
 		PYTHON.extension("py");
@@ -101,7 +103,7 @@ public enum Language {
 		SHELL.extensions("bash", "sh");
 		TCL.extension("tcl");
 		VB.extension("vb");
-		XML.extensions("asx", "xml");
+		XML.extensions("asx", "csproj", "xml", "mxml");
 	}
 
 	private final String niceName;
