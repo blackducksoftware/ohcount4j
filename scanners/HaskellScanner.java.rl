@@ -11,10 +11,6 @@ public class HaskellScanner extends BaseScanner{
 	    action inc_nested_level { nested_level++; }
 	 	action dec_nested_level { nested_level--; if(nested_level == 0) fret; }
 	  	action is_nested { nested_level > 0 }
-	  	action printp { System.out.println(
-	  				"P='" + (data[p] == '\n' ? "nl" : data[p]) +
-	  				"' P-1='" + (data[p-1] == '\n' ? "nl" : data[p-1]) + 
-	  				"' P-2='" + (data[p-2] == '\n' ? "nl" : data[p-2]) + "'"); }
 
 		# Catches instances of '|--' as not a comment properly
 		# If it finds '--' as the first thing in the file, cannot have leading '|'
