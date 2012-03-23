@@ -35,6 +35,8 @@ public enum Language {
 	LUA("Lua", LuaScanner.class),
 	MAKE("Make", MakeScanner.class),
 	MATLAB("Matlab", MatlabScanner.class),
+	MODULA2("Modula 2", ModulaScanner.class),
+	MODULA3("Modula 3", ModulaScanner.class),
 	OBJECTIVE_C("Objective-C", CStyleScanner.class),
 	OCAML("OCaml", OCamlScanner.class),
 	PASCAL("Pascal", PascalScanner.class),
@@ -83,6 +85,8 @@ public enum Language {
 		JSP.extension("jsp");
 		LUA.extension("lua");
 		MAKE.filename("Makefile");
+		MODULA2.extensions("mod", "m2");
+		MODULA3.extensions("m3", "i3");
 		OBJECTIVE_C.extensions("m", "h");
 		OCAML.extensions("ml", "mli");
 		PASCAL.extension("pas");
