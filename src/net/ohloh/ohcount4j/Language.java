@@ -69,7 +69,7 @@ public enum Language {
 		ADA.extensions("ada", "adb");
 		ASPX_CSHARP.extension("aspx");
 		ASPX_VB.extension("aspx");
-		ASSEMBLY.extension("asm");
+		ASSEMBLY.extensions("as8", "asm", "asx", "S", "z80");
 		BINARY.extension("inc");
 		BOO.extension("boo");
 		C.extensions("c", "h");
@@ -101,7 +101,7 @@ public enum Language {
 		SHELL.extensions("bash", "sh");
 		TCL.extension("tcl");
 		VB.extension("vb");
-		XML.extension("xml");
+		XML.extensions("asx", "xml");
 	}
 
 	private final String niceName;
