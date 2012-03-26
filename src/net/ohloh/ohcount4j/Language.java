@@ -52,6 +52,7 @@ public enum Language {
 	PVWAVE("IDL/PV-WAVE/GDL", GenericCodeScanner.class), // TODO.
 	PROLOG("Prolog", PrologScanner.class),
 	PYTHON("Python", PythonScanner.class),
+	R("R", GenericCodeScanner.class), // TODO.
 	REBOL("REBOL", RebolScanner.class),
 	REXX("Rexx", RexxScanner.class),
 	RUBY("Ruby", RubyScanner.class),
@@ -110,7 +111,8 @@ public enum Language {
 		PROLOG.extension("pl");
 		PUPPET.extension("pp");
 		PYTHON.extension("py");
-		REBOL.extension("r");
+		R.extension("r");
+		REBOL.extensions("r", "r3", "reb", "rebol");
 		REXX.extensions("cmd", "exec", "rexx");
 		RUBY.alias("jruby").extensions("rb", "ru").filenames("Rakefile", "Gemfile");
 		SCHEME.extensions("scm", "ss");
