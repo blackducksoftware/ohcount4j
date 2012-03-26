@@ -85,7 +85,7 @@ public enum Language {
 		BINARY.extension("inc");
 		BOO.extension("boo");
 		C.extensions("c", "h");
-		CLASSIC_BASIC.extension("bas");
+		CLASSIC_BASIC.extensions("b", "bas");
 		COBOL.extension("cbl");
 		CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
 		CSHARP.aliases("C#", "cs").extension("cs");
@@ -122,7 +122,7 @@ public enum Language {
 		SHELL.extensions("bash", "sh");
 		SMALLTALK.extension("st");
 		SQL.extension("sql");
-		STRUCTURED_BASIC.extensions("bas", "bi");
+		STRUCTURED_BASIC.extensions("b", "bas", "bi");
 		TCL.extension("tcl");
 		VB.extensions("bas", "frm", "frx", "vb", "vba", "vbs");
 		XML.extensions("asx", "csproj", "xml", "mxml");
