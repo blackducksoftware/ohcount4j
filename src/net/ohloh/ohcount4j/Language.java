@@ -22,6 +22,7 @@ public enum Language {
 	BINARY("Binary", null), // Place holder for binary files. This "Language" will not trigger a scan.
 	BOO("Boo", BooScanner.class),
 	C("C", CStyleScanner.class),
+	CLASSIC_BASIC("Classic BASIC", GenericCodeScanner.class), // TODO.
 	COBOL("COBOL", CobolScanner.class),
 	CPP("C++", CStyleScanner.class),
 	CSHARP("C#", CStyleScanner.class),
@@ -60,8 +61,9 @@ public enum Language {
 	SHELL("Shell", ShellScanner.class),
 	SMALLTALK("Smalltalk", SmalltalkScanner.class),
 	SQL("SQL", SqlScanner.class),
+	STRUCTURED_BASIC("Structured Basic", VisualBasicScanner.class),
 	TCL("Tcl", TclScanner.class),
-	VB("VisualBasic", VisualBasicScanner.class),
+	VB("Visual Basic", VisualBasicScanner.class),
 	XML("XML", XmlScanner.class);
 
 	/* Optional properties of languages are declared here.
@@ -83,6 +85,7 @@ public enum Language {
 		BINARY.extension("inc");
 		BOO.extension("boo");
 		C.extensions("c", "h");
+		CLASSIC_BASIC.extension("bas");
 		COBOL.extension("cbl");
 		CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
 		CSHARP.aliases("C#", "cs").extension("cs");
@@ -119,8 +122,9 @@ public enum Language {
 		SHELL.extensions("bash", "sh");
 		SMALLTALK.extension("st");
 		SQL.extension("sql");
+		STRUCTURED_BASIC.extensions("bas", "bi");
 		TCL.extension("tcl");
-		VB.extension("vb");
+		VB.extensions("bas", "frm", "frx", "vb", "vba", "vbs");
 		XML.extensions("asx", "csproj", "xml", "mxml");
 	}
 
