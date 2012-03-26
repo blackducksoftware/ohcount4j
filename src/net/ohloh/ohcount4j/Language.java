@@ -64,6 +64,7 @@ public enum Language {
 	SQL("SQL", SqlScanner.class),
 	TCL("Tcl", TclScanner.class),
 	VB("VisualBasic", VisualBasicScanner.class),
+	VBSCRIPT("VBScript", VisualBasicScanner.class),
 	XML("XML", XmlScanner.class);
 
 	/* Optional properties of languages are declared here.
@@ -125,6 +126,7 @@ public enum Language {
 		SQL.extension("sql");
 		TCL.extension("tcl");
 		VB.extension("vb");
+		VBSCRIPT.extensions("vbs", "vbe");
 		XML.extensions("asx", "csproj", "xml", "mxml");
 	}
 
