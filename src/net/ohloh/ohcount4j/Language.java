@@ -41,6 +41,7 @@ public enum Language {
 	LISP("Lisp", LispScanner.class),
 	LUA("Lua", LuaScanner.class),
 	MAKE("Make", MakeScanner.class),
+	MATHEMATICA("Mathematica", MathematicaScanner.class),
 	MATLAB("Matlab", MatlabScanner.class),
 	MODULA2("Modula 2", ModulaScanner.class),
 	MODULA3("Modula 3", ModulaScanner.class),
@@ -104,6 +105,7 @@ public enum Language {
 		LIMBO.extensions("b", "m");
 		LUA.extension("lua");
 		MAKE.filename("Makefile").extensions("mk", "pro");
+		MATHEMATICA.extensions("nb", "nbs");
 		MODULA2.extensions("mod", "m2");
 		MODULA3.extensions("m3", "i3");
 		OBJECTIVE_C.extensions("m", "h");
