@@ -29,6 +29,8 @@ public enum Language {
 	CSS("CSS", CStyleScanner.class),
 	EIFFEL("Eiffel", EiffelScanner.class),
 	ERLANG("Erlang", ErlangScanner.class),
+	FORTRAN_FIXED("FORTRAN (Fixed-format)", GenericCodeScanner.class), // TODO.
+	FORTRAN_FREE("Fortran (Free-format)", GenericCodeScanner.class), // TODO.
 	FSHARP("F#", FSharpScanner.class),
 	GROOVY("Groovy", CStyleScanner.class),
 	HTML("HTML", HTMLScanner.class),
@@ -92,6 +94,8 @@ public enum Language {
 		CSS.extension("css");
 		EIFFEL.extension("e");
 		ERLANG.extension("erl");
+		FORTRAN_FIXED.extensions("f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
+		FORTRAN_FREE.extensions("f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
 		FSHARP.extension("fs");
 		GROOVY.extension("groovy");
 		HTML.extensions("htm", "html");
