@@ -82,7 +82,7 @@ public enum Language {
 		ASPX_CSHARP.extension("aspx");
 		ASPX_VB.extension("aspx");
 		ASSEMBLY.extensions("as8", "asm", "asx", "S", "z80");
-		BINARY.extension("inc");
+		BINARY.extensions("inc", "st");
 		BOO.extension("boo");
 		C.extensions("c", "h");
 		CLASSIC_BASIC.extensions("b", "bas");
