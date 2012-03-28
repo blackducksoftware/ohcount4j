@@ -69,7 +69,8 @@ public enum Language {
 	VB("VisualBasic", VisualBasicScanner.class),
 	VBSCRIPT("VBScript", VisualBasicScanner.class),
 	XML("XML", XmlScanner.class),
-	XMLSCHEMA("XmlSchema", XmlScanner.class);
+	XMLSCHEMA("XML Schema", XmlScanner.class),
+	XSLT("XSL Transformation", XmlScanner.class);
 
 	/* Optional properties of languages are declared here.
 	 *
@@ -136,6 +137,7 @@ public enum Language {
 		VBSCRIPT.extensions("vbs", "vbe");
 		XML.extensions("asx", "csproj", "xml", "mxml");
 		XMLSCHEMA.extension("xsd");
+		XSLT.extensions("xsl", "xslt");
 	}
 
 	private final String niceName;
