@@ -27,6 +27,7 @@ public enum Language {
 	CPP("C++", CStyleScanner.class),
 	CSHARP("C#", CStyleScanner.class),
 	CSS("CSS", CStyleScanner.class),
+	D("D", DScanner.class),
 	ECMASCRIPT("ECMAScript", CStyleScanner.class),
 	EIFFEL("Eiffel", EiffelScanner.class),
 	ERLANG("Erlang", ErlangScanner.class),
@@ -97,6 +98,7 @@ public enum Language {
 		CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
 		CSHARP.aliases("C#", "cs").extension("cs");
 		CSS.extension("css");
+		D.extension("d");
 		ECMASCRIPT.extension("es");
 		EIFFEL.extension("e");
 		ERLANG.extension("erl");
