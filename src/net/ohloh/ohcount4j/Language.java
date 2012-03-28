@@ -68,7 +68,8 @@ public enum Language {
 	TCL("Tcl", TclScanner.class),
 	VB("VisualBasic", VisualBasicScanner.class),
 	VBSCRIPT("VBScript", VisualBasicScanner.class),
-	XML("XML", XmlScanner.class);
+	XML("XML", XmlScanner.class),
+	XMLSCHEMA("XmlSchema", XmlScanner.class);
 
 	/* Optional properties of languages are declared here.
 	 *
@@ -134,6 +135,7 @@ public enum Language {
 		VB.extension("vb");
 		VBSCRIPT.extensions("vbs", "vbe");
 		XML.extensions("asx", "csproj", "xml", "mxml");
+		XMLSCHEMA.extension("xsd");
 	}
 
 	private final String niceName;
