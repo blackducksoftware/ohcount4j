@@ -146,6 +146,13 @@ public class Detector {
 	}
 
 	public static Resolver getResolver(String ext) {
+
+		// Special case for FORTRAN since it uses so many extensions.
+		if (Language.FORTRANFIXED.getExtensions().contains(ext) ||
+			Language.FORTRANFREE.getExtensions().contains(ext)) {
+			return new FortranResolver();
+		}
+
 		String resolverName =
 			"net.ohloh.ohcount4j.detect.Extn" + ext.toUpperCase() + "Resolver";
 

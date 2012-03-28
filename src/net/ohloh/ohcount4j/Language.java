@@ -22,6 +22,7 @@ public enum Language {
 	BINARY("Binary", null), // Place holder for binary files. This "Language" will not trigger a scan.
 	BOO("Boo", BooScanner.class),
 	C("C", CStyleScanner.class),
+	CLASSIC_BASIC("Classic BASIC", GenericCodeScanner.class), // TODO.
 	COBOL("COBOL", CobolScanner.class),
 	COLDFUSION("ColdFusion", ColdFusionScanner.class),
 	CPP("C++", CStyleScanner.class),
@@ -66,6 +67,7 @@ public enum Language {
 	SHELL("Shell", ShellScanner.class),
 	SMALLTALK("Smalltalk", SmalltalkScanner.class),
 	SQL("SQL", SqlScanner.class),
+	STRUCTURED_BASIC("Structured Basic", VisualBasicScanner.class),
 	TCL("Tcl", TclScanner.class),
 	TEX("TeX/LaTeX", TexScanner.class),
 	VB("VisualBasic", VisualBasicScanner.class),
@@ -91,9 +93,10 @@ public enum Language {
 		ASPX_CSHARP.extension("aspx");
 		ASPX_VB.extension("aspx");
 		ASSEMBLY.extensions("as8", "asm", "asx", "S", "z80");
-		BINARY.extension("inc");
+		BINARY.extensions("inc", "st");
 		BOO.extension("boo");
 		C.extensions("c", "h");
+		CLASSIC_BASIC.extensions("b", "bas");
 		COBOL.extension("cbl");
 		COLDFUSION.extensions("cfc", "cfm");
 		CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
@@ -103,8 +106,8 @@ public enum Language {
 		ECMASCRIPT.extension("es");
 		EIFFEL.extension("e");
 		ERLANG.extension("erl");
-		FORTRANFIXED.extensions("f", "for", "ftn", "i", "fpp");
-		FORTRANFREE.extensions("f90", "f95", "f03", "i90");
+		FORTRANFIXED.extensions("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
+		FORTRANFREE.extensions("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
 		FSHARP.extension("fs");
 		GROOVY.extension("groovy");
 		HTML.extensions("htm", "html");
@@ -136,9 +139,10 @@ public enum Language {
 		SHELL.extensions("bash", "sh");
 		SMALLTALK.extension("st");
 		SQL.extension("sql");
+		STRUCTURED_BASIC.extensions("b", "bas", "bi");
 		TCL.extension("tcl");
 		TEX.extension("tex");
-		VB.extension("vb");
+		VB.extensions("bas", "frm", "frx", "vb", "vba");
 		VBSCRIPT.extensions("vbs", "vbe");
 		VIMSCRIPT.extension("vim").aliases("Vim Script", "VimL");
 		XML.extensions("asx", "csproj", "xml", "mxml");
