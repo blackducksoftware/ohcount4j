@@ -70,6 +70,7 @@ public enum Language {
 	TEX("TeX/LaTeX", TexScanner.class),
 	VB("VisualBasic", VisualBasicScanner.class),
 	VBSCRIPT("VBScript", VisualBasicScanner.class),
+	VIMSCRIPT("Vimscript", VimScriptScanner.class),
 	XML("XML", XmlScanner.class),
 	XMLSCHEMA("XML Schema", XmlScanner.class),
 	XSLT("XSL Transformation", XmlScanner.class);
@@ -139,6 +140,7 @@ public enum Language {
 		TEX.extension("tex");
 		VB.extension("vb");
 		VBSCRIPT.extensions("vbs", "vbe");
+		VIMSCRIPT.extension("vim").aliases("Vim Script", "VimL");
 		XML.extensions("asx", "csproj", "xml", "mxml");
 		XMLSCHEMA.extension("xsd");
 		XSLT.extensions("xsl", "xslt");
