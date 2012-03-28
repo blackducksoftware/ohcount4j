@@ -30,6 +30,8 @@ public enum Language {
 	ECMASCRIPT("ECMAScript", CStyleScanner.class),
 	EIFFEL("Eiffel", EiffelScanner.class),
 	ERLANG("Erlang", ErlangScanner.class),
+	FORTRANFIXED("FortranFixed", FortranFixedScanner.class),
+	FORTRANFREE("FortranFree", FortranFreeScanner.class),
 	FSHARP("F#", FSharpScanner.class),
 	GROOVY("Groovy", CStyleScanner.class),
 	HTML("HTML", HTMLScanner.class),
@@ -95,6 +97,8 @@ public enum Language {
 		ECMASCRIPT.extension("es");
 		EIFFEL.extension("e");
 		ERLANG.extension("erl");
+		FORTRANFIXED.extensions("f", "for", "ftn", "i", "fpp");
+		FORTRANFREE.extensions("f90", "f95", "f03", "i90");
 		FSHARP.extension("fs");
 		GROOVY.extension("groovy");
 		HTML.extensions("htm", "html");
