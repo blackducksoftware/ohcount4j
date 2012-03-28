@@ -23,11 +23,16 @@ public enum Language {
 	BOO("Boo", BooScanner.class),
 	C("C", CStyleScanner.class),
 	COBOL("COBOL", CobolScanner.class),
+	COLDFUSION("ColdFusion", ColdFusionScanner.class),
 	CPP("C++", CStyleScanner.class),
 	CSHARP("C#", CStyleScanner.class),
 	CSS("CSS", CStyleScanner.class),
+	D("D", DScanner.class),
+	ECMASCRIPT("ECMAScript", CStyleScanner.class),
 	EIFFEL("Eiffel", EiffelScanner.class),
 	ERLANG("Erlang", ErlangScanner.class),
+	FORTRANFIXED("Fortran (Fixed-Format)", FortranFixedScanner.class),
+	FORTRANFREE("Fortran (Free-Format)", FortranFreeScanner.class),
 	FSHARP("F#", FSharpScanner.class),
 	GROOVY("Groovy", CStyleScanner.class),
 	HTML("HTML", HTMLScanner.class),
@@ -39,6 +44,7 @@ public enum Language {
 	LISP("Lisp", LispScanner.class),
 	LUA("Lua", LuaScanner.class),
 	MAKE("Make", MakeScanner.class),
+	MATHEMATICA("Mathematica", MathematicaScanner.class),
 	MATLAB("Matlab", MatlabScanner.class),
 	MODULA2("Modula 2", ModulaScanner.class),
 	MODULA3("Modula 3", ModulaScanner.class),
@@ -61,8 +67,13 @@ public enum Language {
 	SMALLTALK("Smalltalk", SmalltalkScanner.class),
 	SQL("SQL", SqlScanner.class),
 	TCL("Tcl", TclScanner.class),
+	TEX("TeX/LaTeX", TexScanner.class),
 	VB("VisualBasic", VisualBasicScanner.class),
-	XML("XML", XmlScanner.class);
+	VBSCRIPT("VBScript", VisualBasicScanner.class),
+	VIMSCRIPT("Vimscript", VimScriptScanner.class),
+	XML("XML", XmlScanner.class),
+	XMLSCHEMA("XML Schema", XmlScanner.class),
+	XSLT("XSL Transformation", XmlScanner.class);
 
 	/* Optional properties of languages are declared here.
 	 *
@@ -84,11 +95,16 @@ public enum Language {
 		BOO.extension("boo");
 		C.extensions("c", "h");
 		COBOL.extension("cbl");
+		COLDFUSION.extensions("cfc", "cfm");
 		CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
 		CSHARP.aliases("C#", "cs").extension("cs");
 		CSS.extension("css");
+		D.extension("d");
+		ECMASCRIPT.extension("es");
 		EIFFEL.extension("e");
 		ERLANG.extension("erl");
+		FORTRANFIXED.extensions("f", "for", "ftn", "i", "fpp");
+		FORTRANFREE.extensions("f90", "f95", "f03", "i90");
 		FSHARP.extension("fs");
 		GROOVY.extension("groovy");
 		HTML.extensions("htm", "html");
@@ -99,6 +115,7 @@ public enum Language {
 		LIMBO.extensions("b", "m");
 		LUA.extension("lua");
 		MAKE.filename("Makefile").extensions("mk", "pro");
+		MATHEMATICA.extensions("nb", "nbs");
 		MODULA2.extensions("mod", "m2");
 		MODULA3.extensions("m3", "i3");
 		OBJECTIVE_C.extensions("m", "h");
@@ -120,8 +137,13 @@ public enum Language {
 		SMALLTALK.extension("st");
 		SQL.extension("sql");
 		TCL.extension("tcl");
+		TEX.extension("tex");
 		VB.extension("vb");
+		VBSCRIPT.extensions("vbs", "vbe");
+		VIMSCRIPT.extension("vim").aliases("Vim Script", "VimL");
 		XML.extensions("asx", "csproj", "xml", "mxml");
+		XMLSCHEMA.extension("xsd");
+		XSLT.extensions("xsl", "xslt");
 	}
 
 	private final String niceName;
