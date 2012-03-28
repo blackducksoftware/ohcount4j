@@ -30,8 +30,8 @@ public enum Language {
 	ECMASCRIPT("ECMAScript", CStyleScanner.class),
 	EIFFEL("Eiffel", EiffelScanner.class),
 	ERLANG("Erlang", ErlangScanner.class),
-	FORTRANFIXED("FortranFixed", FortranFixedScanner.class),
-	FORTRANFREE("FortranFree", FortranFreeScanner.class),
+	FORTRANFIXED("Fortran (Fixed-Format)", FortranFixedScanner.class),
+	FORTRANFREE("Fortran (Free-Format)", FortranFreeScanner.class),
 	FSHARP("F#", FSharpScanner.class),
 	GROOVY("Groovy", CStyleScanner.class),
 	HTML("HTML", HTMLScanner.class),
@@ -66,6 +66,7 @@ public enum Language {
 	SMALLTALK("Smalltalk", SmalltalkScanner.class),
 	SQL("SQL", SqlScanner.class),
 	TCL("Tcl", TclScanner.class),
+	TEX("TeX/LaTeX", TexScanner.class),
 	VB("VisualBasic", VisualBasicScanner.class),
 	VBSCRIPT("VBScript", VisualBasicScanner.class),
 	XML("XML", XmlScanner.class),
@@ -133,6 +134,7 @@ public enum Language {
 		SMALLTALK.extension("st");
 		SQL.extension("sql");
 		TCL.extension("tcl");
+		TEX.extension("tex");
 		VB.extension("vb");
 		VBSCRIPT.extensions("vbs", "vbe");
 		XML.extensions("asx", "csproj", "xml", "mxml");
