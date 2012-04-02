@@ -49,6 +49,10 @@ public class SourceFile {
 		return FilenameUtils.getExtension(path);
 	}
 
+	public Reader getReader() {
+		return reader;
+	}
+
 	public char[] getContents() throws IOException {
 		// Lazy load to avoid reading until required
 		if (contents == null) {
