@@ -87,6 +87,12 @@ public class Detector {
 		for (String ext : resolverExtensionMap.keySet()) {
 			extensionMap.remove(ext);
 		}
+
+		// Special case for *.in resolver.
+		// This Resolver is not associated with any single language; it can (in theory)
+		// return any language at all. Thus this resolver will not be "registered" during
+		// the language iteration above, and must be manually added.
+		resolverExtensionMap.put("in", new ExtnINResolver());
 	}
 
 	private static void addExtension(String ext, Language language) {
