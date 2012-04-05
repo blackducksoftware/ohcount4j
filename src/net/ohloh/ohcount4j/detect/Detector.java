@@ -58,13 +58,13 @@ public class Detector {
 	private static Map<String, Language> nameMap;
 	private static Map<String, Language> extensionMap;
 	private static Map<String, Language> filenameMap;
-	private static Map<String, Resolver> resolverExtensionMap;
+	private static Map<String, Class<? extends Resolver>> resolverExtensionMap;
 
 	private static void initialize() {
 		extensionMap = new HashMap<String, Language>();
 		filenameMap = new HashMap<String, Language>();
 		nameMap = new HashMap<String, Language>();
-		resolverExtensionMap = new HashMap<String, Resolver>();
+		resolverExtensionMap = new HashMap<String, Class<? extends Resolver>>();
 
 		for (Language language : Language.values()) {
 
@@ -92,7 +92,7 @@ public class Detector {
 		// This Resolver is not associated with any single language; it can (in theory)
 		// return any language at all. Thus this resolver will not be "registered" during
 		// the language iteration above, and must be manually added.
-		resolverExtensionMap.put("in", new ExtnINResolver());
+		resolverExtensionMap.put("in", ExtnINResolver.class);
 	}
 
 	private static void addExtension(String ext, Language language) {
@@ -109,7 +109,7 @@ public class Detector {
 			Resolver resolver = getResolver(ext);
 
 			if (resolver.canResolve(existing) && resolver.canResolve(language)) {
-				resolverExtensionMap.put(ext, resolver);
+				resolverExtensionMap.put(ext, resolver.getClass());
 			} else {
 				String msg = "File extension conflict: Languages " +
 						language.niceName() + " and " + existing.niceName() +
@@ -126,9 +126,9 @@ public class Detector {
 		if (extensionMap == null) {
 			initialize();
 		}
-		Resolver resolver = resolverExtensionMap.get(ext);
-		if (resolver != null) {
-			return resolver.resolve(source, filenames);
+		Class<? extends Resolver> resolverClass = resolverExtensionMap.get(ext);
+		if (resolverClass != null) {
+			return makeResolver(resolverClass).resolve(source, filenames);
 		} else {
 			return extensionMap.get(ext);
 		}
@@ -169,13 +169,17 @@ public class Detector {
 			throw new OhcountException(e);
 		}
 
+		return makeResolver(klass);
+	}
+	
+	public static Resolver makeResolver(Class<? extends Resolver> resolverClass){
 		try {
-			return klass.newInstance();
+			return resolverClass.newInstance();
 		} catch (InstantiationException e) {
 			throw new OhcountException(e);
 		} catch (IllegalAccessException e) {
 			throw new OhcountException(e);
-		}
+		}		
 	}
 
 	public static boolean isBinary(String extension) {
