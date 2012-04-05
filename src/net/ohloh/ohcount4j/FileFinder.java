@@ -1,16 +1,27 @@
 package net.ohloh.ohcount4j;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.io.DirectoryWalker;
+import org.apache.commons.io.filefilter.FileFilterUtils;
+import org.apache.commons.io.filefilter.HiddenFileFilter;
+import org.apache.commons.io.filefilter.IOFileFilter;
 
 public class FileFinder extends DirectoryWalker<File> {
 	protected ArrayList<File> results;
 
+	private static final IOFileFilter dirFilter = HiddenFileFilter.VISIBLE;
+
+	private static final IOFileFilter fileFilter =
+			FileFilterUtils.and(HiddenFileFilter.VISIBLE,
+								FileFilterUtils.sizeFileFilter(1000000, false));
+
 	public FileFinder() {
+		super(dirFilter, fileFilter, -1);
 		this.results = new ArrayList<File>();
 	}
 
