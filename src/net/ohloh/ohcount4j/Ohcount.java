@@ -82,17 +82,7 @@ public class Ohcount {
 	}
 
 	static void summarize(List<File> files, List<String> filenames) throws IOException {
-		SummaryWriter summary = new SummaryWriter();
-		for (File file : files) {
-			SourceFile sourceFile = new SourceFile(file);
-			Language language = Detector.detect(sourceFile, filenames);
-			if (language != null) {
-				summary.beginFile();
-				language.makeScanner().scan(sourceFile, summary);
-				summary.endFile();
-			}
-		}
-		summary.printResults();
+		new ThreadedFileListCounter().count(files, filenames).print();
 	}
 
 	static List<String> getFilenames(List<File> files) {

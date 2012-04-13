@@ -3,8 +3,8 @@ package net.ohloh.ohcount4j;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
+import net.ohloh.ohcount4j.LanguageCount;
 import net.ohloh.ohcount4j.Count;
-import net.ohloh.ohcount4j.CountList;
 import net.ohloh.ohcount4j.scan.Line;
 import static net.ohloh.ohcount4j.Entity.*;
 import net.ohloh.ohcount4j.Language;
@@ -12,61 +12,61 @@ import net.ohloh.ohcount4j.Language;
 public class CountListTest {
 	@Test
 	public void getCountByLanguage() {
-		CountList l = new CountList();
-		l.add(new Count(Language.C, 1, 2, 3));
-		l.add(new Count(Language.JAVA, 3, 4, 5));
+		Count l = new Count();
+		l.add(new LanguageCount(Language.C, 1, 2, 3));
+		l.add(new LanguageCount(Language.JAVA, 3, 4, 5));
 
-		assertEquals(new Count(Language.C, 1, 2, 3), l.getCountByLanguage(Language.C));
-		assertEquals(new Count(Language.JAVA, 3, 4, 5), l.getCountByLanguage(Language.JAVA));
-		assertEquals(null, l.getCountByLanguage(Language.RUBY));
+		assertEquals(new LanguageCount(Language.C, 1, 2, 3), l.getLanguageCount(Language.C));
+		assertEquals(new LanguageCount(Language.JAVA, 3, 4, 5), l.getLanguageCount(Language.JAVA));
+		assertEquals(null, l.getLanguageCount(Language.RUBY));
 	}
 
 	@Test
 	public void addCountToEmpty() {
-		CountList l = new CountList();
-		l.add(new Count(Language.C, 1, 2, 3));
-		assertEquals(1, l.getCounts().size());
-		assertEquals(new Count(Language.C, 1, 2,3), l.getCounts().get(0));
+		Count l = new Count();
+		l.add(new LanguageCount(Language.C, 1, 2, 3));
+		assertEquals(1, l.getLanguageCounts().size());
+		assertEquals(new LanguageCount(Language.C, 1, 2,3), l.getLanguageCounts().get(0));
 	}
 
 	@Test
 	public void addCountSameLanguage() {
-		CountList l = new CountList();
-		l.add(new Count(Language.C, 1, 2, 3));
-		l.add(new Count(Language.C, 3, 4, 5));
-		assertEquals(1, l.getCounts().size());
-		assertEquals(new Count(Language.C, 4, 6, 8), l.getCounts().get(0));
+		Count l = new Count();
+		l.add(new LanguageCount(Language.C, 1, 2, 3));
+		l.add(new LanguageCount(Language.C, 3, 4, 5));
+		assertEquals(1, l.getLanguageCounts().size());
+		assertEquals(new LanguageCount(Language.C, 4, 6, 8), l.getLanguageCounts().get(0));
 	}
 
 	@Test
 	public void addCountNewLanguage() {
-		CountList l = new CountList();
-		l.add(new Count(Language.C, 1, 2, 3));
-		l.add(new Count(Language.JAVA, 3, 4, 5));
-		assertEquals(2, l.getCounts().size());
+		Count l = new Count();
+		l.add(new LanguageCount(Language.C, 1, 2, 3));
+		l.add(new LanguageCount(Language.JAVA, 3, 4, 5));
+		assertEquals(2, l.getLanguageCounts().size());
 	}
 
 	@Test
 	public void addCountList() {
-		CountList l = new CountList();
-		l.add(new Count(Language.C, 1, 2,3));
-		l.add(new Count(Language.JAVA, 3, 4, 5));
+		Count l = new Count();
+		l.add(new LanguageCount(Language.C, 1, 2,3));
+		l.add(new LanguageCount(Language.JAVA, 3, 4, 5));
 
-		CountList addend = new CountList();
-		addend.add(new Count(Language.C, 10, 20, 30));
-		addend.add(new Count(Language.RUBY, 7, 8, 9));
+		Count addend = new Count();
+		addend.add(new LanguageCount(Language.C, 10, 20, 30));
+		addend.add(new LanguageCount(Language.RUBY, 7, 8, 9));
 
 		l.add(addend);
 
-		assertEquals(3, l.getCounts().size());
-		assertEquals(new Count(Language.C, 11, 22, 33), l.getCountByLanguage(Language.C));
-		assertEquals(new Count(Language.JAVA, 3, 4, 5), l.getCountByLanguage(Language.JAVA));
-		assertEquals(new Count(Language.RUBY, 7, 8, 9), l.getCountByLanguage(Language.RUBY));
+		assertEquals(3, l.getLanguageCounts().size());
+		assertEquals(new LanguageCount(Language.C, 11, 22, 33), l.getLanguageCount(Language.C));
+		assertEquals(new LanguageCount(Language.JAVA, 3, 4, 5), l.getLanguageCount(Language.JAVA));
+		assertEquals(new LanguageCount(Language.RUBY, 7, 8, 9), l.getLanguageCount(Language.RUBY));
 	}
 	
 	@Test
 	public void addLine() {
-		CountList l = new CountList();
+		Count l = new Count();
 		l.add(new Line(Language.C, CODE));
 		l.add(new Line(Language.C, CODE));
 		l.add(new Line(Language.C, CODE));
@@ -75,16 +75,16 @@ public class CountListTest {
 		l.add(new Line(Language.C, BLANK));
 		l.add(new Line(Language.JAVA, CODE));
 
-		assertEquals(2, l.getCounts().size());
-		assertEquals(new Count(Language.C, 3, 2, 1), l.getCountByLanguage(Language.C));
-		assertEquals(new Count(Language.JAVA, 1, 0, 0), l.getCountByLanguage(Language.JAVA));
+		assertEquals(2, l.getLanguageCounts().size());
+		assertEquals(new LanguageCount(Language.C, 3, 2, 1), l.getLanguageCount(Language.C));
+		assertEquals(new LanguageCount(Language.JAVA, 1, 0, 0), l.getLanguageCount(Language.JAVA));
 	}
 
 	@Test
 	public void total() {
-		CountList l = new CountList();
-		l.add(new Count(Language.C, 1, 2, 3));
-		l.add(new Count(Language.JAVA, 3, 4, 5));
+		Count l = new Count();
+		l.add(new LanguageCount(Language.C, 1, 2, 3));
+		l.add(new LanguageCount(Language.JAVA, 3, 4, 5));
 
 		assertEquals(4, l.getCode());
 		assertEquals(6, l.getComment());
@@ -95,13 +95,13 @@ public class CountListTest {
 
 	@Test
 	public void sortedCounts() {
-		CountList l = new CountList();
-		l.add(new Count(Language.C, 1, 2, 3));
-		l.add(new Count(Language.JAVA, 6, 7, 8));
-		l.add(new Count(Language.RUBY, 3, 4, 5));
+		Count l = new Count();
+		l.add(new LanguageCount(Language.C, 1, 2, 3));
+		l.add(new LanguageCount(Language.JAVA, 6, 7, 8));
+		l.add(new LanguageCount(Language.RUBY, 3, 4, 5));
 		l.sort();
-		assertEquals(Language.JAVA, l.getCounts().get(0).getLanguage());
-		assertEquals(Language.RUBY, l.getCounts().get(1).getLanguage());
-		assertEquals(Language.C,    l.getCounts().get(2).getLanguage());
+		assertEquals(Language.JAVA, l.getLanguageCounts().get(0).getLanguage());
+		assertEquals(Language.RUBY, l.getLanguageCounts().get(1).getLanguage());
+		assertEquals(Language.C,    l.getLanguageCounts().get(2).getLanguage());
 	}
 }
