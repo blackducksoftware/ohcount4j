@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import net.ohloh.ohcount4j.AnnotationWriter;
 import net.ohloh.ohcount4j.SourceFile;
@@ -82,7 +83,8 @@ public class Ohcount {
 	}
 
 	static void summarize(List<File> files, List<String> filenames) throws IOException {
-		new ThreadedFileListCounter().count(files, filenames).print();
+		new ThreadedFileListCounter(4).count(files, filenames).print();
+		// new FileListCounter().count(files, filenames).print();
 	}
 
 	static List<String> getFilenames(List<File> files) {

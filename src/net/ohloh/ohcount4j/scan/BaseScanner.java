@@ -51,6 +51,7 @@ public abstract class BaseScanner implements Scanner {
 	@Override
 	public final void scan(SourceFile source, LineHandler handler) throws IOException {
 		scan(source.getContents(), handler);
+		source.getReader().close();
 	}
 
 	@Override
