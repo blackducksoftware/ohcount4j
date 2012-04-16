@@ -14,7 +14,7 @@ public class MagicDetector {
 		String description = getMagicDescription(buffer);
 		String languageName = getLanguageName(description);
 
-		return Detector.detectByLanguageName(languageName);
+		return Detector.getInstance().detectByLanguageName(languageName);
 	}
 
 	protected static Pattern patterns[] = {

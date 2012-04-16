@@ -14,14 +14,22 @@ import net.ohloh.ohcount4j.SourceFile;
 
 public class Detector {
 
-	/* Returns the base language of the provided SourceFile.
-	 * Returns null if no programming language is detected,
-	 * or if the provided SourceFile is a binary file.
+	private static Detector detectorInstance = new Detector();
+
+	public static Detector getInstance() {
+		return detectorInstance;
+	}
+
+	/*
+	 * Returns the base language of the provided SourceFile. Returns null if no
+	 * programming language is detected, or if the provided SourceFile is a
+	 * binary file.
 	 */
-	public static Language detect(SourceFile source, List<String> filenames) throws IOException {
+	public static Language detect(SourceFile source, List<String> filenames)
+			throws IOException {
 
 		// Initial fast rejection of binary files
-		if (isBinary(source.getExtension())) {
+		if (getInstance().isBinary(source.getExtension())) {
 			return null;
 		}
 
@@ -31,13 +39,15 @@ public class Detector {
 			language = EmacsModeDetector.detect(source.head(100));
 		}
 		if (language == null) {
-			language = detectByExtension(source.getExtension(), source, filenames);
+			language = getInstance().detectByExtension(source.getExtension(),
+					source, filenames);
 		}
 		if (language == null) {
-			language = detectByExtension(source.getExtension().toLowerCase(), source, filenames);
+			language = getInstance().detectByExtension(
+					source.getExtension().toLowerCase(), source, filenames);
 		}
 		if (language == null) {
-			language = detectByFilename(source.getName());
+			language = getInstance().detectByFilename(source.getName());
 		}
 		if (language == null) {
 			language = MagicDetector.detect(source.head(100));
@@ -55,12 +65,12 @@ public class Detector {
 		return detect(source, new ArrayList<String>());
 	}
 
-	private static Map<String, Language> nameMap;
-	private static Map<String, Language> extensionMap;
-	private static Map<String, Language> filenameMap;
-	private static Map<String, Class<? extends Resolver>> resolverExtensionMap;
+	private final Map<String, Language> nameMap;
+	private final Map<String, Language> extensionMap;
+	private final Map<String, Language> filenameMap;
+	private final Map<String, Class<? extends Resolver>> resolverExtensionMap;
 
-	private static void initialize() {
+	private Detector() {
 		extensionMap = new HashMap<String, Language>();
 		filenameMap = new HashMap<String, Language>();
 		nameMap = new HashMap<String, Language>();
@@ -89,43 +99,42 @@ public class Detector {
 		}
 
 		// Special case for *.in resolver.
-		// This Resolver is not associated with any single language; it can (in theory)
-		// return any language at all. Thus this resolver will not be "registered" during
+		// This Resolver is not associated with any single language; it can (in
+		// theory)
+		// return any language at all. Thus this resolver will not be
+		// "registered" during
 		// the language iteration above, and must be manually added.
 		resolverExtensionMap.put("in", ExtnINResolver.class);
 	}
 
-	private static void addExtension(String ext, Language language) {
+	private void addExtension(String ext, Language language) {
 		Language existing = extensionMap.get(ext);
 
 		if (existing == null) {
 			extensionMap.put(ext, language);
-
 		} else {
-			/* Collision: two languages, one extension.
-			 * Confirm that a resolver exists for this extension,
-			 * and that it can distinguish both of these languages.
+			/*
+			 * Collision: two languages, one extension. Confirm that a resolver
+			 * exists for this extension, and that it can distinguish both of
+			 * these languages.
 			 */
 			Resolver resolver = getResolver(ext);
 
 			if (resolver.canResolve(existing) && resolver.canResolve(language)) {
 				resolverExtensionMap.put(ext, resolver.getClass());
 			} else {
-				String msg = "File extension conflict: Languages " +
-						language.niceName() + " and " + existing.niceName() +
-						" both use extension '*." + ext + "'," +
-						" but no Resolver exists to distinguish them.";
+				String msg = "File extension conflict: Languages "
+						+ language.niceName() + " and " + existing.niceName()
+						+ " both use extension '*." + ext + "',"
+						+ " but no Resolver exists to distinguish them.";
 				throw new OhcountException(msg);
 			}
 		}
 	}
 
 	// Currently assumes extensions map uniquely to scanners
-	public static Language detectByExtension(String ext, SourceFile source, List<String> filenames)
-			throws IOException {
-		if (extensionMap == null) {
-			initialize();
-		}
+	public Language detectByExtension(String ext, SourceFile source,
+			List<String> filenames) throws IOException {
 		Class<? extends Resolver> resolverClass = resolverExtensionMap.get(ext);
 		if (resolverClass != null) {
 			return makeResolver(resolverClass).resolve(source, filenames);
@@ -134,19 +143,13 @@ public class Detector {
 		}
 	}
 
-	public static Language detectByFilename(String filename) {
-		if (filenameMap == null) {
-			initialize();
-		}
+	public Language detectByFilename(String filename) {
 		return filenameMap.get(filename);
 	}
 
-	public static Language detectByLanguageName(String name) {
+	public Language detectByLanguageName(String name) {
 		if (name == null) {
 			return null;
-		}
-		if (nameMap == null) {
-			initialize();
 		}
 		return nameMap.get(name.toLowerCase());
 	}
@@ -154,13 +157,13 @@ public class Detector {
 	public static Resolver getResolver(String ext) {
 
 		// Special case for FORTRAN since it uses so many extensions.
-		if (Language.FORTRANFIXED.getExtensions().contains(ext) ||
-			Language.FORTRANFREE.getExtensions().contains(ext)) {
+		if (Language.FORTRANFIXED.getExtensions().contains(ext)
+				|| Language.FORTRANFREE.getExtensions().contains(ext)) {
 			return new FortranResolver();
 		}
 
-		String resolverName =
-			"net.ohloh.ohcount4j.detect.Extn" + ext.toUpperCase() + "Resolver";
+		String resolverName = "net.ohloh.ohcount4j.detect.Extn"
+				+ ext.toUpperCase() + "Resolver";
 
 		Class<Resolver> klass;
 		try {
@@ -171,70 +174,72 @@ public class Detector {
 
 		return makeResolver(klass);
 	}
-	
-	public static Resolver makeResolver(Class<? extends Resolver> resolverClass){
+
+	public static Resolver makeResolver(Class<? extends Resolver> resolverClass) {
 		try {
 			return resolverClass.newInstance();
 		} catch (InstantiationException e) {
 			throw new OhcountException(e);
 		} catch (IllegalAccessException e) {
 			throw new OhcountException(e);
-		}		
+		}
 	}
 
-	public static boolean isBinary(String extension) {
+	public boolean isBinary(String extension) {
 		return binaryExtensions.contains(extension.toLowerCase());
 	}
 
 	@SuppressWarnings("serial")
-	private static Set<String> binaryExtensions = new HashSet<String>() {{
-		add("a");
-		add("aiff");
-		add("au");
-		add("avi");
-		add("bin");
-		add("bmp");
-		add("cache");
-		add("class");
-		add("dat");
-		add("dll");
-		add("doc");
-		add("docx");
-		add("dylib");
-		add("exe");
-		add("gif");
-		add("gz");
-		add("ico");
-		add("icns");
-		add("jar");
-		add("jpeg");
-		add("jpg");
-		add("m4a");
-		add("mov");
-		add("mp3");
-		add("mpg");
-		add("ogg");
-		add("pdf");
-		add("png");
-		add("pnt");
-		add("ppt");
-		add("pptx");
-		add("qt");
-		add("ra");
-		add("so");
-		add("svg");
-		add("svgz");
-		add("svn");
-		add("swf");
-		add("tar");
-		add("tgz");
-		add("tif");
-		add("tiff");
-		add("wav");
-		add("xls");
-		add("xlsx");
-		add("xlw");
-		add("zip");
-	}};
+	private static final Set<String> binaryExtensions = new HashSet<String>() {
+		{
+			add("a");
+			add("aiff");
+			add("au");
+			add("avi");
+			add("bin");
+			add("bmp");
+			add("cache");
+			add("class");
+			add("dat");
+			add("dll");
+			add("doc");
+			add("docx");
+			add("dylib");
+			add("exe");
+			add("gif");
+			add("gz");
+			add("ico");
+			add("icns");
+			add("jar");
+			add("jpeg");
+			add("jpg");
+			add("m4a");
+			add("mov");
+			add("mp3");
+			add("mpg");
+			add("ogg");
+			add("pdf");
+			add("png");
+			add("pnt");
+			add("ppt");
+			add("pptx");
+			add("qt");
+			add("ra");
+			add("so");
+			add("svg");
+			add("svgz");
+			add("svn");
+			add("swf");
+			add("tar");
+			add("tgz");
+			add("tif");
+			add("tiff");
+			add("wav");
+			add("xls");
+			add("xlsx");
+			add("xlw");
+			add("zip");
+		}
+	};
 
 }

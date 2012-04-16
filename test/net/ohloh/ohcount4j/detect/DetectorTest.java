@@ -40,11 +40,11 @@ public class DetectorTest {
 
 	@Test
 	public void isBinaryTest() {
-		assertFalse(Detector.isBinary(""));
-		assertFalse(Detector.isBinary("txt"));
+		assertFalse(Detector.getInstance().isBinary(""));
+		assertFalse(Detector.getInstance().isBinary("txt"));
 
-		assertTrue(Detector.isBinary("jpg"));
-		assertTrue(Detector.isBinary("JPG"));
+		assertTrue(Detector.getInstance().isBinary("jpg"));
+		assertTrue(Detector.getInstance().isBinary("JPG"));
 	}
 
 	@Test
