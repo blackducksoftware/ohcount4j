@@ -47,11 +47,9 @@ public class ThreadedFileListCounter {
 			try {
 				this.count.add(future.get());
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new OhcountException(e);
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new OhcountException(e);
 			}
 		}
 		pool.shutdown();
