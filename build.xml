@@ -73,17 +73,11 @@
 
   <target name="clean"
         description="clean up" >
-    <delete includeemptydirs="true">
-      <fileset dir="${build}" includes="**/*"/>
-    </delete>
-    <delete includeemptydirs="true">
-      <fileset dir="${test.build}" includes="**/*"/>
-      <fileset dir="testbin" includes="**/*"/>
-    </delete>
-		<delete dir="${dist}"/>
-    <delete includeemptydirs="true">
-      <fileset dir="${gen-src}" includes="**/*" excludes=".gitkeep"/>
-    </delete>
+    <delete dir="${build}"/>
+    <delete dir="${test.build}"/>
+    <delete dir="${testbin}"/>
+	<delete dir="${dist}"/>
+    <delete dir="${gen-src}"/>
   </target>
 
 	<target name="data">
