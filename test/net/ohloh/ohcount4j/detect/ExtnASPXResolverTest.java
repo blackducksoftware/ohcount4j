@@ -14,48 +14,48 @@ import org.testng.annotations.Test;
 
 public class ExtnASPXResolverTest {
 
-	private ExtnASPXResolver r;
+    private ExtnASPXResolver r;
 
-	@BeforeTest()
-	public void setup() {
-		this.r = new ExtnASPXResolver();
-	}
+    @BeforeTest()
+    public void setup() {
+        r = new ExtnASPXResolver();
+    }
 
-	@Test
-	public void canResolvetest() {
-		assertFalse(r.canResolve(Language.RUBY));
-		assertTrue(r.canResolve(Language.ASPX_CSHARP));
-		assertTrue(r.canResolve(Language.ASPX_VB));
-	}
+    @Test
+    public void canResolvetest() {
+        assertFalse(r.canResolve(Language.RUBY));
+        assertTrue(r.canResolve(Language.ASPX_CSHARP));
+        assertTrue(r.canResolve(Language.ASPX_VB));
+    }
 
-	@Test
-	// With no other clues, the resolver should pick C# by default
-	public void returnsCSharpByDefaultTest() throws IOException {
-		assertEquals(Language.ASPX_CSHARP, r.resolve(new SourceFile("foo.aspx", "")));
-	}
+    @Test
+    // With no other clues, the resolver should pick C# by default
+    public void returnsCSharpByDefaultTest() throws IOException {
+        assertEquals(Language.ASPX_CSHARP, r.resolve(new SourceFile("foo.aspx", "")));
+    }
 
-	@Test
-	public void csExample() throws IOException {
-		assertEquals(Language.ASPX_CSHARP, r.resolve(new SourceFile("foo.aspx",
-				"<%@ Page Foo=\"Bar\" Language=\"C#\" %>\n")));
+    @Test
+    public void csExample() throws IOException {
+        assertEquals(Language.ASPX_CSHARP, r.resolve(new SourceFile("foo.aspx",
+                "<%@ Page Foo=\"Bar\" Language=\"C#\" %>\n")));
 
-		assertEquals(Language.ASPX_CSHARP, r.resolve(new SourceFile("foo.aspx",
-				"<%@Page Language=\"C#\"%>\n")));
-	}
+        assertEquals(Language.ASPX_CSHARP, r.resolve(new SourceFile("foo.aspx",
+                "<%@Page Language=\"C#\"%>\n")));
+    }
 
-	@Test
-	public void vbExample() throws IOException {
-		assertEquals(Language.ASPX_VB, r.resolve(new SourceFile("foo.aspx",
-				"<%@ Page Foo=\"Bar\" Language=\"VB\" %>\n")));
+    @Test
+    public void vbExample() throws IOException {
+        assertEquals(Language.ASPX_VB, r.resolve(new SourceFile("foo.aspx",
+                "<%@ Page Foo=\"Bar\" Language=\"VB\" %>\n")));
 
-		assertEquals(Language.ASPX_VB, r.resolve(new SourceFile("foo.aspx",
-				"<%@ page foo=\"bar\" language=\"vb\" %>\n")));
+        assertEquals(Language.ASPX_VB, r.resolve(new SourceFile("foo.aspx",
+                "<%@ page foo=\"bar\" language=\"vb\" %>\n")));
 
-		assertEquals(Language.ASPX_VB, r.resolve(new SourceFile("foo.aspx",
-				"<%@ Page Language=\"VB\" %>\n")));
+        assertEquals(Language.ASPX_VB, r.resolve(new SourceFile("foo.aspx",
+                "<%@ Page Language=\"VB\" %>\n")));
 
-		assertEquals(Language.ASPX_VB, r.resolve(new SourceFile("foo.aspx",
-				"<%@ Page Foo=\"Bar\"  \n    Language=\"VB\" %>\n")));
-	}
+        assertEquals(Language.ASPX_VB, r.resolve(new SourceFile("foo.aspx",
+                "<%@ Page Foo=\"Bar\"  \n    Language=\"VB\" %>\n")));
+    }
 
 }

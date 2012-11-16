@@ -14,58 +14,58 @@ import org.testng.annotations.Test;
 
 public class ExtnPPResolverTest {
 
-	private ExtnPPResolver r;
+    private ExtnPPResolver r;
 
-	@BeforeTest()
-	public void setup() {
-		this.r = new ExtnPPResolver();
-	}
+    @BeforeTest()
+    public void setup() {
+        r = new ExtnPPResolver();
+    }
 
-	@Test
-	public void canResolvetest() {
-		assertFalse(r.canResolve(Language.RUBY));
-		assertTrue(r.canResolve(Language.PASCAL));
-		assertTrue(r.canResolve(Language.PUPPET));
-	}
+    @Test
+    public void canResolvetest() {
+        assertFalse(r.canResolve(Language.RUBY));
+        assertTrue(r.canResolve(Language.PASCAL));
+        assertTrue(r.canResolve(Language.PUPPET));
+    }
 
-	@Test
-	public void puppetExamples() throws IOException {
-		assertEquals(Language.PUPPET, r.resolve(new SourceFile("foo.pp",
-				"package { \"foo\":\n" +
-				"    ensure => installed\n" +
-				"}\n" )));
+    @Test
+    public void puppetExamples() throws IOException {
+        assertEquals(Language.PUPPET, r.resolve(new SourceFile("foo.pp",
+                "package { \"foo\":\n" +
+                        "    ensure => installed\n" +
+                        "}\n")));
 
-		assertEquals(Language.PUPPET, r.resolve(new SourceFile("foo.pp",
-				"node foo {\n" +
-				"    include bar\n" +
-				"}\n" )));
+        assertEquals(Language.PUPPET, r.resolve(new SourceFile("foo.pp",
+                "node foo {\n" +
+                        "    include bar\n" +
+                        "}\n")));
 
-		assertEquals(Language.PUPPET, r.resolve(new SourceFile("foo.pp",
-				"class foo {\n" +
-				"}\n" )));
+        assertEquals(Language.PUPPET, r.resolve(new SourceFile("foo.pp",
+                "class foo {\n" +
+                        "}\n")));
 
-		assertEquals(Language.PUPPET, r.resolve(new SourceFile("foo.pp",
-				"define foo (\n" +
-				")\n" )));
-	}
+        assertEquals(Language.PUPPET, r.resolve(new SourceFile("foo.pp",
+                "define foo (\n" +
+                        ")\n")));
+    }
 
-	@Test
-	public void pascalExamples() throws IOException {
-		assertEquals(Language.PASCAL, r.resolve(new SourceFile("foo.pp",
-				"Program FooDemo;\n"+
-				"Const Foo = {$INCLUDE %FOO%};\n" )));
+    @Test
+    public void pascalExamples() throws IOException {
+        assertEquals(Language.PASCAL, r.resolve(new SourceFile("foo.pp",
+                "Program FooDemo;\n" +
+                        "Const Foo = {$INCLUDE %FOO%};\n")));
 
-		assertEquals(Language.PASCAL, r.resolve(new SourceFile("foo.pp",
-				"Program FooDemo;\n"+
-				"Const Foo = {$include %FOO%};\n" )));
+        assertEquals(Language.PASCAL, r.resolve(new SourceFile("foo.pp",
+                "Program FooDemo;\n" +
+                        "Const Foo = {$include %FOO%};\n")));
 
-		assertEquals(Language.PASCAL, r.resolve(new SourceFile("foo.pp",
-				"foo begin\n"+
-				"end.\n" )));
-	}
+        assertEquals(Language.PASCAL, r.resolve(new SourceFile("foo.pp",
+                "foo begin\n" +
+                        "end.\n")));
+    }
 
-	@Test
-	public void pascalByDefault() throws IOException {
-		assertEquals(Language.PASCAL, r.resolve(new SourceFile("foo.pp", "")));
-	}
+    @Test
+    public void pascalByDefault() throws IOException {
+        assertEquals(Language.PASCAL, r.resolve(new SourceFile("foo.pp", "")));
+    }
 }

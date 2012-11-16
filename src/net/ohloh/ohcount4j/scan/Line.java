@@ -1,68 +1,70 @@
 package net.ohloh.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.Entity;
+import net.ohloh.ohcount4j.Language;
 
 public class Line {
-	Language language;
-	Entity entity;
-	StringBuilder content;
+    Language language;
 
-	public Line() {
-		content = new StringBuilder();
-	}
+    Entity entity;
 
-	public Line(Language language) {
-		this.language = language;
-		this.content = new StringBuilder();
-	}
+    StringBuilder content;
 
-	public Line(Language language, Entity entity) {
-		this.language = language;
-		this.entity = entity;
-		this.content = new StringBuilder();
-	}
+    public Line() {
+        content = new StringBuilder();
+    }
 
-	public Line(Language language, Entity entity, String content) {
-		this.language = language;
-		this.entity = entity;
-		this.content = new StringBuilder(content);
-	}
+    public Line(Language language) {
+        this.language = language;
+        content = new StringBuilder();
+    }
 
-	@Override
-	public String toString() {
-		return String.format("%1$s\t%2$s\t%3$s", language.uname(), entity.name(), content);
-	}
+    public Line(Language language, Entity entity) {
+        this.language = language;
+        this.entity = entity;
+        content = new StringBuilder();
+    }
 
-	public Language getLanguage() {
-		return language;
-	}
+    public Line(Language language, Entity entity, String content) {
+        this.language = language;
+        this.entity = entity;
+        this.content = new StringBuilder(content);
+    }
 
-	public Line setLanguage(Language language) {
-		this.language = language;
-		return this;
-	}
+    @Override
+    public String toString() {
+        return String.format("%1$s\t%2$s\t%3$s", language.uname(), entity.name(), content);
+    }
 
-	public Entity getEntity() {
-		return entity;
-	}
+    public Language getLanguage() {
+        return language;
+    }
 
-	public Line setEntity(Entity entity) {
-		this.entity = entity;
-		return this;
-	}
+    public Line setLanguage(Language language) {
+        this.language = language;
+        return this;
+    }
 
-	public Line appendContent(char[] content) {
-		this.content.append(content);
-		return this;
-	}
+    public Entity getEntity() {
+        return entity;
+    }
 
-	public String getContent() {
-		return content.toString();
-	}
+    public Line setEntity(Entity entity) {
+        this.entity = entity;
+        return this;
+    }
 
-	public Line setContent(String content) {
-		this.content = new StringBuilder(content);
-		return this;
-	}
+    public Line appendContent(char[] content) {
+        this.content.append(content);
+        return this;
+    }
+
+    public String getContent() {
+        return content.toString();
+    }
+
+    public Line setContent(String content) {
+        this.content = new StringBuilder(content);
+        return this;
+    }
 }

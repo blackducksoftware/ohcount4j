@@ -13,67 +13,69 @@ import org.apache.commons.io.IOUtils;
 
 public class SourceFile {
 
-	private final String path;
-	private final Reader reader;
-	private char[] contents = null;
+    private final String path;
 
-	public SourceFile(String path, Reader reader) {
-		this.path = path;
-		this.reader = reader;
-	}
+    private final Reader reader;
 
-	public SourceFile(String path) throws FileNotFoundException {
-		this.path = path;
-		this.reader = new BufferedReader(new FileReader(path));
-	}
+    private char[] contents = null;
 
-	public SourceFile(File file) throws FileNotFoundException {
-		this.path = file.getPath();
-		this.reader = new BufferedReader(new FileReader(file));
-	}
+    public SourceFile(String path, Reader reader) {
+        this.path = path;
+        this.reader = reader;
+    }
 
-	public SourceFile(String path, String buffer) {
-		this.path = path;
-		this.reader = new StringReader(buffer);
-	}
+    public SourceFile(String path) throws FileNotFoundException {
+        this.path = path;
+        reader = new BufferedReader(new FileReader(path));
+    }
 
-	public String getPath() {
-		return path;
-	}
+    public SourceFile(File file) throws FileNotFoundException {
+        path = file.getPath();
+        reader = new BufferedReader(new FileReader(file));
+    }
 
-	public String getName() {
-		return FilenameUtils.getName(path);
-	}
+    public SourceFile(String path, String buffer) {
+        this.path = path;
+        reader = new StringReader(buffer);
+    }
 
-	public String getExtension() {
-		return FilenameUtils.getExtension(path);
-	}
+    public String getPath() {
+        return path;
+    }
 
-	public Reader getReader() {
-		return reader;
-	}
+    public String getName() {
+        return FilenameUtils.getName(path);
+    }
 
-	public char[] getContents() throws IOException {
-		// Lazy load to avoid reading until required
-		if (contents == null) {
-			contents = IOUtils.toCharArray(reader);
-		}
-		return contents;
-	}
+    public String getExtension() {
+        return FilenameUtils.getExtension(path);
+    }
 
-	// Regular expressions require CharSequence input
-	public CharSequence getCharSequence() throws IOException {
-		return java.nio.CharBuffer.wrap(getContents());
-	}
+    public Reader getReader() {
+        return reader;
+    }
 
-	// Ideally, head() should read only as much of the file as required.
-	// For now, we simply read in the entire file and return only the first portion.
-	public String head(int maxLength) throws IOException {
-		if (getContents().length <= maxLength) {
-			return new String(getContents());
-		} else {
-			return new String(getContents(), 0, maxLength);
-		}
-	}
+    public char[] getContents() throws IOException {
+        // Lazy load to avoid reading until required
+        if (contents == null) {
+            contents = IOUtils.toCharArray(reader);
+        }
+        return contents;
+    }
+
+    // Regular expressions require CharSequence input
+    public CharSequence getCharSequence() throws IOException {
+        return java.nio.CharBuffer.wrap(getContents());
+    }
+
+    // Ideally, head() should read only as much of the file as required.
+    // For now, we simply read in the entire file and return only the first portion.
+    public String head(int maxLength) throws IOException {
+        if (getContents().length <= maxLength) {
+            return new String(getContents());
+        } else {
+            return new String(getContents(), 0, maxLength);
+        }
+    }
 
 }

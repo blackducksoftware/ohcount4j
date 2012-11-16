@@ -10,53 +10,53 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import net.ohloh.ohcount4j.Count;
-
 public class ThreadedFileListCounter {
 
-	private class FileCounterCallable implements Callable<Count> {
-		private final File file;
-		private final List<String> filenames;
+    private class FileCounterCallable implements Callable<Count> {
+        private final File file;
 
-		public FileCounterCallable(File file, List<String> filenames) {
-			this.file = file;
-			this.filenames = filenames;
-		}
+        private final List<String> filenames;
 
-		@Override
-		public Count call() throws Exception {
-			return new FileCounter(new SourceFile(this.file), this.filenames).count();
-		}
-	}
+        public FileCounterCallable(File file, List<String> filenames) {
+            this.file = file;
+            this.filenames = filenames;
+        }
 
-	protected Count count = new Count();
-	private final ExecutorService pool;
+        @Override
+        public Count call() throws Exception {
+            return new FileCounter(new SourceFile(file), filenames).count();
+        }
+    }
 
-	public ThreadedFileListCounter(int poolSize) {
-		pool = Executors.newFixedThreadPool(poolSize);
-	}
+    protected Count count = new Count();
 
-	public Count count(List<File> files, List<String> filenames) throws IOException {
-		ArrayList<Future<Count>> futures = new ArrayList<Future<Count>>();
+    private final ExecutorService pool;
 
-		for (File file : files) {
-			FileCounterCallable fcc = new FileCounterCallable(file, filenames);
-			futures.add(pool.submit(fcc));
-		}
-		for (Future<Count> future : futures) {
-			try {
-				this.count.add(future.get());
-			} catch (InterruptedException e) {
-				throw new OhcountException(e);
-			} catch (ExecutionException e) {
-				throw new OhcountException(e);
-			}
-		}
-		pool.shutdown();
-		return this.count;
-	}
+    public ThreadedFileListCounter(int poolSize) {
+        pool = Executors.newFixedThreadPool(poolSize);
+    }
 
-	public Count count() {
-		return this.count;
-	}
+    public Count count(List<File> files, List<String> filenames) throws IOException {
+        ArrayList<Future<Count>> futures = new ArrayList<Future<Count>>();
+
+        for (File file : files) {
+            FileCounterCallable fcc = new FileCounterCallable(file, filenames);
+            futures.add(pool.submit(fcc));
+        }
+        for (Future<Count> future : futures) {
+            try {
+                count.add(future.get());
+            } catch (InterruptedException e) {
+                throw new OhcountException(e);
+            } catch (ExecutionException e) {
+                throw new OhcountException(e);
+            }
+        }
+        pool.shutdown();
+        return count;
+    }
+
+    public Count count() {
+        return count;
+    }
 }
