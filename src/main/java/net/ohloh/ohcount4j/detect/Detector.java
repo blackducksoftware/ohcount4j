@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import net.ohloh.ohcount4j.Language;
+import net.ohloh.ohcount4j.OhcountConfig;
 import net.ohloh.ohcount4j.OhcountException;
 import net.ohloh.ohcount4j.SourceFile;
 
@@ -49,7 +50,8 @@ public class Detector {
         if (language == null) {
             language = getInstance().detectByFilename(source.getName());
         }
-        if (language == null) {
+
+        if (language == null && OhcountConfig.getInstance().useLibmagic()) {
             language = MagicDetector.detect(source.head(100));
         }
 

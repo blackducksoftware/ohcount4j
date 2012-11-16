@@ -13,7 +13,7 @@ import com.sun.jna.Pointer;
 //
 public class Magic {
 
-    public interface MagicLibrary extends Library {
+    private interface MagicLibrary extends Library {
         MagicLibrary INSTANCE =
                 (MagicLibrary) Native.loadLibrary("magic", MagicLibrary.class);
 
@@ -32,37 +32,38 @@ public class Magic {
 
     protected Pointer cookie;
 
-    void open(int flags) {
+    public void open(int flags) {
         cookie = MagicLibrary.INSTANCE.magic_open(flags);
     }
 
-    void open() {
+    public void open() {
         open(0);
     }
 
-    void close() {
+    public void close() {
         MagicLibrary.INSTANCE.magic_close(cookie);
     }
 
-    String error() {
+    public String error() {
         return MagicLibrary.INSTANCE.magic_error(cookie);
     }
 
-    String buffer(String buf) {
+    public String buffer(String buf) {
         return MagicLibrary.INSTANCE.magic_buffer(cookie, buf, buf.length());
     }
 
-    String file(String filename) {
+    public String file(String filename) {
         return MagicLibrary.INSTANCE.magic_file(cookie, filename);
     }
 
     // Load a magic number database from a file
-    int load(String filename) {
+    public int load(String filename) {
         return MagicLibrary.INSTANCE.magic_load(cookie, filename);
     }
 
     // Load the default definitions database
-    int load() {
+    public int load() {
         return load(null);
     }
+
 }
