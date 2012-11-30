@@ -29,7 +29,7 @@ public class MagicTest {
         magic.load();
         assertEquals(null, magic.error());
 
-        String result = magic.file("src/net/ohloh/ohcount4j/detect/Magic.java");
+        String result = magic.file("src/main/java/net/ohloh/ohcount4j/detect/Magic.java");
         assertEquals(null, magic.error());
         assert (result.toLowerCase().indexOf("text", 0) > -1);
 

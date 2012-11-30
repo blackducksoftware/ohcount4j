@@ -20,7 +20,7 @@ public class SourceFileTest {
 
     @Test
     public void sourceFileTest() throws IOException {
-        String path = "test/net/ohloh/ohcount4j/SourceFileTest.java";
+        String path = "src/test/java/net/ohloh/ohcount4j/SourceFileTest.java";
         SourceFile source = new SourceFile(path);
         assertEquals(path, source.getPath());
         assertEquals("SourceFileTest.java", source.getName());
