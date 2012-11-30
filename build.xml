@@ -1,10 +1,10 @@
 <project name="ohcount4j" default="compile" basedir=".">
 	<description>simple example build file</description>
-	<property name="src" location="src"/>
+	<property name="src" location="src/main/java"/>
 	<property name="build" location="bin"/>
 	<property name="test.build" location="test-output"/>
 	<property name="dist"  location="dist"/>
-	<property name="scanners" location="scanners"/>
+	<property name="scanners" location="src/scanners/ragel"/>
 	<property name="gen-src" location="gen-src" />
 	<property name="scanner-package" value="net/ohloh/ohcount4j/scan"/>
 	<property name="lib" location="lib"/>
@@ -65,7 +65,7 @@
 	<target name="compile-tests" depends="compile">
 		<mkdir dir="testbin" />
 		<javac includeantruntime="false" destdir="testbin" classpathref="test.lib.jars" debug="true" debuglevel="lines,vars,source" failonerror="true">
-			<src path="test" />
+			<src path="src/test/java" />
 			<exclude name="data/*"/>
 		</javac>
 	</target>
