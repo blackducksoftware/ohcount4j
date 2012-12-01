@@ -4,3 +4,8 @@ test-output
 target
 reports
 gen-src/net
+build/
+.gradle
+*.iml
+*.ipr
+*.iws

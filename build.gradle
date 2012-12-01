@@ -1,0 +1,83 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.7
+
+repositories {
+    maven { url "http://***REMOVED***/artifactory/blackduck-staging-repos" }
+}
+
+dependencies {
+    compile 'args4j:args4j:2.0.16'
+    compile 'net.java.dev.jna:jna:3.3.0'
+    compile 'commons-io:commons-io:2.4'
+    compile 'commons-logging:commons-logging:1.1.1'
+    testCompile 'org.mockito:mockito-all:1.9.0'
+    testCompile 'org.testng:testng:6.8'
+}
+
+ext.useCodeCoverage = System.properties['useCodeCoverage'] == null ? false : true
+
+if (useCodeCoverage) {
+    configurations {
+        jacoco
+    }
+
+    dependencies {
+        jacoco 'org.jacoco:agent:0.5.10.201208310627:runtime@jar'
+    }
+}
+
+task generateScanSources() {
+    String scannerPackage = 'net/ohloh/ohcount4j/scan'
+    File scannerSrc = file('src/scanners/ragel')
+    File targetBase = file("src/generated/java/$scannerPackage")
+    inputs.dir scannerSrc
+    outputs.dir targetBase
+    doLast {
+        targetBase.mkdirs()
+        scannerSrc.eachFile groovy.io.FileType.FILES, { sourceFile ->
+            String baseName = sourceFile.getName().replaceAll('\\.java\\.rl$', '.java')
+            String source = sourceFile.absolutePath
+            if (sourceFile.name.endsWith('.java.rl')) {
+                String target = new File(targetBase, baseName).absolutePath
+                def proc = "ragel -J -o $target $source".execute(null, scannerSrc)
+                proc.in.eachLine {line -> println line}
+                proc.err.eachLine {line -> println 'ERROR: ' + line}
+                proc.waitFor()
+            }
+        }
+    }
+}
+
+sourceSets {
+    generated
+}
+
+sourceSets.main.java.srcDirs += sourceSets.generated.java.srcDirs
+
+compileJava.dependsOn generateScanSources
+
+clean.dependsOn cleanGenerateScanSources
+
+test {
+    if (useCodeCoverage) {
+        jvmArgs "-javaagent:" + configurations.jacoco.asPath + "=destfile=" + buildDir + "/jacoco.exec,includes=net/ohloh.*"
+    }
+    useTestNG()
+}
+
+archivesBaseName="${name.replaceAll('\\.', '-').toLowerCase()}"
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: 'http://***REMOVED***/artifactory/bds-suite-repo') {
+                authentication(userName: "builder", password: "builder")
+            }
+        }
+    }
+}
+
+task wrapper(type: Wrapper) { gradleVersion = '1.2' }
