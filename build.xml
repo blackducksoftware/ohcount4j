@@ -70,6 +70,20 @@
 		</javac>
 	</target>
 
+    <target name="run-tests-no-coverage" depends="compile-tests">
+        <taskdef resource="testngtasks" classpathref="lib.jars" />
+        <testng haltonfailure="false" outputdir="test-output" >
+            <classpath>
+                <pathelement location="${out.instr.dir}"/>
+                <pathelement location="testbin"/>
+                <path refid="test.lib.jars" />
+            </classpath>
+            <classfileset dir="testbin" includes="**/*Test.class" />
+
+            <!-- reporter classname="org.testng.reporters.XMLReporter" /-->
+        </testng>
+    </target>
+
 	<target name="run-tests" depends="emma, compile-tests">
 		<emma enabled="${emma.enabled}" >
 			<instr instrpathref="run.classpath"
