@@ -46,79 +46,81 @@ import net.ohloh.ohcount4j.scan.VimScriptScanner;
 import net.ohloh.ohcount4j.scan.VisualBasicScanner;
 import net.ohloh.ohcount4j.scan.XmlScanner;
 
-public enum Language {
+public enum Language implements LanguageCategory {
 
     /*
      * All languages must be defined here.
      * 
-     * Each language must declare two mandatory properties:
+     * Each language must declare three mandatory properties:
      * 
      * - The language's official display name (niceName)
+     * - The category of the language, one of BUILD, LOGIC, MARKUP, UNKNOWN
      * - A Scanner subclass capable of parsing this language
      */
-    ACTIONSCRIPT("ActionScript", ActionScriptScanner.class),
-    ADA("Ada", AdaScanner.class),
-    ASPX_CSHARP("ASP.NET (C#)", GenericCodeScanner.class), // TODO.
-    ASPX_VB("ASP.NET (VB)", GenericCodeScanner.class), // TODO.
-    ASSEMBLY("Assembly", AssemblyScanner.class),
-    BINARY("Binary", null), // Place holder for binary files. This "Language" will not trigger a scan.
-    BOO("Boo", BooScanner.class),
-    C("C", CStyleScanner.class),
-    CLASSIC_BASIC("Classic BASIC", GenericCodeScanner.class), // TODO.
-    COBOL("COBOL", CobolScanner.class),
-    COLDFUSION("ColdFusion", ColdFusionScanner.class),
-    CPP("C++", CStyleScanner.class),
-    CSHARP("C#", CStyleScanner.class),
-    CSS("CSS", CStyleScanner.class),
-    D("D", DScanner.class),
-    ECMASCRIPT("ECMAScript", CStyleScanner.class),
-    EIFFEL("Eiffel", EiffelScanner.class),
-    ERLANG("Erlang", ErlangScanner.class),
-    FORTRANFIXED("Fortran (Fixed-Format)", FortranFixedScanner.class),
-    FORTRANFREE("Fortran (Free-Format)", FortranFreeScanner.class),
-    FSHARP("F#", FSharpScanner.class),
-    GROOVY("Groovy", CStyleScanner.class),
-    HTML("HTML", HTMLScanner.class),
-    HASKELL("Haskell", HaskellScanner.class),
-    JAVA("Java", CStyleScanner.class),
-    JAVASCRIPT("JavaScript", CStyleScanner.class),
-    LIMBO("Limbo", CStyleScanner.class),
-    JSP("JSP", JspScanner.class),
-    LISP("Lisp", LispScanner.class),
-    LUA("Lua", LuaScanner.class),
-    MAKE("Make", MakeScanner.class),
-    MATHEMATICA("Mathematica", MathematicaScanner.class),
-    MATLAB("Matlab", MatlabScanner.class),
-    MODULA2("Modula 2", ModulaScanner.class),
-    MODULA3("Modula 3", ModulaScanner.class),
-    OBJECTIVE_C("Objective-C", CStyleScanner.class),
-    OCAML("OCaml", OCamlScanner.class),
-    OCTAVE("Octave", MatlabScanner.class), // TODO. Octave also supports # comments
-    PASCAL("Pascal", PascalScanner.class),
-    PERL("Perl", PerlScanner.class),
-    PHP("Php", PhpScanner.class),
-    PUPPET("Puppet", GenericCodeScanner.class), // TODO.
-    PVWAVE("IDL/PV-WAVE/GDL", GenericCodeScanner.class), // TODO.
-    PROLOG("Prolog", PrologScanner.class),
-    PYTHON("Python", PythonScanner.class),
-    R("R", GenericCodeScanner.class), // TODO.
-    REBOL("REBOL", RebolScanner.class),
-    REXX("Rexx", RexxScanner.class),
-    RUBY("Ruby", RubyScanner.class),
-    SCHEME("Scheme", SchemeScanner.class),
-    SHELL("Shell", ShellScanner.class),
-    SMALLTALK("Smalltalk", SmalltalkScanner.class),
-    SQL("SQL", SqlScanner.class),
-    STRUCTURED_BASIC("Structured Basic", VisualBasicScanner.class),
-    TCL("Tcl", TclScanner.class),
-    TEX("TeX/LaTeX", TexScanner.class),
-    UNKNOWN("Unknown", GenericCodeScanner.class),
-    VB("VisualBasic", VisualBasicScanner.class),
-    VBSCRIPT("VBScript", VisualBasicScanner.class),
-    VIMSCRIPT("Vimscript", VimScriptScanner.class),
-    XML("XML", XmlScanner.class),
-    XMLSCHEMA("XML Schema", XmlScanner.class),
-    XSLT("XSL Transformation", XmlScanner.class);
+    ACTIONSCRIPT("ActionScript", LOGIC, ActionScriptScanner.class),
+    ADA("Ada", LOGIC, AdaScanner.class),
+    ASPX_CSHARP("ASP.NET (C#)", LOGIC, GenericCodeScanner.class), // TODO.
+    ASPX_VB("ASP.NET (VB)", LOGIC, GenericCodeScanner.class), // TODO.
+    ASSEMBLY("Assembly", LOGIC, AssemblyScanner.class),
+    BINARY("Binary", LOGIC, null), // Place holder for binary files. This "Language" will not trigger a
+                                   // scan.
+    BOO("Boo", LOGIC, BooScanner.class),
+    C("C", LOGIC, CStyleScanner.class),
+    CLASSIC_BASIC("Classic BASIC", LOGIC, GenericCodeScanner.class), // TODO.
+    COBOL("COBOL", LOGIC, CobolScanner.class),
+    COLDFUSION("ColdFusion", MARKUP, ColdFusionScanner.class),
+    CPP("C++", LOGIC, CStyleScanner.class),
+    CSHARP("C#", LOGIC, CStyleScanner.class),
+    CSS("CSS", MARKUP, CStyleScanner.class),
+    D("D", LOGIC, DScanner.class),
+    ECMASCRIPT("ECMAScript", LOGIC, CStyleScanner.class),
+    EIFFEL("Eiffel", LOGIC, EiffelScanner.class),
+    ERLANG("Erlang", LOGIC, ErlangScanner.class),
+    FORTRANFIXED("Fortran (Fixed-Format)", LOGIC, FortranFixedScanner.class),
+    FORTRANFREE("Fortran (Free-Format)", LOGIC, FortranFreeScanner.class),
+    FSHARP("F#", LOGIC, FSharpScanner.class),
+    GROOVY("Groovy", LOGIC, CStyleScanner.class),
+    HTML("HTML", MARKUP, HTMLScanner.class),
+    HASKELL("Haskell", LOGIC, HaskellScanner.class),
+    JAVA("Java", LOGIC, CStyleScanner.class),
+    JAVASCRIPT("JavaScript", LOGIC, CStyleScanner.class),
+    LIMBO("Limbo", LOGIC, CStyleScanner.class),
+    JSP("JSP", LOGIC, JspScanner.class),
+    LISP("Lisp", LOGIC, LispScanner.class),
+    LUA("Lua", LOGIC, LuaScanner.class),
+    MAKE("Make", BUILD, MakeScanner.class),
+    MATHEMATICA("Mathematica", LOGIC, MathematicaScanner.class),
+    MATLAB("Matlab", LOGIC, MatlabScanner.class),
+    MODULA2("Modula 2", LOGIC, ModulaScanner.class),
+    MODULA3("Modula 3", LOGIC, ModulaScanner.class),
+    OBJECTIVE_C("Objective-C", LOGIC, CStyleScanner.class),
+    OCAML("OCaml", LOGIC, OCamlScanner.class),
+    OCTAVE("Octave", LOGIC, MatlabScanner.class), // TODO. Octave also supports # comments
+    PASCAL("Pascal", LOGIC, PascalScanner.class),
+    PERL("Perl", LOGIC, PerlScanner.class),
+    PHP("Php", LOGIC, PhpScanner.class),
+    PUPPET("Puppet", LOGIC, GenericCodeScanner.class), // TODO.
+    PVWAVE("IDL/PV-WAVE/GDL", LOGIC, GenericCodeScanner.class), // TODO.
+    PROLOG("Prolog", LOGIC, PrologScanner.class),
+    PYTHON("Python", LOGIC, PythonScanner.class),
+    R("R", LOGIC, GenericCodeScanner.class), // TODO.
+    REBOL("REBOL", LOGIC, RebolScanner.class),
+    REXX("Rexx", LOGIC, RexxScanner.class),
+    RUBY("Ruby", LOGIC, RubyScanner.class),
+    SCHEME("Scheme", LOGIC, SchemeScanner.class),
+    SHELL("Shell", LOGIC, ShellScanner.class),
+    SMALLTALK("Smalltalk", LOGIC, SmalltalkScanner.class),
+    SQL("SQL", LOGIC, SqlScanner.class),
+    STRUCTURED_BASIC("Structured Basic", LOGIC, VisualBasicScanner.class),
+    TCL("Tcl", LOGIC, TclScanner.class),
+    TEX("TeX/LaTeX", MARKUP, TexScanner.class),
+    UNKNOWN("Unknown", CATEGORY_UNKNOWN, GenericCodeScanner.class),
+    VB("VisualBasic", LOGIC, VisualBasicScanner.class),
+    VBSCRIPT("VBScript", LOGIC, VisualBasicScanner.class),
+    VIMSCRIPT("Vimscript", LOGIC, VimScriptScanner.class),
+    XML("XML", MARKUP, XmlScanner.class),
+    XMLSCHEMA("XML Schema", MARKUP, XmlScanner.class),
+    XSLT("XSL Transformation", MARKUP, XmlScanner.class);
 
     /*
      * Optional properties of languages are declared here.
@@ -196,6 +198,8 @@ public enum Language {
 
     private final String niceName;
 
+    private final String category;
+
     private final Class<? extends Scanner> scannerClass;
 
     private List<String> extensions;
@@ -204,8 +208,9 @@ public enum Language {
 
     private List<String> aliases;
 
-    Language(String niceName, Class<? extends Scanner> scannerClass) {
+    Language(String niceName, String category, Class<? extends Scanner> scannerClass) {
         this.niceName = niceName;
+        this.category = category;
         this.scannerClass = scannerClass;
         extensions = new ArrayList<String>();
         filenames = new ArrayList<String>();
@@ -218,6 +223,10 @@ public enum Language {
 
     public String niceName() {
         return niceName;
+    }
+
+    public String category() {
+        return category;
     }
 
     public Class<? extends Scanner> scannerClass() {
