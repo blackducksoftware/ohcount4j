@@ -11,7 +11,7 @@ import java.io.StringReader;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
-public class SourceFile {
+public class SourceFile implements AutoCloseable {
 
     private final String path;
 
@@ -78,4 +78,8 @@ public class SourceFile {
         }
     }
 
+    @Override
+    public void close() throws IOException {
+        reader.close();
+    }
 }
