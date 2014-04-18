@@ -1,5 +1,8 @@
 package net.ohloh.ohcount4j.detect;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
@@ -12,6 +15,8 @@ import com.sun.jna.Pointer;
 // Ubuntu: `apt-get install libmagic-dev`
 //
 public class Magic {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private interface MagicLibrary extends Library {
         MagicLibrary INSTANCE =
@@ -32,12 +37,19 @@ public class Magic {
 
     protected Pointer cookie;
 
-    public void open(int flags) {
-        cookie = MagicLibrary.INSTANCE.magic_open(flags);
+    public boolean open(int flags) {
+        try {
+            cookie = MagicLibrary.INSTANCE.magic_open(flags);
+            return true;
+        } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
+            // libmagic not available
+            logger.warn(e.getMessage());
+            return false;
+        }
     }
 
-    public void open() {
-        open(0);
+    public boolean open() {
+        return open(0);
     }
 
     public void close() {

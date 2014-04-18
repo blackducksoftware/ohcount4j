@@ -1,33 +1,25 @@
 package net.ohloh.ohcount4j;
 
 import net.ohloh.ohcount4j.detect.Magic;
-import net.ohloh.ohcount4j.detect.MagicDetector;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class OhcountConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(MagicDetector.class);
-
-    private static final String useLibmagicProperty = "net.ohloh.ohcount4j.uselibmagic";
+    private static final String disableLibmagicProperty = "blackduck.ohcount4j.disable.libmagic";
 
     private static OhcountConfig INSTANCE = new OhcountConfig();
 
-    private boolean useLibmagic;
+    private boolean disableLibmagic;
 
     private boolean libmagicExists;
 
     private OhcountConfig() {
-        useLibmagic = Boolean.valueOf(System.getProperty(useLibmagicProperty, "true"));
-        try {
-            Magic magic = new Magic();
-            magic.open();
+        disableLibmagic = Boolean.valueOf(System.getProperty(disableLibmagicProperty, "true"));
+        Magic magic = new Magic();
+        libmagicExists = magic.open();
+
+        if (libmagicExists) {
+            // We just want to know if it's available
             magic.close();
-            libmagicExists = true;
-        } catch (UnsatisfiedLinkError e) {
-            libmagicExists = false;
-            logger.warn(e.getMessage());
         }
     }
 
@@ -36,7 +28,7 @@ public class OhcountConfig {
     }
 
     public boolean useLibmagic() {
-        return useLibmagic && libmagicExists;
+        return !disableLibmagic && libmagicExists;
     }
 
 }

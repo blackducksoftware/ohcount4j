@@ -44,12 +44,16 @@ public class MagicDetector {
 
         Magic magic = new Magic();
 
-        magic.open();
+        if (!magic.open()) {
+            return null;
+        }
+
         if (magic.error() != null) {
             throw new OhcountException(magic.error());
         }
 
         magic.load();
+
         if (magic.error() != null) {
             throw new OhcountException(magic.error());
         }

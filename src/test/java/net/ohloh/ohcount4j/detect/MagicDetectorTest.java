@@ -20,10 +20,16 @@ public class MagicDetectorTest {
 
     @Test
     public void detectTest() throws OhcountException {
-        assertEquals(null, MagicDetector.detect(null));
-        assertEquals(null, MagicDetector.detect(""));
-        assertEquals(null, MagicDetector.detect("#!/usr/bin/env unknown_language\n"));
+        Magic magic = new Magic();
 
-        assertEquals(Language.RUBY, MagicDetector.detect("#!/usr/bin/env ruby\n"));
+        if (magic.open()) {
+            assertEquals(null, MagicDetector.detect(null));
+            assertEquals(null, MagicDetector.detect(""));
+            assertEquals(null, MagicDetector.detect("#!/usr/bin/env unknown_language\n"));
+
+            assertEquals(Language.RUBY, MagicDetector.detect("#!/usr/bin/env ruby\n"));
+
+            magic.close();
+        }
     }
 }
