@@ -56,9 +56,32 @@ public class SourceFile implements AutoCloseable {
     }
 
     public char[] getContents() throws IOException {
+        return getContents(-1);
+    }
+
+    private char[] getContents(int maxLength) throws IOException {
         // Lazy load to avoid reading until required
         if (contents == null) {
-            contents = IOUtils.toCharArray(reader);
+            if (maxLength == -1) {
+                // read completely
+                contents = IOUtils.toCharArray(reader);
+            } else {
+                char[] buffer = new char[maxLength];
+                int readLen = IOUtils.read(reader, buffer, 0, maxLength);
+                // we don't know how much will we read, now copy the read length to contents
+                contents = new char[readLen];
+                System.arraycopy(buffer, 0, contents, 0, readLen);
+            }
+        } else if (maxLength != -1 && contents.length < maxLength) {
+            // we need to read remaining contents
+            int maxRemainingToRead = maxLength - contents.length;
+            char[] remainingContents = new char[maxRemainingToRead];
+            int readLen = IOUtils.read(reader, remainingContents, 0, maxRemainingToRead);
+            // we don't know how much will we read, now copy the read length to contents
+            char[] newContents = new char[contents.length + readLen];
+            System.arraycopy(contents, 0, newContents, 0, contents.length);
+            System.arraycopy(remainingContents, 0, newContents, contents.length, readLen);
+            contents = newContents;
         }
         return contents;
     }
@@ -71,10 +94,11 @@ public class SourceFile implements AutoCloseable {
     // Ideally, head() should read only as much of the file as required.
     // For now, we simply read in the entire file and return only the first portion.
     public String head(int maxLength) throws IOException {
-        if (getContents().length <= maxLength) {
-            return new String(getContents());
+        char[] contentsRead = getContents(maxLength);
+        if (contentsRead.length <= maxLength) {
+            return new String(contentsRead);
         } else {
-            return new String(getContents(), 0, maxLength);
+            return new String(contentsRead, 0, maxLength);
         }
     }
 
