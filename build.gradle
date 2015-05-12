@@ -62,6 +62,16 @@ compileJava.dependsOn generateScanSources
 
 clean.dependsOn cleanGenerateScanSources
 
+task sourcesJar(type:Jar){
+    from sourceSets.main.allSource
+    from sourceSets.generated.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
+}
+
 test {
     if (useCodeCoverage) {
         jvmArgs "-javaagent:" + configurations.jacoco.asPath + "=destfile=" + buildDir + "/jacoco.exec,includes=net/ohloh.*"
