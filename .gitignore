@@ -4,6 +4,7 @@ test-output
 target
 reports
 gen-src/net
+src/generated
 build/
 .gradle
 *.iml
