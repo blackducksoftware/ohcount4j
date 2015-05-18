@@ -17,7 +17,7 @@ public class SourceFile implements AutoCloseable {
 
     private final Reader reader;
 
-    private char[] contents = null;
+    private char[] contents;
 
     public SourceFile(String path, Reader reader) {
         this.path = path;
@@ -72,7 +72,7 @@ public class SourceFile implements AutoCloseable {
                 contents = new char[readLen];
                 System.arraycopy(buffer, 0, contents, 0, readLen);
             }
-        } else if (maxLength != -1 && contents.length < maxLength) {
+        } else if (contents.length < maxLength) {
             // we need to read remaining contents
             int maxRemainingToRead = maxLength - contents.length;
             char[] remainingContents = new char[maxRemainingToRead];
