@@ -17,7 +17,7 @@ public class SourceFile implements AutoCloseable {
 
     private final Reader reader;
 
-    private char[] contents = null;
+    private char[] content;
 
     public SourceFile(String path, Reader reader) {
         this.path = path;
@@ -56,11 +56,34 @@ public class SourceFile implements AutoCloseable {
     }
 
     public char[] getContents() throws IOException {
+        return prepareContent(-1);
+    }
+
+    private char[] prepareContent(int maxLength) throws IOException {
         // Lazy load to avoid reading until required
-        if (contents == null) {
-            contents = IOUtils.toCharArray(reader);
+        if (content == null) {
+            if (maxLength == -1) {
+                // read completely
+                content = IOUtils.toCharArray(reader);
+            } else {
+                char[] buffer = new char[maxLength];
+                int readLen = IOUtils.read(reader, buffer, 0, maxLength);
+                // we don't know how much will we read, now copy the read length to contents
+                content = new char[readLen];
+                System.arraycopy(buffer, 0, content, 0, readLen);
+            }
+        } else if (content.length < maxLength) {
+            // we need to read remaining contents
+            int maxRemainingToRead = maxLength - content.length;
+            char[] remainingContents = new char[maxRemainingToRead];
+            int readLen = IOUtils.read(reader, remainingContents, 0, maxRemainingToRead);
+            // we don't know how much will we read, now copy the read length to contents
+            char[] newContents = new char[content.length + readLen];
+            System.arraycopy(content, 0, newContents, 0, content.length);
+            System.arraycopy(remainingContents, 0, newContents, content.length, readLen);
+            content = newContents;
         }
-        return contents;
+        return content;
     }
 
     // Regular expressions require CharSequence input
@@ -71,10 +94,11 @@ public class SourceFile implements AutoCloseable {
     // Ideally, head() should read only as much of the file as required.
     // For now, we simply read in the entire file and return only the first portion.
     public String head(int maxLength) throws IOException {
-        if (getContents().length <= maxLength) {
-            return new String(getContents());
+        char[] contentsRead = prepareContent(maxLength);
+        if (contentsRead.length <= maxLength) {
+            return new String(contentsRead);
         } else {
-            return new String(getContents(), 0, maxLength);
+            return new String(contentsRead, 0, maxLength);
         }
     }
 
