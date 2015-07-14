@@ -1,6 +1,17 @@
+buildscript{
+    repositories{
+        maven{url 'http://***REMOVED***/artifactory/blackduck-staging-repos'}
+        maven{url 'http://***REMOVED***/artifactory/blackduck-builder-repos'}
+    }
+    dependencies{
+        classpath 'com.blackducksoftware.gradle.plugins:gradle-plugins:1.49'
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'maven'
+apply plugin: 'release'
 
 sourceCompatibility = 1.7
 
@@ -91,4 +102,4 @@ uploadArchives {
     }
 }
 
-task wrapper(type: Wrapper) { gradleVersion = '1.2' }
+task wrapper(type: Wrapper) { gradleVersion = '2.4' }
