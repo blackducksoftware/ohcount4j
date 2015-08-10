@@ -6,6 +6,7 @@ import java.util.List;
 import net.ohloh.ohcount4j.scan.ActionScriptScanner;
 import net.ohloh.ohcount4j.scan.AdaScanner;
 import net.ohloh.ohcount4j.scan.AssemblyScanner;
+import net.ohloh.ohcount4j.scan.BinaryScanner;
 import net.ohloh.ohcount4j.scan.BooScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
 import net.ohloh.ohcount4j.scan.CobolScanner;
@@ -62,8 +63,7 @@ public enum Language implements LanguageCategory {
     ASPX_CSHARP("ASP.NET (C#)", LOGIC, GenericCodeScanner.class), // TODO.
     ASPX_VB("ASP.NET (VB)", LOGIC, GenericCodeScanner.class), // TODO.
     ASSEMBLY("Assembly", LOGIC, AssemblyScanner.class),
-    BINARY("Binary", LOGIC, null), // Place holder for binary files. This "Language" will not trigger a
-                                   // scan.
+    BINARY("Binary", LOGIC, BinaryScanner.class),
     BOO("Boo", LOGIC, BooScanner.class),
     C("C", LOGIC, CStyleScanner.class),
     CLASSIC_BASIC("Classic BASIC", LOGIC, GenericCodeScanner.class), // TODO.

@@ -31,7 +31,7 @@ public class Detector {
 
         // Initial fast rejection of binary files
         if (getInstance().isBinary(source.getExtension())) {
-            return null;
+            return Language.BINARY;
         }
 
         Language language = null;
@@ -56,11 +56,7 @@ public class Detector {
         }
 
         // A Detector or Resolver may have found a binary file.
-        if (language == Language.BINARY) {
-            return null;
-        } else {
-            return language;
-        }
+        return language != null ? language : Language.UNKNOWN;
     }
 
     public static Language detect(SourceFile source) throws IOException {
