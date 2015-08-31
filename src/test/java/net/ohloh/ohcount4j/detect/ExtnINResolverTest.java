@@ -28,8 +28,8 @@ public class ExtnINResolverTest {
     }
 
     @Test
-    public void nullByDefaultTest() throws IOException {
-        assertEquals(null, r.resolve(new SourceFile("foo.in", "")));
+    public void unknownByDefaultTest() throws IOException {
+        assertEquals(Language.UNKNOWN, r.resolve(new SourceFile("foo.in", "")));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class ExtnINResolverTest {
     }
 
     @Test
-    public void nullExample() throws IOException {
-        assertEquals(null, r.resolve(new SourceFile("foo.in", "# unknown")));
+    public void unknownExample() throws IOException {
+        assertEquals(Language.UNKNOWN, r.resolve(new SourceFile("foo.in", "# unknown")));
     }
 }
