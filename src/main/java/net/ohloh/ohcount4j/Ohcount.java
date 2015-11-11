@@ -61,20 +61,22 @@ public class Ohcount {
     static void annotate(List<File> files, List<String> filenames) throws IOException {
         AnnotationWriter handler = new AnnotationWriter();
         for (File file : files) {
-            SourceFile sourceFile = new SourceFile(file);
-            Language language = Detector.detect(sourceFile, filenames);
-            if (language != null) {
-                language.makeScanner().scan(sourceFile, handler);
+            try (SourceFile sourceFile = new SourceFile(file)) {
+                Language language = Detector.detect(sourceFile, filenames);
+                if (language != null) {
+                    language.makeScanner().scan(sourceFile, handler);
+                }
             }
         }
     }
 
     static void detect(List<File> files, List<String> filenames) throws IOException {
         for (File file : files) {
-            SourceFile sourceFile = new SourceFile(file);
-            Language language = Detector.detect(sourceFile, filenames);
-            if (language != null) {
-                System.out.printf("%s\t%s\n", language.niceName(), file.getPath());
+            try (SourceFile sourceFile = new SourceFile(file)) {
+                Language language = Detector.detect(sourceFile, filenames);
+                if (language != null) {
+                    System.out.printf("%s\t%s\n", language.niceName(), file.getPath());
+                }
             }
         }
     }
