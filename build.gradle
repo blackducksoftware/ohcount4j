@@ -1,6 +1,5 @@
 buildscript{
     repositories{
-        maven{url 'http://***REMOVED***/artifactory/blackduck-staging-repos'}
         maven{url 'http://***REMOVED***/artifactory/blackduck-builder-repos'}
     }
     dependencies{
