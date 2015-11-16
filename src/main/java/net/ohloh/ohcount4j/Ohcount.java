@@ -70,7 +70,7 @@ public class Ohcount {
         System.out.format(formattedString, "Enum name", "Nick name");
         System.out.println("----------------------------------");
         for (Language language : Language.values()) {
-            System.out.format(formattedString, language.name(), language.niceName());
+            System.out.format(formattedString, language.uname(), language.niceName());
         }
     }
 
