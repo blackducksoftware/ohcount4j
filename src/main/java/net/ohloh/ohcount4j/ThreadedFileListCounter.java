@@ -24,7 +24,9 @@ public class ThreadedFileListCounter {
 
         @Override
         public Count call() throws Exception {
-            return new FileCounter(new SourceFile(file), filenames).count();
+            try (SourceFile sourceFile = new SourceFile(file)) {
+                return new FileCounter(sourceFile, filenames).count();
+            }
         }
     }
 
@@ -41,6 +43,7 @@ public class ThreadedFileListCounter {
 
         for (File file : files) {
             FileCounterCallable fcc = new FileCounterCallable(file, filenames);
+
             futures.add(pool.submit(fcc));
         }
         for (Future<Count> future : futures) {
