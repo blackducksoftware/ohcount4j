@@ -29,6 +29,11 @@ public class Ohcount {
             System.exit(0);
         }
 
+        if (opts.supportedLanguages) {
+            printSupportedLanguages();
+            System.exit(0);
+        }
+
         // Count the current directory by default
         if (opts.targets.size() == 0) {
             opts.targets.add(".");
@@ -55,6 +60,17 @@ public class Ohcount {
         } catch (IOException e) {
             System.err.println("Error - " + e.getMessage());
             System.exit(-1);
+        }
+    }
+
+    static void printSupportedLanguages() {
+        String formattedString = "  %-18s%-18s\n";
+        System.out.println("Ohcount4j supported languages\n");
+        System.out.println("----------------------------------");
+        System.out.format(formattedString, "Name", "Nice name");
+        System.out.println("----------------------------------");
+        for (Language language : Language.values()) {
+            System.out.format(formattedString, language.uname(), language.niceName());
         }
     }
 
@@ -107,6 +123,9 @@ public class Ohcount {
 
         @Option(name = "-d", usage = "show detected file types only")
         boolean detect = false;
+
+        @Option(name = "-l", usage = "show supported languages")
+        boolean supportedLanguages = false;
     }
 
 }
