@@ -67,7 +67,7 @@ public class Ohcount {
         String formattedString = "  %-18s%-18s\n";
         System.out.println("Ohcount4j supported languages\n");
         System.out.println("----------------------------------");
-        System.out.format(formattedString, "Enum name", "Nick name");
+        System.out.format(formattedString, "Name", "Nice name");
         System.out.println("----------------------------------");
         for (Language language : Language.values()) {
             System.out.format(formattedString, language.uname(), language.niceName());
