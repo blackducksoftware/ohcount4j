@@ -15,10 +15,13 @@ import net.ohloh.ohcount4j.SourceFile;
 
 public class Detector {
 
-    private static Detector detectorInstance = new Detector();
+    // Max length to read content from SourceFile, this should not be very less nor too big
+    private static final int MAX_LENGTH = 10000;
+
+    private static final Detector DETECTOR_INSTANCE = new Detector();
 
     public static Detector getInstance() {
-        return detectorInstance;
+        return DETECTOR_INSTANCE;
     }
 
     /*
@@ -26,8 +29,7 @@ public class Detector {
      * programming language is detected, or if the provided SourceFile is a
      * binary file.
      */
-    public static Language detect(SourceFile source, List<String> filenames)
-            throws IOException {
+    public static Language detect(SourceFile source, List<String> filenames) throws IOException {
 
         // Initial fast rejection of binary files
         if (getInstance().isBinary(source.getExtension())) {
@@ -37,7 +39,7 @@ public class Detector {
         Language language = null;
 
         if (language == null) {
-            language = EmacsModeDetector.detect(source.head(100));
+            language = EmacsModeDetector.detect(source.head(MAX_LENGTH));
         }
         if (language == null) {
             language = getInstance().detectByExtension(source.getExtension(),
@@ -52,7 +54,7 @@ public class Detector {
         }
 
         if (language == null && OhcountConfig.getInstance().useLibmagic()) {
-            language = MagicDetector.detect(source.head(100));
+            language = MagicDetector.detect(source.head(MAX_LENGTH));
         }
 
         // A Detector or Resolver may have found a binary file.
@@ -191,11 +193,10 @@ public class Detector {
     }
 
     public boolean isBinary(String extension) {
-        return binaryExtensions.contains(extension.toLowerCase());
+        return BINARY_EXTENSIONS.contains(extension.toLowerCase());
     }
 
-    @SuppressWarnings("serial")
-    private static final Set<String> binaryExtensions = new HashSet<String>() {
+    private static final Set<String> BINARY_EXTENSIONS = new HashSet<String>() {
         {
             add("a");
             add("aiff");
