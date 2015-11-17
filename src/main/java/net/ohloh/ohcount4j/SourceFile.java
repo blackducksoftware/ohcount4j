@@ -55,6 +55,12 @@ public class SourceFile implements AutoCloseable {
         return reader;
     }
 
+    /**
+     * Reads complete contents.
+     *
+     * @return
+     * @throws IOException
+     */
     public char[] getContents() throws IOException {
         return prepareContent(-1);
     }
@@ -108,8 +114,9 @@ public class SourceFile implements AutoCloseable {
         return java.nio.CharBuffer.wrap(getContents());
     }
 
-    // Ideally, head() should read only as much of the file as required.
-    // For now, we simply read in the entire file and return only the first portion.
+    /**
+     * Tries to read content as size specified. If maxLength is specified as -1 then it reads complete contents.
+     */
     public String head(int maxLength) throws IOException {
         char[] contentsRead = prepareContent(maxLength);
         if (contentsRead.length <= maxLength || maxLength == -1) {

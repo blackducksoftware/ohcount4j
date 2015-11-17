@@ -18,6 +18,9 @@ public class Detector {
     // Max length to read content from SourceFile, this should not be very less nor too big
     private static final int MAX_LENGTH = 10000;
 
+    // Min length would be like 100
+    private static final int MIN_LENGTH = 100;
+
     private static final Detector DETECTOR_INSTANCE = new Detector();
 
     public static Detector getInstance() {
@@ -39,7 +42,7 @@ public class Detector {
         Language language = null;
 
         if (language == null) {
-            language = EmacsModeDetector.detect(source.head(MAX_LENGTH));
+            language = EmacsModeDetector.detect(source.head(MIN_LENGTH));
         }
         if (language == null) {
             language = getInstance().detectByExtension(source.getExtension(),
