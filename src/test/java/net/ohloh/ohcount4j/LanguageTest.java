@@ -12,6 +12,9 @@ public class LanguageTest {
     void unameTest() {
         assertEquals("c", Language.C.uname());
         assertEquals("ruby", Language.RUBY.uname());
+
+        // GoLang
+        assertEquals("GoLang", Language.GO_LANG.uname());
     }
 
     @Test
@@ -19,6 +22,10 @@ public class LanguageTest {
         assertTrue(Language.RUBY.getExtensions().contains("rb"));
         assertTrue(Language.RUBY.getExtensions().contains("ru"));
         assertFalse(Language.RUBY.getExtensions().contains("c"));
+
+        // GoLang
+        assertEquals(Language.GO_LANG.getExtensions().size(), 1);
+        assertEquals(Language.GO_LANG.getExtensions().get(0), "go");
     }
 
     @Test

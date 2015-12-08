@@ -2,6 +2,7 @@ package net.ohloh.ohcount4j.detect;
 
 import static net.ohloh.ohcount4j.Language.C;
 import static net.ohloh.ohcount4j.Language.CSS;
+import static net.ohloh.ohcount4j.Language.GO_LANG;
 import static net.ohloh.ohcount4j.Language.HTML;
 import static net.ohloh.ohcount4j.Language.JAVA;
 import static net.ohloh.ohcount4j.Language.JAVASCRIPT;
@@ -31,6 +32,7 @@ public class DetectorTest {
         assertDetect("main.js", JAVASCRIPT);
         assertDetect("main.rb", RUBY);
         assertDetect("config.ru", RUBY);
+        assertDetect("main.go", GO_LANG);
     }
 
     @Test
