@@ -14,7 +14,7 @@ public class LanguageTest {
         assertEquals("ruby", Language.RUBY.uname());
 
         // GoLang
-        assertEquals("GoLang", Language.GO_LANG.uname());
+        assertEquals("GoLang", Language.GOLANG.uname());
     }
 
     @Test
@@ -24,8 +24,8 @@ public class LanguageTest {
         assertFalse(Language.RUBY.getExtensions().contains("c"));
 
         // GoLang
-        assertEquals(Language.GO_LANG.getExtensions().size(), 1);
-        assertEquals(Language.GO_LANG.getExtensions().get(0), "go");
+        assertEquals(Language.GOLANG.getExtensions().size(), 1);
+        assertEquals(Language.GOLANG.getExtensions().get(0), "go");
     }
 
     @Test
