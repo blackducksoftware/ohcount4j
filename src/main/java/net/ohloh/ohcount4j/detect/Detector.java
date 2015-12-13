@@ -18,6 +18,9 @@ import net.ohloh.ohcount4j.SourceFile;
 
 public class Detector {
 
+    // Min len to 100
+    private static final int MIN_LENGTH = 100;
+
     private static final Detector DETECTOR_INSTANCE = new Detector();
 
     public static Detector getInstance() {
@@ -29,8 +32,7 @@ public class Detector {
      * programming language is detected, or if the provided SourceFile is a
      * binary file.
      */
-    public static Language detect(SourceFile source, List<String> filenames)
-            throws IOException {
+    public static Language detect(SourceFile source, List<String> filenames) throws IOException {
 
         // Initial fast rejection of binary files
         if (getInstance().isBinary(source.getExtension())) {
@@ -40,7 +42,7 @@ public class Detector {
         Language language = null;
 
         if (language == null) {
-            language = EmacsModeDetector.detect(source.head(100));
+            language = EmacsModeDetector.detect(source.head(MIN_LENGTH));
         }
         if (language == null) {
             language = getInstance().detectByExtension(source.getExtension(), source, filenames);
@@ -185,11 +187,10 @@ public class Detector {
     }
 
     public boolean isBinary(String extension) {
-        return binaryExtensions.contains(extension.toLowerCase());
+        return BINARY_EXTENSIONS.contains(extension.toLowerCase());
     }
 
-    @SuppressWarnings("serial")
-    private static final Set<String> binaryExtensions = new HashSet<String>() {
+    private static final Set<String> BINARY_EXTENSIONS = new HashSet<String>() {
         {
             add("a");
             add("aiff");

@@ -26,6 +26,42 @@ public class SourceFileTest {
     }
 
     @Test
+    public void sourceBufferTestWithHeadAlreadyInit() throws IOException {
+        String buffer = "This is a string";
+        try (SourceFile source = new SourceFile("/foo/bar.baz", buffer)) {
+            assertEquals("/foo/bar.baz", source.getPath());
+            assertEquals("bar.baz", source.getName());
+            assertEquals("baz", source.getExtension());
+            assertEquals("This", source.head(4));
+            assertEquals(buffer, source.head(-1));
+            assertEquals("This ", source.head(5));
+            for (int i = 0; i < buffer.length() + 10; i++) {
+                int strIndex = (i < buffer.length()) ? i : buffer.length();
+                String expectedValue = buffer.substring(0, strIndex);
+                assertEquals(expectedValue, source.head(i));
+            }
+        }
+    }
+
+    @Test
+    public void sourceBufferTestWithHeadAlreadyWithExactContent() throws IOException {
+        String buffer = "This is a string";
+        try (SourceFile source = new SourceFile("/foo/bar.baz", buffer)) {
+            assertEquals("/foo/bar.baz", source.getPath());
+            assertEquals("bar.baz", source.getName());
+            assertEquals("baz", source.getExtension());
+            assertEquals(buffer, source.head(buffer.length()));
+            assertEquals(buffer, source.head(-1));
+            assertEquals("This ", source.head(5));
+            for (int i = 0; i < buffer.length() + 10; i++) {
+                int strIndex = (i < buffer.length()) ? i : buffer.length();
+                String expectedValue = buffer.substring(0, strIndex);
+                assertEquals(expectedValue, source.head(i));
+            }
+        }
+    }
+
+    @Test
     public void sourceBufferTestReadMaxFirst() throws IOException {
         String buffer = "This is a string";
         try (SourceFile source = new SourceFile("/foo/bar.baz", buffer)) {
