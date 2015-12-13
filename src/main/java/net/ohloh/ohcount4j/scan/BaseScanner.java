@@ -1,6 +1,8 @@
 package net.ohloh.ohcount4j.scan;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -10,40 +12,43 @@ import net.ohloh.ohcount4j.SourceFile;
 
 public abstract class BaseScanner implements Scanner {
 
+    // 15000 line of code with 200 lines each (~3 MB file)
+    private static final int BLOCK_SIZE = 3 * 1024 * 1024; // 3 MB
+
     // Ragel variables.
-    protected char[] data = null;
+    protected int[] stack = new int[32];
+
+    protected char[] data;
 
     protected int cs;
 
     protected int top;
 
-    protected int[] stack = new int[32];
+    protected int p;
 
-    protected int p = 0;
-
-    protected int eof = 0;
+    protected int eof;
 
     protected int pe = eof;
 
-    protected int mark = 0;
+    protected int mark;
 
-    protected int ts = 0;
+    protected int ts;
 
-    protected int te = 0;
+    protected int te;
 
-    protected int act = 0;
+    protected int act;
 
-    ArrayList<Language> codeSeen = new ArrayList<Language>();
+    protected int lineStart;
 
-    ArrayList<Language> commentSeen = new ArrayList<Language>();
+    protected LineHandler handler;
 
-    protected int lineStart = 0;
+    protected Language defaultLanguage;
 
-    protected LineHandler handler = null;
+    protected Language language;
 
-    protected Language defaultLanguage = null;
+    protected ArrayList<Language> codeSeen = new ArrayList<Language>();
 
-    protected Language language = null;
+    protected ArrayList<Language> commentSeen = new ArrayList<Language>();
 
     // abstract method to be implemented by scanners
     public abstract void doScan();
@@ -64,8 +69,46 @@ public abstract class BaseScanner implements Scanner {
 
     @Override
     public final void scan(SourceFile source, LineHandler handler) throws IOException {
-        scan(source.getContents(), handler);
-        source.getReader().close();
+        Reader reader = source.getReader();
+        try {
+            long length = new File(source.getPath()).length();
+            int buflen = (length > BLOCK_SIZE) ? BLOCK_SIZE : (int) length; // its OK we down-cast;
+            char[] cbuf = new char[buflen];
+            int readLen;
+            while ((readLen = reader.read(cbuf)) != -1) {
+                char[] data0 = cbuf;
+                if (readLen < buflen) {
+                    data0 = new char[readLen];
+                    System.arraycopy(cbuf, 0, data0, 0, readLen);
+                } else {
+                    // we have more to read
+                    // read till next new line
+                    char[] dataTillNewLine = readTillNewLine(reader);
+                    data0 = new char[readLen + dataTillNewLine.length];
+                    System.arraycopy(cbuf, 0, data0, 0, cbuf.length);
+                    System.arraycopy(dataTillNewLine, 0, data0, cbuf.length, dataTillNewLine.length);
+                }
+                cs = top = p = eof = pe = mark = ts = te = act = lineStart = 0;
+                scan(data0, handler);
+            }
+        } finally {
+            reader.close();
+        }
+    }
+
+    private char[] readTillNewLine(Reader reader) throws IOException {
+        int value;
+        StringBuilder sb = new StringBuilder();
+        while ((value = reader.read()) != -1) {
+            if (value == '\n') {
+                // break
+                sb.append('\n');
+                break;
+            } else {
+                sb.append(value);
+            }
+        }
+        return sb.toString().toCharArray();
     }
 
     @Override

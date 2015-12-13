@@ -1,5 +1,8 @@
 package net.ohloh.ohcount4j.detect;
 
+import static net.ohloh.ohcount4j.Language.FORTRANFIXED;
+import static net.ohloh.ohcount4j.Language.FORTRANFREE;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,10 +18,10 @@ import net.ohloh.ohcount4j.SourceFile;
 
 public class Detector {
 
-    private static Detector detectorInstance = new Detector();
+    private static final Detector DETECTOR_INSTANCE = new Detector();
 
     public static Detector getInstance() {
-        return detectorInstance;
+        return DETECTOR_INSTANCE;
     }
 
     /*
@@ -40,19 +43,17 @@ public class Detector {
             language = EmacsModeDetector.detect(source.head(100));
         }
         if (language == null) {
-            language = getInstance().detectByExtension(source.getExtension(),
-                    source, filenames);
+            language = getInstance().detectByExtension(source.getExtension(), source, filenames);
         }
         if (language == null) {
-            language = getInstance().detectByExtension(
-                    source.getExtension().toLowerCase(), source, filenames);
+            language = getInstance().detectByExtension(source.getExtension().toLowerCase(), source, filenames);
         }
         if (language == null) {
             language = getInstance().detectByFilename(source.getName());
         }
 
         if (language == null && OhcountConfig.getInstance().useLibmagic()) {
-            language = MagicDetector.detect(source.head(100));
+            language = MagicDetector.detectFile(source.getPath());
         }
 
         // A Detector or Resolver may have found a binary file.
@@ -134,8 +135,7 @@ public class Detector {
     }
 
     // Currently assumes extensions map uniquely to scanners
-    public Language detectByExtension(String ext, SourceFile source,
-            List<String> filenames) throws IOException {
+    public Language detectByExtension(String ext, SourceFile source, List<String> filenames) throws IOException {
         Class<? extends Resolver> resolverClass = resolverExtensionMap.get(ext);
         if (resolverClass != null) {
             return makeResolver(resolverClass).resolve(source, filenames);
@@ -158,13 +158,11 @@ public class Detector {
     public static Resolver getResolver(String ext) {
 
         // Special case for FORTRAN since it uses so many extensions.
-        if (Language.FORTRANFIXED.getExtensions().contains(ext)
-                || Language.FORTRANFREE.getExtensions().contains(ext)) {
+        if (FORTRANFIXED.getExtensions().contains(ext) || FORTRANFREE.getExtensions().contains(ext)) {
             return new FortranResolver();
         }
 
-        String resolverName = "net.ohloh.ohcount4j.detect.Extn"
-                + ext.toUpperCase() + "Resolver";
+        String resolverName = "net.ohloh.ohcount4j.detect.Extn" + ext.toUpperCase() + "Resolver";
 
         Class<Resolver> klass;
         try {
