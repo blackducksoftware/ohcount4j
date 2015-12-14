@@ -12,8 +12,8 @@ import net.ohloh.ohcount4j.SourceFile;
 
 public abstract class BaseScanner implements Scanner {
 
-    // 15000 line of code with 200 lines each (~3 MB file)
-    private static final int BLOCK_SIZE = 3 * 1024 * 1024; // 3 MB
+    // 10000 line of code with 150 lines each (~1.5 MB file i.e 1572864 Bytes)
+    private static final int BLOCK_SIZE = (int) (1024 * 1024 * 1.5); // 1.5 MB
 
     // Ragel variables.
     protected int[] stack = new int[32];
@@ -76,7 +76,7 @@ public abstract class BaseScanner implements Scanner {
             char[] cbuf = new char[buflen];
             int readLen;
             while ((readLen = reader.read(cbuf)) != -1) {
-                char[] data0 = cbuf;
+                char[] data0;
                 if (readLen < buflen) {
                     data0 = new char[readLen];
                     System.arraycopy(cbuf, 0, data0, 0, readLen);
