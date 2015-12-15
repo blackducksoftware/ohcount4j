@@ -78,10 +78,14 @@ public abstract class BaseScanner implements Scanner {
             while ((readLen = reader.read(cbuf)) != -1) {
                 char[] data0;
                 if (readLen < buflen) {
+                    // we have read less then cbuff length, copy till readLen
                     data0 = new char[readLen];
                     System.arraycopy(cbuf, 0, data0, 0, readLen);
+                } else if (readLen == buflen && BLOCK_SIZE != buflen) {
+                    // we don't need to copy anything, we got complete content of the file
+                    data0 = cbuf;
                 } else {
-                    // we have more to read
+                    // we may have more to read
                     // read till next new line
                     char[] dataTillNewLine = readTillNewLine(reader);
                     data0 = new char[readLen + dataTillNewLine.length];
