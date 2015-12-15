@@ -67,6 +67,12 @@ public abstract class BaseScanner implements Scanner {
         return defaultLanguage;
     }
 
+    /**
+     * When we have scan with sourceFile, we read data in blocks.
+     * Ideally we read max block defined by BLOCK_SIZE (1.5MB) or the file size which ever is less.
+     * 1.5MB came up with an assumption of a source file having 10000 line of code with 150 chars each has a size of
+     * ~1.5 MB file i.e 1572864 Bytes.
+     */
     @Override
     public final void scan(SourceFile source, LineHandler handler) throws IOException {
         Reader reader = source.getReader();
@@ -85,8 +91,10 @@ public abstract class BaseScanner implements Scanner {
                     // we don't need to copy anything, we got complete content of the file
                     data0 = cbuf;
                 } else {
-                    // we may have more to read
-                    // read till next new line
+                    /*
+                     * This block is executed when we have source file more then 1.5MB, so read the
+                     * content to next newline (So that we can call scan(char[]).
+                     */
                     char[] dataTillNewLine = readTillNewLine(reader);
                     data0 = new char[readLen + dataTillNewLine.length];
                     System.arraycopy(cbuf, 0, data0, 0, cbuf.length);

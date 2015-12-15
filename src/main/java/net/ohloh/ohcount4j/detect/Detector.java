@@ -55,6 +55,7 @@ public class Detector {
         }
 
         if (language == null && OhcountConfig.getInstance().useLibmagic()) {
+            // give file path to libmagic
             language = MagicDetector.detectFile(source.getPath());
         }
 
