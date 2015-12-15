@@ -12,7 +12,7 @@ import net.ohloh.ohcount4j.SourceFile;
 
 public abstract class BaseScanner implements Scanner {
 
-    // 10000 line of code with 150 lines each (~1.5 MB file i.e 1572864 Bytes)
+    // 10000 line of code with 150 chars each (~1.5 MB file i.e 1572864 Bytes)
     private static final int BLOCK_SIZE = (int) (1024 * 1024 * 1.5); // 1.5 MB
 
     // Ragel variables.
