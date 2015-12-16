@@ -12,6 +12,7 @@ public class LanguageTest {
     void unameTest() {
         assertEquals("c", Language.C.uname());
         assertEquals("ruby", Language.RUBY.uname());
+        assertEquals("autoconf", Language.AUTOCONF.uname());
     }
 
     @Test
@@ -26,4 +27,5 @@ public class LanguageTest {
         assertTrue(Language.RUBY.getFilenames().contains("Rakefile"));
         assertFalse(Language.RUBY.getFilenames().contains("Makefile"));
     }
+
 }

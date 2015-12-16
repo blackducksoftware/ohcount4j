@@ -141,6 +141,7 @@ public enum Language implements LanguageCategory {
         ASPX_CSHARP.extension("aspx");
         ASPX_VB.extension("aspx");
         ASSEMBLY.extensions("as8", "asm", "asx", "S", "z80");
+        AUTOCONF.extensions("autoconf", "ac");
         BINARY.extensions("inc", "st");
         BOO.extension("boo");
         C.extensions("c", "h");
