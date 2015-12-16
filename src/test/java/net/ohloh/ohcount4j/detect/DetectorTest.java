@@ -33,6 +33,7 @@ public class DetectorTest {
         assertDetect("main.rb", RUBY);
         assertDetect("config.ru", RUBY);
         assertDetect("main.go", GOLANG);
+        assertDetect("main.aug", Language.AUGEAS);
     }
 
     @Test
