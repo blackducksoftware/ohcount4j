@@ -9,21 +9,27 @@ import org.testng.annotations.Test;
 public class LanguageTest {
 
     @Test
-    void unameTest() {
+    public void unameTest() {
         assertEquals("c", Language.C.uname());
         assertEquals("ruby", Language.RUBY.uname());
         assertEquals("autoconf", Language.AUTOCONF.uname());
+        // GoLang
+        assertEquals("golang", Language.GOLANG.uname());
     }
 
     @Test
-    void extensionsTest() {
+    public void extensionsTest() {
         assertTrue(Language.RUBY.getExtensions().contains("rb"));
         assertTrue(Language.RUBY.getExtensions().contains("ru"));
         assertFalse(Language.RUBY.getExtensions().contains("c"));
+
+        // GoLang
+        assertEquals(Language.GOLANG.getExtensions().size(), 1);
+        assertEquals(Language.GOLANG.getExtensions().get(0), "go");
     }
 
     @Test
-    void filenamesTest() {
+    public void filenamesTest() {
         assertTrue(Language.RUBY.getFilenames().contains("Rakefile"));
         assertFalse(Language.RUBY.getFilenames().contains("Makefile"));
     }
