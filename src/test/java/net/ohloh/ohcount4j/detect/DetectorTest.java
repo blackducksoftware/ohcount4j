@@ -1,5 +1,6 @@
 package net.ohloh.ohcount4j.detect;
 
+import static net.ohloh.ohcount4j.Language.AUTOMAKE;
 import static net.ohloh.ohcount4j.Language.C;
 import static net.ohloh.ohcount4j.Language.CSS;
 import static net.ohloh.ohcount4j.Language.HTML;
@@ -31,6 +32,8 @@ public class DetectorTest {
         assertDetect("main.js", JAVASCRIPT);
         assertDetect("main.rb", RUBY);
         assertDetect("config.ru", RUBY);
+        assertDetect("make.am", AUTOMAKE);
+        assertDetect("make.AM", AUTOMAKE);
     }
 
     @Test
@@ -48,6 +51,7 @@ public class DetectorTest {
     public void isBinaryTest() {
         assertFalse(Detector.getInstance().isBinary(""));
         assertFalse(Detector.getInstance().isBinary("txt"));
+        assertFalse(Detector.getInstance().isBinary("am"));
 
         assertTrue(Detector.getInstance().isBinary("jpg"));
         assertTrue(Detector.getInstance().isBinary("JPG"));

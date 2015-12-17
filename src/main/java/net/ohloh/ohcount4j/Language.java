@@ -52,9 +52,9 @@ public enum Language implements LanguageCategory {
 
     /*
      * All languages must be defined here.
-     * 
+     *
      * Each language must declare three mandatory properties:
-     * 
+     *
      * - The language's official display name (niceName)
      * - The category of the language, one of BUILD, LOGIC, MARKUP, UNKNOWN
      * - A Scanner subclass capable of parsing this language
@@ -126,10 +126,10 @@ public enum Language implements LanguageCategory {
 
     /*
      * Optional properties of languages are declared here.
-     * 
+     *
      * At a minimum, a language should define one or more file
      * extensions or filenames associated with the language.
-     * 
+     *
      * You may also declare additional names (beyond the uname
      * and niceName) by which the language might be known.
      * These aliases can be matched against things like Emacs
@@ -141,6 +141,7 @@ public enum Language implements LanguageCategory {
         ASPX_CSHARP.extension("aspx");
         ASPX_VB.extension("aspx");
         ASSEMBLY.extensions("as8", "asm", "asx", "S", "z80");
+        AUTOMAKE.extensions("am");
         BINARY.extensions("inc", "st");
         BOO.extension("boo");
         C.extensions("c", "h");
