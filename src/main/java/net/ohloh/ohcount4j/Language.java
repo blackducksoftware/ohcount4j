@@ -9,6 +9,7 @@ import net.ohloh.ohcount4j.scan.AssemblyScanner;
 import net.ohloh.ohcount4j.scan.AugeasScanner;
 import net.ohloh.ohcount4j.scan.AutoconfScanner;
 import net.ohloh.ohcount4j.scan.AutomakeScanner;
+import net.ohloh.ohcount4j.scan.AwkScanner;
 import net.ohloh.ohcount4j.scan.BinaryScanner;
 import net.ohloh.ohcount4j.scan.BooScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
@@ -54,9 +55,9 @@ public enum Language implements LanguageCategory {
 
     /*
      * All languages must be defined here.
-     * 
+     *
      * Each language must declare three mandatory properties:
-     * 
+     *
      * - The language's official display name (niceName)
      * - The category of the language, one of BUILD, LOGIC, MARKUP, UNKNOWN
      * - A Scanner subclass capable of parsing this language
@@ -69,6 +70,7 @@ public enum Language implements LanguageCategory {
     AUGEAS("Augeas", LOGIC, AugeasScanner.class),
     AUTOCONF("Autoconf", BUILD, AutoconfScanner.class),
     AUTOMAKE("Automake", BUILD, AutomakeScanner.class),
+    AWK("AWK", LOGIC, AwkScanner.class),
     BINARY("Binary", LOGIC, BinaryScanner.class),
     BOO("Boo", LOGIC, BooScanner.class),
     C("C", LOGIC, CStyleScanner.class),
@@ -131,10 +133,10 @@ public enum Language implements LanguageCategory {
 
     /*
      * Optional properties of languages are declared here.
-     * 
+     *
      * At a minimum, a language should define one or more file
      * extensions or filenames associated with the language.
-     * 
+     *
      * You may also declare additional names (beyond the uname
      * and niceName) by which the language might be known.
      * These aliases can be matched against things like Emacs
@@ -149,6 +151,7 @@ public enum Language implements LanguageCategory {
         AUGEAS.extensions("aug");
         AUTOCONF.extensions("autoconf", "ac", "m4"); // m4 (unix macro processor)
         AUTOMAKE.extensions("am");
+        AWK.extension("awk");
         BINARY.extensions("inc", "st");
         BOO.extension("boo");
         C.extensions("c", "h");
@@ -213,11 +216,11 @@ public enum Language implements LanguageCategory {
 
     private final Class<? extends Scanner> scannerClass;
 
-    private List<String> extensions;
+    private final List<String> extensions;
 
-    private List<String> filenames;
+    private final List<String> filenames;
 
-    private List<String> aliases;
+    private final List<String> aliases;
 
     Language(String niceName, String category, Class<? extends Scanner> scannerClass) {
         this.niceName = niceName;
@@ -256,12 +259,12 @@ public enum Language implements LanguageCategory {
         }
     }
 
-    public Language extension(String ext) {
+    private Language extension(String ext) {
         extensions.add(ext);
         return this;
     }
 
-    public Language extensions(String... exts) {
+    private Language extensions(String... exts) {
         for (String ext : exts) {
             extension(ext);
         }
@@ -269,15 +272,15 @@ public enum Language implements LanguageCategory {
     }
 
     public List<String> getExtensions() {
-        return extensions;
+        return new ArrayList<String>(extensions);
     }
 
-    public Language filename(String filename) {
+    private Language filename(String filename) {
         filenames.add(filename);
         return this;
     }
 
-    public Language filenames(String... filenames) {
+    private Language filenames(String... filenames) {
         for (String filename : filenames) {
             filename(filename);
         }
@@ -285,15 +288,15 @@ public enum Language implements LanguageCategory {
     }
 
     public List<String> getFilenames() {
-        return filenames;
+        return new ArrayList<String>(filenames);
     }
 
-    public Language alias(String alias) {
+    private Language alias(String alias) {
         aliases.add(alias);
         return this;
     }
 
-    public Language aliases(String... aliases) {
+    private Language aliases(String... aliases) {
         for (String alias : aliases) {
             alias(alias);
         }
@@ -301,6 +304,6 @@ public enum Language implements LanguageCategory {
     }
 
     public List<String> getAliases() {
-        return aliases;
+        return new ArrayList<String>(aliases);
     }
 }

@@ -40,6 +40,7 @@ public class DetectorTest {
         assertDetect("configuration.autoconf", AUTOCONF);
         assertDetect("main.go", GOLANG);
         assertDetect("main.aug", Language.AUGEAS);
+        assertDetect("main.awk", Language.AWK);
     }
 
     @Test
@@ -58,6 +59,7 @@ public class DetectorTest {
         assertFalse(Detector.getInstance().isBinary(""));
         assertFalse(Detector.getInstance().isBinary("txt"));
         assertFalse(Detector.getInstance().isBinary("am"));
+        assertFalse(Detector.getInstance().isBinary("awk"));
 
         assertTrue(Detector.getInstance().isBinary("jpg"));
         assertTrue(Detector.getInstance().isBinary("JPG"));
