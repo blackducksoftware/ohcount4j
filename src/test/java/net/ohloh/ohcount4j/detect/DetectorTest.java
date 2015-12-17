@@ -3,6 +3,7 @@ package net.ohloh.ohcount4j.detect;
 import static net.ohloh.ohcount4j.Language.AUTOMAKE;
 import static net.ohloh.ohcount4j.Language.C;
 import static net.ohloh.ohcount4j.Language.CSS;
+import static net.ohloh.ohcount4j.Language.GOLANG;
 import static net.ohloh.ohcount4j.Language.HTML;
 import static net.ohloh.ohcount4j.Language.JAVA;
 import static net.ohloh.ohcount4j.Language.JAVASCRIPT;
@@ -34,6 +35,7 @@ public class DetectorTest {
         assertDetect("config.ru", RUBY);
         assertDetect("make.am", AUTOMAKE);
         assertDetect("make.AM", AUTOMAKE);
+        assertDetect("main.go", GOLANG);
     }
 
     @Test
