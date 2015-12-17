@@ -55,9 +55,9 @@ public enum Language implements LanguageCategory {
 
     /*
      * All languages must be defined here.
-     *
+     * 
      * Each language must declare three mandatory properties:
-     *
+     * 
      * - The language's official display name (niceName)
      * - The category of the language, one of BUILD, LOGIC, MARKUP, UNKNOWN
      * - A Scanner subclass capable of parsing this language
@@ -70,7 +70,7 @@ public enum Language implements LanguageCategory {
     AUGEAS("Augeas", LOGIC, AugeasScanner.class),
     AUTOCONF("Autoconf", BUILD, AutoconfScanner.class),
     AUTOMAKE("Automake", BUILD, AutomakeScanner.class),
-    AWK("AWK", LOGIC, AwkScanner.class),
+    AWK("Awk", LOGIC, AwkScanner.class),
     BINARY("Binary", LOGIC, BinaryScanner.class),
     BOO("Boo", LOGIC, BooScanner.class),
     C("C", LOGIC, CStyleScanner.class),
@@ -133,10 +133,10 @@ public enum Language implements LanguageCategory {
 
     /*
      * Optional properties of languages are declared here.
-     *
+     * 
      * At a minimum, a language should define one or more file
      * extensions or filenames associated with the language.
-     *
+     * 
      * You may also declare additional names (beyond the uname
      * and niceName) by which the language might be known.
      * These aliases can be matched against things like Emacs
