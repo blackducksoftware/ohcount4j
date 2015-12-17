@@ -4,6 +4,8 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertEquals;
 import net.ohloh.ohcount4j.scan.AugeasScanner;
+import net.ohloh.ohcount4j.scan.AutoconfScanner;
+import net.ohloh.ohcount4j.scan.AutomakeScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
 
 import org.testng.Assert;
@@ -33,6 +35,8 @@ public class LanguageTest {
         assertTrue(Language.AUTOCONF.getExtensions().contains("autoconf"));
         assertTrue(Language.AUTOCONF.getExtensions().contains("m4"));
 
+        assertTrue(Language.AUTOMAKE.getExtensions().contains("am"));
+
         // GoLang
         assertEquals(Language.GOLANG.getExtensions().size(), 1);
         assertEquals(Language.GOLANG.getExtensions().get(0), "go");
@@ -51,12 +55,16 @@ public class LanguageTest {
     @Test
     public void testCategory() {
         Assert.assertEquals(Language.AUGEAS.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.AUTOCONF.category(), LanguageCategory.BUILD);
+        Assert.assertEquals(Language.AUTOMAKE.category(), LanguageCategory.BUILD);
         Assert.assertEquals(Language.GOLANG.category(), LanguageCategory.LOGIC);
     }
 
     @Test
     public void testScannerClass() {
         Assert.assertEquals(Language.AUGEAS.scannerClass(), AugeasScanner.class);
+        Assert.assertEquals(Language.AUTOCONF.scannerClass(), AutoconfScanner.class);
+        Assert.assertEquals(Language.AUTOMAKE.scannerClass(), AutomakeScanner.class);
         Assert.assertEquals(Language.GOLANG.scannerClass(), CStyleScanner.class);
     }
 }
