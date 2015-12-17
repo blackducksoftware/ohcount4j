@@ -3,8 +3,7 @@ buildscript{
         maven{url 'http://***REMOVED***/artifactory/blackduck-builder-repos'}
     }
     dependencies{
-    	classpath 'com.blackducksoftware.gradle.plugins:gradle-management-plugins:1.1.0'
-        classpath 'com.blackducksoftware.gradle.plugins:gradle-plugins:1.55'
+        classpath 'com.blackducksoftware.gradle.plugins:gradle-plugins:1.49'
     }
 }
 
