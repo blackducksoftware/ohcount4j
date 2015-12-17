@@ -1,5 +1,6 @@
 package net.ohloh.ohcount4j.detect;
 
+import static net.ohloh.ohcount4j.Language.AUTOCONF;
 import static net.ohloh.ohcount4j.Language.AUTOMAKE;
 import static net.ohloh.ohcount4j.Language.C;
 import static net.ohloh.ohcount4j.Language.CSS;
@@ -35,7 +36,10 @@ public class DetectorTest {
         assertDetect("config.ru", RUBY);
         assertDetect("make.am", AUTOMAKE);
         assertDetect("make.AM", AUTOMAKE);
+        assertDetect("configuration.ac", AUTOCONF);
+        assertDetect("configuration.autoconf", AUTOCONF);
         assertDetect("main.go", GOLANG);
+        assertDetect("main.aug", Language.AUGEAS);
     }
 
     @Test
