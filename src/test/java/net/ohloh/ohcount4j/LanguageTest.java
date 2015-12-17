@@ -23,6 +23,10 @@ public class LanguageTest {
         assertTrue(Language.RUBY.getExtensions().contains("ru"));
         assertFalse(Language.RUBY.getExtensions().contains("c"));
 
+        assertTrue(Language.AUTOCONF.getExtensions().contains("ac"));
+        assertTrue(Language.AUTOCONF.getExtensions().contains("autoconf"));
+        assertTrue(Language.AUTOCONF.getExtensions().contains("m4"));
+
         // GoLang
         assertEquals(Language.GOLANG.getExtensions().size(), 1);
         assertEquals(Language.GOLANG.getExtensions().get(0), "go");
