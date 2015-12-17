@@ -36,6 +36,7 @@ public class DetectorTest {
         assertDetect("configuration.ac", AUTOCONF);
         assertDetect("configuration.autoconf", AUTOCONF);
         assertDetect("main.go", GOLANG);
+        assertDetect("main.aug", Language.AUGEAS);
     }
 
     @Test
