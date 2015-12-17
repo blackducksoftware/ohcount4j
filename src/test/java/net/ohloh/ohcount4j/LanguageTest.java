@@ -15,7 +15,7 @@ public class LanguageTest {
     public void unameTest() {
         assertEquals("c", Language.C.uname());
         assertEquals("ruby", Language.RUBY.uname());
-
+        assertEquals("autoconf", Language.AUTOCONF.uname());
         // GoLang
         assertEquals("golang", Language.GOLANG.uname());
 
@@ -28,6 +28,10 @@ public class LanguageTest {
         assertTrue(Language.RUBY.getExtensions().contains("rb"));
         assertTrue(Language.RUBY.getExtensions().contains("ru"));
         assertFalse(Language.RUBY.getExtensions().contains("c"));
+
+        assertTrue(Language.AUTOCONF.getExtensions().contains("ac"));
+        assertTrue(Language.AUTOCONF.getExtensions().contains("autoconf"));
+        assertTrue(Language.AUTOCONF.getExtensions().contains("m4"));
 
         // GoLang
         assertEquals(Language.GOLANG.getExtensions().size(), 1);

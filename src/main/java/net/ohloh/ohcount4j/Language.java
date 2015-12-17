@@ -7,6 +7,7 @@ import net.ohloh.ohcount4j.scan.ActionScriptScanner;
 import net.ohloh.ohcount4j.scan.AdaScanner;
 import net.ohloh.ohcount4j.scan.AssemblyScanner;
 import net.ohloh.ohcount4j.scan.AugeasScanner;
+import net.ohloh.ohcount4j.scan.AutoconfScanner;
 import net.ohloh.ohcount4j.scan.BinaryScanner;
 import net.ohloh.ohcount4j.scan.BooScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
@@ -65,6 +66,7 @@ public enum Language implements LanguageCategory {
     ASPX_VB("ASP.NET (VB)", LOGIC, GenericCodeScanner.class), // TODO.
     ASSEMBLY("Assembly", LOGIC, AssemblyScanner.class),
     AUGEAS("Augeas", LOGIC, AugeasScanner.class),
+    AUTOCONF("Autoconf", BUILD, AutoconfScanner.class),
     BINARY("Binary", LOGIC, BinaryScanner.class),
     BOO("Boo", LOGIC, BooScanner.class),
     C("C", LOGIC, CStyleScanner.class),
@@ -143,6 +145,7 @@ public enum Language implements LanguageCategory {
         ASPX_VB.extension("aspx");
         ASSEMBLY.extensions("as8", "asm", "asx", "S", "z80");
         AUGEAS.extensions("aug");
+        AUTOCONF.extensions("autoconf", "ac", "m4"); // m4 (unix macro processor)
         BINARY.extensions("inc", "st");
         BOO.extension("boo");
         C.extensions("c", "h");
