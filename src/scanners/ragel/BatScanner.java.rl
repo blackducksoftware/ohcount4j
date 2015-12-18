@@ -1,15 +1,15 @@
 package net.ohloh.ohcount4j.scan;
 
-public class BatchScanner extends BaseScanner {
+public class BatScanner extends BaseScanner {
 
   %%{
-    machine batch;
+    machine bat;
     include common "common.rl";
 
-    batch_line_comment = ( /rem/i | /@rem/i | '::' ) @comment nonnewline*;
+    bat_line_comment = ( /rem/i | /@rem/i | '::' ) @comment nonnewline*;
 
-  	batch_line := |*
-    	batch_line_comment;
+  	bat_line := |*
+    	bat_line_comment;
     	spaces;
     	string_literal;
     	newline;

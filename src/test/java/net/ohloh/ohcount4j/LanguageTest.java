@@ -7,7 +7,7 @@ import net.ohloh.ohcount4j.scan.AugeasScanner;
 import net.ohloh.ohcount4j.scan.AutoconfScanner;
 import net.ohloh.ohcount4j.scan.AutomakeScanner;
 import net.ohloh.ohcount4j.scan.AwkScanner;
-import net.ohloh.ohcount4j.scan.BatchScanner;
+import net.ohloh.ohcount4j.scan.BatScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
 
 import org.testng.Assert;
@@ -23,7 +23,7 @@ public class LanguageTest {
         assertEquals("golang", Language.GOLANG.uname());// GoLang
         assertEquals("ruby", Language.RUBY.uname());
         assertEquals("awk", Language.AWK.uname());
-        assertEquals("batch", Language.BATCH.uname());
+        assertEquals("bat", Language.BAT.uname());
     }
 
     @Test
@@ -39,7 +39,7 @@ public class LanguageTest {
         //
         assertTrue(Language.AWK.getExtensions().contains("awk"));
         //
-        assertTrue(Language.BATCH.getExtensions().contains("bat"));
+        assertTrue(Language.BAT.getExtensions().contains("bat"));
         //
         assertEquals(Language.GOLANG.getExtensions().size(), 1);
         assertEquals(Language.GOLANG.getExtensions().get(0), "go");
@@ -61,7 +61,7 @@ public class LanguageTest {
         Assert.assertEquals(Language.AUTOCONF.category(), LanguageCategory.BUILD);
         Assert.assertEquals(Language.AUTOMAKE.category(), LanguageCategory.BUILD);
         Assert.assertEquals(Language.AWK.category(), LanguageCategory.LOGIC);
-        Assert.assertEquals(Language.BATCH.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.BAT.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.GOLANG.category(), LanguageCategory.LOGIC);
     }
 
@@ -71,7 +71,7 @@ public class LanguageTest {
         Assert.assertEquals(Language.AUTOCONF.scannerClass(), AutoconfScanner.class);
         Assert.assertEquals(Language.AUTOMAKE.scannerClass(), AutomakeScanner.class);
         Assert.assertEquals(Language.AWK.scannerClass(), AwkScanner.class);
-        Assert.assertEquals(Language.BATCH.scannerClass(), BatchScanner.class);
+        Assert.assertEquals(Language.BAT.scannerClass(), BatScanner.class);
         Assert.assertEquals(Language.GOLANG.scannerClass(), CStyleScanner.class);
     }
 }
