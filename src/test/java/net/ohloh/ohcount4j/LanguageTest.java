@@ -7,6 +7,8 @@ import net.ohloh.ohcount4j.scan.AugeasScanner;
 import net.ohloh.ohcount4j.scan.AutoconfScanner;
 import net.ohloh.ohcount4j.scan.AutomakeScanner;
 import net.ohloh.ohcount4j.scan.AwkScanner;
+import net.ohloh.ohcount4j.scan.BfppScanner;
+import net.ohloh.ohcount4j.scan.BrainfuckScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
 
 import org.testng.Assert;
@@ -18,10 +20,12 @@ public class LanguageTest {
     public void unameTest() {
         assertEquals("augeas", Language.AUGEAS.uname());// Augeas
         assertEquals("autoconf", Language.AUTOCONF.uname());
+        assertEquals("awk", Language.AWK.uname());
+        assertEquals("brainfuck", Language.BRAINFUCK.uname());
+        assertEquals("bfpp", Language.BFPP.uname());
         assertEquals("c", Language.C.uname());
         assertEquals("golang", Language.GOLANG.uname());// GoLang
         assertEquals("ruby", Language.RUBY.uname());
-        assertEquals("awk", Language.AWK.uname());
     }
 
     @Test
@@ -36,6 +40,15 @@ public class LanguageTest {
         assertTrue(Language.AUTOMAKE.getExtensions().contains("am"));
         //
         assertTrue(Language.AWK.getExtensions().contains("awk"));
+
+        // Brainfuck++
+        assertEquals(Language.BFPP.getExtensions().size(), 1);
+        assertEquals(Language.BFPP.getExtensions().get(0), "bfpp");
+
+        // Brainfuck
+        assertEquals(Language.BRAINFUCK.getExtensions().size(), 1);
+        assertEquals(Language.BRAINFUCK.getExtensions().get(0), "bf");
+
         //
         assertEquals(Language.GOLANG.getExtensions().size(), 1);
         assertEquals(Language.GOLANG.getExtensions().get(0), "go");
@@ -57,6 +70,8 @@ public class LanguageTest {
         Assert.assertEquals(Language.AUTOCONF.category(), LanguageCategory.BUILD);
         Assert.assertEquals(Language.AUTOMAKE.category(), LanguageCategory.BUILD);
         Assert.assertEquals(Language.AWK.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.BFPP.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.BRAINFUCK.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.GOLANG.category(), LanguageCategory.LOGIC);
     }
 
@@ -66,6 +81,19 @@ public class LanguageTest {
         Assert.assertEquals(Language.AUTOCONF.scannerClass(), AutoconfScanner.class);
         Assert.assertEquals(Language.AUTOMAKE.scannerClass(), AutomakeScanner.class);
         Assert.assertEquals(Language.AWK.scannerClass(), AwkScanner.class);
+        Assert.assertEquals(Language.BFPP.scannerClass(), BfppScanner.class);
+        Assert.assertEquals(Language.BRAINFUCK.scannerClass(), BrainfuckScanner.class);
         Assert.assertEquals(Language.GOLANG.scannerClass(), CStyleScanner.class);
+    }
+
+    @Test
+    public void testNiceName() {
+        Assert.assertEquals(Language.AUGEAS.niceName(), "Augeas");
+        Assert.assertEquals(Language.AUTOCONF.niceName(), "Autoconf");
+        Assert.assertEquals(Language.AUTOMAKE.niceName(), "Automake");
+        Assert.assertEquals(Language.AWK.niceName(), "Awk");
+        Assert.assertEquals(Language.BFPP.niceName(), "Brainfuck++");
+        Assert.assertEquals(Language.BRAINFUCK.niceName(), "Brainfuck");
+        Assert.assertEquals(Language.GOLANG.niceName(), "Go");
     }
 }

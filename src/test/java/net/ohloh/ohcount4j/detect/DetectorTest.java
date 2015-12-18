@@ -41,6 +41,8 @@ public class DetectorTest {
         assertDetect("main.go", GOLANG);
         assertDetect("main.aug", Language.AUGEAS);
         assertDetect("main.awk", Language.AWK);
+        assertDetect("main.bf", Language.BRAINFUCK);
+        assertDetect("main.bfpp", Language.BFPP);
     }
 
     @Test
