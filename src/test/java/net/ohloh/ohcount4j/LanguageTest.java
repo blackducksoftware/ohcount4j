@@ -22,6 +22,8 @@ public class LanguageTest {
         assertEquals("golang", Language.GOLANG.uname());// GoLang
         assertEquals("ruby", Language.RUBY.uname());
         assertEquals("awk", Language.AWK.uname());
+        assertEquals("scala", Language.SCALA.uname());
+        assertEquals("swift", Language.SWIFT.uname());
     }
 
     @Test
@@ -43,6 +45,11 @@ public class LanguageTest {
         assertTrue(Language.RUBY.getExtensions().contains("rb"));
         assertTrue(Language.RUBY.getExtensions().contains("ru"));
         assertFalse(Language.RUBY.getExtensions().contains("c"));
+        //
+        assertTrue(Language.SCALA.getExtensions().contains("scala"));
+        assertTrue(Language.SCALA.getExtensions().contains("sc"));
+        //
+        assertTrue(Language.SWIFT.getExtensions().contains("swift"));
     }
 
     @Test
@@ -58,6 +65,8 @@ public class LanguageTest {
         Assert.assertEquals(Language.AUTOMAKE.category(), LanguageCategory.BUILD);
         Assert.assertEquals(Language.AWK.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.GOLANG.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.SCALA.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.SWIFT.category(), LanguageCategory.LOGIC);
     }
 
     @Test
@@ -67,5 +76,7 @@ public class LanguageTest {
         Assert.assertEquals(Language.AUTOMAKE.scannerClass(), AutomakeScanner.class);
         Assert.assertEquals(Language.AWK.scannerClass(), AwkScanner.class);
         Assert.assertEquals(Language.GOLANG.scannerClass(), CStyleScanner.class);
+        Assert.assertEquals(Language.SCALA.scannerClass(), CStyleScanner.class);
+        Assert.assertEquals(Language.SWIFT.scannerClass(), CStyleScanner.class);
     }
 }
