@@ -7,8 +7,8 @@ import net.ohloh.ohcount4j.scan.AugeasScanner;
 import net.ohloh.ohcount4j.scan.AutoconfScanner;
 import net.ohloh.ohcount4j.scan.AutomakeScanner;
 import net.ohloh.ohcount4j.scan.AwkScanner;
-import net.ohloh.ohcount4j.scan.BfppScanner;
-import net.ohloh.ohcount4j.scan.BrainfuckScanner;
+import net.ohloh.ohcount4j.scan.BfkScanner;
+import net.ohloh.ohcount4j.scan.BfkppScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
 
 import org.testng.Assert;
@@ -81,8 +81,8 @@ public class LanguageTest {
         Assert.assertEquals(Language.AUTOCONF.scannerClass(), AutoconfScanner.class);
         Assert.assertEquals(Language.AUTOMAKE.scannerClass(), AutomakeScanner.class);
         Assert.assertEquals(Language.AWK.scannerClass(), AwkScanner.class);
-        Assert.assertEquals(Language.BFPP.scannerClass(), BfppScanner.class);
-        Assert.assertEquals(Language.BRAINFUCK.scannerClass(), BrainfuckScanner.class);
+        Assert.assertEquals(Language.BFPP.scannerClass(), BfkppScanner.class);
+        Assert.assertEquals(Language.BRAINFUCK.scannerClass(), BfkScanner.class);
         Assert.assertEquals(Language.GOLANG.scannerClass(), CStyleScanner.class);
     }
 

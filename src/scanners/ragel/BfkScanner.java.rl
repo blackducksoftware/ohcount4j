@@ -1,6 +1,6 @@
 package net.ohloh.ohcount4j.scan;
 
-public class BrainfuckScanner extends BaseScanner{
+public class BfkScanner extends BaseScanner{
 
 	%%{
 		machine brainfuck;

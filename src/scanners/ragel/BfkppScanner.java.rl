@@ -1,6 +1,6 @@
 package net.ohloh.ohcount4j.scan;
 
-public class BfppScanner extends BaseScanner{
+public class BfkppScanner extends BaseScanner{
 
   	%%{
   		machine bfpp;
