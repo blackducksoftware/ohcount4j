@@ -3,15 +3,15 @@ package net.ohloh.ohcount4j.scan;
 public class BfkScanner extends BaseScanner{
 
 	%%{
-		machine brainfuck;
+		machine bfk;
 		include common "common.rl";
 		
-		brainfuck_operator = [+\-<>.,\[\]] @code;
+		bfk_operator = [+\-<>.,\[\]] @code;
 		
-		brainfuck_line := |*
+		bfk_line := |*
     		spaces;
     		newline;
-    		brainfuck_operator  => code;
+    		bfk_operator  => code;
     		^space => comment;
   		*|;
 		
