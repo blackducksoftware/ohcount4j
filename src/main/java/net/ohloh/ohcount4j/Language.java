@@ -118,6 +118,8 @@ public enum Language implements LanguageCategory {
     REBOL("REBOL", LOGIC, RebolScanner.class),
     REXX("Rexx", LOGIC, RexxScanner.class),
     RUBY("Ruby", LOGIC, RubyScanner.class),
+    SCALA("Scala", LOGIC, CStyleScanner.class),
+    SWIFT("Swift", LOGIC, CStyleScanner.class),
     SCHEME("Scheme", LOGIC, SchemeScanner.class),
     SHELL("Shell", LOGIC, ShellScanner.class),
     SMALLTALK("Smalltalk", LOGIC, SmalltalkScanner.class),
@@ -198,6 +200,8 @@ public enum Language implements LanguageCategory {
         REBOL.extensions("r", "r3", "reb", "rebol");
         REXX.extensions("cmd", "exec", "rexx");
         RUBY.alias("jruby").extensions("rb", "ru").filenames("Rakefile", "Gemfile");
+        SCALA.extensions("scala", "sc");
+        SWIFT.extensions("swift");
         SCHEME.extensions("scm", "ss");
         SHELL.extensions("bash", "sh");
         SMALLTALK.extension("st");
