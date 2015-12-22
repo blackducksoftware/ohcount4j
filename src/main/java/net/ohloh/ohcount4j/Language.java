@@ -6,6 +6,11 @@ import java.util.List;
 import net.ohloh.ohcount4j.scan.ActionScriptScanner;
 import net.ohloh.ohcount4j.scan.AdaScanner;
 import net.ohloh.ohcount4j.scan.AssemblyScanner;
+import net.ohloh.ohcount4j.scan.AugeasScanner;
+import net.ohloh.ohcount4j.scan.AutoconfScanner;
+import net.ohloh.ohcount4j.scan.AutomakeScanner;
+import net.ohloh.ohcount4j.scan.AwkScanner;
+import net.ohloh.ohcount4j.scan.BatScanner;
 import net.ohloh.ohcount4j.scan.BinaryScanner;
 import net.ohloh.ohcount4j.scan.BooScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
@@ -63,6 +68,11 @@ public enum Language implements LanguageCategory {
     ASPX_CSHARP("ASP.NET (C#)", LOGIC, GenericCodeScanner.class), // TODO.
     ASPX_VB("ASP.NET (VB)", LOGIC, GenericCodeScanner.class), // TODO.
     ASSEMBLY("Assembly", LOGIC, AssemblyScanner.class),
+    AUGEAS("Augeas", LOGIC, AugeasScanner.class),
+    AUTOCONF("Autoconf", BUILD, AutoconfScanner.class),
+    AUTOMAKE("Automake", BUILD, AutomakeScanner.class),
+    AWK("Awk", LOGIC, AwkScanner.class),
+    BAT("Windows Batch", LOGIC, BatScanner.class),
     BINARY("Binary", LOGIC, BinaryScanner.class),
     BOO("Boo", LOGIC, BooScanner.class),
     C("C", LOGIC, CStyleScanner.class),
@@ -79,6 +89,7 @@ public enum Language implements LanguageCategory {
     FORTRANFIXED("Fortran (Fixed-Format)", LOGIC, FortranFixedScanner.class),
     FORTRANFREE("Fortran (Free-Format)", LOGIC, FortranFreeScanner.class),
     FSHARP("F#", LOGIC, FSharpScanner.class),
+    GOLANG("Go", LOGIC, CStyleScanner.class),
     GROOVY("Groovy", LOGIC, CStyleScanner.class),
     HTML("HTML", MARKUP, HTMLScanner.class),
     HASKELL("Haskell", LOGIC, HaskellScanner.class),
@@ -107,6 +118,8 @@ public enum Language implements LanguageCategory {
     REBOL("REBOL", LOGIC, RebolScanner.class),
     REXX("Rexx", LOGIC, RexxScanner.class),
     RUBY("Ruby", LOGIC, RubyScanner.class),
+    SCALA("Scala", LOGIC, CStyleScanner.class),
+    SWIFT("Swift", LOGIC, CStyleScanner.class),
     SCHEME("Scheme", LOGIC, SchemeScanner.class),
     SHELL("Shell", LOGIC, ShellScanner.class),
     SMALLTALK("Smalltalk", LOGIC, SmalltalkScanner.class),
@@ -139,6 +152,11 @@ public enum Language implements LanguageCategory {
         ASPX_CSHARP.extension("aspx");
         ASPX_VB.extension("aspx");
         ASSEMBLY.extensions("as8", "asm", "asx", "S", "z80");
+        AUGEAS.extensions("aug");
+        AUTOCONF.extensions("autoconf", "ac", "m4"); // m4 (unix macro processor)
+        AUTOMAKE.extensions("am");
+        AWK.extension("awk");
+        BAT.extension("bat");
         BINARY.extensions("inc", "st");
         BOO.extension("boo");
         C.extensions("c", "h");
@@ -155,6 +173,7 @@ public enum Language implements LanguageCategory {
         FORTRANFIXED.extensions("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FORTRANFREE.extensions("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FSHARP.extension("fs");
+        GOLANG.extensions("go");
         GROOVY.extension("groovy");
         HTML.extensions("htm", "html");
         HASKELL.extensions("hs", "lhs");
@@ -181,6 +200,8 @@ public enum Language implements LanguageCategory {
         REBOL.extensions("r", "r3", "reb", "rebol");
         REXX.extensions("cmd", "exec", "rexx");
         RUBY.alias("jruby").extensions("rb", "ru").filenames("Rakefile", "Gemfile");
+        SCALA.extensions("scala", "sc");
+        SWIFT.extensions("swift");
         SCHEME.extensions("scm", "ss");
         SHELL.extensions("bash", "sh");
         SMALLTALK.extension("st");
@@ -202,11 +223,11 @@ public enum Language implements LanguageCategory {
 
     private final Class<? extends Scanner> scannerClass;
 
-    private List<String> extensions;
+    private final List<String> extensions;
 
-    private List<String> filenames;
+    private final List<String> filenames;
 
-    private List<String> aliases;
+    private final List<String> aliases;
 
     Language(String niceName, String category, Class<? extends Scanner> scannerClass) {
         this.niceName = niceName;
@@ -245,12 +266,12 @@ public enum Language implements LanguageCategory {
         }
     }
 
-    public Language extension(String ext) {
+    private Language extension(String ext) {
         extensions.add(ext);
         return this;
     }
 
-    public Language extensions(String... exts) {
+    private Language extensions(String... exts) {
         for (String ext : exts) {
             extension(ext);
         }
@@ -258,15 +279,15 @@ public enum Language implements LanguageCategory {
     }
 
     public List<String> getExtensions() {
-        return extensions;
+        return new ArrayList<String>(extensions);
     }
 
-    public Language filename(String filename) {
+    private Language filename(String filename) {
         filenames.add(filename);
         return this;
     }
 
-    public Language filenames(String... filenames) {
+    private Language filenames(String... filenames) {
         for (String filename : filenames) {
             filename(filename);
         }
@@ -274,15 +295,15 @@ public enum Language implements LanguageCategory {
     }
 
     public List<String> getFilenames() {
-        return filenames;
+        return new ArrayList<String>(filenames);
     }
 
-    public Language alias(String alias) {
+    private Language alias(String alias) {
         aliases.add(alias);
         return this;
     }
 
-    public Language aliases(String... aliases) {
+    private Language aliases(String... aliases) {
         for (String alias : aliases) {
             alias(alias);
         }
@@ -290,6 +311,6 @@ public enum Language implements LanguageCategory {
     }
 
     public List<String> getAliases() {
-        return aliases;
+        return new ArrayList<String>(aliases);
     }
 }
