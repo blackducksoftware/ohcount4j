@@ -11,7 +11,18 @@ public class MagicDetector {
     // Use libmagic to identify the buffer contents.
     // Returns a Scanner class if the file type is recognized, otherwise null.
     public static Language detect(String buffer) {
-        String description = getMagicDescription(buffer);
+        String description = getMagicDescription(buffer, MagicForType.BUFFER);
+        String languageName = getLanguageName(description);
+
+        return Detector.getInstance().detectByLanguageName(languageName);
+    }
+
+    private enum MagicForType {
+        BUFFER, FILE_PATH;
+    }
+
+    public static Language detectFile(String path) {
+        String description = getMagicDescription(path, MagicForType.FILE_PATH);
         String languageName = getLanguageName(description);
 
         return Detector.getInstance().detectByLanguageName(languageName);
@@ -37,11 +48,37 @@ public class MagicDetector {
         return null;
     }
 
-    public static String getMagicDescription(String buffer) {
-        if (buffer == null) {
+    private static String getMagicDescription(String descriptionFor, MagicForType type) {
+        if (descriptionFor == null) {
             return null;
         }
+        Magic magic = getMagicLib();
+        if (magic == null) {
+            System.err.println("Can not get magic lib");
+            return null;
+        }
+        try {
+            String description;
+            if (type == MagicForType.BUFFER) {
+                description = magic.buffer(descriptionFor);
+            } else {
+                description = magic.file(descriptionFor);
+            }
+            if (magic.error() != null) {
+                throw new OhcountException(magic.error());
+            }
+            return description;
+        } finally {
+            magic.close();
+        }
+    }
 
+    /**
+     * Opens, loads and returns Magic Lib
+     *
+     * @return
+     */
+    private static Magic getMagicLib() {
         Magic magic = new Magic();
 
         if (!magic.open()) {
@@ -58,14 +95,7 @@ public class MagicDetector {
             throw new OhcountException(magic.error());
         }
 
-        String description = magic.buffer(buffer);
-        if (magic.error() != null) {
-            throw new OhcountException(magic.error());
-        }
-
-        magic.close();
-
-        return description;
+        return magic;
     }
 
 }

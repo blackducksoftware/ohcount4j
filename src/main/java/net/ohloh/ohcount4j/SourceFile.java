@@ -25,8 +25,7 @@ public class SourceFile implements AutoCloseable {
     }
 
     public SourceFile(String path) throws FileNotFoundException {
-        this.path = path;
-        reader = new BufferedReader(new FileReader(path));
+        this(new File(path));
     }
 
     public SourceFile(File file) throws FileNotFoundException {
