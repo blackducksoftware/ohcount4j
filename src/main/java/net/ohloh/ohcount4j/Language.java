@@ -10,6 +10,7 @@ import net.ohloh.ohcount4j.scan.AugeasScanner;
 import net.ohloh.ohcount4j.scan.AutoconfScanner;
 import net.ohloh.ohcount4j.scan.AutomakeScanner;
 import net.ohloh.ohcount4j.scan.AwkScanner;
+import net.ohloh.ohcount4j.scan.BatScanner;
 import net.ohloh.ohcount4j.scan.BinaryScanner;
 import net.ohloh.ohcount4j.scan.BooScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
@@ -71,6 +72,7 @@ public enum Language implements LanguageCategory {
     AUTOCONF("Autoconf", BUILD, AutoconfScanner.class),
     AUTOMAKE("Automake", BUILD, AutomakeScanner.class),
     AWK("Awk", LOGIC, AwkScanner.class),
+    BAT("Windows Batch", LOGIC, BatScanner.class),
     BINARY("Binary", LOGIC, BinaryScanner.class),
     BOO("Boo", LOGIC, BooScanner.class),
     C("C", LOGIC, CStyleScanner.class),
@@ -152,6 +154,7 @@ public enum Language implements LanguageCategory {
         AUTOCONF.extensions("autoconf", "ac", "m4"); // m4 (unix macro processor)
         AUTOMAKE.extensions("am");
         AWK.extension("awk");
+        BAT.extension("bat");
         BINARY.extensions("inc", "st");
         BOO.extension("boo");
         C.extensions("c", "h");
