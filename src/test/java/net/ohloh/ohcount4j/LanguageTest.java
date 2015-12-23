@@ -83,7 +83,7 @@ public class LanguageTest {
                 { Language.BFPP, Arrays.asList("bfpp") },
                 { Language.BRAINFUCK, Arrays.asList("bf") },
                 { Language.BAT, Arrays.asList("bat") },
-                { Language.CLOJURE, Arrays.asList("clj", "cljs", "cljc", "edn") },
+                { Language.CLOJURE, Arrays.asList("clj", "cljs", "cljc") },
                 { Language.GOLANG, Arrays.asList("go") },
                 { Language.RUBY, Arrays.asList("rb", "ru") },
                 { Language.SCALA, Arrays.asList("scala", "sc") },

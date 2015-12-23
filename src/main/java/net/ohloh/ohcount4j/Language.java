@@ -169,7 +169,7 @@ public enum Language implements LanguageCategory {
         BRAINFUCK.extension("bf");
         C.extensions("c", "h");
         CLASSIC_BASIC.extensions("b", "bas");
-        CLOJURE.extensions("clj", "cljs", "cljc", "edn");
+        CLOJURE.extensions("clj", "cljs", "cljc");
         COBOL.extension("cbl");
         COLDFUSION.extensions("cfc", "cfm");
         CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
