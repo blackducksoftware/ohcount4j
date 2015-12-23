@@ -83,7 +83,9 @@ jacocoTestReport {
 
 sonarqube {
 	properties {
-		property 'sonar.profile', 'Hub way'
+		// This sonar.profile is the default profile, so don't set it, change it here if you want a different profile
+		//	"Hub way" (the Hub profile) uses SonarGraph, which we don't have for this project, yet.
+//		property 'sonar.profile', 'BDS max rules - Without Sonargraph'
 		property 'sonar.jdbc.driverClassName', 'org.postgresql.Driver'
 		property 'sonar.dynamicAnalysis', 'reuseReports'
 		property 'sonar.verbose', true
