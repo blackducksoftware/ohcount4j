@@ -1,5 +1,11 @@
 package net.ohloh.ohcount4j.detect;
 
+import static java.util.regex.Pattern.MULTILINE;
+import static net.ohloh.ohcount4j.Language.LIMBO;
+import static net.ohloh.ohcount4j.Language.MATLAB;
+import static net.ohloh.ohcount4j.Language.OBJECTIVE_C;
+import static net.ohloh.ohcount4j.Language.OCTAVE;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +15,21 @@ import java.util.regex.Pattern;
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.SourceFile;
 
-public class ExtnMResolver implements Resolver {
+public class ExtnMResolver extends AbstractExtnResolver {
+
+    // A Limbo-style '#' line comment, or a Limbo declaration
+    private static final Pattern LIMBO_PATTERN = Pattern.compile("(^\\s*\\#\\s+|:\\s+(?:module|adt|fn\\s*\\(|con\\s+))", MULTILINE);
+
+    // Matlab and Octave are very similar.
+    // Octave can be distinguished from Matlab by its '#' line comments,
+    // and a few keywords which do not appear in Matlab.
+    private static final Pattern OCTAVE_PATTERN = Pattern.compile("(^\\s*\\#\\s+|\\b(?:end_try_catch|end_unwind_protect|endfunction|endwhile)\\b)", MULTILINE);
+
+    // An Objective-C style '//' line comment, or an Objective-C keyword
+    public static final Pattern OBJECTIVE_PATTERN = Pattern.compile("^\\s*(?://|\\-|@interface|@implementation|#import)", MULTILINE);
+
+    // A Matlab-style '%' line comment, or a Matlab keyword
+    public static final Pattern MATLAB_PATTERN = Pattern.compile("^\\s*(%\\s+|function\\b)", MULTILINE);
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
@@ -35,60 +55,35 @@ public class ExtnMResolver implements Resolver {
 
     @Override
     public boolean canResolve(Language language) {
-        if (language == Language.LIMBO ||
-                language == Language.MATLAB ||
-                language == Language.OCTAVE ||
-                language == Language.OBJECTIVE_C) {
+        if (language == LIMBO || language == MATLAB || language == OCTAVE || language == OBJECTIVE_C) {
             return true;
         }
         return false;
     }
 
-    // A Limbo-style '#' line comment, or a Limbo declaration
-    private static Pattern limboPattern = Pattern.compile(
-            "(^\\s*\\#\\s+|:\\s+(?:module|adt|fn\\s*\\(|con\\s+))",
-            Pattern.MULTILINE);
-
     public int countLimbo(SourceFile sourceFile) throws IOException {
-        return countMatches(limboPattern, sourceFile);
+        return countMatches(LIMBO_PATTERN, sourceFile);
     }
 
-    // Matlab and Octave are very similar.
-    // Octave can be distinguished from Matlab by its '#' line comments,
-    // and a few keywords which do not appear in Matlab.
-    private static Pattern octavePattern = Pattern.compile(
-            "(^\\s*\\#\\s+|\\b(?:end_try_catch|end_unwind_protect|endfunction|endwhile)\\b)",
-            Pattern.MULTILINE);
-
     public int countOctave(SourceFile sourceFile) throws IOException {
-        return countMatches(octavePattern, sourceFile);
+        return countMatches(OCTAVE_PATTERN, sourceFile);
     }
 
     public boolean containsOctave(SourceFile sourceFile) throws IOException {
-        Matcher m = octavePattern.matcher(sourceFile.getCharSequence());
+        Matcher m = OCTAVE_PATTERN.matcher(sourceFile.getCharSequence());
         return m.find();
     }
 
-    // An Objective-C style '//' line comment, or an Objective-C keyword
-    public static Pattern objectiveCPattern = Pattern.compile(
-            "^\\s*(?://|\\-|@interface|@implementation|#import)",
-            Pattern.MULTILINE);
-
     public int countObjectiveC(SourceFile sourceFile) throws IOException {
-        return countMatches(objectiveCPattern, sourceFile);
+        return countMatches(OBJECTIVE_PATTERN, sourceFile);
     }
 
-    // A Matlab-style '%' line comment, or a Matlab keyword
-    public static Pattern matlabPattern = Pattern.compile(
-            "^\\s*(%\\s+|function\\b)",
-            Pattern.MULTILINE);
-
     public int countMatlab(SourceFile sourceFile) throws IOException {
-        return countMatches(matlabPattern, sourceFile);
+        return countMatches(MATLAB_PATTERN, sourceFile);
     }
 
     private int countMatches(Pattern p, SourceFile sourceFile) throws IOException {
-        Matcher m = p.matcher(sourceFile.getCharSequence());
+        Matcher m = p.matcher(getCharSequence(sourceFile));
         int result = 0;
         int mark = 0;
         while (m.find(mark)) {
@@ -97,4 +92,5 @@ public class ExtnMResolver implements Resolver {
         }
         return result;
     }
+
 }

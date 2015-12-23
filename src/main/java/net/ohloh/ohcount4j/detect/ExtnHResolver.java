@@ -1,5 +1,9 @@
 package net.ohloh.ohcount4j.detect;
 
+import static net.ohloh.ohcount4j.Language.C;
+import static net.ohloh.ohcount4j.Language.CPP;
+import static net.ohloh.ohcount4j.Language.OBJECTIVE_C;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,8 +14,13 @@ import java.util.regex.Pattern;
 
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.SourceFile;
+import net.ohloh.ohcount4j.SourceFileUtils;
 
-public class ExtnHResolver implements Resolver {
+public class ExtnHResolver extends AbstractExtnResolver {
+
+    private static final Pattern CPP_KEYWORDS_PATTERN = Pattern.compile("\\b(?:class|namespace|template|typename)\\b", Pattern.MULTILINE);
+
+    private static final Pattern INCLUDE_PATTERN = Pattern.compile("^#include\\s*(?:<|\")([\\w\\.\\/]+)(?:>|\")", Pattern.MULTILINE);
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
@@ -40,9 +49,7 @@ public class ExtnHResolver implements Resolver {
 
     @Override
     public boolean canResolve(Language language) {
-        if (language == Language.C ||
-                language == Language.CPP ||
-                language == Language.OBJECTIVE_C) {
+        if (language == C || language == CPP || language == OBJECTIVE_C) {
             return true;
         }
         return false;
@@ -63,12 +70,8 @@ public class ExtnHResolver implements Resolver {
         }
     }
 
-    private static Pattern cppKeywordsPattern = Pattern.compile(
-            "\\b(?:class|namespace|template|typename)\\b", Pattern.MULTILINE
-            );
-
     private Language resolveByKeywords(SourceFile source) throws IOException {
-        Matcher m = cppKeywordsPattern.matcher(new String(source.getContents()));
+        Matcher m = CPP_KEYWORDS_PATTERN.matcher(new String(getContents(source)));
         if (m.find()) {
             return Language.CPP;
         } else {
@@ -76,17 +79,13 @@ public class ExtnHResolver implements Resolver {
         }
     }
 
-    private static Pattern includePattern = Pattern.compile(
-            "^#include\\s*(?:<|\")([\\w\\.\\/]+)(?:>|\")", Pattern.MULTILINE
-            );
-
     /*
      * Returns the names of all libraries #included in this file
      */
     public List<String> findIncludes(SourceFile source) throws IOException {
         ArrayList<String> result = new ArrayList<String>();
 
-        Matcher m = includePattern.matcher(new String(source.getContents()));
+        Matcher m = INCLUDE_PATTERN.matcher(new String(SourceFileUtils.getContents(source)));
         while (m.find()) {
             result.add(m.group(1));
         }
@@ -98,7 +97,7 @@ public class ExtnHResolver implements Resolver {
      */
     private Language resolveByIncludes(SourceFile source) throws IOException {
         for (String include : findIncludes(source)) {
-            if (cppIncludes.contains(include)) {
+            if (CPP_INCLUDES.contains(include)) {
                 return Language.CPP;
             }
         }
@@ -106,7 +105,7 @@ public class ExtnHResolver implements Resolver {
     }
 
     @SuppressWarnings("serial")
-    private static Set<String> cppIncludes = new HashSet<String>() {
+    private static final Set<String> CPP_INCLUDES = new HashSet<String>() {
         {
             add("string");
             add("algorithm");

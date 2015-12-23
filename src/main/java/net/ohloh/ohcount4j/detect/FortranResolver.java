@@ -1,5 +1,7 @@
 package net.ohloh.ohcount4j.detect;
 
+import static java.util.regex.Pattern.MULTILINE;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +10,14 @@ import java.util.regex.Pattern;
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.SourceFile;
 
-public class FortranResolver implements Resolver {
+public class FortranResolver extends AbstractExtnResolver {
+
+    // Definitely Free format if non-comment, non-digit char in first 5 columns
+    private static final Pattern FREE_PATTERN = Pattern.compile("^[Cc!\\s0-9]{0,4}[^Cc!\\s0-9]", MULTILINE);
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
-        if (freePattern.matcher(sourceFile.getCharSequence()).find()) {
+        if (FREE_PATTERN.matcher(sourceFile.getCharSequence()).find()) {
             return Language.FORTRANFREE;
         } else {
             return Language.FORTRANFIXED;
@@ -26,17 +31,11 @@ public class FortranResolver implements Resolver {
 
     @Override
     public boolean canResolve(Language language) {
-        if (language == Language.FORTRANFIXED ||
-                language == Language.FORTRANFREE) {
+        if (language == Language.FORTRANFIXED || language == Language.FORTRANFREE) {
             return true;
         } else {
             return false;
         }
     }
 
-    // Definitely Free format if non-comment, non-digit char in first 5 columns
-    private static Pattern freePattern = Pattern.compile("^[Cc!\\s0-9]{0,4}[^Cc!\\s0-9]",
-            Pattern.MULTILINE);
-
-    //
 }

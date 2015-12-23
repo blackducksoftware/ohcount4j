@@ -11,11 +11,13 @@ import net.ohloh.ohcount4j.SourceFile;
 /*
  * Distinguishes between 6502 Assembly and Advanced Stream Redirector XML files
  */
-public class ExtnASXResolver implements Resolver {
+public class ExtnASXResolver extends AbstractExtnResolver {
+
+    private static final Pattern XML_PATTERN = Pattern.compile("^\\s*<asx", Pattern.CASE_INSENSITIVE);
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
-        if (xmlPattern.matcher(sourceFile.getCharSequence()).find()) {
+        if (XML_PATTERN.matcher(getCharSequence(sourceFile)).find()) {
             return Language.XML;
         } else {
             return Language.ASSEMBLY;
@@ -29,14 +31,11 @@ public class ExtnASXResolver implements Resolver {
 
     @Override
     public boolean canResolve(Language language) {
-        if (language == Language.ASSEMBLY ||
-                language == Language.XML) {
+        if (language == Language.ASSEMBLY || language == Language.XML) {
             return true;
         } else {
             return false;
         }
     }
 
-    private static Pattern xmlPattern = Pattern.compile(
-            "^\\s*<asx", Pattern.CASE_INSENSITIVE);
 }

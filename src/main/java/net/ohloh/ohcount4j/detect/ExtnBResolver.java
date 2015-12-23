@@ -1,5 +1,9 @@
 package net.ohloh.ohcount4j.detect;
 
+import static net.ohloh.ohcount4j.Language.CLASSIC_BASIC;
+import static net.ohloh.ohcount4j.Language.LIMBO;
+import static net.ohloh.ohcount4j.Language.STRUCTURED_BASIC;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +12,20 @@ import java.util.regex.Pattern;
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.SourceFile;
 
-public class ExtnBResolver implements Resolver {
+public class ExtnBResolver extends AbstractExtnResolver {
+
+    // /(implement[ \t])|(include[ \t]+"[^"]*";)|
+    // ((return|break|continue).*;|(pick|case).*\{)/
+    private static final Pattern LIMBO_PATTERN = Pattern.compile(
+            "^\\s*implement\\s+\\S+;|" +
+                    "^\\s*include\\s+\"[^\"]*\"\\s*;|" +
+                    "\\b(return|break|continue)\\b.*;|" +
+                    "\\b(pick|case)\\b.*\\{"
+            );
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
-        if (limboPattern.matcher(sourceFile.getCharSequence()).find()) {
+        if (LIMBO_PATTERN.matcher(getCharSequence(sourceFile)).find()) {
             return Language.LIMBO;
         } else {
             return new ExtnBASResolver().resolve(sourceFile, filenames);
@@ -26,22 +39,11 @@ public class ExtnBResolver implements Resolver {
 
     @Override
     public boolean canResolve(Language language) {
-        if (language == Language.CLASSIC_BASIC ||
-                language == Language.STRUCTURED_BASIC ||
-                language == Language.LIMBO) {
+        if (language == CLASSIC_BASIC || language == STRUCTURED_BASIC || language == LIMBO) {
             return true;
         } else {
             return false;
         }
     }
 
-    // /(implement[ \t])|(include[ \t]+"[^"]*";)|
-    // ((return|break|continue).*;|(pick|case).*\{)/
-
-    private static Pattern limboPattern = Pattern.compile(
-            "^\\s*implement\\s+\\S+;|" +
-                    "^\\s*include\\s+\"[^\"]*\"\\s*;|" +
-                    "\\b(return|break|continue)\\b.*;|" +
-                    "\\b(pick|case)\\b.*\\{"
-            );
 }

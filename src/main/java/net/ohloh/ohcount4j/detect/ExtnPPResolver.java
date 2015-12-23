@@ -8,14 +8,26 @@ import java.util.regex.Pattern;
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.SourceFile;
 
-public class ExtnPPResolver implements Resolver {
+public class ExtnPPResolver extends AbstractExtnResolver {
+
+    private static final Pattern PUPPET_PATTERN = Pattern.compile(
+            "(" +
+                    "\\b(enable|ensure|content|source)\\s*=>|" +
+                    "\\binclude\\s+\\w+\\b|" +
+                    "\\bdefine\\s+\\w+\\s*\\(|" +
+                    "\\bclass\\s+\\w+\\s*\\{" +
+                    ")", Pattern.MULTILINE);
+
+    private static final Pattern PASCAL_PATTERN = Pattern.compile(
+            "\\bend\\.|\\{\\s*\\$i(nclude)?\\s+", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
+
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
         // Both Pascal and Puppet have an 'include' variant, but Pascal's
         // is more strict. Thus we check for Pascal keywords first, then Puppet.
-        if (pascalPattern.matcher(sourceFile.getCharSequence()).find()) {
+        if (PASCAL_PATTERN.matcher(sourceFile.getCharSequence()).find()) {
             return Language.PASCAL;
-        } else if (puppetPattern.matcher(sourceFile.getCharSequence()).find()) {
+        } else if (PUPPET_PATTERN.matcher(sourceFile.getCharSequence()).find()) {
             return Language.PUPPET;
         } else {
             return Language.PASCAL;
@@ -29,22 +41,11 @@ public class ExtnPPResolver implements Resolver {
 
     @Override
     public boolean canResolve(Language language) {
-        if (language == Language.PASCAL ||
-                language == Language.PUPPET) {
+        if (language == Language.PASCAL || language == Language.PUPPET) {
             return true;
         } else {
             return false;
         }
     }
 
-    private static Pattern pascalPattern = Pattern.compile(
-            "\\bend\\.|\\{\\s*\\$i(nclude)?\\s+", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
-
-    private static Pattern puppetPattern = Pattern.compile(
-            "(" +
-                    "\\b(enable|ensure|content|source)\\s*=>|" +
-                    "\\binclude\\s+\\w+\\b|" +
-                    "\\bdefine\\s+\\w+\\s*\\(|" +
-                    "\\bclass\\s+\\w+\\s*\\{" +
-                    ")", Pattern.MULTILINE);
 }

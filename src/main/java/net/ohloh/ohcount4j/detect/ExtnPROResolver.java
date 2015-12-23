@@ -8,11 +8,13 @@ import java.util.regex.Pattern;
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.SourceFile;
 
-public class ExtnPROResolver implements Resolver {
+public class ExtnPROResolver extends AbstractExtnResolver {
+
+    private static final Pattern QMAKE_PATTERN = Pattern.compile("\\b(SOURCES|CONFIG)\\s*\\+\\=");
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
-        if (qmakePattern.matcher(sourceFile.getCharSequence()).find()) {
+        if (QMAKE_PATTERN.matcher(sourceFile.getCharSequence()).find()) {
             return Language.MAKE; // Actually QMAKE. Should this be a distinct language?
         } else {
             return Language.PVWAVE;
@@ -26,13 +28,11 @@ public class ExtnPROResolver implements Resolver {
 
     @Override
     public boolean canResolve(Language language) {
-        if (language == Language.MAKE ||
-                language == Language.PVWAVE) {
+        if (language == Language.MAKE || language == Language.PVWAVE) {
             return true;
         } else {
             return false;
         }
     }
 
-    private static Pattern qmakePattern = Pattern.compile("\\b(SOURCES|CONFIG)\\s*\\+\\=");
 }

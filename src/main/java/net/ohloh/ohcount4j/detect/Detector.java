@@ -15,11 +15,9 @@ import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.OhcountConfig;
 import net.ohloh.ohcount4j.OhcountException;
 import net.ohloh.ohcount4j.SourceFile;
+import net.ohloh.ohcount4j.SourceFileUtils;
 
 public class Detector {
-
-    // Min len to 100
-    private static final int MIN_LENGTH = 100;
 
     private static final Detector DETECTOR_INSTANCE = new Detector();
 
@@ -42,7 +40,7 @@ public class Detector {
         Language language = null;
 
         if (language == null) {
-            language = EmacsModeDetector.detect(source.head(MIN_LENGTH));
+            language = EmacsModeDetector.detect(SourceFileUtils.head(source));
         }
         if (language == null) {
             language = getInstance().detectByExtension(source.getExtension(), source, filenames);
