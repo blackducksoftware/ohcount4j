@@ -44,6 +44,7 @@ public class DetectorTest {
         assertDetect("main.bf", Language.BRAINFUCK);
         assertDetect("main.bfpp", Language.BFPP);
         assertDetect("CMakeLists.txt", Language.CMake);
+        assertDetect("file.cmake", Language.CMake);
     }
 
     @Test

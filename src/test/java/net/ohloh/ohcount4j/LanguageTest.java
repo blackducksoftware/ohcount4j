@@ -57,7 +57,8 @@ public class LanguageTest {
         //
         assertTrue(Language.BAT.getExtensions().contains("bat"));
         //
-        assertEquals(Language.CMake.getExtensions().size(), 0);
+        assertEquals(Language.CMake.getExtensions().size(), 1);
+        assertEquals(Language.CMake.getExtensions().get(0), "cmake");
         //
         assertEquals(Language.GOLANG.getExtensions().size(), 1);
         assertEquals(Language.GOLANG.getExtensions().get(0), "go");
