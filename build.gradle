@@ -1,7 +1,10 @@
 buildscript{
-	repositories{ maven{url 'http://***REMOVED***/artifactory/blackduck-builder-repos' } }
+	repositories{ maven{url 'http://***REMOVED***/artifactory/blackduck-builder-repos'
+		} }
 	dependencies{ classpath 'com.blackducksoftware.gradle.plugins:gradle-plugins:1.49' }
 }
+
+plugins { id "org.sonarqube" version "1.1" }
 
 apply plugin: 'java'
 apply plugin: "jacoco"
@@ -11,7 +14,8 @@ apply plugin: 'release'
 
 sourceCompatibility = 1.7
 
-repositories { maven { url "http://***REMOVED***/artifactory/blackduck-staging-repos" } }
+repositories { maven { url "http://***REMOVED***/artifactory/blackduck-staging-repos"
+	} }
 
 dependencies {
 	compile 'args4j:args4j:2.0.16'
@@ -74,6 +78,15 @@ jacocoTestReport {
 		xml.enabled false
 		csv.enabled false
 		html.destination "${buildDir}/jacocoHtml"
+	}
+}
+
+sonarqube {
+	properties {
+		property 'sonar.profile', 'Hub way'
+		property 'sonar.jdbc.driverClassName', 'org.postgresql.Driver'
+		property 'sonar.dynamicAnalysis', 'reuseReports'
+		property 'sonar.verbose', true
 	}
 }
 
