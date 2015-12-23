@@ -43,6 +43,7 @@ public class DetectorTest {
         assertDetect("main.awk", Language.AWK);
         assertDetect("main.bf", Language.BRAINFUCK);
         assertDetect("main.bfpp", Language.BFPP);
+        assertDetect("main.bmx", Language.BLITZMAX);
     }
 
     @Test

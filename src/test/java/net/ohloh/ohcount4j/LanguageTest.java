@@ -10,6 +10,7 @@ import net.ohloh.ohcount4j.scan.AwkScanner;
 import net.ohloh.ohcount4j.scan.BatScanner;
 import net.ohloh.ohcount4j.scan.BfkScanner;
 import net.ohloh.ohcount4j.scan.BfkppScanner;
+import net.ohloh.ohcount4j.scan.BlitzMaxScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
 
 import org.testng.Assert;
@@ -31,6 +32,7 @@ public class LanguageTest {
         assertEquals("scala", Language.SCALA.uname());
         assertEquals("swift", Language.SWIFT.uname());
         assertEquals("bat", Language.BAT.uname());
+        assertEquals("blitzmax", Language.BLITZMAX.uname());
     }
 
     @Test
@@ -53,6 +55,10 @@ public class LanguageTest {
         // Brainfuck
         assertEquals(Language.BRAINFUCK.getExtensions().size(), 1);
         assertEquals(Language.BRAINFUCK.getExtensions().get(0), "bf");
+
+        // BLITZMAX
+        assertEquals(Language.BLITZMAX.getExtensions().size(), 1);
+        assertEquals(Language.BLITZMAX.getExtensions().get(0), "bmx");
 
         //
         assertTrue(Language.BAT.getExtensions().contains("bat"));
@@ -102,6 +108,7 @@ public class LanguageTest {
         Assert.assertEquals(Language.GOLANG.scannerClass(), CStyleScanner.class);
         Assert.assertEquals(Language.SCALA.scannerClass(), CStyleScanner.class);
         Assert.assertEquals(Language.SWIFT.scannerClass(), CStyleScanner.class);
+        Assert.assertEquals(Language.BLITZMAX.scannerClass(), BlitzMaxScanner.class);
     }
 
     @Test
@@ -113,5 +120,6 @@ public class LanguageTest {
         Assert.assertEquals(Language.BFPP.niceName(), "Brainfuck++");
         Assert.assertEquals(Language.BRAINFUCK.niceName(), "Brainfuck");
         Assert.assertEquals(Language.GOLANG.niceName(), "Go");
+        Assert.assertEquals(Language.BLITZMAX.niceName(), "BlitzMax");
     }
 }
