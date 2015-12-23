@@ -25,6 +25,7 @@ public class LanguageTest {
         assertEquals("brainfuck", Language.BRAINFUCK.uname());
         assertEquals("bfpp", Language.BFPP.uname());
         assertEquals("c", Language.C.uname());
+        assertEquals("cmake", Language.CMake.uname());
         assertEquals("golang", Language.GOLANG.uname());// GoLang
         assertEquals("ruby", Language.RUBY.uname());
         assertEquals("awk", Language.AWK.uname());
@@ -53,9 +54,10 @@ public class LanguageTest {
         // Brainfuck
         assertEquals(Language.BRAINFUCK.getExtensions().size(), 1);
         assertEquals(Language.BRAINFUCK.getExtensions().get(0), "bf");
-
         //
         assertTrue(Language.BAT.getExtensions().contains("bat"));
+        //
+        assertEquals(Language.CMake.getExtensions().size(), 0);
         //
         assertEquals(Language.GOLANG.getExtensions().size(), 1);
         assertEquals(Language.GOLANG.getExtensions().get(0), "go");
@@ -73,6 +75,7 @@ public class LanguageTest {
     @Test
     public void filenamesTest() {
         assertTrue(Language.RUBY.getFilenames().contains("Rakefile"));
+        assertTrue(Language.CMake.getFilenames().contains("CMakeLists.txt"));
         assertFalse(Language.RUBY.getFilenames().contains("Makefile"));
     }
 
@@ -85,6 +88,7 @@ public class LanguageTest {
         Assert.assertEquals(Language.BAT.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.BFPP.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.BRAINFUCK.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.CMake.category(), LanguageCategory.BUILD);
         Assert.assertEquals(Language.GOLANG.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.SCALA.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.SWIFT.category(), LanguageCategory.LOGIC);
