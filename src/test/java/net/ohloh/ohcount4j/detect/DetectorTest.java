@@ -44,6 +44,7 @@ public class DetectorTest {
         assertDetect("main.bf", Language.BRAINFUCK);
         assertDetect("main.bfpp", Language.BFPP);
         assertDetect("main.chai", Language.CHAISCRIPT);
+        assertDetect("main.bmx", Language.BLITZMAX);
     }
 
     @Test

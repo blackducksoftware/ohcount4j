@@ -14,6 +14,7 @@ import net.ohloh.ohcount4j.scan.BatScanner;
 import net.ohloh.ohcount4j.scan.BfkScanner;
 import net.ohloh.ohcount4j.scan.BfkppScanner;
 import net.ohloh.ohcount4j.scan.BinaryScanner;
+import net.ohloh.ohcount4j.scan.BlitzMaxScanner;
 import net.ohloh.ohcount4j.scan.BooScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
 import net.ohloh.ohcount4j.scan.CobolScanner;
@@ -77,6 +78,7 @@ public enum Language implements LanguageCategory {
     BAT("Windows Batch", LOGIC, BatScanner.class),
     BFPP("Brainfuck++", LOGIC, BfkppScanner.class),
     BINARY("Binary", LOGIC, BinaryScanner.class),
+    BLITZMAX("BlitzMax", LOGIC, BlitzMaxScanner.class),
     BOO("Boo", LOGIC, BooScanner.class),
     BRAINFUCK("Brainfuck", LOGIC, BfkScanner.class),
     C("C", LOGIC, CStyleScanner.class),
@@ -164,6 +166,7 @@ public enum Language implements LanguageCategory {
         BAT.extension("bat");
         BFPP.extensions("bfpp");
         BINARY.extensions("inc", "st");
+        BLITZMAX.extension("bmx");
         BOO.extension("boo");
         BRAINFUCK.extension("bf");
         C.extensions("c", "h");
