@@ -1,0 +1,17 @@
+/*
+Random Comments
+Foo Foo Foo
+*/
+var submenu=1;
+// comment
+// another comment
+submenu += 10
+var f = fun() { 5 };
+def myFun(i) : i > 0 {
+  return i + 10;
+}
+
+
+// some comment
+var delay_hide=500
+b=0

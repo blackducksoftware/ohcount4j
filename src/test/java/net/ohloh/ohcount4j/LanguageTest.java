@@ -31,6 +31,7 @@ public class LanguageTest {
         assertEquals("scala", Language.SCALA.uname());
         assertEquals("swift", Language.SWIFT.uname());
         assertEquals("bat", Language.BAT.uname());
+        assertEquals("chaiscript", Language.CHAISCRIPT.uname());
     }
 
     @Test
@@ -56,6 +57,11 @@ public class LanguageTest {
 
         //
         assertTrue(Language.BAT.getExtensions().contains("bat"));
+
+        // CHAISCRIPT
+        assertEquals(Language.CHAISCRIPT.getExtensions().size(), 1);
+        assertEquals(Language.CHAISCRIPT.getExtensions().get(0), "chai");
+
         //
         assertEquals(Language.GOLANG.getExtensions().size(), 1);
         assertEquals(Language.GOLANG.getExtensions().get(0), "go");
@@ -85,6 +91,7 @@ public class LanguageTest {
         Assert.assertEquals(Language.BAT.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.BFPP.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.BRAINFUCK.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.CHAISCRIPT.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.GOLANG.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.SCALA.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.SWIFT.category(), LanguageCategory.LOGIC);
@@ -99,6 +106,7 @@ public class LanguageTest {
         Assert.assertEquals(Language.BAT.scannerClass(), BatScanner.class);
         Assert.assertEquals(Language.BFPP.scannerClass(), BfkppScanner.class);
         Assert.assertEquals(Language.BRAINFUCK.scannerClass(), BfkScanner.class);
+        Assert.assertEquals(Language.CHAISCRIPT.scannerClass(), CStyleScanner.class);
         Assert.assertEquals(Language.GOLANG.scannerClass(), CStyleScanner.class);
         Assert.assertEquals(Language.SCALA.scannerClass(), CStyleScanner.class);
         Assert.assertEquals(Language.SWIFT.scannerClass(), CStyleScanner.class);
@@ -112,6 +120,7 @@ public class LanguageTest {
         Assert.assertEquals(Language.AWK.niceName(), "Awk");
         Assert.assertEquals(Language.BFPP.niceName(), "Brainfuck++");
         Assert.assertEquals(Language.BRAINFUCK.niceName(), "Brainfuck");
+        Assert.assertEquals(Language.CHAISCRIPT.niceName(), "ChaiScript");
         Assert.assertEquals(Language.GOLANG.niceName(), "Go");
     }
 }

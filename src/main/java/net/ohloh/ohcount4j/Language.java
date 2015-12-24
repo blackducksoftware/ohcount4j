@@ -80,6 +80,7 @@ public enum Language implements LanguageCategory {
     BOO("Boo", LOGIC, BooScanner.class),
     BRAINFUCK("Brainfuck", LOGIC, BfkScanner.class),
     C("C", LOGIC, CStyleScanner.class),
+    CHAISCRIPT("ChaiScript", LOGIC, CStyleScanner.class),
     CLASSIC_BASIC("Classic BASIC", LOGIC, GenericCodeScanner.class), // TODO.
     COBOL("COBOL", LOGIC, CobolScanner.class),
     COLDFUSION("ColdFusion", MARKUP, ColdFusionScanner.class),
@@ -166,6 +167,7 @@ public enum Language implements LanguageCategory {
         BOO.extension("boo");
         BRAINFUCK.extension("bf");
         C.extensions("c", "h");
+        CHAISCRIPT.extension("chai");
         CLASSIC_BASIC.extensions("b", "bas");
         COBOL.extension("cbl");
         COLDFUSION.extensions("cfc", "cfm");
