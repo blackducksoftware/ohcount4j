@@ -11,7 +11,7 @@ import net.ohloh.ohcount4j.SourceFile;
 
 import org.testng.annotations.Test;
 
-public class CobolScannerTest extends BaseScannerTest {
+public class CobolScannerTest extends AbstractBaseScannerTest {
 
     @Test
     public void basic() {

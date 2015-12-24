@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import static net.ohloh.ohcount4j.Entity.*;
 import net.ohloh.ohcount4j.Language;
 
-public class ErlangScannerTest extends BaseScannerTest {
+public class ErlangScannerTest extends AbstractBaseScannerTest {
 
 	@Test
 	public void basic() {

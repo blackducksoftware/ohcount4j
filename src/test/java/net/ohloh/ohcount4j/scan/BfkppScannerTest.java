@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
  * @author gandhip
  *
  */
-public class BfkppScannerTest extends BaseScannerTest {
+public class BfkppScannerTest extends AbstractBaseScannerTest {
 
     @Test
     public void basic() {

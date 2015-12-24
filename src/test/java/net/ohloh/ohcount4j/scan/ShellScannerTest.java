@@ -5,7 +5,7 @@ import net.ohloh.ohcount4j.Language;
 
 import org.testng.annotations.Test;
 
-public class ShellScannerTest extends BaseScannerTest {
+public class ShellScannerTest extends AbstractBaseScannerTest {
 
 	@Test
 	public void basic() {
