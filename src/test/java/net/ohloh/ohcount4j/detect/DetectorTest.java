@@ -5,8 +5,11 @@ import static net.ohloh.ohcount4j.Language.AUTOCONF;
 import static net.ohloh.ohcount4j.Language.AUTOMAKE;
 import static net.ohloh.ohcount4j.Language.AWK;
 import static net.ohloh.ohcount4j.Language.BFPP;
+import static net.ohloh.ohcount4j.Language.BLITZMAX;
 import static net.ohloh.ohcount4j.Language.BRAINFUCK;
 import static net.ohloh.ohcount4j.Language.C;
+import static net.ohloh.ohcount4j.Language.CHAISCRIPT;
+import static net.ohloh.ohcount4j.Language.CMake;
 import static net.ohloh.ohcount4j.Language.CSS;
 import static net.ohloh.ohcount4j.Language.GOLANG;
 import static net.ohloh.ohcount4j.Language.HTML;
@@ -53,7 +56,11 @@ public class DetectorTest {
                 { AUGEAS, Arrays.asList("main.aug") },
                 { AWK, Arrays.asList("main.awk") },
                 { BRAINFUCK, Arrays.asList("main.bf") },
-                { BFPP, Arrays.asList("main.bfpp") }
+                { BFPP, Arrays.asList("main.bfpp") },
+                { CMake, Arrays.asList("CMakeLists.txt", "file.cmake") },
+                { CHAISCRIPT, Arrays.asList("main.chai") },
+                { BLITZMAX, Arrays.asList("main.bmx") }
+
         };
     }
 
@@ -62,6 +69,7 @@ public class DetectorTest {
         assertDetect("Makefile", MAKE);
         assertDetect("Gemfile", RUBY);
         assertDetect("Rakefile", RUBY);
+        assertDetect("CMakeLists.txt", Language.CMake);
     }
 
     protected void assertDetect(String filename, Language language) throws IOException {

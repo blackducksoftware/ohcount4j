@@ -13,6 +13,7 @@ import net.ohloh.ohcount4j.scan.AwkScanner;
 import net.ohloh.ohcount4j.scan.BatScanner;
 import net.ohloh.ohcount4j.scan.BfkScanner;
 import net.ohloh.ohcount4j.scan.BfkppScanner;
+import net.ohloh.ohcount4j.scan.BlitzMaxScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
 import net.ohloh.ohcount4j.scan.ClojureScanner;
 
@@ -69,7 +70,9 @@ public class LanguageTest {
                 { Language.AWK, "awk" },
                 { Language.SCALA, "scala" },
                 { Language.SWIFT, "swift" },
-                { Language.BAT, "bat" }
+                { Language.BAT, "bat" },
+                { Language.CHAISCRIPT, "chaiscript" },
+                { Language.BLITZMAX, "blitzmax" },
         };
     }
 
@@ -83,6 +86,8 @@ public class LanguageTest {
                 { Language.BFPP, Arrays.asList("bfpp") },
                 { Language.BRAINFUCK, Arrays.asList("bf") },
                 { Language.BAT, Arrays.asList("bat") },
+                { Language.BLITZMAX, Arrays.asList("bmx") },
+                { Language.CHAISCRIPT, Arrays.asList("chai") },
                 { Language.CLOJURE, Arrays.asList("clj", "cljs", "cljc") },
                 { Language.GOLANG, Arrays.asList("go") },
                 { Language.RUBY, Arrays.asList("rb", "ru") },
@@ -96,7 +101,8 @@ public class LanguageTest {
     public Object[][] filenames() {
         return new Object[][] {
                 { Language.RUBY, Arrays.asList("Rakefile", "Gemfile") },
-                { Language.MAKE, Arrays.asList("Makefile") }
+                { Language.MAKE, Arrays.asList("Makefile") },
+                { Language.CMake, Arrays.asList("CMakeLists.txt") }
         };
     }
 
@@ -110,6 +116,8 @@ public class LanguageTest {
                 { Language.BAT, LanguageCategory.LOGIC },
                 { Language.BFPP, LanguageCategory.LOGIC },
                 { Language.BRAINFUCK, LanguageCategory.LOGIC },
+                { Language.BLITZMAX, LanguageCategory.LOGIC },
+                { Language.CHAISCRIPT, LanguageCategory.LOGIC },
                 { Language.CLOJURE, LanguageCategory.LOGIC },
                 { Language.GOLANG, LanguageCategory.LOGIC },
                 { Language.SCALA, LanguageCategory.LOGIC },
@@ -127,6 +135,8 @@ public class LanguageTest {
                 { Language.BAT, BatScanner.class },
                 { Language.BFPP, BfkppScanner.class },
                 { Language.BRAINFUCK, BfkScanner.class },
+                { Language.BLITZMAX, BlitzMaxScanner.class },
+                { Language.CHAISCRIPT, CStyleScanner.class },
                 { Language.CLOJURE, ClojureScanner.class },
                 { Language.GOLANG, CStyleScanner.class },
                 { Language.SCALA, CStyleScanner.class },
@@ -142,12 +152,30 @@ public class LanguageTest {
                 { Language.AUTOMAKE, "Automake" },
                 { Language.AWK, "Awk" },
                 { Language.BFPP, "Brainfuck++" },
+                { Language.BLITZMAX, "BlitzMax" },
                 { Language.BRAINFUCK, "Brainfuck" },
+                { Language.CHAISCRIPT, "ChaiScript" },
                 { Language.CLOJURE, "Clojure" },
                 { Language.GOLANG, "Go" },
                 { Language.SCALA, "Scala" },
                 { Language.SWIFT, "Swift" }
         };
+    }
+
+    @Test
+    public void testCategory() {
+        Assert.assertEquals(Language.AUGEAS.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.AUTOCONF.category(), LanguageCategory.BUILD);
+        Assert.assertEquals(Language.AUTOMAKE.category(), LanguageCategory.BUILD);
+        Assert.assertEquals(Language.AWK.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.BAT.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.BFPP.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.BRAINFUCK.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.CMake.category(), LanguageCategory.BUILD);
+        Assert.assertEquals(Language.CHAISCRIPT.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.GOLANG.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.SCALA.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.SWIFT.category(), LanguageCategory.LOGIC);
     }
 
 }

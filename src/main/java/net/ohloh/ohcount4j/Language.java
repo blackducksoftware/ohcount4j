@@ -14,7 +14,9 @@ import net.ohloh.ohcount4j.scan.BatScanner;
 import net.ohloh.ohcount4j.scan.BfkScanner;
 import net.ohloh.ohcount4j.scan.BfkppScanner;
 import net.ohloh.ohcount4j.scan.BinaryScanner;
+import net.ohloh.ohcount4j.scan.BlitzMaxScanner;
 import net.ohloh.ohcount4j.scan.BooScanner;
+import net.ohloh.ohcount4j.scan.CMakeScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
 import net.ohloh.ohcount4j.scan.ClojureScanner;
 import net.ohloh.ohcount4j.scan.CobolScanner;
@@ -78,14 +80,17 @@ public enum Language implements LanguageCategory {
     BAT("Windows Batch", LOGIC, BatScanner.class),
     BFPP("Brainfuck++", LOGIC, BfkppScanner.class),
     BINARY("Binary", LOGIC, BinaryScanner.class),
+    BLITZMAX("BlitzMax", LOGIC, BlitzMaxScanner.class),
     BOO("Boo", LOGIC, BooScanner.class),
     BRAINFUCK("Brainfuck", LOGIC, BfkScanner.class),
     C("C", LOGIC, CStyleScanner.class),
+    CHAISCRIPT("ChaiScript", LOGIC, CStyleScanner.class),
     CLASSIC_BASIC("Classic BASIC", LOGIC, GenericCodeScanner.class), // TODO.
     CLOJURE("Clojure", LOGIC, ClojureScanner.class),
     COBOL("COBOL", LOGIC, CobolScanner.class),
     COLDFUSION("ColdFusion", MARKUP, ColdFusionScanner.class),
     CPP("C++", LOGIC, CStyleScanner.class),
+    CMake("CMake", BUILD, CMakeScanner.class),
     CSHARP("C#", LOGIC, CStyleScanner.class),
     CSS("CSS", MARKUP, CStyleScanner.class),
     D("D", LOGIC, DScanner.class),
@@ -165,11 +170,14 @@ public enum Language implements LanguageCategory {
         BAT.extension("bat");
         BFPP.extensions("bfpp");
         BINARY.extensions("inc", "st");
+        BLITZMAX.extension("bmx");
         BOO.extension("boo");
         BRAINFUCK.extension("bf");
         C.extensions("c", "h");
+        CHAISCRIPT.extension("chai");
         CLASSIC_BASIC.extensions("b", "bas");
         CLOJURE.extensions("clj", "cljs", "cljc");
+        CMake.extensions("cmake").filename("CMakeLists.txt");
         COBOL.extension("cbl");
         COLDFUSION.extensions("cfc", "cfm");
         CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
