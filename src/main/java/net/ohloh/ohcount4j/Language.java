@@ -14,8 +14,11 @@ import net.ohloh.ohcount4j.scan.BatScanner;
 import net.ohloh.ohcount4j.scan.BfkScanner;
 import net.ohloh.ohcount4j.scan.BfkppScanner;
 import net.ohloh.ohcount4j.scan.BinaryScanner;
+import net.ohloh.ohcount4j.scan.BlitzMaxScanner;
 import net.ohloh.ohcount4j.scan.BooScanner;
+import net.ohloh.ohcount4j.scan.CMakeScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
+import net.ohloh.ohcount4j.scan.ClojureScanner;
 import net.ohloh.ohcount4j.scan.CobolScanner;
 import net.ohloh.ohcount4j.scan.ColdFusionScanner;
 import net.ohloh.ohcount4j.scan.DScanner;
@@ -58,9 +61,9 @@ public enum Language implements LanguageCategory {
 
     /*
      * All languages must be defined here.
-     *
+     * 
      * Each language must declare three mandatory properties:
-     *
+     * 
      * - The language's official display name (niceName)
      * - The category of the language, one of BUILD, LOGIC, MARKUP, UNKNOWN
      * - A Scanner subclass capable of parsing this language
@@ -77,13 +80,17 @@ public enum Language implements LanguageCategory {
     BAT("Windows Batch", LOGIC, BatScanner.class),
     BFPP("Brainfuck++", LOGIC, BfkppScanner.class),
     BINARY("Binary", LOGIC, BinaryScanner.class),
+    BLITZMAX("BlitzMax", LOGIC, BlitzMaxScanner.class),
     BOO("Boo", LOGIC, BooScanner.class),
     BRAINFUCK("Brainfuck", LOGIC, BfkScanner.class),
     C("C", LOGIC, CStyleScanner.class),
+    CHAISCRIPT("ChaiScript", LOGIC, CStyleScanner.class),
     CLASSIC_BASIC("Classic BASIC", LOGIC, GenericCodeScanner.class), // TODO.
+    CLOJURE("Clojure", LOGIC, ClojureScanner.class),
     COBOL("COBOL", LOGIC, CobolScanner.class),
     COLDFUSION("ColdFusion", MARKUP, ColdFusionScanner.class),
     CPP("C++", LOGIC, CStyleScanner.class),
+    CMake("CMake", BUILD, CMakeScanner.class),
     CSHARP("C#", LOGIC, CStyleScanner.class),
     CSS("CSS", MARKUP, CStyleScanner.class),
     D("D", LOGIC, DScanner.class),
@@ -141,10 +148,10 @@ public enum Language implements LanguageCategory {
 
     /*
      * Optional properties of languages are declared here.
-     *
+     * 
      * At a minimum, a language should define one or more file
      * extensions or filenames associated with the language.
-     *
+     * 
      * You may also declare additional names (beyond the uname
      * and niceName) by which the language might be known.
      * These aliases can be matched against things like Emacs
@@ -163,10 +170,14 @@ public enum Language implements LanguageCategory {
         BAT.extension("bat");
         BFPP.extensions("bfpp");
         BINARY.extensions("inc", "st");
+        BLITZMAX.extension("bmx");
         BOO.extension("boo");
         BRAINFUCK.extension("bf");
         C.extensions("c", "h");
+        CHAISCRIPT.extension("chai");
         CLASSIC_BASIC.extensions("b", "bas");
+        CLOJURE.extensions("clj", "cljs", "cljc");
+        CMake.extensions("cmake").filename("CMakeLists.txt");
         COBOL.extension("cbl");
         COLDFUSION.extensions("cfc", "cfm");
         CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
