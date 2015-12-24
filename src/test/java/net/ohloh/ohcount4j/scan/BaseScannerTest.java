@@ -2,7 +2,7 @@
  * Copyright (C) 2015 Black Duck Software Inc.
  * http://www.blackducksoftware.com/
  * All rights reserved.
- * 
+ *
  * This software is the confidential and proprietary information of
  * Black Duck Software ("Confidential Information"). You shall not
  * disclose such Confidential Information and shall use it only in
@@ -18,8 +18,6 @@ import java.util.UUID;
 
 import net.ohloh.ohcount4j.SourceFile;
 
-import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 /**
@@ -70,28 +68,6 @@ public class BaseScannerTest extends AbstractBaseScannerTest {
             TempBaseScanner scanner = new TempBaseScanner();
             scanner.scan(sf, new TempLineHandler());
         }
-    }
-
-    public void testScanWithSourceFile(SourceFile sourceFile, Class<?> exceptionClass) throws Exception {
-        TempBaseScanner scanner = new TempBaseScanner();
-        try {
-            scanner.scan(sourceFile, new TempLineHandler());
-        } catch (Exception e) {
-            if (exceptionClass != null) {
-                Assert.assertTrue(e.getCause().getClass().isAssignableFrom(exceptionClass),
-                        "Expected " + exceptionClass + ", but got " + e);
-            } else {
-                Assert.fail("failed", e);
-            }
-        }
-    }
-
-    @DataProvider
-    public Object[][] dataForScan() throws Exception {
-        return new Object[][] {
-                { new SourceFile(new File(UUID.randomUUID().toString())), NullPointerException.class },
-                { new SourceFile("somenonexistingfile", "dd"), null }
-        };
     }
 
     static class TempLineHandler implements LineHandler {
