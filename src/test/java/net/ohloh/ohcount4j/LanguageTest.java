@@ -10,6 +10,7 @@ import net.ohloh.ohcount4j.scan.AwkScanner;
 import net.ohloh.ohcount4j.scan.BatScanner;
 import net.ohloh.ohcount4j.scan.BfkScanner;
 import net.ohloh.ohcount4j.scan.BfkppScanner;
+import net.ohloh.ohcount4j.scan.BlitzMaxScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
 
 import org.testng.Assert;
@@ -32,6 +33,8 @@ public class LanguageTest {
         assertEquals("scala", Language.SCALA.uname());
         assertEquals("swift", Language.SWIFT.uname());
         assertEquals("bat", Language.BAT.uname());
+        assertEquals("chaiscript", Language.CHAISCRIPT.uname());
+        assertEquals("blitzmax", Language.BLITZMAX.uname());
     }
 
     @Test
@@ -54,8 +57,18 @@ public class LanguageTest {
         // Brainfuck
         assertEquals(Language.BRAINFUCK.getExtensions().size(), 1);
         assertEquals(Language.BRAINFUCK.getExtensions().get(0), "bf");
+
+        // BLITZMAX
+        assertEquals(Language.BLITZMAX.getExtensions().size(), 1);
+        assertEquals(Language.BLITZMAX.getExtensions().get(0), "bmx");
+
         //
         assertTrue(Language.BAT.getExtensions().contains("bat"));
+
+        // CHAISCRIPT
+        assertEquals(Language.CHAISCRIPT.getExtensions().size(), 1);
+        assertEquals(Language.CHAISCRIPT.getExtensions().get(0), "chai");
+
         //
         assertEquals(Language.CMake.getExtensions().size(), 1);
         assertEquals(Language.CMake.getExtensions().get(0), "cmake");
@@ -90,6 +103,7 @@ public class LanguageTest {
         Assert.assertEquals(Language.BFPP.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.BRAINFUCK.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.CMake.category(), LanguageCategory.BUILD);
+        Assert.assertEquals(Language.CHAISCRIPT.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.GOLANG.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.SCALA.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.SWIFT.category(), LanguageCategory.LOGIC);
@@ -104,9 +118,11 @@ public class LanguageTest {
         Assert.assertEquals(Language.BAT.scannerClass(), BatScanner.class);
         Assert.assertEquals(Language.BFPP.scannerClass(), BfkppScanner.class);
         Assert.assertEquals(Language.BRAINFUCK.scannerClass(), BfkScanner.class);
+        Assert.assertEquals(Language.CHAISCRIPT.scannerClass(), CStyleScanner.class);
         Assert.assertEquals(Language.GOLANG.scannerClass(), CStyleScanner.class);
         Assert.assertEquals(Language.SCALA.scannerClass(), CStyleScanner.class);
         Assert.assertEquals(Language.SWIFT.scannerClass(), CStyleScanner.class);
+        Assert.assertEquals(Language.BLITZMAX.scannerClass(), BlitzMaxScanner.class);
     }
 
     @Test
@@ -117,6 +133,8 @@ public class LanguageTest {
         Assert.assertEquals(Language.AWK.niceName(), "Awk");
         Assert.assertEquals(Language.BFPP.niceName(), "Brainfuck++");
         Assert.assertEquals(Language.BRAINFUCK.niceName(), "Brainfuck");
+        Assert.assertEquals(Language.CHAISCRIPT.niceName(), "ChaiScript");
         Assert.assertEquals(Language.GOLANG.niceName(), "Go");
+        Assert.assertEquals(Language.BLITZMAX.niceName(), "BlitzMax");
     }
 }

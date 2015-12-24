@@ -45,6 +45,8 @@ public class DetectorTest {
         assertDetect("main.bfpp", Language.BFPP);
         assertDetect("CMakeLists.txt", Language.CMake);
         assertDetect("file.cmake", Language.CMake);
+        assertDetect("main.chai", Language.CHAISCRIPT);
+        assertDetect("main.bmx", Language.BLITZMAX);
     }
 
     @Test
