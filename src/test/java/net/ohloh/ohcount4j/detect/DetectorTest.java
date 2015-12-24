@@ -43,6 +43,8 @@ public class DetectorTest {
         assertDetect("main.awk", Language.AWK);
         assertDetect("main.bf", Language.BRAINFUCK);
         assertDetect("main.bfpp", Language.BFPP);
+        assertDetect("CMakeLists.txt", Language.CMake);
+        assertDetect("file.cmake", Language.CMake);
         assertDetect("main.chai", Language.CHAISCRIPT);
         assertDetect("main.bmx", Language.BLITZMAX);
     }
@@ -52,6 +54,7 @@ public class DetectorTest {
         assertDetect("Makefile", MAKE);
         assertDetect("Gemfile", RUBY);
         assertDetect("Rakefile", RUBY);
+        assertDetect("CMakeLists.txt", Language.CMake);
     }
 
     protected void assertDetect(String filename, Language language) throws IOException {

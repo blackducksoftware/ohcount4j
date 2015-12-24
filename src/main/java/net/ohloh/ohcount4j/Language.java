@@ -16,6 +16,7 @@ import net.ohloh.ohcount4j.scan.BfkppScanner;
 import net.ohloh.ohcount4j.scan.BinaryScanner;
 import net.ohloh.ohcount4j.scan.BlitzMaxScanner;
 import net.ohloh.ohcount4j.scan.BooScanner;
+import net.ohloh.ohcount4j.scan.CMakeScanner;
 import net.ohloh.ohcount4j.scan.CStyleScanner;
 import net.ohloh.ohcount4j.scan.CobolScanner;
 import net.ohloh.ohcount4j.scan.ColdFusionScanner;
@@ -87,6 +88,7 @@ public enum Language implements LanguageCategory {
     COBOL("COBOL", LOGIC, CobolScanner.class),
     COLDFUSION("ColdFusion", MARKUP, ColdFusionScanner.class),
     CPP("C++", LOGIC, CStyleScanner.class),
+    CMake("CMake", BUILD, CMakeScanner.class),
     CSHARP("C#", LOGIC, CStyleScanner.class),
     CSS("CSS", MARKUP, CStyleScanner.class),
     D("D", LOGIC, DScanner.class),
@@ -172,6 +174,7 @@ public enum Language implements LanguageCategory {
         C.extensions("c", "h");
         CHAISCRIPT.extension("chai");
         CLASSIC_BASIC.extensions("b", "bas");
+        CMake.extensions("cmake").filename("CMakeLists.txt");
         COBOL.extension("cbl");
         COLDFUSION.extensions("cfc", "cfm");
         CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
