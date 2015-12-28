@@ -1,4 +1,4 @@
-package net.ohloh.ohcount4j.scan;
+package com.blackducksoftware.ohcount4j.scan;
 
 public class MakeScanner extends BaseScanner{
   int ab_count = 0;

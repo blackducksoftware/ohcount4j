@@ -1,4 +1,4 @@
-package net.ohloh.ohcount4j.scan;
+package com.blackducksoftware.ohcount4j.scan;
 
 // Yields only blank lines and code lines.
 public class GenericCodeScanner extends BaseScanner{

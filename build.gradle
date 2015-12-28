@@ -41,7 +41,7 @@ if (useCodeCoverage) {
 }
 
 task generateScanSources() {
-    String scannerPackage = 'net/ohloh/ohcount4j/scan'
+    String scannerPackage = 'com/blackducksoftware/ohcount4j/scan'
     File scannerSrc = file('src/scanners/ragel')
     File targetBase = file("src/generated/java/$scannerPackage")
     inputs.dir scannerSrc
@@ -84,7 +84,7 @@ artifacts {
 
 test {
     if (useCodeCoverage) {
-        jvmArgs "-javaagent:" + configurations.jacoco.asPath + "=destfile=" + buildDir + "/jacoco.exec,includes=net/ohloh.*"
+        jvmArgs "-javaagent:" + configurations.jacoco.asPath + "=destfile=" + buildDir + "/jacoco.exec,includes=com/blackducksoftware.*"
     }
     useTestNG()
 }

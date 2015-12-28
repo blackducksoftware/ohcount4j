@@ -1,6 +1,6 @@
-package net.ohloh.ohcount4j.scan;
+package com.blackducksoftware.ohcount4j.scan;
 
-import net.ohloh.ohcount4j.Language;
+import com.blackducksoftware.ohcount4j.Language;
 
 public class JspScanner extends BaseScanner{
 

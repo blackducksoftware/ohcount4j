@@ -6,7 +6,7 @@
 	<property name="dist"  location="dist"/>
 	<property name="scanners" location="src/scanners/ragel"/>
 	<property name="gen-src" location="gen-src" />
-	<property name="scanner-package" value="net/ohloh/ohcount4j/scan"/>
+	<property name="scanner-package" value="com/blackducksoftware/ohcount4j/scan"/>
 	<property name="lib" location="lib"/>
 	<property name="coverage.dir" value="coverage" />
 
@@ -155,7 +155,7 @@
 	</target>
 
 	<target name="smoke" depends="compile,data" description="run a minimal C scanner smoke test">
-		<java classname="net.ohloh.ohcount4j.Ohcount" classpathref="lib.jars">
+		<java classname="com.blackducksoftware.ohcount4j.Ohcount" classpathref="lib.jars">
 			<arg value="-a"/>
 			<classpath>
 				<pathelement location="${build}"/>
