@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.io.StringReader;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -18,6 +17,8 @@ public class SourceFile implements AutoCloseable {
     private final Reader reader;
 
     private char[] content;
+
+    private boolean contentFromFile = true;
 
     public SourceFile(String path, Reader reader) {
         this.path = path;
@@ -35,7 +36,9 @@ public class SourceFile implements AutoCloseable {
 
     public SourceFile(String path, String buffer) {
         this.path = path;
-        reader = new StringReader(buffer);
+        reader = null;
+        content = buffer != null ? buffer.toCharArray() : new char[0];
+        contentFromFile = false; // content not from file
     }
 
     public String getPath() {
@@ -55,6 +58,16 @@ public class SourceFile implements AutoCloseable {
     }
 
     /**
+     * Returns if sourceFile is from FilePath i.e. the reader is initialized or not.
+     * If it returns false then the contents were initialized by string buffer and it can be used directly.
+     *
+     * @return
+     */
+    public boolean isContentsFromFile() {
+        return contentFromFile;
+    }
+
+    /**
      * Reads complete contents.
      *
      * @return
@@ -65,6 +78,10 @@ public class SourceFile implements AutoCloseable {
     }
 
     private char[] prepareContent(int maxLength) throws IOException {
+        if (!contentFromFile) {
+            // we got content from String buffer which already initialized the content, return it
+            return content;
+        }
         // Lazy load to avoid reading until required
         if (content == null) {
             if (maxLength == -1) {
@@ -127,6 +144,8 @@ public class SourceFile implements AutoCloseable {
 
     @Override
     public void close() throws IOException {
-        reader.close();
+        if (reader != null) {
+            reader.close();
+        }
     }
 }

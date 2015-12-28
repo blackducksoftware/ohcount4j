@@ -7,7 +7,7 @@ import static net.ohloh.ohcount4j.Language.CLOJURE;
 
 import org.testng.annotations.Test;
 
-public class ClojureScannerTest extends BaseScannerTest {
+public class ClojureScannerTest extends AbstractBaseScannerTest {
 
     @Test
     public void basic() {

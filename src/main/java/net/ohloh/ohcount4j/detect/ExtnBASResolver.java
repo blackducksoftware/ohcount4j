@@ -1,5 +1,9 @@
 package net.ohloh.ohcount4j.detect;
 
+import static net.ohloh.ohcount4j.Language.CLASSIC_BASIC;
+import static net.ohloh.ohcount4j.Language.STRUCTURED_BASIC;
+import static net.ohloh.ohcount4j.Language.VB;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +14,19 @@ import net.ohloh.ohcount4j.SourceFile;
 
 import org.apache.commons.io.FilenameUtils;
 
-public class ExtnBASResolver implements Resolver {
+public class ExtnBASResolver extends AbstractExtnResolver {
+
+    // Lines that start with numbers are classic BASIC
+    private static final Pattern CLASSIC_BASIC_PATTERN = Pattern.compile("^\\s*\\d+");
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
-        if (classicBasicPattern.matcher(sourceFile.getCharSequence()).find()) {
-            return Language.CLASSIC_BASIC;
+        if (CLASSIC_BASIC_PATTERN.matcher(getCharSequence(sourceFile)).find()) {
+            return CLASSIC_BASIC;
         } else if (vbSpecificExtensions(filenames)) {
-            return Language.VB;
+            return VB;
         } else {
-            return Language.STRUCTURED_BASIC;
+            return STRUCTURED_BASIC;
         }
     }
 
@@ -30,17 +37,12 @@ public class ExtnBASResolver implements Resolver {
 
     @Override
     public boolean canResolve(Language language) {
-        if (language == Language.CLASSIC_BASIC ||
-                language == Language.STRUCTURED_BASIC ||
-                language == Language.VB) {
+        if (language == CLASSIC_BASIC || language == STRUCTURED_BASIC || language == VB) {
             return true;
         } else {
             return false;
         }
     }
-
-    // Lines that start with numbers are classic BASIC
-    private static Pattern classicBasicPattern = Pattern.compile("^\\s*\\d+");
 
     private boolean vbSpecificExtensions(List<String> filenames) {
         // The existence of these extensions anywhere in code tree
@@ -58,4 +60,5 @@ public class ExtnBASResolver implements Resolver {
 
         return false;
     }
+
 }

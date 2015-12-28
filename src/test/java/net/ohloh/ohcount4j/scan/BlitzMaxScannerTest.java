@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
  * @author gandhip
  *
  */
-public class BlitzMaxScannerTest extends BaseScannerTest {
+public class BlitzMaxScannerTest extends AbstractBaseScannerTest {
 
     @Test
     public void basic() {

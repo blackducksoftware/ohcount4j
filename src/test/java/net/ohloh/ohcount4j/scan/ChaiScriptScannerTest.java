@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
  * @author gandhip
  *
  */
-public class ChaiScriptScannerTest extends BaseScannerTest {
+public class ChaiScriptScannerTest extends AbstractBaseScannerTest {
 
     @Test
     public void basic() {

@@ -105,7 +105,7 @@ public class SourceFileTest {
         }
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test
     public void sourceBufferTestWityNullSource() throws IOException {
         try (SourceFile source = new SourceFile("/foo/bar.baz", (String) null)) {
             assertEquals("", source.head(2));

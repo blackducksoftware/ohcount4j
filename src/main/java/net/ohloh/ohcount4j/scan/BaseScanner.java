@@ -79,6 +79,14 @@ public abstract class BaseScanner implements Scanner {
         try {
             long length = new File(source.getPath()).length();
             int buflen = (length > BLOCK_SIZE) ? BLOCK_SIZE : (int) length; // its OK we down-cast;
+            if (buflen == 0) {
+                // there can be a case where path is invalid, get content from reader if reader is initialized
+                if (reader != null) {
+                    buflen = BLOCK_SIZE;
+                } else {
+                    return; // there is nothing to read
+                }
+            }
             char[] cbuf = new char[buflen];
             int readLen;
             while ((readLen = reader.read(cbuf)) != -1) {
@@ -104,7 +112,9 @@ public abstract class BaseScanner implements Scanner {
                 scan(data0, handler);
             }
         } finally {
-            reader.close();
+            if (reader != null) {
+                reader.close();
+            }
         }
     }
 

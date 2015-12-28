@@ -8,7 +8,11 @@ import java.util.regex.Pattern;
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.SourceFile;
 
-public class ExtnSTResolver implements Resolver {
+public class ExtnSTResolver extends AbstractExtnResolver {
+
+    private static final Pattern ASSIGNMENT_PATTERN = Pattern.compile(":\\s*=");
+
+    private static final Pattern BLOCKSTART_PATTERN = Pattern.compile(":\\s*\\[");
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
@@ -30,8 +34,7 @@ public class ExtnSTResolver implements Resolver {
         // We advertise more than one language to force the Detector to run this Resolver.
         // Otherwise, all *.st files would automatically be detected as SMALLTALK, which
         // is not true.
-        if (language == Language.BINARY ||
-                language == Language.SMALLTALK) {
+        if (language == Language.BINARY || language == Language.SMALLTALK) {
             return true;
         } else {
             return false;
@@ -39,15 +42,11 @@ public class ExtnSTResolver implements Resolver {
     }
 
     private boolean looksLikeSmalltalk(CharSequence contents) {
-        if (assignmentPattern.matcher(contents).find() &&
-                blockStartPattern.matcher(contents).find()) {
+        if (ASSIGNMENT_PATTERN.matcher(contents).find() && BLOCKSTART_PATTERN.matcher(contents).find()) {
             return true;
         } else {
             return false;
         }
     }
 
-    private static Pattern assignmentPattern = Pattern.compile(":\\s*=");
-
-    private static Pattern blockStartPattern = Pattern.compile(":\\s*\\[");
 }

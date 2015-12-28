@@ -7,11 +7,17 @@ import java.util.List;
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.SourceFile;
 
-public class ExtnINResolver implements Resolver {
+public class ExtnINResolver extends AbstractExtnResolver {
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
-        SourceFile stripped = new SourceFile(strippedPath(sourceFile.getPath()), sourceFile.getReader());
+        SourceFile stripped;
+        String strippedPath = strippedPath(sourceFile.getPath());
+        if (sourceFile.isContentsFromFile()) {
+            stripped = new SourceFile(strippedPath, sourceFile.getReader());
+        } else {
+            stripped = new SourceFile(strippedPath, new String(sourceFile.getContents()));
+        }
         return Detector.detect(stripped);
     }
 

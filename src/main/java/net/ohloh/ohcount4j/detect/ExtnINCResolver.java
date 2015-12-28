@@ -1,5 +1,7 @@
 package net.ohloh.ohcount4j.detect;
 
+import static java.util.regex.Pattern.MULTILINE;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +11,13 @@ import java.util.regex.Pattern;
 import net.ohloh.ohcount4j.Language;
 import net.ohloh.ohcount4j.SourceFile;
 
-public class ExtnINCResolver implements Resolver {
+public class ExtnINCResolver extends AbstractExtnResolver {
+
+    private static final Pattern PHP_PATTERN = Pattern.compile("^\\s*<\\?php", MULTILINE);
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
-        Matcher m = phpPattern.matcher(sourceFile.getCharSequence());
+        Matcher m = PHP_PATTERN.matcher(getCharSequence(sourceFile));
         if (m.find()) {
             return Language.PHP;
         } else {
@@ -28,14 +32,11 @@ public class ExtnINCResolver implements Resolver {
 
     @Override
     public boolean canResolve(Language language) {
-        if (language == Language.BINARY ||
-                language == Language.PHP) {
+        if (language == Language.BINARY || language == Language.PHP) {
             return true;
         } else {
             return false;
         }
     }
 
-    private static Pattern phpPattern = Pattern.compile(
-            "^\\s*<\\?php", Pattern.MULTILINE);
 }

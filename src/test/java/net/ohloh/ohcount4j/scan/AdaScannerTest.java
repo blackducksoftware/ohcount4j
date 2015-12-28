@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import static net.ohloh.ohcount4j.Entity.*;
 import net.ohloh.ohcount4j.Language;
 
-public class AdaScannerTest extends BaseScannerTest {
+public class AdaScannerTest extends AbstractBaseScannerTest {
 
 	@Test
 	public void basic() {

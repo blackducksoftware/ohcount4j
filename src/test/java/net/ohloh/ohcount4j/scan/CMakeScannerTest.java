@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
  * @author mpujari
  *
  */
-public class CMakeScannerTest extends BaseScannerTest {
+public class CMakeScannerTest extends AbstractBaseScannerTest {
 
     @Test
     public void basic() {

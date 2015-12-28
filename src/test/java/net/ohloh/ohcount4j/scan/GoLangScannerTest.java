@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
  * @author gandhip
  *
  */
-public class GoLangScannerTest extends BaseScannerTest {
+public class GoLangScannerTest extends AbstractBaseScannerTest {
 
     @Test
     public void basic() {

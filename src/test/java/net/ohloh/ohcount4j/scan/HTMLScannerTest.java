@@ -11,7 +11,7 @@ import net.ohloh.ohcount4j.SourceFile;
 
 import org.testng.annotations.Test;
 
-public class HTMLScannerTest extends BaseScannerTest {
+public class HTMLScannerTest extends AbstractBaseScannerTest {
 
     @Test
     public void basic() {
