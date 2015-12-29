@@ -43,9 +43,10 @@ if (useCodeCoverage) {
 task generateScanSources() {
     String scannerPackage = 'com/blackducksoftware/ohcount4j/scan'
     File scannerSrc = file('src/scanners/ragel')
-    File targetBase = file("src/generated/java/$scannerPackage")
+    File generatedJavaBase = file("src/generated/java")
+    File targetBase = file("$generatedJavaBase/$scannerPackage")
     inputs.dir scannerSrc
-    outputs.dir targetBase
+    outputs.dir generatedJavaBase
     doLast {
         targetBase.mkdirs()
         scannerSrc.eachFile groovy.io.FileType.FILES, { sourceFile ->
@@ -61,6 +62,7 @@ task generateScanSources() {
         }
     }
 }
+
 
 sourceSets {
     generated
