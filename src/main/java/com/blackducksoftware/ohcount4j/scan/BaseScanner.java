@@ -80,6 +80,9 @@ public abstract class BaseScanner implements Scanner {
             int buflen = getBlockSize(source, handler);
             if (buflen == -1) {
                 return; // do nothing
+            } else if (buflen == Integer.MAX_VALUE) {
+                scan(source.getContents(), handler);
+                return;
             }
             char[] cbuf = new char[buflen];
             int readLen;
@@ -114,7 +117,8 @@ public abstract class BaseScanner implements Scanner {
 
     /*
      * Returns the preferred blocksize to read.
-     * NOTE: it will do scan when its not from file and the contents are there in sourcefile
+     * It returns -1 when nothing is to be read,
+     * It will return Integer.MAX_VALUE when sourceFile's content can be read directly
      */
     private int getBlockSize(SourceFile source, LineHandler handler) throws IOException {
         int buflen;
@@ -126,7 +130,7 @@ public abstract class BaseScanner implements Scanner {
                 if (source.getReader() != null) {
                     buflen = BLOCK_SIZE;
                 } else {
-                    return -1; // there is nothing to read
+                    buflen = -1; // there is nothing to read
                 }
             }
         } else {
@@ -134,8 +138,7 @@ public abstract class BaseScanner implements Scanner {
             if (source.getReader() != null) {
                 buflen = BLOCK_SIZE;
             } else {
-                scan(source.getContents(), handler);
-                return -1;
+                buflen = Integer.MAX_VALUE;
             }
         }
         return buflen;
