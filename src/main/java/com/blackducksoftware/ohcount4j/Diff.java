@@ -2,7 +2,7 @@
  * Copyright (C) 2015 Black Duck Software Inc.
  * http://www.blackducksoftware.com/
  * All rights reserved.
- *
+ * 
  * This software is the confidential and proprietary information of
  * Black Duck Software ("Confidential Information"). You shall not
  * disclose such Confidential Information and shall use it only in
@@ -10,6 +10,8 @@
  * with Black Duck Software.
  */
 package com.blackducksoftware.ohcount4j;
+
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * @author mpujari
@@ -64,8 +66,27 @@ public class Diff {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Diff)) {
+            return false;
+        }
+        Diff t = (Diff) obj;
+        return t.codeLinesAdded == codeLinesAdded && t.codeLinesRemoved == codeLinesRemoved
+                && t.commentLinesAdded == commentLinesAdded && t.commentLinesRemoved == commentLinesRemoved
+                && t.blankLinesAdded == blankLinesAdded && t.blankLinesRemoved == blankLinesRemoved;
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(codeLinesAdded).append(codeLinesRemoved)
+                .append(commentLinesAdded).append(commentLinesRemoved)
+                .append(blankLinesAdded).append(blankLinesRemoved).toHashCode();
+    }
+
+    @Override
     public String toString() {
-        return String.format("%1$d\t%2$d\t%3$d\t%4$d\t%5$d\t%6$d", codeLinesAdded, codeLinesRemoved, commentLinesAdded,
+        return String.format("Code added:%d, Code removed:%d, Comment added:%d, Comment removed:%d, Blank added:%d, Blank removed:%d",
+                codeLinesAdded, codeLinesRemoved, commentLinesAdded,
                 commentLinesRemoved, blankLinesAdded, blankLinesRemoved);
     }
 

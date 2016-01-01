@@ -23,6 +23,14 @@ public class SourceFile implements AutoCloseable {
     public SourceFile(String path, Reader reader) {
         this.path = path;
         this.reader = reader;
+        contentFromFile = false; // content not from file
+    }
+
+    public SourceFile(String path, String buffer) {
+        this.path = path;
+        reader = null;
+        content = buffer != null ? buffer.toCharArray() : new char[0];
+        contentFromFile = false; // content not from file
     }
 
     public SourceFile(String path) throws FileNotFoundException {
@@ -32,13 +40,6 @@ public class SourceFile implements AutoCloseable {
     public SourceFile(File file) throws FileNotFoundException {
         path = file.getPath();
         reader = new BufferedReader(new FileReader(file));
-    }
-
-    public SourceFile(String path, String buffer) {
-        this.path = path;
-        reader = null;
-        content = buffer != null ? buffer.toCharArray() : new char[0];
-        contentFromFile = false; // content not from file
     }
 
     public String getPath() {
