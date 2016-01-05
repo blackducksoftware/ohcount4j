@@ -119,14 +119,6 @@ public class DiffSourceFile {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        SourceFile from = new SourceFile(new File(args[0]));
-        SourceFile to = new SourceFile(new File(args[1]));
-        DiffSourceFile diffSrcFile = new DiffSourceFile();
-        Diff diff = diffSrcFile.diff(from, to);
-        System.out.println(diff);
-    }
-
     private static class LineDetailHandler implements LineHandler {
 
         List<Line> lineDetails = new ArrayList<Line>();
