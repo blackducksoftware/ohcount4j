@@ -42,6 +42,7 @@ public class DetectorTest {
                 { Language.BFPP, Arrays.asList("main.bfpp") },
                 { Language.CMake, Arrays.asList("CMakeLists.txt", "file.cmake") },
                 { Language.CHAISCRIPT, Arrays.asList("main.chai") },
+                { Language.COQ, Arrays.asList("foo.v") },
                 { Language.BLITZMAX, Arrays.asList("main.bmx") }
 
         };

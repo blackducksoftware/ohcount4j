@@ -1,6 +1,6 @@
 package com.blackducksoftware.ohcount4j.scan;
 
-public class ClojureScanner extends BaseScanner{
+public class ClojureScanner extends BaseScanner {
 
   %%{
     machine clojure;

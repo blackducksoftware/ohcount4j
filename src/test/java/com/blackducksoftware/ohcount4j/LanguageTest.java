@@ -20,6 +20,7 @@ import com.blackducksoftware.ohcount4j.scan.BfkppScanner;
 import com.blackducksoftware.ohcount4j.scan.BlitzMaxScanner;
 import com.blackducksoftware.ohcount4j.scan.CStyleScanner;
 import com.blackducksoftware.ohcount4j.scan.ClojureScanner;
+import com.blackducksoftware.ohcount4j.scan.CoqScanner;
 
 public class LanguageTest {
 
@@ -65,6 +66,7 @@ public class LanguageTest {
                 { Language.BFPP, "bfpp" },
                 { Language.C, "c" },
                 { Language.CLOJURE, "clojure" },
+                { Language.COQ, "coq" },
                 { Language.GOLANG, "golang" }, // GoLang
                 { Language.RUBY, "ruby" },
                 { Language.AWK, "awk" },
@@ -89,6 +91,7 @@ public class LanguageTest {
                 { Language.BLITZMAX, Arrays.asList("bmx") },
                 { Language.CHAISCRIPT, Arrays.asList("chai") },
                 { Language.CLOJURE, Arrays.asList("clj", "cljs", "cljc") },
+                { Language.COQ, Arrays.asList("v") },
                 { Language.GOLANG, Arrays.asList("go") },
                 { Language.RUBY, Arrays.asList("rb", "ru") },
                 { Language.SCALA, Arrays.asList("scala", "sc") },
@@ -119,6 +122,7 @@ public class LanguageTest {
                 { Language.BLITZMAX, LanguageCategory.LOGIC },
                 { Language.CHAISCRIPT, LanguageCategory.LOGIC },
                 { Language.CLOJURE, LanguageCategory.LOGIC },
+                { Language.COQ, LanguageCategory.LOGIC },
                 { Language.GOLANG, LanguageCategory.LOGIC },
                 { Language.SCALA, LanguageCategory.LOGIC },
                 { Language.SWIFT, LanguageCategory.LOGIC }
@@ -138,6 +142,7 @@ public class LanguageTest {
                 { Language.BLITZMAX, BlitzMaxScanner.class },
                 { Language.CHAISCRIPT, CStyleScanner.class },
                 { Language.CLOJURE, ClojureScanner.class },
+                { Language.COQ, CoqScanner.class },
                 { Language.GOLANG, CStyleScanner.class },
                 { Language.SCALA, CStyleScanner.class },
                 { Language.SWIFT, CStyleScanner.class }
@@ -156,6 +161,7 @@ public class LanguageTest {
                 { Language.BRAINFUCK, "Brainfuck" },
                 { Language.CHAISCRIPT, "ChaiScript" },
                 { Language.CLOJURE, "Clojure" },
+                { Language.COQ, "Coq" },
                 { Language.GOLANG, "Go" },
                 { Language.SCALA, "Scala" },
                 { Language.SWIFT, "Swift" }
@@ -173,6 +179,8 @@ public class LanguageTest {
         Assert.assertEquals(Language.BRAINFUCK.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.CMake.category(), LanguageCategory.BUILD);
         Assert.assertEquals(Language.CHAISCRIPT.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.CLOJURE.category(), LanguageCategory.LOGIC);
+        Assert.assertEquals(Language.COQ.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.GOLANG.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.SCALA.category(), LanguageCategory.LOGIC);
         Assert.assertEquals(Language.SWIFT.category(), LanguageCategory.LOGIC);

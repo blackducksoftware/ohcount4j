@@ -6,6 +6,7 @@ reports
 gen-src/
 src/generated
 build/
+lib/
 .gradle
 *.iml
 *.ipr
