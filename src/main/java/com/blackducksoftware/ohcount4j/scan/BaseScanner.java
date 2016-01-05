@@ -77,15 +77,12 @@ public abstract class BaseScanner implements Scanner {
     public final void scan(SourceFile source, LineHandler handler) throws IOException {
         Reader reader = source.getReader();
         try {
-            long length = new File(source.getPath()).length();
-            int buflen = (length > BLOCK_SIZE) ? BLOCK_SIZE : (int) length; // its OK we down-cast;
-            if (buflen == 0) {
-                // there can be a case where path is invalid, get content from reader if reader is initialized
-                if (reader != null) {
-                    buflen = BLOCK_SIZE;
-                } else {
-                    return; // there is nothing to read
-                }
+            int buflen = getBlockSize(source, handler);
+            if (buflen == -1) {
+                return; // do nothing
+            } else if (buflen == Integer.MAX_VALUE) {
+                scan(source.getContents(), handler);
+                return;
             }
             char[] cbuf = new char[buflen];
             int readLen;
@@ -116,6 +113,35 @@ public abstract class BaseScanner implements Scanner {
                 reader.close();
             }
         }
+    }
+
+    /*
+     * Returns the preferred blocksize to read.
+     * It returns -1 when nothing is to be read,
+     * It will return Integer.MAX_VALUE when sourceFile's content can be read directly
+     */
+    private int getBlockSize(SourceFile source, LineHandler handler) throws IOException {
+        int buflen;
+        if (source.isContentsFromFile()) {
+            long length = new File(source.getPath()).length();
+            buflen = (length > BLOCK_SIZE) ? BLOCK_SIZE : (int) length; // its OK we down-cast;
+            if (buflen == 0) {
+                // there can be a case where path is invalid, get content from reader if reader is initialized
+                if (source.getReader() != null) {
+                    buflen = BLOCK_SIZE;
+                } else {
+                    buflen = -1; // there is nothing to read
+                }
+            }
+        } else {
+            // contents are not from file
+            if (source.getReader() != null) {
+                buflen = BLOCK_SIZE;
+            } else {
+                buflen = Integer.MAX_VALUE;
+            }
+        }
+        return buflen;
     }
 
     private char[] readTillNewLine(Reader reader) throws IOException {
