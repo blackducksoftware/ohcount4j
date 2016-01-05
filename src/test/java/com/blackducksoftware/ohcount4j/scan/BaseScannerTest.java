@@ -14,7 +14,10 @@ package com.blackducksoftware.ohcount4j.scan;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.UUID;
+
+import junit.framework.Assert;
 
 import org.testng.annotations.Test;
 
@@ -38,7 +41,7 @@ public class BaseScannerTest extends AbstractBaseScannerTest {
         }
     }
 
-    @Test
+    @Test(expectedExceptions = NullPointerException.class)
     public void testScanWithSourceFilePathStrReaderNull() throws Exception {
         try (SourceFile sf = new SourceFile(UUID.randomUUID().toString(), (Reader) null)) {
             TempBaseScanner scanner = new TempBaseScanner();
@@ -70,17 +73,42 @@ public class BaseScannerTest extends AbstractBaseScannerTest {
         }
     }
 
+    @Test
+    public void testScanWithSourceFilePathAndReader() throws Exception {
+        try (SourceFile sf = new SourceFile("", new StringReader("Hello\n{dd}"))) {
+            TempBaseScanner scanner = new TempBaseScanner();
+            TempLineHandler handler = new TempLineHandler();
+            scanner.scan(sf, handler);
+            Assert.assertEquals(scanner.data, "Hello\n{dd}");
+        }
+    }
+
+    @Test
+    public void testScanWithSourceFilePathAndString() throws Exception {
+        try (SourceFile sf = new SourceFile("", "Hello\n{dd}")) {
+            TempBaseScanner scanner = new TempBaseScanner();
+            TempLineHandler handler = new TempLineHandler();
+            scanner.scan(sf, handler);
+            Assert.assertEquals(scanner.data, "Hello\n{dd}");
+        }
+    }
+
     static class TempLineHandler implements LineHandler {
+        int count;
+
         @Override
         public void handleLine(Line line) {
-            // do nothing
+            count++;
         }
     }
 
     static class TempBaseScanner extends BaseScanner {
+        String data;
+
         @Override
         public void doScan() {
             // do nothing
+            data = new String(super.data);
         }
     }
 
