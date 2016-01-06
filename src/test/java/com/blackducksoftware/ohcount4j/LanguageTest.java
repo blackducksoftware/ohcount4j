@@ -88,6 +88,7 @@ import static com.blackducksoftware.ohcount4j.Language.STRUCTURED_BASIC;
 import static com.blackducksoftware.ohcount4j.Language.SWIFT;
 import static com.blackducksoftware.ohcount4j.Language.TCL;
 import static com.blackducksoftware.ohcount4j.Language.TEX;
+import static com.blackducksoftware.ohcount4j.Language.UNKNOWN;
 import static com.blackducksoftware.ohcount4j.Language.VB;
 import static com.blackducksoftware.ohcount4j.Language.VBSCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.VIMSCRIPT;
@@ -101,7 +102,10 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -338,27 +342,25 @@ public class LanguageTest {
         };
     }
 
-    @DataProvider
-    public Object[][] uname() {
-        return new Object[][] {
-                { Language.AUGEAS, "augeas" }, // Augeas
-                { Language.AUTOCONF, "autoconf", },
-                { Language.AWK, "awk", },
-                { Language.BRAINFUCK, "brainfuck" },
-                { Language.BFPP, "bfpp" },
-                { Language.C, "c" },
-                { Language.CLOJURE, "clojure" },
-                { Language.COQ, "coq" },
-                { Language.CUDA, "cuda" },
-                { Language.GOLANG, "golang" }, // GoLang
-                { Language.RUBY, "ruby" },
-                { Language.AWK, "awk" },
-                { Language.SCALA, "scala" },
-                { Language.SWIFT, "swift" },
-                { Language.BAT, "bat" },
-                { Language.CHAISCRIPT, "chaiscript" },
-                { Language.BLITZMAX, "blitzmax" },
-        };
+    @Test
+    public void testNoLanguageMissed() {
+        Object[][] testDatas = testData();
+        Set<Language> notFoundLang = new LinkedHashSet<Language>();
+        Set<Language> excludeLang = new HashSet<Language>();
+        excludeLang.add(UNKNOWN);
+        for (Language l : Language.values()) {
+            boolean found = false;
+            for (Object[] data : testDatas) {
+                if (data[0] == l) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found && !excludeLang.contains(l)) {
+                notFoundLang.add(l);
+            }
+        }
+        Assert.assertEquals(notFoundLang.size(), 0, "testData missing for Languages : " + notFoundLang);
     }
 
 }
