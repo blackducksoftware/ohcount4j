@@ -34,6 +34,7 @@ import com.blackducksoftware.ohcount4j.scan.BlitzMaxScanner;
 import com.blackducksoftware.ohcount4j.scan.BooScanner;
 import com.blackducksoftware.ohcount4j.scan.CMakeScanner;
 import com.blackducksoftware.ohcount4j.scan.CStyleScanner;
+import com.blackducksoftware.ohcount4j.scan.ClearSilverTemplateScanner;
 import com.blackducksoftware.ohcount4j.scan.ClojureScanner;
 import com.blackducksoftware.ohcount4j.scan.CobolScanner;
 import com.blackducksoftware.ohcount4j.scan.ColdFusionScanner;
@@ -103,6 +104,7 @@ public enum Language implements LanguageCategory {
     C("C", LOGIC, CStyleScanner.class),
     CHAISCRIPT("ChaiScript", LOGIC, CStyleScanner.class),
     CLASSIC_BASIC("Classic BASIC", LOGIC, GenericCodeScanner.class), // TODO.
+    CLEARSILVER("ClearSilver", LOGIC, ClearSilverTemplateScanner.class),
     CLOJURE("Clojure", LOGIC, ClojureScanner.class),
     COBOL("COBOL", LOGIC, CobolScanner.class),
     COLDFUSION("ColdFusion", MARKUP, ColdFusionScanner.class),
@@ -195,6 +197,7 @@ public enum Language implements LanguageCategory {
         C.extensions("c", "h");
         CHAISCRIPT.extension("chai");
         CLASSIC_BASIC.extensions("b", "bas");
+        CLEARSILVER.extension("cs");
         CLOJURE.extensions("clj", "cljs", "cljc");
         CMake.extensions("cmake").filename("CMakeLists.txt");
         COBOL.extension("cbl");

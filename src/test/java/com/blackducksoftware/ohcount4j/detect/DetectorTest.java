@@ -96,6 +96,7 @@ public class DetectorTest {
         assertTrue(Detector.getResolver("pp") instanceof ExtnPPResolver);
         assertTrue(Detector.getResolver("aspx") instanceof ExtnASPXResolver);
         assertTrue(Detector.getResolver("asx") instanceof ExtnASXResolver);
+        assertTrue(Detector.getResolver("cs") instanceof ExtnCSResolver);
 
         assertTrue(Detector.getResolver("f") instanceof FortranResolver);
         assertTrue(Detector.getResolver("f90") instanceof FortranResolver);

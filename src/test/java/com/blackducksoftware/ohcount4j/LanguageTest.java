@@ -34,6 +34,7 @@ import static com.blackducksoftware.ohcount4j.Language.BRAINFUCK;
 import static com.blackducksoftware.ohcount4j.Language.C;
 import static com.blackducksoftware.ohcount4j.Language.CHAISCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.CLASSIC_BASIC;
+import static com.blackducksoftware.ohcount4j.Language.CLEARSILVER;
 import static com.blackducksoftware.ohcount4j.Language.CLOJURE;
 import static com.blackducksoftware.ohcount4j.Language.CMake;
 import static com.blackducksoftware.ohcount4j.Language.COBOL;
@@ -126,6 +127,7 @@ import com.blackducksoftware.ohcount4j.scan.BlitzMaxScanner;
 import com.blackducksoftware.ohcount4j.scan.BooScanner;
 import com.blackducksoftware.ohcount4j.scan.CMakeScanner;
 import com.blackducksoftware.ohcount4j.scan.CStyleScanner;
+import com.blackducksoftware.ohcount4j.scan.ClearSilverTemplateScanner;
 import com.blackducksoftware.ohcount4j.scan.ClojureScanner;
 import com.blackducksoftware.ohcount4j.scan.CobolScanner;
 import com.blackducksoftware.ohcount4j.scan.ColdFusionScanner;
@@ -219,6 +221,8 @@ public class LanguageTest {
                         Arrays.asList("chai"), Arrays.asList() },
                 { CLASSIC_BASIC, "Classic BASIC", "classic_basic", LOGIC, GenericCodeScanner.class,
                         Arrays.asList("b", "bas"), Arrays.asList() },
+                { CLEARSILVER, "ClearSilver", "clearsilver", LOGIC, ClearSilverTemplateScanner.class, 
+                            Arrays.asList("cs"), Arrays.asList() },
                 { CLOJURE, "Clojure", "clojure", LOGIC, ClojureScanner.class,
                         Arrays.asList("clj", "cljs", "cljc"), Arrays.asList() },
                 { COBOL, "COBOL", "cobol", LOGIC, CobolScanner.class,
