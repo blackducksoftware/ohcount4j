@@ -30,7 +30,7 @@ public final class SourceFileUtils {
     }
 
     /**
-     * NOTE: if we contents are needed to be fetched then we just read 100 bytes from it.
+     * NOTE: If contents had to be fetched then we just read 100 bytes from it.
      *
      * @param sourceFile
      * @return
