@@ -29,6 +29,13 @@ public final class SourceFileUtils {
     private SourceFileUtils() {
     }
 
+    /**
+     * NOTE: If contents had to be fetched then we just read 100 bytes from it.
+     *
+     * @param sourceFile
+     * @return
+     * @throws IOException
+     */
     public static String head(SourceFile sourceFile) throws IOException {
         if (sourceFile.isContentsFromFile()) {
             /*
@@ -38,9 +45,13 @@ public final class SourceFileUtils {
             try (SourceFile srcFile = new SourceFile(sourceFile.getPath())) {
                 return srcFile.head(HEAD_SIZE);
             }
-        } else {
+        } else if (sourceFile.getContents() != null) {
+            // the source is not from the file, so we got to have content initialized
             return new String(sourceFile.getContents());
+        } else {
+            return null;
         }
+
     }
 
     public static CharSequence getCharSequence(SourceFile sourceFile) throws IOException {
