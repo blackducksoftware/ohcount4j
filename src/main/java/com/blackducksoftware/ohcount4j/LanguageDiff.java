@@ -17,33 +17,41 @@
 package com.blackducksoftware.ohcount4j;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * @author mpujari
  *
  */
-public class Diff {
+public class LanguageDiff {
 
-    private int codeLinesAdded;
+    private final Language language;
 
-    private int codeLinesRemoved;
+    private final int codeLinesAdded;
 
-    private int commentLinesAdded;
+    private final int codeLinesRemoved;
 
-    private int commentLinesRemoved;
+    private final int commentLinesAdded;
 
-    private int blankLinesAdded;
+    private final int commentLinesRemoved;
 
-    private int blankLinesRemoved;
+    private final int blankLinesAdded;
 
-    public Diff(int codeLinesAdded, int codeLinesRemoved, int commentLinesAdded, int commentLinesRemoved,
-            int blankLinesAdded, int blankLinesRemoved) {
+    private final int blankLinesRemoved;
+
+    public LanguageDiff(Language language, int codeLinesAdded, int codeLinesRemoved, int commentLinesAdded,
+            int commentLinesRemoved, int blankLinesAdded, int blankLinesRemoved) {
+        this.language = language;
         this.codeLinesAdded = codeLinesAdded;
         this.codeLinesRemoved = codeLinesRemoved;
         this.commentLinesAdded = commentLinesAdded;
         this.commentLinesRemoved = commentLinesRemoved;
         this.blankLinesAdded = blankLinesAdded;
         this.blankLinesRemoved = blankLinesRemoved;
+    }
+
+    public Language getLanguage() {
+        return language;
     }
 
     public int getCodeLinesAdded() {
@@ -72,27 +80,31 @@ public class Diff {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Diff)) {
+        if (!(obj instanceof LanguageDiff)) {
             return false;
         }
-        Diff t = (Diff) obj;
-        return t.codeLinesAdded == codeLinesAdded && t.codeLinesRemoved == codeLinesRemoved
+        LanguageDiff t = (LanguageDiff) obj;
+        return t.language == language && t.codeLinesAdded == codeLinesAdded && t.codeLinesRemoved == codeLinesRemoved
                 && t.commentLinesAdded == commentLinesAdded && t.commentLinesRemoved == commentLinesRemoved
                 && t.blankLinesAdded == blankLinesAdded && t.blankLinesRemoved == blankLinesRemoved;
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(codeLinesAdded).append(codeLinesRemoved)
+        return new HashCodeBuilder().append(language).append(codeLinesAdded).append(codeLinesRemoved)
                 .append(commentLinesAdded).append(commentLinesRemoved)
                 .append(blankLinesAdded).append(blankLinesRemoved).toHashCode();
     }
 
     @Override
     public String toString() {
-        return String.format("Code added:%d, Code removed:%d, Comment added:%d, Comment removed:%d, Blank added:%d, Blank removed:%d",
-                codeLinesAdded, codeLinesRemoved, commentLinesAdded,
-                commentLinesRemoved, blankLinesAdded, blankLinesRemoved);
+        return new ToStringBuilder(this)
+                .append("Language", language)
+                .append("CodeAdded", codeLinesAdded)
+                .append("CodeRemoved", codeLinesRemoved)
+                .append("CommentAdded", commentLinesAdded)
+                .append("CommentRemoved", commentLinesRemoved)
+                .append("BlanksAdded", blankLinesAdded)
+                .append("BlanksRemoved", blankLinesRemoved).build();
     }
-
 }
