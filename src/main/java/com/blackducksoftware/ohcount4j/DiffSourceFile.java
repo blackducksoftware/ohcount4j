@@ -17,6 +17,7 @@ package com.blackducksoftware.ohcount4j;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,8 +26,6 @@ import org.apache.commons.lang3.mutable.MutableInt;
 import com.blackducksoftware.ohcount4j.detect.Detector;
 import com.blackducksoftware.ohcount4j.scan.Line;
 import com.blackducksoftware.ohcount4j.scan.LineHandler;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import difflib.Chunk;
 import difflib.Delta;
@@ -52,7 +51,7 @@ public class DiffSourceFile {
      * @throws IOException
      */
     public List<LanguageDiff> diff(SourceFile from, SourceFile to) throws IOException {
-        List<LanguageDiff> languageDiffs = Lists.newArrayList();
+        List<LanguageDiff> languageDiffs = new ArrayList<>();
         if (from == null && to == null) {
             return languageDiffs;
         }
@@ -84,7 +83,7 @@ public class DiffSourceFile {
         // Compute diff. Get the Patch object. Patch is the container for computed deltas.
         Patch<String> patch = DiffUtils.diff(original, revised);
 
-        Map<Language, MutableInt[]> languageMap = Maps.newHashMap();
+        Map<Language, MutableInt[]> languageMap = new HashMap<>();
         for (Delta<String> delta : patch.getDeltas()) {
             switch (delta.getType()) {
             case CHANGE: {

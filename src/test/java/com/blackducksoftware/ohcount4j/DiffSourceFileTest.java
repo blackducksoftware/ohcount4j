@@ -28,13 +28,12 @@
 package com.blackducksoftware.ohcount4j;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import com.google.common.collect.Lists;
 
 /**
  * @author mpujari
@@ -46,7 +45,7 @@ public class DiffSourceFileTest {
     public void testData(String fromFileName, String toFileName, Language language, String fromFileContent,
             String toFileContent, int codeLinesAdded, int codeLinesRemoved, int commentLinesAdded, int commentLinesRemoved,
             int blankLinesAdded, int blankLinesRemoved) throws IOException {
-        List<LanguageDiff> expectedDiff = Lists.newArrayList();
+        List<LanguageDiff> expectedDiff = new ArrayList<>();
         LanguageDiff languageDiff = null;
 
         if (language != null) {
