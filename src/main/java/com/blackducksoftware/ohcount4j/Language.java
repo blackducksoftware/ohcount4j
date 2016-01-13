@@ -209,7 +209,7 @@ public enum Language implements LanguageCategory {
         CSS.extension("css");
         CUDA.extensions("cu", "cuh");
         D.extension("d");
-        EC.extension("ec");
+        EC.extensions("ec", "eh");
         ECMASCRIPT.extension("es");
         EIFFEL.extension("e");
         ERLANG.extension("erl");
