@@ -118,6 +118,7 @@ public enum Language implements LanguageCategory {
     ECMASCRIPT("ECMAScript", LOGIC, CStyleScanner.class),
     EIFFEL("Eiffel", LOGIC, EiffelScanner.class),
     ERLANG("Erlang", LOGIC, ErlangScanner.class),
+    EXHERES("Exheres", LOGIC, ShellScanner.class),
     FORTRANFIXED("Fortran (Fixed-Format)", LOGIC, FortranFixedScanner.class),
     FORTRANFREE("Fortran (Free-Format)", LOGIC, FortranFreeScanner.class),
     FSHARP("F#", LOGIC, FSharpScanner.class),
@@ -211,6 +212,7 @@ public enum Language implements LanguageCategory {
         ECMASCRIPT.extension("es");
         EIFFEL.extension("e");
         ERLANG.extension("erl");
+        EXHERES.extensions("exheres-0", "exheres-1", "exlib");
         FORTRANFIXED.extensions("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FORTRANFREE.extensions("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FSHARP.extension("fs");
