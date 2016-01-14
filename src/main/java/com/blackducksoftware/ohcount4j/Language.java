@@ -43,6 +43,7 @@ import com.blackducksoftware.ohcount4j.scan.DScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
+import com.blackducksoftware.ohcount4j.scan.FactorScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFixedScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFreeScanner;
 import com.blackducksoftware.ohcount4j.scan.GenericCodeScanner;
@@ -118,6 +119,7 @@ public enum Language implements LanguageCategory {
     ECMASCRIPT("ECMAScript", LOGIC, CStyleScanner.class),
     EIFFEL("Eiffel", LOGIC, EiffelScanner.class),
     ERLANG("Erlang", LOGIC, ErlangScanner.class),
+    FACTOR("Factor", LOGIC, FactorScanner.class),
     FORTRANFIXED("Fortran (Fixed-Format)", LOGIC, FortranFixedScanner.class),
     FORTRANFREE("Fortran (Free-Format)", LOGIC, FortranFreeScanner.class),
     FSHARP("F#", LOGIC, FSharpScanner.class),
@@ -211,6 +213,7 @@ public enum Language implements LanguageCategory {
         ECMASCRIPT.extension("es");
         EIFFEL.extension("e");
         ERLANG.extension("erl");
+        FACTOR.extension("factor");
         FORTRANFIXED.extensions("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FORTRANFREE.extensions("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FSHARP.extension("fs");

@@ -136,6 +136,7 @@ import com.blackducksoftware.ohcount4j.scan.DScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
+import com.blackducksoftware.ohcount4j.scan.FactorScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFixedScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFreeScanner;
 import com.blackducksoftware.ohcount4j.scan.GenericCodeScanner;
@@ -221,8 +222,8 @@ public class LanguageTest {
                         Arrays.asList("chai"), Arrays.asList() },
                 { CLASSIC_BASIC, "Classic BASIC", "classic_basic", LOGIC, GenericCodeScanner.class,
                         Arrays.asList("b", "bas"), Arrays.asList() },
-                { CLEARSILVER, "ClearSilver", "clearsilver", LOGIC, ClearSilverTemplateScanner.class, 
-                            Arrays.asList("cs"), Arrays.asList() },
+                { CLEARSILVER, "ClearSilver", "clearsilver", LOGIC, ClearSilverTemplateScanner.class,
+                        Arrays.asList("cs"), Arrays.asList() },
                 { CLOJURE, "Clojure", "clojure", LOGIC, ClojureScanner.class,
                         Arrays.asList("clj", "cljs", "cljc"), Arrays.asList() },
                 { COBOL, "COBOL", "cobol", LOGIC, CobolScanner.class,
@@ -249,6 +250,8 @@ public class LanguageTest {
                         Arrays.asList("e"), Arrays.asList() },
                 { ERLANG, "Erlang", "erlang", LOGIC, ErlangScanner.class,
                         Arrays.asList("erl"), Arrays.asList() },
+                { Language.FACTOR, "Factor", "factor", LOGIC, FactorScanner.class,
+                        Arrays.asList("factor"), Arrays.asList() },
                 { FORTRANFIXED, "Fortran (Fixed-Format)", "fortranfixed", LOGIC, FortranFixedScanner.class,
                         Arrays.asList("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn"), Arrays.asList() },
                 { FORTRANFREE, "Fortran (Free-Format)", "fortranfree", LOGIC, FortranFreeScanner.class,
