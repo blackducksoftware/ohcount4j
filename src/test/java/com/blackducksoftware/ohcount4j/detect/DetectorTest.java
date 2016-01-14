@@ -60,7 +60,8 @@ public class DetectorTest {
                 { Language.CHAISCRIPT, Arrays.asList("main.chai") },
                 { Language.COQ, Arrays.asList("foo.v") },
                 { Language.CUDA, Arrays.asList("foo.cu", "foo.cuh") },
-                { Language.BLITZMAX, Arrays.asList("main.bmx") }
+                { Language.BLITZMAX, Arrays.asList("main.bmx") },
+                { Language.FORTH, Arrays.asList("foo.fr", "foo.4th") }
 
         };
     }
