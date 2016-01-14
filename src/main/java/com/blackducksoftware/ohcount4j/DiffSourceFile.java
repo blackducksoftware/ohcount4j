@@ -52,54 +52,50 @@ public class DiffSourceFile {
      */
     public List<LanguageDiff> diff(SourceFile from, SourceFile to) throws IOException {
         List<LanguageDiff> languageDiffs = new ArrayList<>();
-        if (from == null && to == null) {
-            return languageDiffs;
-        }
-
-        // If "from" sourceFile is null, compare "to" with empty contents with same fileName.
-        // This happens when a file is newly ADDED.
-        if (from == null) {
-            from = new SourceFile(to.getPath(), "");
-        }
-
-        // If "to" sourceFile is null, compare "from" with empty contents with same fileName.
-        // This happens when a file is DELETED.
-        if (to == null) {
-            to = new SourceFile(from.getPath(), "");
-        }
-
-        Language fromLanguage = Detector.detect(from);
-        Language toLanguage = Detector.detect(to);
-
-        LineDetailHandler fromLinehandler = new LineDetailHandler();
-        fromLanguage.makeScanner().scan(from, fromLinehandler);
-
-        LineDetailHandler toLinehandler = new LineDetailHandler();
-        toLanguage.makeScanner().scan(to, toLinehandler);
-
-        List<String> original = fromLinehandler.contentList;
-        List<String> revised = toLinehandler.contentList;
-
-        // Compute diff. Get the Patch object. Patch is the container for computed deltas.
-        Patch<String> patch = DiffUtils.diff(original, revised);
-
         Map<Language, MutableInt[]> languageMap = new HashMap<>();
-        for (Delta<String> delta : patch.getDeltas()) {
-            switch (delta.getType()) {
-            case CHANGE: {
-                // its considered as 1 is added and 1 is removed
-                accountDiff(languageMap, Delta.TYPE.DELETE, delta.getOriginal(), fromLinehandler);
-                accountDiff(languageMap, Delta.TYPE.INSERT, delta.getRevised(), toLinehandler);
-                break;
-            }
-            case DELETE: {
-                accountDiff(languageMap, Delta.TYPE.DELETE, delta.getOriginal(), fromLinehandler);
-                break;
-            }
-            case INSERT: {
-                accountDiff(languageMap, Delta.TYPE.INSERT, delta.getRevised(), toLinehandler);
-                break;
-            }
+
+        if (from == null && to == null) {
+            // Both "from" and "to" are null. return empty result.
+            return languageDiffs;
+        } else if (from == null) {
+            // If "from" sourceFile is null, a file is newly ADDED.
+            accountDiffForAddedAndDeletedFile(languageMap, to, true);
+        } else if (to == null) {
+            // If "from" sourceFile is null, a file is DELETED.
+            accountDiffForAddedAndDeletedFile(languageMap, from, false);
+        } else {
+            // Both "from" and "to" are present. compute difference.
+            Language fromLanguage = Detector.detect(from);
+            Language toLanguage = Detector.detect(to);
+
+            LineDetailHandler fromLinehandler = new LineDetailHandler();
+            fromLanguage.makeScanner().scan(from, fromLinehandler);
+
+            LineDetailHandler toLinehandler = new LineDetailHandler();
+            toLanguage.makeScanner().scan(to, toLinehandler);
+
+            List<String> original = fromLinehandler.contentList;
+            List<String> revised = toLinehandler.contentList;
+
+            // Compute diff. Get the Patch object. Patch is the container for computed deltas.
+            Patch<String> patch = DiffUtils.diff(original, revised);
+            for (Delta<String> delta : patch.getDeltas()) {
+                switch (delta.getType()) {
+                case CHANGE: {
+                    // its considered as 1 is added and 1 is removed
+                    accountDiff(languageMap, Delta.TYPE.DELETE, delta.getOriginal(), fromLinehandler);
+                    accountDiff(languageMap, Delta.TYPE.INSERT, delta.getRevised(), toLinehandler);
+                    break;
+                }
+                case DELETE: {
+                    accountDiff(languageMap, Delta.TYPE.DELETE, delta.getOriginal(), fromLinehandler);
+                    break;
+                }
+                case INSERT: {
+                    accountDiff(languageMap, Delta.TYPE.INSERT, delta.getRevised(), toLinehandler);
+                    break;
+                }
+                }
             }
         }
 
@@ -117,45 +113,64 @@ public class DiffSourceFile {
         return languageDiffs;
     }
 
+    private void accountDiffForAddedAndDeletedFile(Map<Language, MutableInt[]> languageMap,
+            SourceFile sourceFile, boolean isFileAdded) throws IOException {
+        Language language = Detector.detect(sourceFile);
+        LineDetailHandler linehandler = new LineDetailHandler();
+        language.makeScanner().scan(sourceFile, linehandler);
+        for (Line line : linehandler.lineDetails) {
+            computeLineDiff(languageMap, line, isFileAdded);
+        }
+    }
+
     private void accountDiff(Map<Language, MutableInt[]> languageMap, TYPE type, Chunk<String> chunk, LineDetailHandler linehandler) {
         if (type == TYPE.CHANGE) {
             // CHANGE should be like INSERT and DELETE
             throw new IllegalArgumentException("TYPE.CHANGE should not be sent");
         }
+        boolean chunkAdded = (type == TYPE.INSERT);
         int position = chunk.getPosition();
         for (int i = 0; i < chunk.getLines().size(); i++) {
             Line line = linehandler.lineDetails.get(position + i);
+            computeLineDiff(languageMap, line, chunkAdded);
+        }
+    }
 
-            // Check if the language is already detected. If no, create new array to hold the diff.
-            MutableInt[] diff = languageMap.get(line.getLanguage());
-            if (diff == null) {
-                diff = defaultDiff();
-                languageMap.put(line.getLanguage(), diff);
-            }
+    /**
+     * @param languageMap
+     * @param type
+     * @param line
+     */
+    private void computeLineDiff(Map<Language, MutableInt[]> languageMap, Line line, boolean added) {
+        // Check if the language is already detected. If no, create new array to hold the diff.
+        MutableInt[] diff = languageMap.get(line.getLanguage());
+        if (diff == null) {
+            diff = defaultDiff();
+            languageMap.put(line.getLanguage(), diff);
+        }
 
-            switch (line.getEntity()) {
-            case CODE:
-                if (type == TYPE.INSERT) {
-                    diff[0].increment();// Code Added
-                } else {
-                    diff[1].increment(); // Code removed
-                }
-                break;
-            case COMMENT:
-                if (type == TYPE.INSERT) {
-                    diff[2].increment();// Comments Added
-                } else {
-                    diff[3].increment();// Comments Removed
-                }
-                break;
-            case BLANK:
-                if (type == TYPE.INSERT) {
-                    diff[4].increment(); // Blanks Added
-                } else {
-                    diff[5].increment();// Blanks Removed
-                }
-                break;
+        switch (line.getEntity()) {
+        case CODE:
+            if (added) {
+                diff[0].increment();// Code Added
+            } else {
+                diff[1].increment(); // Code removed
             }
+            break;
+        case COMMENT:
+            if (added) {
+                diff[2].increment();// Comments Added
+            } else {
+                diff[3].increment();// Comments Removed
+            }
+            break;
+        case BLANK:
+            if (added) {
+                diff[4].increment(); // Blanks Added
+            } else {
+                diff[5].increment();// Blanks Removed
+            }
+            break;
         }
     }
 
@@ -176,7 +191,6 @@ public class DiffSourceFile {
             lineDetails.add(line);
             contentList.add(line.getContent());
         }
-
     }
 
 }
