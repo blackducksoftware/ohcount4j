@@ -3,11 +3,13 @@ test-output
 *.class
 target
 reports
-gen-src/net
+gen-src/
 src/generated
 build/
+lib/
 .gradle
 *.iml
 *.ipr
 *.iws
 .settings/gradle/
+lib/
