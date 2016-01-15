@@ -98,7 +98,7 @@ sonarqube {
 //		property 'sonar.profile', 'BDS max rules - Without Sonargraph'
 		// We need to exclude the generated source files.  This excludes the sources from the property
 		//	set sonar.sources, while leaving them in the Compile-time source sets.
-		property 'sonar.sources', sourceSets.main.allSource.srcDirs - file("src/generated/java")
+		property 'sonar.sources', sourceSets.main.allSource.srcDirs.findAll{ it.exists() && !it.canonicalPath.contains('src/generated/java')}
 		property 'sonar.jdbc.driverClassName', 'org.postgresql.Driver'
 		property 'sonar.dynamicAnalysis', 'reuseReports'
 		property 'sonar.verbose', true
