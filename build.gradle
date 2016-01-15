@@ -8,16 +8,18 @@ buildscript{
     }
 }
 
+plugins { id "org.sonarqube" version "1.1" }
+
 apply plugin: 'java'
+apply plugin: "jacoco"
 apply plugin: 'idea'
 apply plugin: 'maven'
 apply plugin: 'release'
 
 sourceCompatibility = 1.7
 
-repositories {
-    maven { url "http://***REMOVED***/artifactory/blackduck-staging-repos" }
-}
+repositories { maven { url "http://***REMOVED***/artifactory/blackduck-staging-repos"
+	} }
 
 dependencies {
     compile 'args4j:args4j:2.0.16'
@@ -29,18 +31,6 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.4'
     testCompile 'org.mockito:mockito-all:1.9.0'
     testCompile 'org.testng:testng:6.8.7'
-}
-
-ext.useCodeCoverage = System.properties['useCodeCoverage'] == null ? false : true
-
-if (useCodeCoverage) {
-    configurations {
-        jacoco
-    }
-
-    dependencies {
-        jacoco 'org.jacoco:agent:0.5.10.201208310627:runtime@jar'
-    }
 }
 
 task generateScanSources() {
@@ -78,32 +68,53 @@ compileJava.dependsOn generateScanSources
 clean.dependsOn cleanGenerateScanSources
 
 task sourcesJar(type:Jar){
-    from sourceSets.main.allSource
-    from sourceSets.generated.allSource
-    classifier = 'sources'
+	from sourceSets.main.allSource
+	from sourceSets.generated.allSource
+	classifier = 'sources'
 }
 
-artifacts {
-    archives sourcesJar
-}
+artifacts { archives sourcesJar }
 
 test {
-    if (useCodeCoverage) {
-        jvmArgs "-javaagent:" + configurations.jacoco.asPath + "=destfile=" + buildDir + "/jacoco.exec,includes=com/blackducksoftware.*"
-    }
-    useTestNG()
+	useTestNG()
+	jacoco{
+		destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+		classDumpFile = file("$buildDir/jacoco/classpathdumps")
+	}
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled false
+		csv.enabled false
+		html.destination "${buildDir}/jacocoHtml"
+	}
+}
+
+sonarqube {
+	properties {
+		// This sonar.profile is the default profile, so don't set it, change it here if you want a different profile
+		//	"Hub way" (the Hub profile) uses SonarGraph, which we don't have for this project, yet.
+//		property 'sonar.profile', 'BDS max rules - Without Sonargraph'
+		// We need to exclude the generated source files.  This excludes the sources from the property
+		//	set sonar.sources, while leaving them in the Compile-time source sets.
+		property 'sonar.sources', sourceSets.main.allSource.srcDirs =- [file("src/generated/java")]
+		property 'sonar.jdbc.driverClassName', 'org.postgresql.Driver'
+		property 'sonar.dynamicAnalysis', 'reuseReports'
+		property 'sonar.verbose', true
+	}
 }
 
 archivesBaseName="${name.replaceAll('\\.', '-').toLowerCase()}"
 
 uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: 'http://***REMOVED***/artifactory/bds-suite-repo') {
-                authentication(userName: "builder", password: "builder")
-            }
-        }
-    }
+	repositories {
+		mavenDeployer {
+			repository(url: 'http://***REMOVED***/artifactory/bds-suite-repo') {
+				authentication(userName: "builder", password: "builder")
+			}
+		}
+	}
 }
 
-task wrapper(type: Wrapper) { gradleVersion = '2.4' }
+task wrapper(type: Wrapper) { gradleVersion = '2.10' }
