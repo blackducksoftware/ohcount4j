@@ -59,10 +59,10 @@ public class DiffSourceFile {
             return languageDiffs;
         } else if (from == null) {
             // If "from" sourceFile is null, a file is newly ADDED.
-            accountDiffForAddedAndDeletedFile(languageMap, to, true);
+            accountDiffForAddedOrDeletedFile(languageMap, to, true);
         } else if (to == null) {
             // If "from" sourceFile is null, a file is DELETED.
-            accountDiffForAddedAndDeletedFile(languageMap, from, false);
+            accountDiffForAddedOrDeletedFile(languageMap, from, false);
         } else {
             // Both "from" and "to" are present. compute difference.
             Language fromLanguage = Detector.detect(from);
@@ -113,7 +113,7 @@ public class DiffSourceFile {
         return languageDiffs;
     }
 
-    private void accountDiffForAddedAndDeletedFile(Map<Language, MutableInt[]> languageMap,
+    private void accountDiffForAddedOrDeletedFile(Map<Language, MutableInt[]> languageMap,
             SourceFile sourceFile, boolean isFileAdded) throws IOException {
         Language language = Detector.detect(sourceFile);
         LineDetailHandler linehandler = new LineDetailHandler();

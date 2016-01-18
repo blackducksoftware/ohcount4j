@@ -20,6 +20,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
+ * Represents the diff per Language for a file change.
+ *
  * @author mpujari
  *
  */
@@ -99,12 +101,12 @@ public class LanguageDiff {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("Language", language)
-                .append("CodeAdded", codeLinesAdded)
-                .append("CodeRemoved", codeLinesRemoved)
-                .append("CommentAdded", commentLinesAdded)
-                .append("CommentRemoved", commentLinesRemoved)
-                .append("BlanksAdded", blankLinesAdded)
-                .append("BlanksRemoved", blankLinesRemoved).build();
+        .append("Language", language)
+        .append("CodeAdded", codeLinesAdded)
+        .append("CodeRemoved", codeLinesRemoved)
+        .append("CommentAdded", commentLinesAdded)
+        .append("CommentRemoved", commentLinesRemoved)
+        .append("BlanksAdded", blankLinesAdded)
+        .append("BlanksRemoved", blankLinesRemoved).build();
     }
 }
