@@ -294,7 +294,7 @@ public class LanguageTest {
                 { PASCAL, "Pascal", "pascal", LOGIC, PascalScanner.class,
                         Arrays.asList("pas", "pp"), Arrays.asList() },
                 { PERL, "Perl", "perl", LOGIC, PerlScanner.class,
-                        Arrays.asList("pl", "pm"), Arrays.asList() },
+                        Arrays.asList("p6", "perl", "ph", "pl", "pm", "pod", "t"), Arrays.asList() },
                 { PHP, "Php", "php", LOGIC, PhpScanner.class,
                         Arrays.asList("inc", "php", "phtml", "php4", "php3", "php5", "phps"), Arrays.asList() },
                 { PUPPET, "Puppet", "puppet", LOGIC, GenericCodeScanner.class,
