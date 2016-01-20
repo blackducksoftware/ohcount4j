@@ -51,9 +51,11 @@ import static com.blackducksoftware.ohcount4j.Language.ERLANG;
 import static com.blackducksoftware.ohcount4j.Language.FORTRANFIXED;
 import static com.blackducksoftware.ohcount4j.Language.FORTRANFREE;
 import static com.blackducksoftware.ohcount4j.Language.FSHARP;
+import static com.blackducksoftware.ohcount4j.Language.GLSL;
 import static com.blackducksoftware.ohcount4j.Language.GOLANG;
 import static com.blackducksoftware.ohcount4j.Language.GROOVY;
 import static com.blackducksoftware.ohcount4j.Language.HASKELL;
+import static com.blackducksoftware.ohcount4j.Language.HAXE;
 import static com.blackducksoftware.ohcount4j.Language.HTML;
 import static com.blackducksoftware.ohcount4j.Language.JAVA;
 import static com.blackducksoftware.ohcount4j.Language.JAVASCRIPT;
@@ -255,10 +257,14 @@ public class LanguageTest {
                         Arrays.asList("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn"), Arrays.asList() },
                 { FSHARP, "F#", "fsharp", LOGIC, FSharpScanner.class,
                         Arrays.asList("fs"), Arrays.asList() },
+                { GLSL, "OpenGL Shading Language", "glsl", LOGIC, CStyleScanner.class,
+                            Arrays.asList("frag", "glsl", "vert"), Arrays.asList() },
                 { GOLANG, "Go", "golang", LOGIC, CStyleScanner.class,
                         Arrays.asList("go"), Arrays.asList() },
                 { GROOVY, "Groovy", "groovy", LOGIC, CStyleScanner.class,
                         Arrays.asList("groovy"), Arrays.asList() },
+                { HAXE, "HaXe", "haxe", LOGIC, CStyleScanner.class,
+                            Arrays.asList("hx"), Arrays.asList() },
                 { HTML, "HTML", "html", MARKUP, HTMLScanner.class,
                         Arrays.asList("htm", "html"), Arrays.asList() },
                 { HASKELL, "Haskell", "haskell", LOGIC, HaskellScanner.class,
