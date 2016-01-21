@@ -116,7 +116,7 @@ public enum Language implements LanguageCategory {
     CSS("CSS", MARKUP, CStyleScanner.class),
     CUDA("CUDA", LOGIC, CStyleScanner.class),
     D("D", LOGIC, DScanner.class),
-    DCL("DIGITAL Command Language", LOGIC, DclScanner.class),
+    DCL("DCL", LOGIC, DclScanner.class),
     ECMASCRIPT("ECMAScript", LOGIC, CStyleScanner.class),
     EIFFEL("Eiffel", LOGIC, EiffelScanner.class),
     ERLANG("Erlang", LOGIC, ErlangScanner.class),

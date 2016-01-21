@@ -245,7 +245,7 @@ public class LanguageTest {
                         Arrays.asList("cu", "cuh"), Arrays.asList() },
                 { D, "D", "d", LOGIC, DScanner.class,
                         Arrays.asList("d"), Arrays.asList() },
-                { DCL, "DIGITAL Command Language", "dcl", LOGIC, DclScanner.class,
+                { DCL, "DCL", "dcl", LOGIC, DclScanner.class,
                         Arrays.asList("com"), Arrays.asList() },
                 { ECMASCRIPT, "ECMAScript", "ecmascript", LOGIC, CStyleScanner.class,
                         Arrays.asList("es"), Arrays.asList() },
