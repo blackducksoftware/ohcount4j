@@ -45,6 +45,7 @@ import static com.blackducksoftware.ohcount4j.Language.CSHARP;
 import static com.blackducksoftware.ohcount4j.Language.CSS;
 import static com.blackducksoftware.ohcount4j.Language.CUDA;
 import static com.blackducksoftware.ohcount4j.Language.D;
+import static com.blackducksoftware.ohcount4j.Language.DCL;
 import static com.blackducksoftware.ohcount4j.Language.ECMASCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.EIFFEL;
 import static com.blackducksoftware.ohcount4j.Language.ERLANG;
@@ -52,9 +53,11 @@ import static com.blackducksoftware.ohcount4j.Language.FORTH;
 import static com.blackducksoftware.ohcount4j.Language.FORTRANFIXED;
 import static com.blackducksoftware.ohcount4j.Language.FORTRANFREE;
 import static com.blackducksoftware.ohcount4j.Language.FSHARP;
+import static com.blackducksoftware.ohcount4j.Language.GLSL;
 import static com.blackducksoftware.ohcount4j.Language.GOLANG;
 import static com.blackducksoftware.ohcount4j.Language.GROOVY;
 import static com.blackducksoftware.ohcount4j.Language.HASKELL;
+import static com.blackducksoftware.ohcount4j.Language.HAXE;
 import static com.blackducksoftware.ohcount4j.Language.HTML;
 import static com.blackducksoftware.ohcount4j.Language.JAVA;
 import static com.blackducksoftware.ohcount4j.Language.JAVASCRIPT;
@@ -134,6 +137,7 @@ import com.blackducksoftware.ohcount4j.scan.CobolScanner;
 import com.blackducksoftware.ohcount4j.scan.ColdFusionScanner;
 import com.blackducksoftware.ohcount4j.scan.CoqScanner;
 import com.blackducksoftware.ohcount4j.scan.DScanner;
+import com.blackducksoftware.ohcount4j.scan.DclScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
@@ -245,6 +249,8 @@ public class LanguageTest {
                         Arrays.asList("cu", "cuh"), Arrays.asList() },
                 { D, "D", "d", LOGIC, DScanner.class,
                         Arrays.asList("d"), Arrays.asList() },
+                { DCL, "DCL", "dcl", LOGIC, DclScanner.class,
+                        Arrays.asList("com"), Arrays.asList() },
                 { ECMASCRIPT, "ECMAScript", "ecmascript", LOGIC, CStyleScanner.class,
                         Arrays.asList("es"), Arrays.asList() },
                 { EIFFEL, "Eiffel", "eiffel", LOGIC, EiffelScanner.class,
@@ -259,10 +265,14 @@ public class LanguageTest {
                         Arrays.asList("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn"), Arrays.asList() },
                 { FSHARP, "F#", "fsharp", LOGIC, FSharpScanner.class,
                         Arrays.asList("fs"), Arrays.asList() },
+                { GLSL, "OpenGL Shading Language", "glsl", LOGIC, CStyleScanner.class,
+                            Arrays.asList("frag", "glsl", "vert"), Arrays.asList() },
                 { GOLANG, "Go", "golang", LOGIC, CStyleScanner.class,
                         Arrays.asList("go"), Arrays.asList() },
                 { GROOVY, "Groovy", "groovy", LOGIC, CStyleScanner.class,
                         Arrays.asList("groovy"), Arrays.asList() },
+                { HAXE, "HaXe", "haxe", LOGIC, CStyleScanner.class,
+                            Arrays.asList("hx"), Arrays.asList() },
                 { HTML, "HTML", "html", MARKUP, HTMLScanner.class,
                         Arrays.asList("htm", "html"), Arrays.asList() },
                 { HASKELL, "Haskell", "haskell", LOGIC, HaskellScanner.class,
