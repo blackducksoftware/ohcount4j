@@ -61,8 +61,9 @@ public class DetectorTest {
                 { Language.COQ, Arrays.asList("foo.v") },
                 { Language.CUDA, Arrays.asList("foo.cu", "foo.cuh") },
                 { Language.BLITZMAX, Arrays.asList("main.bmx") },
-                { Language.DCL, Arrays.asList("foo.COM") }
-
+                { Language.DCL, Arrays.asList("foo.COM") },
+                { Language.GLSL, Arrays.asList("foo.frag", "foo.glsl", "foo.vert") },
+                { Language.HAXE, Arrays.asList("main.hx") },
         };
     }
 

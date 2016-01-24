@@ -123,8 +123,10 @@ public enum Language implements LanguageCategory {
     FORTRANFIXED("Fortran (Fixed-Format)", LOGIC, FortranFixedScanner.class),
     FORTRANFREE("Fortran (Free-Format)", LOGIC, FortranFreeScanner.class),
     FSHARP("F#", LOGIC, FSharpScanner.class),
+    GLSL("OpenGL Shading Language", LOGIC, CStyleScanner.class),
     GOLANG("Go", LOGIC, CStyleScanner.class),
     GROOVY("Groovy", LOGIC, CStyleScanner.class),
+    HAXE("HaXe", LOGIC, CStyleScanner.class),
     HTML("HTML", MARKUP, HTMLScanner.class),
     HASKELL("Haskell", LOGIC, HaskellScanner.class),
     JAVA("Java", LOGIC, CStyleScanner.class),
@@ -217,8 +219,10 @@ public enum Language implements LanguageCategory {
         FORTRANFIXED.extensions("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FORTRANFREE.extensions("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FSHARP.extension("fs");
+        GLSL.extensions("frag", "glsl", "vert");
         GOLANG.extensions("go");
         GROOVY.extension("groovy");
+        HAXE.extension("hx");
         HTML.extensions("htm", "html");
         HASKELL.extensions("hs", "lhs");
         JAVA.extension("java");
