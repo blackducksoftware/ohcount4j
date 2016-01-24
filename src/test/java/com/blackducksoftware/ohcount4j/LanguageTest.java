@@ -45,6 +45,7 @@ import static com.blackducksoftware.ohcount4j.Language.CSHARP;
 import static com.blackducksoftware.ohcount4j.Language.CSS;
 import static com.blackducksoftware.ohcount4j.Language.CUDA;
 import static com.blackducksoftware.ohcount4j.Language.D;
+import static com.blackducksoftware.ohcount4j.Language.DCL;
 import static com.blackducksoftware.ohcount4j.Language.ECMASCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.EIFFEL;
 import static com.blackducksoftware.ohcount4j.Language.ERLANG;
@@ -135,6 +136,7 @@ import com.blackducksoftware.ohcount4j.scan.CobolScanner;
 import com.blackducksoftware.ohcount4j.scan.ColdFusionScanner;
 import com.blackducksoftware.ohcount4j.scan.CoqScanner;
 import com.blackducksoftware.ohcount4j.scan.DScanner;
+import com.blackducksoftware.ohcount4j.scan.DclScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
@@ -223,8 +225,8 @@ public class LanguageTest {
                         Arrays.asList("chai"), Arrays.asList() },
                 { CLASSIC_BASIC, "Classic BASIC", "classic_basic", LOGIC, GenericCodeScanner.class,
                         Arrays.asList("b", "bas"), Arrays.asList() },
-                { CLEARSILVER, "ClearSilver", "clearsilver", LOGIC, ClearSilverTemplateScanner.class, 
-                            Arrays.asList("cs"), Arrays.asList() },
+                { CLEARSILVER, "ClearSilver", "clearsilver", LOGIC, ClearSilverTemplateScanner.class,
+                        Arrays.asList("cs"), Arrays.asList() },
                 { CLOJURE, "Clojure", "clojure", LOGIC, ClojureScanner.class,
                         Arrays.asList("clj", "cljs", "cljc"), Arrays.asList() },
                 { COBOL, "COBOL", "cobol", LOGIC, CobolScanner.class,
@@ -245,6 +247,8 @@ public class LanguageTest {
                         Arrays.asList("cu", "cuh"), Arrays.asList() },
                 { D, "D", "d", LOGIC, DScanner.class,
                         Arrays.asList("d"), Arrays.asList() },
+                { DCL, "DCL", "dcl", LOGIC, DclScanner.class,
+                        Arrays.asList("com"), Arrays.asList() },
                 { ECMASCRIPT, "ECMAScript", "ecmascript", LOGIC, CStyleScanner.class,
                         Arrays.asList("es"), Arrays.asList() },
                 { EIFFEL, "Eiffel", "eiffel", LOGIC, EiffelScanner.class,

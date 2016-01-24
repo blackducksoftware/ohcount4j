@@ -40,6 +40,7 @@ import com.blackducksoftware.ohcount4j.scan.CobolScanner;
 import com.blackducksoftware.ohcount4j.scan.ColdFusionScanner;
 import com.blackducksoftware.ohcount4j.scan.CoqScanner;
 import com.blackducksoftware.ohcount4j.scan.DScanner;
+import com.blackducksoftware.ohcount4j.scan.DclScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
@@ -115,6 +116,7 @@ public enum Language implements LanguageCategory {
     CSS("CSS", MARKUP, CStyleScanner.class),
     CUDA("CUDA", LOGIC, CStyleScanner.class),
     D("D", LOGIC, DScanner.class),
+    DCL("DCL", LOGIC, DclScanner.class),
     ECMASCRIPT("ECMAScript", LOGIC, CStyleScanner.class),
     EIFFEL("Eiffel", LOGIC, EiffelScanner.class),
     ERLANG("Erlang", LOGIC, ErlangScanner.class),
@@ -210,6 +212,7 @@ public enum Language implements LanguageCategory {
         CSS.extension("css");
         CUDA.extensions("cu", "cuh");
         D.extension("d");
+        DCL.extension("com");
         ECMASCRIPT.extension("es");
         EIFFEL.extension("e");
         ERLANG.extension("erl");
