@@ -49,6 +49,7 @@ import static com.blackducksoftware.ohcount4j.Language.DCL;
 import static com.blackducksoftware.ohcount4j.Language.ECMASCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.EIFFEL;
 import static com.blackducksoftware.ohcount4j.Language.ERLANG;
+import static com.blackducksoftware.ohcount4j.Language.FORTH;
 import static com.blackducksoftware.ohcount4j.Language.FORTRANFIXED;
 import static com.blackducksoftware.ohcount4j.Language.FORTRANFREE;
 import static com.blackducksoftware.ohcount4j.Language.FSHARP;
@@ -140,6 +141,7 @@ import com.blackducksoftware.ohcount4j.scan.DclScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
+import com.blackducksoftware.ohcount4j.scan.ForthScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFixedScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFreeScanner;
 import com.blackducksoftware.ohcount4j.scan.GenericCodeScanner;
@@ -255,6 +257,8 @@ public class LanguageTest {
                         Arrays.asList("e"), Arrays.asList() },
                 { ERLANG, "Erlang", "erlang", LOGIC, ErlangScanner.class,
                         Arrays.asList("erl"), Arrays.asList() },
+                { FORTH, "Forth", "forth", LOGIC, ForthScanner.class,
+                        Arrays.asList("fr", "4th"), Arrays.asList() },
                 { FORTRANFIXED, "Fortran (Fixed-Format)", "fortranfixed", LOGIC, FortranFixedScanner.class,
                         Arrays.asList("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn"), Arrays.asList() },
                 { FORTRANFREE, "Fortran (Free-Format)", "fortranfree", LOGIC, FortranFreeScanner.class,
