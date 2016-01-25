@@ -297,7 +297,7 @@ public class LanguageTest {
                         Arrays.asList("htm", "html"), Arrays.asList() },
                 { HASKELL, "Haskell", "haskell", LOGIC, HaskellScanner.class,
                         Arrays.asList("hs", "lhs"), Arrays.asList() },
-                { JAM, "Jam", "jam", LOGIC, ShellScanner.class,
+                { JAM, "Jam", "jam", BUILD, ShellScanner.class,
                         Arrays.asList(), Arrays.asList("Jamfile", "Jamrules") },
                 { JAVA, "Java", "java", LOGIC, CStyleScanner.class,
                         Arrays.asList("java"), Arrays.asList() },

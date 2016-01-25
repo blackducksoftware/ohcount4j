@@ -138,7 +138,7 @@ public enum Language implements LanguageCategory {
     HAXE("HaXe", LOGIC, CStyleScanner.class),
     HTML("HTML", MARKUP, HTMLScanner.class),
     HASKELL("Haskell", LOGIC, HaskellScanner.class),
-    JAM("Jam", LOGIC, ShellScanner.class),
+    JAM("Jam", BUILD, ShellScanner.class),
     JAVA("Java", LOGIC, CStyleScanner.class),
     JAVASCRIPT("JavaScript", LOGIC, CStyleScanner.class),
     LIMBO("Limbo", LOGIC, CStyleScanner.class),

@@ -19,7 +19,7 @@ package com.blackducksoftware.ohcount4j.scan;
 import static com.blackducksoftware.ohcount4j.Entity.BLANK;
 import static com.blackducksoftware.ohcount4j.Entity.CODE;
 import static com.blackducksoftware.ohcount4j.Entity.COMMENT;
-import static com.blackducksoftware.ohcount4j.Language.CMake;
+import static com.blackducksoftware.ohcount4j.Language.JAM;
 
 import org.testng.annotations.Test;
 
@@ -31,26 +31,26 @@ public class JamScannerTest extends AbstractBaseScannerTest {
 
     @Test
     public void basic() {
-        assertLine(CMake, new Line(CMake, BLANK), "\n");
-        assertLine(CMake, new Line(CMake, BLANK), "     \n");
-        assertLine(CMake, new Line(CMake, BLANK), "\t\n");
-        assertLine(CMake, new Line(CMake, CODE), "str = hello : world ;   # defines 'hello', ':', 'world'\n");
-        assertLine(CMake, new Line(CMake, COMMENT), "# Line comment\n");
-        assertLine(CMake, new Line(CMake, COMMENT), "#\n");
-        assertLine(CMake, new Line(CMake, COMMENT), "\t#\n");
-        assertLine(CMake, new Line(CMake, CODE), "    Echo $(1) ;\n");
-        assertLine(CMake, new Line(CMake, CODE), "str = hello : world ;   # defines 'hello', ':', 'world' # with comment\n");
+        assertLine(JAM, new Line(JAM, BLANK), "\n");
+        assertLine(JAM, new Line(JAM, BLANK), "     \n");
+        assertLine(JAM, new Line(JAM, BLANK), "\t\n");
+        assertLine(JAM, new Line(JAM, CODE), "str = hello : world ;   # defines 'hello', ':', 'world'\n");
+        assertLine(JAM, new Line(JAM, COMMENT), "# Line comment\n");
+        assertLine(JAM, new Line(JAM, COMMENT), "#\n");
+        assertLine(JAM, new Line(JAM, COMMENT), "\t#\n");
+        assertLine(JAM, new Line(JAM, CODE), "    Echo $(1) ;\n");
+        assertLine(JAM, new Line(JAM, CODE), "str = hello : world ;   # defines 'hello', ':', 'world' # with comment\n");
     }
 
     @Test
     public void eofHandling() {
         // Note lack of trailing \n in all cases below
-        assertLine(CMake, new Line(CMake, BLANK), "     ");
-        assertLine(CMake, new Line(CMake, BLANK), "\t");
-        assertLine(CMake, new Line(CMake, CODE), "str = hello : world ;");
-        assertLine(CMake, new Line(CMake, COMMENT), "# Line comment");
-        assertLine(CMake, new Line(CMake, COMMENT), "#");
-        assertLine(CMake, new Line(CMake, CODE), "str = hello : world ; # with comment");
+        assertLine(JAM, new Line(JAM, BLANK), "     ");
+        assertLine(JAM, new Line(JAM, BLANK), "\t");
+        assertLine(JAM, new Line(JAM, CODE), "str = hello : world ;");
+        assertLine(JAM, new Line(JAM, COMMENT), "# Line comment");
+        assertLine(JAM, new Line(JAM, COMMENT), "#");
+        assertLine(JAM, new Line(JAM, CODE), "str = hello : world ; # with comment");
     }
 
     @Test
@@ -70,21 +70,21 @@ public class JamScannerTest extends AbstractBaseScannerTest {
                 + "Dump$(str) ;\n";
 
         Line[] expected = {
-                new Line(CMake, CODE),
-                new Line(CMake, CODE),
-                new Line(CMake, CODE),
-                new Line(CMake, CODE),
-                new Line(CMake, CODE),
-                new Line(CMake, BLANK),
-                new Line(CMake, COMMENT),
-                new Line(CMake, COMMENT),
-                new Line(CMake, COMMENT),
-                new Line(CMake, CODE),
-                new Line(CMake, CODE),
-                new Line(CMake, CODE),
-                new Line(CMake, CODE),
+                new Line(JAM, CODE),
+                new Line(JAM, CODE),
+                new Line(JAM, CODE),
+                new Line(JAM, CODE),
+                new Line(JAM, CODE),
+                new Line(JAM, BLANK),
+                new Line(JAM, COMMENT),
+                new Line(JAM, COMMENT),
+                new Line(JAM, COMMENT),
+                new Line(JAM, CODE),
+                new Line(JAM, CODE),
+                new Line(JAM, CODE),
+                new Line(JAM, CODE),
         };
-        assertLines(CMake, expected, code);
+        assertLines(JAM, expected, code);
     }
 
 }
