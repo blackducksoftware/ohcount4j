@@ -1,12 +1,12 @@
 /*
  * Copyright 2016 Black Duck Software, Inc.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -51,6 +51,7 @@ import static com.blackducksoftware.ohcount4j.Language.EBUILD;
 import static com.blackducksoftware.ohcount4j.Language.EC;
 import static com.blackducksoftware.ohcount4j.Language.ECMASCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.EIFFEL;
+import static com.blackducksoftware.ohcount4j.Language.EMACSLISP;
 import static com.blackducksoftware.ohcount4j.Language.ERLANG;
 import static com.blackducksoftware.ohcount4j.Language.FORTH;
 import static com.blackducksoftware.ohcount4j.Language.FORTRANFIXED;
@@ -264,6 +265,8 @@ public class LanguageTest {
                         Arrays.asList("es"), Arrays.asList() },
                 { EIFFEL, "Eiffel", "eiffel", LOGIC, EiffelScanner.class,
                         Arrays.asList("e"), Arrays.asList() },
+                { EMACSLISP, "Emacs Lisp", "emacslisp", LOGIC, LispScanner.class,
+                        Arrays.asList("el"), Arrays.asList() },
                 { ERLANG, "Erlang", "erlang", LOGIC, ErlangScanner.class,
                         Arrays.asList("erl"), Arrays.asList() },
                 { FORTH, "Forth", "forth", LOGIC, ForthScanner.class,
