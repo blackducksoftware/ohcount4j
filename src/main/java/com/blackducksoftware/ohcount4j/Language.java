@@ -1,12 +1,12 @@
 /*
  * Copyright 2016 Black Duck Software, Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,9 +40,11 @@ import com.blackducksoftware.ohcount4j.scan.CobolScanner;
 import com.blackducksoftware.ohcount4j.scan.ColdFusionScanner;
 import com.blackducksoftware.ohcount4j.scan.CoqScanner;
 import com.blackducksoftware.ohcount4j.scan.DScanner;
+import com.blackducksoftware.ohcount4j.scan.DclScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
+import com.blackducksoftware.ohcount4j.scan.ForthScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFixedScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFreeScanner;
 import com.blackducksoftware.ohcount4j.scan.GenericCodeScanner;
@@ -79,9 +81,9 @@ public enum Language implements LanguageCategory {
 
     /*
      * All languages must be defined here.
-     * 
+     *
      * Each language must declare three mandatory properties:
-     * 
+     *
      * - The language's official display name (niceName)
      * - The category of the language, one of BUILD, LOGIC, MARKUP, UNKNOWN
      * - A Scanner subclass capable of parsing this language
@@ -115,15 +117,20 @@ public enum Language implements LanguageCategory {
     CSS("CSS", MARKUP, CStyleScanner.class),
     CUDA("CUDA", LOGIC, CStyleScanner.class),
     D("D", LOGIC, DScanner.class),
+    DYLAN("Dylan", LOGIC, CStyleScanner.class),
+    DCL("DCL", LOGIC, DclScanner.class),
     EBUILD("Ebuild", BUILD, ShellScanner.class),
     ECMASCRIPT("ECMAScript", LOGIC, CStyleScanner.class),
     EIFFEL("Eiffel", LOGIC, EiffelScanner.class),
     ERLANG("Erlang", LOGIC, ErlangScanner.class),
+    FORTH("Forth", LOGIC, ForthScanner.class),
     FORTRANFIXED("Fortran (Fixed-Format)", LOGIC, FortranFixedScanner.class),
     FORTRANFREE("Fortran (Free-Format)", LOGIC, FortranFreeScanner.class),
     FSHARP("F#", LOGIC, FSharpScanner.class),
+    GLSL("OpenGL Shading Language", LOGIC, CStyleScanner.class),
     GOLANG("Go", LOGIC, CStyleScanner.class),
     GROOVY("Groovy", LOGIC, CStyleScanner.class),
+    HAXE("HaXe", LOGIC, CStyleScanner.class),
     HTML("HTML", MARKUP, HTMLScanner.class),
     HASKELL("Haskell", LOGIC, HaskellScanner.class),
     JAVA("Java", LOGIC, CStyleScanner.class),
@@ -170,10 +177,10 @@ public enum Language implements LanguageCategory {
 
     /*
      * Optional properties of languages are declared here.
-     * 
+     *
      * At a minimum, a language should define one or more file
      * extensions or filenames associated with the language.
-     * 
+     *
      * You may also declare additional names (beyond the uname
      * and niceName) by which the language might be known.
      * These aliases can be matched against things like Emacs
@@ -209,15 +216,20 @@ public enum Language implements LanguageCategory {
         CSS.extension("css");
         CUDA.extensions("cu", "cuh");
         D.extension("d");
+        DYLAN.extension("dylan");
+        DCL.extension("com");
         EBUILD.extensions("ebuild", "kdebuild-1", "eclass");
         ECMASCRIPT.extension("es");
         EIFFEL.extension("e");
         ERLANG.extension("erl");
+        FORTH.extensions("fr", "4th");
         FORTRANFIXED.extensions("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FORTRANFREE.extensions("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FSHARP.extension("fs");
+        GLSL.extensions("frag", "glsl", "vert");
         GOLANG.extensions("go");
         GROOVY.extension("groovy");
+        HAXE.extension("hx");
         HTML.extensions("htm", "html");
         HASKELL.extensions("hs", "lhs");
         JAVA.extension("java");
