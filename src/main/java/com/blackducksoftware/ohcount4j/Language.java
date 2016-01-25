@@ -44,6 +44,7 @@ import com.blackducksoftware.ohcount4j.scan.DclScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
+import com.blackducksoftware.ohcount4j.scan.FactorScanner;
 import com.blackducksoftware.ohcount4j.scan.ForthScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFixedScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFreeScanner;
@@ -125,6 +126,7 @@ public enum Language implements LanguageCategory {
     EIFFEL("Eiffel", LOGIC, EiffelScanner.class),
     EMACSLISP("Emacs Lisp", LOGIC, LispScanner.class),
     ERLANG("Erlang", LOGIC, ErlangScanner.class),
+    FACTOR("Factor", LOGIC, FactorScanner.class),
     EXHERES("Exheres", LOGIC, ShellScanner.class),
     FORTH("Forth", LOGIC, ForthScanner.class),
     FORTRANFIXED("Fortran (Fixed-Format)", LOGIC, FortranFixedScanner.class),
@@ -228,6 +230,7 @@ public enum Language implements LanguageCategory {
         EMACSLISP.extension("el");
         ERLANG.extension("erl");
         EXHERES.extensions("exheres-0", "exheres-1", "exlib");
+        FACTOR.extension("factor");
         FORTH.extensions("fr", "4th");
         FORTRANFIXED.extensions("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FORTRANFREE.extensions("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");

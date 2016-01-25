@@ -69,6 +69,7 @@ public class DetectorTest {
                 { Language.EBUILD, Arrays.asList("foo.ebuild", "foo.kdebuild-1", "foo.eclass") },
                 { Language.EMACSLISP, Arrays.asList("foo.el") },
                 { Language.EXHERES, Arrays.asList("foo.exheres-0", "foo.exheres-1", "foo.exlib") },
+                { Language.FACTOR, Arrays.asList("foo.factor") },
                 { Language.FORTH, Arrays.asList("foo.fr", "foo.4th") },
                 { Language.DCL, Arrays.asList("foo.COM") },
                 { Language.GLSL, Arrays.asList("foo.frag", "foo.glsl", "foo.vert") },

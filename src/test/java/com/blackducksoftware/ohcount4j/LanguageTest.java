@@ -146,6 +146,7 @@ import com.blackducksoftware.ohcount4j.scan.DclScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
+import com.blackducksoftware.ohcount4j.scan.FactorScanner;
 import com.blackducksoftware.ohcount4j.scan.ForthScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFixedScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFreeScanner;
@@ -274,6 +275,8 @@ public class LanguageTest {
                         Arrays.asList("exheres-0", "exheres-1", "exlib"), Arrays.asList() },
                 { FORTH, "Forth", "forth", LOGIC, ForthScanner.class,
                         Arrays.asList("fr", "4th"), Arrays.asList() },
+                { Language.FACTOR, "Factor", "factor", LOGIC, FactorScanner.class,
+                        Arrays.asList("factor"), Arrays.asList() },
                 { FORTRANFIXED, "Fortran (Fixed-Format)", "fortranfixed", LOGIC, FortranFixedScanner.class,
                         Arrays.asList("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn"), Arrays.asList() },
                 { FORTRANFREE, "Fortran (Free-Format)", "fortranfree", LOGIC, FortranFreeScanner.class,
