@@ -54,10 +54,12 @@ import static com.blackducksoftware.ohcount4j.Language.EIFFEL;
 import static com.blackducksoftware.ohcount4j.Language.EMACSLISP;
 import static com.blackducksoftware.ohcount4j.Language.ERLANG;
 import static com.blackducksoftware.ohcount4j.Language.EXHERES;
+import static com.blackducksoftware.ohcount4j.Language.FACTOR;
 import static com.blackducksoftware.ohcount4j.Language.FORTH;
 import static com.blackducksoftware.ohcount4j.Language.FORTRANFIXED;
 import static com.blackducksoftware.ohcount4j.Language.FORTRANFREE;
 import static com.blackducksoftware.ohcount4j.Language.FSHARP;
+import static com.blackducksoftware.ohcount4j.Language.GENIE;
 import static com.blackducksoftware.ohcount4j.Language.GLSL;
 import static com.blackducksoftware.ohcount4j.Language.GOLANG;
 import static com.blackducksoftware.ohcount4j.Language.GROOVY;
@@ -275,7 +277,7 @@ public class LanguageTest {
                         Arrays.asList("exheres-0", "exheres-1", "exlib"), Arrays.asList() },
                 { FORTH, "Forth", "forth", LOGIC, ForthScanner.class,
                         Arrays.asList("fr", "4th"), Arrays.asList() },
-                { Language.FACTOR, "Factor", "factor", LOGIC, FactorScanner.class,
+                { FACTOR, "Factor", "factor", LOGIC, FactorScanner.class,
                         Arrays.asList("factor"), Arrays.asList() },
                 { FORTRANFIXED, "Fortran (Fixed-Format)", "fortranfixed", LOGIC, FortranFixedScanner.class,
                         Arrays.asList("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn"), Arrays.asList() },
@@ -283,6 +285,8 @@ public class LanguageTest {
                         Arrays.asList("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn"), Arrays.asList() },
                 { FSHARP, "F#", "fsharp", LOGIC, FSharpScanner.class,
                         Arrays.asList("fs"), Arrays.asList() },
+                { GENIE, "Genie", "genie", LOGIC, CStyleScanner.class,
+                        Arrays.asList("gs"), Arrays.asList() },
                 { GLSL, "OpenGL Shading Language", "glsl", LOGIC, CStyleScanner.class,
                         Arrays.asList("frag", "glsl", "vert"), Arrays.asList() },
                 { GOLANG, "Go", "golang", LOGIC, CStyleScanner.class,
