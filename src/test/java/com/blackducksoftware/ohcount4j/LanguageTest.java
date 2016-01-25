@@ -46,6 +46,7 @@ import static com.blackducksoftware.ohcount4j.Language.CSS;
 import static com.blackducksoftware.ohcount4j.Language.CUDA;
 import static com.blackducksoftware.ohcount4j.Language.D;
 import static com.blackducksoftware.ohcount4j.Language.DCL;
+import static com.blackducksoftware.ohcount4j.Language.DYLAN;
 import static com.blackducksoftware.ohcount4j.Language.ECMASCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.EIFFEL;
 import static com.blackducksoftware.ohcount4j.Language.ERLANG;
@@ -249,6 +250,8 @@ public class LanguageTest {
                         Arrays.asList("cu", "cuh"), Arrays.asList() },
                 { D, "D", "d", LOGIC, DScanner.class,
                         Arrays.asList("d"), Arrays.asList() },
+                { DYLAN, "Dylan", "dylan", LOGIC, CStyleScanner.class,
+                        Arrays.asList("dylan"), Arrays.asList() },
                 { DCL, "DCL", "dcl", LOGIC, DclScanner.class,
                         Arrays.asList("com"), Arrays.asList() },
                 { ECMASCRIPT, "ECMAScript", "ecmascript", LOGIC, CStyleScanner.class,
@@ -266,13 +269,13 @@ public class LanguageTest {
                 { FSHARP, "F#", "fsharp", LOGIC, FSharpScanner.class,
                         Arrays.asList("fs"), Arrays.asList() },
                 { GLSL, "OpenGL Shading Language", "glsl", LOGIC, CStyleScanner.class,
-                            Arrays.asList("frag", "glsl", "vert"), Arrays.asList() },
+                        Arrays.asList("frag", "glsl", "vert"), Arrays.asList() },
                 { GOLANG, "Go", "golang", LOGIC, CStyleScanner.class,
                         Arrays.asList("go"), Arrays.asList() },
                 { GROOVY, "Groovy", "groovy", LOGIC, CStyleScanner.class,
                         Arrays.asList("groovy"), Arrays.asList() },
                 { HAXE, "HaXe", "haxe", LOGIC, CStyleScanner.class,
-                            Arrays.asList("hx"), Arrays.asList() },
+                        Arrays.asList("hx"), Arrays.asList() },
                 { HTML, "HTML", "html", MARKUP, HTMLScanner.class,
                         Arrays.asList("htm", "html"), Arrays.asList() },
                 { HASKELL, "Haskell", "haskell", LOGIC, HaskellScanner.class,
