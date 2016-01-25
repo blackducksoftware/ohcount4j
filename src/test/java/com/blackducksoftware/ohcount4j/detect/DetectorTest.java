@@ -64,6 +64,7 @@ public class DetectorTest {
                 { Language.DYLAN, Arrays.asList("foo.dylan") },
                 { Language.BLITZMAX, Arrays.asList("main.bmx") },
                 { Language.EBUILD, Arrays.asList("foo.ebuild", "foo.kdebuild-1", "foo.eclass") },
+                { Language.EC, Arrays.asList("foo.ec", "foo.eh") },
                 { Language.FORTH, Arrays.asList("foo.fr", "foo.4th") },
                 { Language.DCL, Arrays.asList("foo.COM") },
                 { Language.GLSL, Arrays.asList("foo.frag", "foo.glsl", "foo.vert") },

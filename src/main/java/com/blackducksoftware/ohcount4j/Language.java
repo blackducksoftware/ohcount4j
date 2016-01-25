@@ -120,6 +120,7 @@ public enum Language implements LanguageCategory {
     DYLAN("Dylan", LOGIC, CStyleScanner.class),
     DCL("DCL", LOGIC, DclScanner.class),
     EBUILD("Ebuild", BUILD, ShellScanner.class),
+    EC("eC", LOGIC, CStyleScanner.class),
     ECMASCRIPT("ECMAScript", LOGIC, CStyleScanner.class),
     EIFFEL("Eiffel", LOGIC, EiffelScanner.class),
     ERLANG("Erlang", LOGIC, ErlangScanner.class),
@@ -219,6 +220,7 @@ public enum Language implements LanguageCategory {
         DYLAN.extension("dylan");
         DCL.extension("com");
         EBUILD.extensions("ebuild", "kdebuild-1", "eclass");
+        EC.extensions("ec", "eh");
         ECMASCRIPT.extension("es");
         EIFFEL.extension("e");
         ERLANG.extension("erl");

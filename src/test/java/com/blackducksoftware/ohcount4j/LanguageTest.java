@@ -48,6 +48,7 @@ import static com.blackducksoftware.ohcount4j.Language.D;
 import static com.blackducksoftware.ohcount4j.Language.DCL;
 import static com.blackducksoftware.ohcount4j.Language.DYLAN;
 import static com.blackducksoftware.ohcount4j.Language.EBUILD;
+import static com.blackducksoftware.ohcount4j.Language.EC;
 import static com.blackducksoftware.ohcount4j.Language.ECMASCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.EIFFEL;
 import static com.blackducksoftware.ohcount4j.Language.ERLANG;
@@ -257,6 +258,8 @@ public class LanguageTest {
                         Arrays.asList("com"), Arrays.asList() },
                 { EBUILD, "Ebuild", "ebuild", BUILD, ShellScanner.class,
                         Arrays.asList("ebuild", "eclass", "kdebuild-1"), Arrays.asList() },
+                { EC, "eC", "ec", LOGIC, CStyleScanner.class,
+                        Arrays.asList("ec", "eh"), Arrays.asList() },
                 { ECMASCRIPT, "ECMAScript", "ecmascript", LOGIC, CStyleScanner.class,
                         Arrays.asList("es"), Arrays.asList() },
                 { EIFFEL, "Eiffel", "eiffel", LOGIC, EiffelScanner.class,
