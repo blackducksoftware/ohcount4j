@@ -40,9 +40,11 @@ import com.blackducksoftware.ohcount4j.scan.CobolScanner;
 import com.blackducksoftware.ohcount4j.scan.ColdFusionScanner;
 import com.blackducksoftware.ohcount4j.scan.CoqScanner;
 import com.blackducksoftware.ohcount4j.scan.DScanner;
+import com.blackducksoftware.ohcount4j.scan.DclScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
+import com.blackducksoftware.ohcount4j.scan.ForthScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFixedScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFreeScanner;
 import com.blackducksoftware.ohcount4j.scan.GenericCodeScanner;
@@ -115,15 +117,22 @@ public enum Language implements LanguageCategory {
     CSS("CSS", MARKUP, CStyleScanner.class),
     CUDA("CUDA", LOGIC, CStyleScanner.class),
     D("D", LOGIC, DScanner.class),
+    DYLAN("Dylan", LOGIC, CStyleScanner.class),
+    DCL("DCL", LOGIC, DclScanner.class),
+    EBUILD("Ebuild", BUILD, ShellScanner.class),
+    EC("eC", LOGIC, CStyleScanner.class),
     ECMASCRIPT("ECMAScript", LOGIC, CStyleScanner.class),
     EIFFEL("Eiffel", LOGIC, EiffelScanner.class),
     EMACSLISP("Emacs Lisp", LOGIC, LispScanner.class),
     ERLANG("Erlang", LOGIC, ErlangScanner.class),
+    FORTH("Forth", LOGIC, ForthScanner.class),
     FORTRANFIXED("Fortran (Fixed-Format)", LOGIC, FortranFixedScanner.class),
     FORTRANFREE("Fortran (Free-Format)", LOGIC, FortranFreeScanner.class),
     FSHARP("F#", LOGIC, FSharpScanner.class),
+    GLSL("OpenGL Shading Language", LOGIC, CStyleScanner.class),
     GOLANG("Go", LOGIC, CStyleScanner.class),
     GROOVY("Groovy", LOGIC, CStyleScanner.class),
+    HAXE("HaXe", LOGIC, CStyleScanner.class),
     HTML("HTML", MARKUP, HTMLScanner.class),
     HASKELL("Haskell", LOGIC, HaskellScanner.class),
     JAVA("Java", LOGIC, CStyleScanner.class),
@@ -209,15 +218,22 @@ public enum Language implements LanguageCategory {
         CSS.extension("css");
         CUDA.extensions("cu", "cuh");
         D.extension("d");
+        DYLAN.extension("dylan");
+        DCL.extension("com");
+        EBUILD.extensions("ebuild", "kdebuild-1", "eclass");
+        EC.extensions("ec", "eh");
         ECMASCRIPT.extension("es");
         EIFFEL.extension("e");
         EMACSLISP.extension("el");
         ERLANG.extension("erl");
+        FORTH.extensions("fr", "4th");
         FORTRANFIXED.extensions("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FORTRANFREE.extensions("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FSHARP.extension("fs");
+        GLSL.extensions("frag", "glsl", "vert");
         GOLANG.extensions("go");
         GROOVY.extension("groovy");
+        HAXE.extension("hx");
         HTML.extensions("htm", "html");
         HASKELL.extensions("hs", "lhs");
         JAVA.extension("java");
