@@ -63,10 +63,12 @@ public class DetectorTest {
                 { Language.D, Arrays.asList("foo.d") },
                 { Language.DYLAN, Arrays.asList("foo.dylan") },
                 { Language.BLITZMAX, Arrays.asList("main.bmx") },
+                { Language.EBUILD, Arrays.asList("foo.ebuild", "foo.kdebuild-1", "foo.eclass") },
                 { Language.FORTH, Arrays.asList("foo.fr", "foo.4th") },
                 { Language.DCL, Arrays.asList("foo.COM") },
                 { Language.GLSL, Arrays.asList("foo.frag", "foo.glsl", "foo.vert") },
-                { Language.HAXE, Arrays.asList("main.hx") }, };
+                { Language.HAXE, Arrays.asList("main.hx") },
+        };
     }
 
     @Test
