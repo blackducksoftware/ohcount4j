@@ -145,11 +145,10 @@ Ohcount4j supported languages
 # Prerequisite Software
 
 1. Install **Eclispe**
-2. Install **gradle**
-3. Install **ragel** (minimum: 6.8, recommended 6.9).  To install via [homebrew](https://github.com/Homebrew/homebrew/blob/master/Library/Formula/ragel.rb):
+2. Install **ragel** (minimum: 6.8, recommended 6.9).  For example, to install on Mac OS X via [homebrew](https://github.com/Homebrew/homebrew/blob/master/Library/Formula/ragel.rb):
 
      `brew install ragel`
-4. Install **TestNG** plugin in Eclispe (see below)
+3. Install **TestNG** plugin in Eclipse (see below)
 
 # Build Configuration Steps
 
@@ -157,7 +156,7 @@ Ohcount4j supported languages
 
     `cd git-clone-dir`
 
-    `git clone git@github.com:blackducksw/ohcount4j.git`
+    `git clone https://github.com/blackducksoftware/ohcount4j.git`
 
 2. Before importing the ohcount4j project into Eclipse, run the gradle build to create the generated ragel files used by the project.  The gradle script supports the ability to run specifics task for cleaning, regenerating the source, and running tests.  See the build.gradle file for details.
 
@@ -172,7 +171,7 @@ Ohcount4j supported languages
   * Click **Next**
   * Check TestNG and follow the instructions
 
-4. Import this ohcount4j project in Eclipse
+5. Import this ohcount4j project in Eclipse
   * Click File -> Import
   * Choose Gradle -> Gradle Project
   * Click **Next**
