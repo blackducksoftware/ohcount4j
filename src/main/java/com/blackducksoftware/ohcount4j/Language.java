@@ -50,6 +50,7 @@ import com.blackducksoftware.ohcount4j.scan.FortranFixedScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFreeScanner;
 import com.blackducksoftware.ohcount4j.scan.GenericCodeScanner;
 import com.blackducksoftware.ohcount4j.scan.HTMLScanner;
+import com.blackducksoftware.ohcount4j.scan.HamlScanner;
 import com.blackducksoftware.ohcount4j.scan.HaskellScanner;
 import com.blackducksoftware.ohcount4j.scan.JspScanner;
 import com.blackducksoftware.ohcount4j.scan.LispScanner;
@@ -136,6 +137,7 @@ public enum Language implements LanguageCategory {
     GLSL("OpenGL Shading Language", LOGIC, CStyleScanner.class),
     GOLANG("Go", LOGIC, CStyleScanner.class),
     GROOVY("Groovy", LOGIC, CStyleScanner.class),
+    HAML("Haml", MARKUP, HamlScanner.class),
     HAXE("HaXe", LOGIC, CStyleScanner.class),
     HTML("HTML", MARKUP, HTMLScanner.class),
     HASKELL("Haskell", LOGIC, HaskellScanner.class),
@@ -241,6 +243,7 @@ public enum Language implements LanguageCategory {
         GLSL.extensions("frag", "glsl", "vert");
         GOLANG.extensions("go");
         GROOVY.extension("groovy");
+        HAML.extension("haml");
         HAXE.extension("hx");
         HTML.extensions("htm", "html");
         HASKELL.extensions("hs", "lhs");

@@ -73,6 +73,7 @@ public class DetectorTest {
                 { Language.GENIE, Arrays.asList("foo.gs") },
                 { Language.GLSL, Arrays.asList("foo.frag", "foo.glsl", "foo.vert") },
                 { Language.HAXE, Arrays.asList("main.hx") },
+                { Language.HAML, Arrays.asList("main.haml") },
                 { Language.JAM, Arrays.asList("Jamfile") },
                 { Language.JAM, Arrays.asList("Jamrules") },
         };
