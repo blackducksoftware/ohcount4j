@@ -54,16 +54,20 @@ import static com.blackducksoftware.ohcount4j.Language.EIFFEL;
 import static com.blackducksoftware.ohcount4j.Language.EMACSLISP;
 import static com.blackducksoftware.ohcount4j.Language.ERLANG;
 import static com.blackducksoftware.ohcount4j.Language.EXHERES;
+import static com.blackducksoftware.ohcount4j.Language.FACTOR;
 import static com.blackducksoftware.ohcount4j.Language.FORTH;
 import static com.blackducksoftware.ohcount4j.Language.FORTRANFIXED;
 import static com.blackducksoftware.ohcount4j.Language.FORTRANFREE;
 import static com.blackducksoftware.ohcount4j.Language.FSHARP;
+import static com.blackducksoftware.ohcount4j.Language.GENIE;
 import static com.blackducksoftware.ohcount4j.Language.GLSL;
 import static com.blackducksoftware.ohcount4j.Language.GOLANG;
 import static com.blackducksoftware.ohcount4j.Language.GROOVY;
+import static com.blackducksoftware.ohcount4j.Language.HAML;
 import static com.blackducksoftware.ohcount4j.Language.HASKELL;
 import static com.blackducksoftware.ohcount4j.Language.HAXE;
 import static com.blackducksoftware.ohcount4j.Language.HTML;
+import static com.blackducksoftware.ohcount4j.Language.JAM;
 import static com.blackducksoftware.ohcount4j.Language.JAVA;
 import static com.blackducksoftware.ohcount4j.Language.JAVASCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.JSP;
@@ -152,6 +156,7 @@ import com.blackducksoftware.ohcount4j.scan.FortranFixedScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFreeScanner;
 import com.blackducksoftware.ohcount4j.scan.GenericCodeScanner;
 import com.blackducksoftware.ohcount4j.scan.HTMLScanner;
+import com.blackducksoftware.ohcount4j.scan.HamlScanner;
 import com.blackducksoftware.ohcount4j.scan.HaskellScanner;
 import com.blackducksoftware.ohcount4j.scan.JspScanner;
 import com.blackducksoftware.ohcount4j.scan.LispScanner;
@@ -275,7 +280,7 @@ public class LanguageTest {
                         Arrays.asList("exheres-0", "exheres-1", "exlib"), Arrays.asList() },
                 { FORTH, "Forth", "forth", LOGIC, ForthScanner.class,
                         Arrays.asList("fr", "4th"), Arrays.asList() },
-                { Language.FACTOR, "Factor", "factor", LOGIC, FactorScanner.class,
+                { FACTOR, "Factor", "factor", LOGIC, FactorScanner.class,
                         Arrays.asList("factor"), Arrays.asList() },
                 { FORTRANFIXED, "Fortran (Fixed-Format)", "fortranfixed", LOGIC, FortranFixedScanner.class,
                         Arrays.asList("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn"), Arrays.asList() },
@@ -283,18 +288,24 @@ public class LanguageTest {
                         Arrays.asList("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn"), Arrays.asList() },
                 { FSHARP, "F#", "fsharp", LOGIC, FSharpScanner.class,
                         Arrays.asList("fs"), Arrays.asList() },
+                { GENIE, "Genie", "genie", LOGIC, CStyleScanner.class,
+                        Arrays.asList("gs"), Arrays.asList() },
                 { GLSL, "OpenGL Shading Language", "glsl", LOGIC, CStyleScanner.class,
                         Arrays.asList("frag", "glsl", "vert"), Arrays.asList() },
                 { GOLANG, "Go", "golang", LOGIC, CStyleScanner.class,
                         Arrays.asList("go"), Arrays.asList() },
                 { GROOVY, "Groovy", "groovy", LOGIC, CStyleScanner.class,
                         Arrays.asList("groovy"), Arrays.asList() },
+                { HAML, "Haml", "haml", MARKUP, HamlScanner.class,
+                        Arrays.asList("haml"), Arrays.asList() },
                 { HAXE, "HaXe", "haxe", LOGIC, CStyleScanner.class,
                         Arrays.asList("hx"), Arrays.asList() },
                 { HTML, "HTML", "html", MARKUP, HTMLScanner.class,
                         Arrays.asList("htm", "html"), Arrays.asList() },
                 { HASKELL, "Haskell", "haskell", LOGIC, HaskellScanner.class,
                         Arrays.asList("hs", "lhs"), Arrays.asList() },
+                { JAM, "Jam", "jam", BUILD, ShellScanner.class,
+                        Arrays.asList(), Arrays.asList("Jamfile", "Jamrules") },
                 { JAVA, "Java", "java", LOGIC, CStyleScanner.class,
                         Arrays.asList("java"), Arrays.asList() },
                 { JAVASCRIPT, "JavaScript", "javascript", LOGIC, CStyleScanner.class,
