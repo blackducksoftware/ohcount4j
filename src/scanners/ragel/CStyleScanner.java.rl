@@ -21,10 +21,10 @@ public class CStyleScanner extends BaseScanner{
   %%{
     machine c;
     include common "common.rl";
-		include c "c.rl";
-    
+    include c "c.rl";
+
   	c_line := |*
-			c_block_comment_begin => { fcall c_block_comment; };
+        c_block_comment_begin => { fcall c_block_comment; };
     	c_line_comment;
     	spaces;
     	newline;
