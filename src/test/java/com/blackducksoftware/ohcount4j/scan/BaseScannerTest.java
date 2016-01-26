@@ -28,10 +28,6 @@ import org.testng.annotations.Test;
 
 import com.blackducksoftware.ohcount4j.SourceFile;
 
-/**
- * @author mpujari
- *
- */
 public class BaseScannerTest extends AbstractBaseScannerTest {
 
     @Test(expectedExceptions = FileNotFoundException.class)

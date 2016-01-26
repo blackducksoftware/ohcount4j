@@ -23,10 +23,6 @@ import static com.blackducksoftware.ohcount4j.Language.CMake;
 
 import org.testng.annotations.Test;
 
-/**
- * @author mpujari
- *
- */
 public class CMakeScannerTest extends AbstractBaseScannerTest {
 
     @Test

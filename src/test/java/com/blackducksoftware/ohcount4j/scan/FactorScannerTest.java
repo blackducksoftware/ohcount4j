@@ -23,10 +23,6 @@ import static com.blackducksoftware.ohcount4j.Language.FACTOR;
 
 import org.testng.annotations.Test;
 
-/**
- * @author mpujari
- *
- */
 public class FactorScannerTest extends AbstractBaseScannerTest {
 
     @Test

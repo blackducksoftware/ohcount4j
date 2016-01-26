@@ -23,10 +23,6 @@ import static com.blackducksoftware.ohcount4j.Language.SWIFT;
 
 import org.testng.annotations.Test;
 
-/**
- * @author mpujari
- *
- */
 public class SwiftScannerTest extends AbstractBaseScannerTest {
 
     @Test

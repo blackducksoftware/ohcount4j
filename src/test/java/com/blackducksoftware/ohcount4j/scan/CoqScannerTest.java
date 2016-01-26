@@ -1,12 +1,12 @@
 /*
  * Copyright 2016 Black Duck Software, Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,17 +14,6 @@
  * limitations under the License.
  */
 
-/*
- * Copyright (C) 2016 Black Duck Software Inc.
- * http://www.blackducksoftware.com/
- * All rights reserved.
- *
- * This software is the confidential and proprietary information of
- * Black Duck Software ("Confidential Information"). You shall not
- * disclose such Confidential Information and shall use it only in
- * accordance with the terms of the license agreement you entered into
- * with Black Duck Software.
- */
 package com.blackducksoftware.ohcount4j.scan;
 
 import static com.blackducksoftware.ohcount4j.Entity.BLANK;
@@ -34,10 +23,6 @@ import static com.blackducksoftware.ohcount4j.Language.COQ;
 
 import org.testng.annotations.Test;
 
-/**
- * @author mpujari
- *
- */
 public class CoqScannerTest extends AbstractBaseScannerTest {
 
     @Test
