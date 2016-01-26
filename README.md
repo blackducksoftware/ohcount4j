@@ -36,6 +36,10 @@ The currently supported platforms are:
 * Ubuntu 14.04 LTS
 * Mac OS X 10.9.x (Dev environment)
 
+## Licensing
+
+Ohcount4j is licensed under [Apache 2](http://www.apache.org/licenses/LICENSE-2.0).  See LICENSE in the root directory for details.
+
 ## Supported Languages
 
 ```
@@ -144,22 +148,20 @@ Ohcount4j supported languages
 2. Install **gradle**
 3. Install **ragel** (minimum: 6.8, recommended 6.9).  To install via [homebrew](https://github.com/Homebrew/homebrew/blob/master/Library/Formula/ragel.rb):
 
-      `brew install ragel`
+     `brew install ragel`
 4. Install **TestNG** plugin in Eclispe (see below)
 
 # Build Configuration Steps
 
 1. Checkout ohcount4j project
 
-  `cd git-clone-dir`
+    `cd git-clone-dir`
 
-  `git clone git@github.com:blackducksw/ohcount4j.git`
+    `git clone git@github.com:blackducksw/ohcount4j.git`
 
-2. Before importing the ohcount4j project into Eclipse, run the gradle build to create the generated ragel files used by the project:
+2. Before importing the ohcount4j project into Eclipse, run the gradle build to create the generated ragel files used by the project.  The gradle script supports the ability to run specifics task for cleaning, regenerating the source, and running tests.  See the build.gradle file for details.
 
     `./gradlew clean build`
-
-  The gradle script supports the ability to run specifics task for cleaning, regenerating the source, and running tests.  See the build.gradle file for details.
 
 3. Create a workspace (Eclipse will require you do this when you start)
 
@@ -179,16 +181,18 @@ Ohcount4j supported languages
   * In Projects: section, you should see ohlcount4j (*git-clone-dir/ohcount4j*) checked.
   * Click **Finish** (do not check Copy Projects into workspace)
 
-# About Project Layout
+# Project Layout
+
 ```
 scanners - ragel scanner definitions. Because it produces Java,
-             name of the file should match scanner class name and it should have
-             net.ohloh.ohcount4j.scanner package definition on top.
-             Also, the extension should be .java.rl. See ExampleScanner.java.rl.
+           name of the file should match scanner class name and it should
+           have net.ohloh.ohcount4j.scanner package definition on top.  
+           Also, the extension should be .java.rl.
+           See ExampleScanner.java.rl.
 src - source directory
 test - test source directory
 gen-src - generated scanner sources
-            gen-src target invokes ragel command on each file in scanners directory
-            and output goes into gen-src/net/ohloh/ohcount4j/scanner
+          gen-src target invokes ragel command on each file in scanners directory
+          and output goes into gen-src/net/ohloh/ohcount4j/scanner
 lib - libraries
 ```
