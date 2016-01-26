@@ -50,6 +50,7 @@ import com.blackducksoftware.ohcount4j.scan.FortranFixedScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFreeScanner;
 import com.blackducksoftware.ohcount4j.scan.GenericCodeScanner;
 import com.blackducksoftware.ohcount4j.scan.HTMLScanner;
+import com.blackducksoftware.ohcount4j.scan.HamlScanner;
 import com.blackducksoftware.ohcount4j.scan.HaskellScanner;
 import com.blackducksoftware.ohcount4j.scan.JspScanner;
 import com.blackducksoftware.ohcount4j.scan.LispScanner;
@@ -132,12 +133,15 @@ public enum Language implements LanguageCategory {
     FORTRANFIXED("Fortran (Fixed-Format)", LOGIC, FortranFixedScanner.class),
     FORTRANFREE("Fortran (Free-Format)", LOGIC, FortranFreeScanner.class),
     FSHARP("F#", LOGIC, FSharpScanner.class),
+    GENIE("Genie", LOGIC, CStyleScanner.class),
     GLSL("OpenGL Shading Language", LOGIC, CStyleScanner.class),
     GOLANG("Go", LOGIC, CStyleScanner.class),
     GROOVY("Groovy", LOGIC, CStyleScanner.class),
+    HAML("Haml", MARKUP, HamlScanner.class),
     HAXE("HaXe", LOGIC, CStyleScanner.class),
     HTML("HTML", MARKUP, HTMLScanner.class),
     HASKELL("Haskell", LOGIC, HaskellScanner.class),
+    JAM("Jam", BUILD, ShellScanner.class),
     JAVA("Java", LOGIC, CStyleScanner.class),
     JAVASCRIPT("JavaScript", LOGIC, CStyleScanner.class),
     LIMBO("Limbo", LOGIC, CStyleScanner.class),
@@ -235,12 +239,15 @@ public enum Language implements LanguageCategory {
         FORTRANFIXED.extensions("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FORTRANFREE.extensions("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FSHARP.extension("fs");
+        GENIE.extension("gs");
         GLSL.extensions("frag", "glsl", "vert");
         GOLANG.extensions("go");
         GROOVY.extension("groovy");
+        HAML.extension("haml");
         HAXE.extension("hx");
         HTML.extensions("htm", "html");
         HASKELL.extensions("hs", "lhs");
+        JAM.filenames("Jamfile", "Jamrules");
         JAVA.extension("java");
         JAVASCRIPT.alias("js").extension("js");
         JSP.extension("jsp");
