@@ -23,10 +23,6 @@ import static com.blackducksoftware.ohcount4j.Language.AUTOCONF;
 
 import org.testng.annotations.Test;
 
-/**
- * @author mpujari
- *
- */
 public class AutoconfScannerTest extends AbstractBaseScannerTest {
 
     @Test

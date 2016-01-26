@@ -24,10 +24,6 @@ import org.testng.annotations.Test;
 
 import com.blackducksoftware.ohcount4j.Language;
 
-/**
- * @author gandhip
- *
- */
 public class BfkScannerTest extends AbstractBaseScannerTest {
 
     @Test

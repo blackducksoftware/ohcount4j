@@ -23,10 +23,6 @@ import static com.blackducksoftware.ohcount4j.Language.JAM;
 
 import org.testng.annotations.Test;
 
-/**
- * @author mpujari
- *
- */
 public class JamScannerTest extends AbstractBaseScannerTest {
 
     @Test

@@ -23,10 +23,6 @@ import static com.blackducksoftware.ohcount4j.Language.AUTOMAKE;
 
 import org.testng.annotations.Test;
 
-/**
- * @author mpujari
- *
- */
 public class AutomakeScannerTest extends AbstractBaseScannerTest {
 
     @Test

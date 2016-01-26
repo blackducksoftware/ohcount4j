@@ -23,10 +23,6 @@ import static com.blackducksoftware.ohcount4j.Language.SCALA;
 
 import org.testng.annotations.Test;
 
-/**
- * @author mpujari
- *
- */
 public class ScalaScannerTest extends AbstractBaseScannerTest {
 
     @Test

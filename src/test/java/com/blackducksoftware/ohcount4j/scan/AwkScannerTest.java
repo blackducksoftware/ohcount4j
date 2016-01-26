@@ -23,10 +23,6 @@ import static com.blackducksoftware.ohcount4j.Language.AWK;
 
 import org.testng.annotations.Test;
 
-/**
- * @author mpujari
- *
- */
 public class AwkScannerTest extends AbstractBaseScannerTest {
 
     @Test
