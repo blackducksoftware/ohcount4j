@@ -1,6 +1,6 @@
 /*
  * Copyright 2016 Black Duck Software, Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -62,25 +62,25 @@ public class FortranResolverTest {
 
         assertEquals(Language.FORTRANFIXED, r.resolve(new SourceFile("foo.f",
                 "C     Comment\n" +
-                        "      program foo\n")));
+                "      program foo\n")));
     }
 
     @Test
     public void freeExamplesTest() throws IOException {
         assertEquals(Language.FORTRANFREE, r.resolve(new SourceFile("foo.f",
                 "! -*- F90 -*-\n" +
-                        "program fortranfreecheck\n" +
-                        "!     Simple check.  Not valid fixed form thanks to code starting in first column.\n" +
-                        "    write(*,*) 2 + &\n" +
-                        "        & 2\n" +
-                        "    goto 22\n" +
-                        " 22   write(*,*) 'bar'\n" +
-                        "end program fortranfreecheck\n")));
+                "program fortranfreecheck\n" +
+                "!     Simple check.  Not valid fixed form thanks to code starting in first column.\n" +
+                "    write(*,*) 2 + &\n" +
+                "        & 2\n" +
+                "    goto 22\n" +
+                " 22   write(*,*) 'bar'\n" +
+                "end program fortranfreecheck\n")));
 
         assertEquals(Language.FORTRANFREE, r.resolve(new SourceFile("foo.f",
                 "! -*- F90 -*-\n" +
-                        "!     Comment\n" +
-                        "      program foo")));
+                "!     Comment\n" +
+                "      program foo")));
 
         assertEquals(Language.FORTRANFREE, r.resolve(new SourceFile("foo.f",
                 "C = 1 ! Not a comment")));

@@ -27,10 +27,6 @@ import org.testng.annotations.Test;
 import com.blackducksoftware.ohcount4j.Language;
 import com.blackducksoftware.ohcount4j.SourceFile;
 
-/**
- * @author gandhip
- *
- */
 public class ExtnCSResolverTest {
 
     private ExtnCSResolver resolver;
@@ -60,9 +56,9 @@ public class ExtnCSResolverTest {
         SourceFile s = new SourceFile("main.cs",
                 "public class SomeClass{\n"
                         + "public static void Main () {\n"
-                        + "SomeClass x = new SomeClass ();\n"
+                             + "SomeClass x = new SomeClass ();\n"
                         + "}\n"
-                        + "}"
+                 + "}"
                 );
         assertEquals(Language.CSHARP, resolver.resolve(s));
     }
@@ -71,9 +67,9 @@ public class ExtnCSResolverTest {
     public void clearSilverExample() throws IOException {
         SourceFile s = new SourceFile("main.cs",
                 "<?cs include:\"templates/header.cs\" ?>\n"
-                        + "<?cs if:?error ?>\n"
-                        + "<div class=\"error\"><?cs var:error ?></div>\n"
-                        + "<?cs /if ?>");
+                 + "<?cs if:?error ?>\n"
+                 + "<div class=\"error\"><?cs var:error ?></div>\n"
+                 + "<?cs /if ?>");
         assertEquals(Language.CLEARSILVER, resolver.resolve(s));
     }
 }
