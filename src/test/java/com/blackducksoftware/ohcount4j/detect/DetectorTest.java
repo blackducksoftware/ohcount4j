@@ -73,11 +73,15 @@ public class DetectorTest {
                 { Language.GENIE, Arrays.asList("foo.gs") },
                 { Language.GLSL, Arrays.asList("foo.frag", "foo.glsl", "foo.vert") },
                 { Language.HAXE, Arrays.asList("main.hx") },
+                { Language.JAM, Arrays.asList("Jamfile") },
+                { Language.JAM, Arrays.asList("Jamrules") },
         };
     }
 
     @Test
     public void detectByFilenameTest() throws IOException {
+        assertDetect("Jamfile", Language.JAM);
+        assertDetect("Jamrules", Language.JAM);
         assertDetect("Makefile", Language.MAKE);
         assertDetect("Gemfile", Language.RUBY);
         assertDetect("Rakefile", Language.RUBY);

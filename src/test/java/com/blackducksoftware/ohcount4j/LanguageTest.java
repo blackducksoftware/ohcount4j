@@ -66,6 +66,7 @@ import static com.blackducksoftware.ohcount4j.Language.GROOVY;
 import static com.blackducksoftware.ohcount4j.Language.HASKELL;
 import static com.blackducksoftware.ohcount4j.Language.HAXE;
 import static com.blackducksoftware.ohcount4j.Language.HTML;
+import static com.blackducksoftware.ohcount4j.Language.JAM;
 import static com.blackducksoftware.ohcount4j.Language.JAVA;
 import static com.blackducksoftware.ohcount4j.Language.JAVASCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.JSP;
@@ -299,6 +300,8 @@ public class LanguageTest {
                         Arrays.asList("htm", "html"), Arrays.asList() },
                 { HASKELL, "Haskell", "haskell", LOGIC, HaskellScanner.class,
                         Arrays.asList("hs", "lhs"), Arrays.asList() },
+                { JAM, "Jam", "jam", BUILD, ShellScanner.class,
+                        Arrays.asList(), Arrays.asList("Jamfile", "Jamrules") },
                 { JAVA, "Java", "java", LOGIC, CStyleScanner.class,
                         Arrays.asList("java"), Arrays.asList() },
                 { JAVASCRIPT, "JavaScript", "javascript", LOGIC, CStyleScanner.class,
