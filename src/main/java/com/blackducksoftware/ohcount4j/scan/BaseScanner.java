@@ -1,12 +1,12 @@
 /*
  * Copyright 2016 Black Duck Software, Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -83,7 +83,7 @@ public abstract class BaseScanner implements Scanner {
         return defaultLanguage;
     }
 
-    /**
+    /*
      * When we have scan with sourceFile, we read data in blocks.
      * Ideally we read max block defined by BLOCK_SIZE (1.5MB) or the file size which ever is less.
      * 1.5MB came up with an assumption of a source file having 10000 line of code with 150 chars each has a size of
@@ -165,7 +165,6 @@ public abstract class BaseScanner implements Scanner {
         StringBuilder sb = new StringBuilder();
         while ((value = reader.read()) != -1) {
             if (value == '\n') {
-                // break
                 sb.append('\n');
                 break;
             } else {
