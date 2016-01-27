@@ -18,6 +18,7 @@ package com.blackducksoftware.ohcount4j.detect;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -32,7 +33,20 @@ import com.blackducksoftware.ohcount4j.SourceFileUtils;
 
 public class Detector {
 
+    private static final Set<String> BINARY_EXTENSIONS = new HashSet<String>(Arrays.asList("a", "aiff", "au", "avi",
+            "bin", "bmp", "cache", "class", "dat", "dll", "doc", "docx", "dylib", "exe", "gif", "gz", "ico", "icns",
+            "jar", "jpeg", "jpg", "m4a", "mov", "mp3", "mpg", "ogg", "pdf", "png", "pnt", "ppt", "pptx", "qt", "ra",
+            "so", "svg", "svgz", "svn", "swf", "tar", "tgz", "tif", "tiff", "wav", "xls", "xlsx", "xlw", "zip"));
+
     private static final Detector DETECTOR_INSTANCE = new Detector();
+
+    private final Map<String, Language> nameMap;
+
+    private final Map<String, Language> extensionMap;
+
+    private final Map<String, Language> filenameMap;
+
+    private final Map<String, Class<? extends Resolver>> resolverExtensionMap;
 
     public static Detector getInstance() {
         return DETECTOR_INSTANCE;
@@ -77,14 +91,6 @@ public class Detector {
     public static Language detect(SourceFile source) throws IOException {
         return detect(source, new ArrayList<String>());
     }
-
-    private final Map<String, Language> nameMap;
-
-    private final Map<String, Language> extensionMap;
-
-    private final Map<String, Language> filenameMap;
-
-    private final Map<String, Class<? extends Resolver>> resolverExtensionMap;
 
     private Detector() {
         extensionMap = new HashMap<String, Language>();
@@ -177,7 +183,7 @@ public class Detector {
             return new FortranResolver();
         }
 
-        String resolverName = "com.blackducksoftware.ohcount4j.detect.Extn" + ext.toUpperCase() + "Resolver";
+        String resolverName = Detector.class.getPackage().getName() + ".Extn" + ext.toUpperCase() + "Resolver";
         Class<? extends Resolver> klass;
 
         try {
@@ -202,57 +208,5 @@ public class Detector {
     public boolean isBinary(String extension) {
         return BINARY_EXTENSIONS.contains(extension.toLowerCase());
     }
-
-    private static final Set<String> BINARY_EXTENSIONS = new HashSet<String>() {
-        {
-            add("a");
-            add("aiff");
-            add("au");
-            add("avi");
-            add("bin");
-            add("bmp");
-            add("cache");
-            add("class");
-            add("dat");
-            add("dll");
-            add("doc");
-            add("docx");
-            add("dylib");
-            add("exe");
-            add("gif");
-            add("gz");
-            add("ico");
-            add("icns");
-            add("jar");
-            add("jpeg");
-            add("jpg");
-            add("m4a");
-            add("mov");
-            add("mp3");
-            add("mpg");
-            add("ogg");
-            add("pdf");
-            add("png");
-            add("pnt");
-            add("ppt");
-            add("pptx");
-            add("qt");
-            add("ra");
-            add("so");
-            add("svg");
-            add("svgz");
-            add("svn");
-            add("swf");
-            add("tar");
-            add("tgz");
-            add("tif");
-            add("tiff");
-            add("wav");
-            add("xls");
-            add("xlsx");
-            add("xlw");
-            add("zip");
-        }
-    };
 
 }
