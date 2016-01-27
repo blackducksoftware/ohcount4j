@@ -192,8 +192,8 @@ scanners - ragel scanner definitions. Because it produces Java,
            See ExampleScanner.java.rl.
 src - source directory
 test - test source directory
-gen-src - generated scanner sources
-          gen-src target invokes ragel command on each file in scanners directory
-          and output goes into gen-src/net/ohloh/ohcount4j/scanner
+src/generated/java - generated scanner sources
+           generateScanSources target invokes ragel command on each file in scanners directory
+           and output goes into src/generated/java/com/blackducksoftware/ohcount4j/scan
 lib - libraries
 ```
