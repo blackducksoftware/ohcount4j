@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/blackducksoftware/ohcount4j.svg?branch=master)](https://travis-ci.org/blackducksoftware/ohcount4j)
+
 # Overview
 
 Ohcount4j is a regal/java application for inspecting source by detecting languages and counting lines of code.  For example,
