@@ -77,6 +77,7 @@ import static com.blackducksoftware.ohcount4j.Language.LUA;
 import static com.blackducksoftware.ohcount4j.Language.MAKE;
 import static com.blackducksoftware.ohcount4j.Language.MATHEMATICA;
 import static com.blackducksoftware.ohcount4j.Language.MATLAB;
+import static com.blackducksoftware.ohcount4j.Language.METAPOST;
 import static com.blackducksoftware.ohcount4j.Language.MODULA2;
 import static com.blackducksoftware.ohcount4j.Language.MODULA3;
 import static com.blackducksoftware.ohcount4j.Language.OBJECTIVE_C;
@@ -164,6 +165,7 @@ import com.blackducksoftware.ohcount4j.scan.LuaScanner;
 import com.blackducksoftware.ohcount4j.scan.MakeScanner;
 import com.blackducksoftware.ohcount4j.scan.MathematicaScanner;
 import com.blackducksoftware.ohcount4j.scan.MatlabScanner;
+import com.blackducksoftware.ohcount4j.scan.MetapostWithTexScanner;
 import com.blackducksoftware.ohcount4j.scan.ModulaScanner;
 import com.blackducksoftware.ohcount4j.scan.OCamlScanner;
 import com.blackducksoftware.ohcount4j.scan.PascalScanner;
@@ -324,6 +326,8 @@ public class LanguageTest {
                         Arrays.asList("nb", "nbs"), Arrays.asList() },
                 { MATLAB, "Matlab", "matlab", LOGIC, MatlabScanner.class,
                         Arrays.asList(), Arrays.asList() },
+                { METAPOST, "MetaPost", "metapost", MARKUP, MetapostWithTexScanner.class,
+                        Arrays.asList("mp"), Arrays.asList() },
                 { MODULA2, "Modula 2", "modula2", LOGIC, ModulaScanner.class,
                         Arrays.asList("mod", "m2"), Arrays.asList() },
                 { MODULA3, "Modula 3", "modula3", LOGIC, ModulaScanner.class,
