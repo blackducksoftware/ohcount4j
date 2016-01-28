@@ -30,7 +30,7 @@ import com.blackducksoftware.ohcount4j.SourceFile;
  * @author gandhip
  *
  */
-public class MetapostWithTexScannertest extends BaseScannerTest {
+public class MetapostWithTexScannerTest extends BaseScannerTest {
 
     @Test
     public void basic() {
