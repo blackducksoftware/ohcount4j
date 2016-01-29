@@ -37,6 +37,7 @@ import com.blackducksoftware.ohcount4j.scan.CStyleScanner;
 import com.blackducksoftware.ohcount4j.scan.ClearSilverTemplateScanner;
 import com.blackducksoftware.ohcount4j.scan.ClojureScanner;
 import com.blackducksoftware.ohcount4j.scan.CobolScanner;
+import com.blackducksoftware.ohcount4j.scan.CoffeeScriptScanner;
 import com.blackducksoftware.ohcount4j.scan.ColdFusionScanner;
 import com.blackducksoftware.ohcount4j.scan.CoqScanner;
 import com.blackducksoftware.ohcount4j.scan.DScanner;
@@ -111,6 +112,7 @@ public enum Language implements LanguageCategory {
     CLEARSILVER("ClearSilver", LOGIC, ClearSilverTemplateScanner.class),
     CLOJURE("Clojure", LOGIC, ClojureScanner.class),
     COBOL("COBOL", LOGIC, CobolScanner.class),
+    COFFEESCRIPT("CoffeeScript", LOGIC, CoffeeScriptScanner.class),
     COLDFUSION("ColdFusion", MARKUP, ColdFusionScanner.class),
     CPP("C++", LOGIC, CStyleScanner.class),
     CMake("CMake", BUILD, CMakeScanner.class),
@@ -218,6 +220,7 @@ public enum Language implements LanguageCategory {
         CLOJURE.extensions("clj", "cljs", "cljc");
         CMake.extensions("cmake").filename("CMakeLists.txt");
         COBOL.extension("cbl");
+        COFFEESCRIPT.extension("coffee");
         COLDFUSION.extensions("cfc", "cfm");
         CPP.extensions("C", "c++", "cc", "cpp", "cxx", "H", "h", "h++", "hh", "hpp", "hxx");
         COQ.extension("v");

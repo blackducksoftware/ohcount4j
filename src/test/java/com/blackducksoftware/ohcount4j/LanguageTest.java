@@ -38,6 +38,7 @@ import static com.blackducksoftware.ohcount4j.Language.CLEARSILVER;
 import static com.blackducksoftware.ohcount4j.Language.CLOJURE;
 import static com.blackducksoftware.ohcount4j.Language.CMake;
 import static com.blackducksoftware.ohcount4j.Language.COBOL;
+import static com.blackducksoftware.ohcount4j.Language.COFFEESCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.COLDFUSION;
 import static com.blackducksoftware.ohcount4j.Language.COQ;
 import static com.blackducksoftware.ohcount4j.Language.CPP;
@@ -143,6 +144,7 @@ import com.blackducksoftware.ohcount4j.scan.CStyleScanner;
 import com.blackducksoftware.ohcount4j.scan.ClearSilverTemplateScanner;
 import com.blackducksoftware.ohcount4j.scan.ClojureScanner;
 import com.blackducksoftware.ohcount4j.scan.CobolScanner;
+import com.blackducksoftware.ohcount4j.scan.CoffeeScriptScanner;
 import com.blackducksoftware.ohcount4j.scan.ColdFusionScanner;
 import com.blackducksoftware.ohcount4j.scan.CoqScanner;
 import com.blackducksoftware.ohcount4j.scan.DScanner;
@@ -244,6 +246,8 @@ public class LanguageTest {
                         Arrays.asList("clj", "cljs", "cljc"), Arrays.asList() },
                 { COBOL, "COBOL", "cobol", LOGIC, CobolScanner.class,
                         Arrays.asList("cbl"), Arrays.asList() },
+                { COFFEESCRIPT, "CoffeeScript", "coffeescript", LOGIC, CoffeeScriptScanner.class,
+                        Arrays.asList("coffee"), Arrays.asList() },
                 { COLDFUSION, "ColdFusion", "coldfusion", MARKUP, ColdFusionScanner.class,
                         Arrays.asList("cfc", "cfm"), Arrays.asList() },
                 { CPP, "C++", "cpp", LOGIC, CStyleScanner.class,
