@@ -76,6 +76,7 @@ public class DetectorTest {
                 { Language.HAML, Arrays.asList("main.haml") },
                 { Language.JAM, Arrays.asList("Jamfile") },
                 { Language.JAM, Arrays.asList("Jamrules") },
+                { Language.LOGTALK, Arrays.asList("foo.lgt") },
         };
     }
 

@@ -73,6 +73,7 @@ import static com.blackducksoftware.ohcount4j.Language.JAVASCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.JSP;
 import static com.blackducksoftware.ohcount4j.Language.LIMBO;
 import static com.blackducksoftware.ohcount4j.Language.LISP;
+import static com.blackducksoftware.ohcount4j.Language.LOGTALK;
 import static com.blackducksoftware.ohcount4j.Language.LUA;
 import static com.blackducksoftware.ohcount4j.Language.MAKE;
 import static com.blackducksoftware.ohcount4j.Language.MATHEMATICA;
@@ -160,6 +161,7 @@ import com.blackducksoftware.ohcount4j.scan.HamlScanner;
 import com.blackducksoftware.ohcount4j.scan.HaskellScanner;
 import com.blackducksoftware.ohcount4j.scan.JspScanner;
 import com.blackducksoftware.ohcount4j.scan.LispScanner;
+import com.blackducksoftware.ohcount4j.scan.LogtalkScanner;
 import com.blackducksoftware.ohcount4j.scan.LuaScanner;
 import com.blackducksoftware.ohcount4j.scan.MakeScanner;
 import com.blackducksoftware.ohcount4j.scan.MathematicaScanner;
@@ -310,12 +312,14 @@ public class LanguageTest {
                         Arrays.asList("java"), Arrays.asList() },
                 { JAVASCRIPT, "JavaScript", "javascript", LOGIC, CStyleScanner.class,
                         Arrays.asList("js"), Arrays.asList() },
-                { LIMBO, "Limbo", "limbo", LOGIC, CStyleScanner.class,
-                        Arrays.asList("b", "m"), Arrays.asList() },
                 { JSP, "JSP", "jsp", LOGIC, JspScanner.class,
                         Arrays.asList("jsp"), Arrays.asList() },
+                { LIMBO, "Limbo", "limbo", LOGIC, CStyleScanner.class,
+                        Arrays.asList("b", "m"), Arrays.asList() },
                 { LISP, "Lisp", "lisp", LOGIC, LispScanner.class,
                         Arrays.asList(), Arrays.asList() },
+                { LOGTALK, "Logtalk", "logtalk", LOGIC, LogtalkScanner.class,
+                        Arrays.asList("lgt"), Arrays.asList() },
                 { LUA, "Lua", "lua", LOGIC, LuaScanner.class,
                         Arrays.asList("lua"), Arrays.asList() },
                 { MAKE, "Make", "make", BUILD, MakeScanner.class,

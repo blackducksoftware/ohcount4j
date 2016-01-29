@@ -54,6 +54,7 @@ import com.blackducksoftware.ohcount4j.scan.HamlScanner;
 import com.blackducksoftware.ohcount4j.scan.HaskellScanner;
 import com.blackducksoftware.ohcount4j.scan.JspScanner;
 import com.blackducksoftware.ohcount4j.scan.LispScanner;
+import com.blackducksoftware.ohcount4j.scan.LogtalkScanner;
 import com.blackducksoftware.ohcount4j.scan.LuaScanner;
 import com.blackducksoftware.ohcount4j.scan.MakeScanner;
 import com.blackducksoftware.ohcount4j.scan.MathematicaScanner;
@@ -144,9 +145,10 @@ public enum Language implements LanguageCategory {
     JAM("Jam", BUILD, ShellScanner.class),
     JAVA("Java", LOGIC, CStyleScanner.class),
     JAVASCRIPT("JavaScript", LOGIC, CStyleScanner.class),
-    LIMBO("Limbo", LOGIC, CStyleScanner.class),
     JSP("JSP", LOGIC, JspScanner.class),
+    LIMBO("Limbo", LOGIC, CStyleScanner.class),
     LISP("Lisp", LOGIC, LispScanner.class),
+    LOGTALK("Logtalk", LOGIC, LogtalkScanner.class),
     LUA("Lua", LOGIC, LuaScanner.class),
     MAKE("Make", BUILD, MakeScanner.class),
     MATHEMATICA("Mathematica", LOGIC, MathematicaScanner.class),
@@ -252,6 +254,7 @@ public enum Language implements LanguageCategory {
         JAVASCRIPT.alias("js").extension("js");
         JSP.extension("jsp");
         LIMBO.extensions("b", "m");
+        LOGTALK.extension("lgt");
         LUA.extension("lua");
         MAKE.filename("Makefile").extensions("mk", "pro");
         MATHEMATICA.extensions("nb", "nbs");
