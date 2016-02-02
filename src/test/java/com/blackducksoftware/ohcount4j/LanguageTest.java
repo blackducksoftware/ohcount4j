@@ -148,6 +148,7 @@ import com.blackducksoftware.ohcount4j.scan.CoqScanner;
 import com.blackducksoftware.ohcount4j.scan.DScanner;
 import com.blackducksoftware.ohcount4j.scan.DclScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
+import com.blackducksoftware.ohcount4j.scan.ElixirScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
 import com.blackducksoftware.ohcount4j.scan.FactorScanner;
@@ -270,6 +271,8 @@ public class LanguageTest {
                         Arrays.asList("ec", "eh"), Arrays.asList() },
                 { ECMASCRIPT, "ECMAScript", "ecmascript", LOGIC, CStyleScanner.class,
                         Arrays.asList("es"), Arrays.asList() },
+                { Language.ELIXIR, "Elixir", "elixir", LOGIC, ElixirScanner.class,
+                        Arrays.asList("ex", "exs"), Arrays.asList() },
                 { EIFFEL, "Eiffel", "eiffel", LOGIC, EiffelScanner.class,
                         Arrays.asList("e"), Arrays.asList() },
                 { EMACSLISP, "Emacs Lisp", "emacslisp", LOGIC, LispScanner.class,
