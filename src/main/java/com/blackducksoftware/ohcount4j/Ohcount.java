@@ -66,6 +66,8 @@ public class Ohcount {
                 annotate(files, getFilenames(files));
             } else if (opts.detect) {
                 detect(files, getFilenames(files));
+            } else if (opts.interactive) {
+                interactive(files, getFilenames(files));
             } else {
                 summarize(files, getFilenames(files));
             }
@@ -113,6 +115,10 @@ public class Ohcount {
         }
     }
 
+    static void interactive(List<File> files, List<String> filenames) throws IOException {
+        new ThreadedFileList(4).count(files, filenames).print();
+    }
+
     static void summarize(List<File> files, List<String> filenames) throws IOException {
         new ThreadedFileListCounter(4).count(files, filenames).print();
     }
@@ -143,6 +149,9 @@ public class Ohcount {
 
         @Option(name = "-l", usage = "show supported languages")
         boolean supportedLanguages = false;
+
+        @Option(name = "-i", usage = "individual files line count summary")
+        boolean interactive = false;
     }
 
 }
