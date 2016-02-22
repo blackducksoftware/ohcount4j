@@ -35,7 +35,7 @@ public class Files {
             LanguageCount count  = file.getLanguage();
             SourceFile    source = file.getSource();
             
-            System.out.format("%-24s %6d %10d %9.1f%% %10d %10d %s\n",
+            System.out.format("%-20s %6d %10d %9.1f%% %10d %10d %s\n",
                     count.getLanguage().niceName(),
                     count.getCode(),
                     count.getComment(),
