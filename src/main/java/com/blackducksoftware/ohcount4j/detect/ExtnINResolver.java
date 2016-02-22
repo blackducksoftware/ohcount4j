@@ -32,7 +32,7 @@ public class ExtnINResolver extends AbstractExtnResolver {
         if (sourceFile.isContentsFromFile()) {
             stripped = new SourceFile(strippedPath, sourceFile.getReader());
         } else {
-            stripped = new SourceFile(strippedPath, new String(sourceFile.getContents()));
+            stripped = new SourceFile(strippedPath, getContentsAsString(sourceFile));
         }
         return Detector.detect(stripped);
     }
