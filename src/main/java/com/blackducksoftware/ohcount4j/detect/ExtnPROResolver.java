@@ -33,7 +33,7 @@ public class ExtnPROResolver extends AbstractExtnResolver {
         if (QMAKE_PATTERN.matcher(sourceFile.getCharSequence()).find()) {
             return Language.MAKE; // Actually QMAKE. Should this be a distinct language?
         } else {
-            return Language.PVWAVE;
+            return Language.IDL_PVWAVE;
         }
     }
 
@@ -44,7 +44,7 @@ public class ExtnPROResolver extends AbstractExtnResolver {
 
     @Override
     public boolean canResolve(Language language) {
-        if (language == Language.MAKE || language == Language.PVWAVE) {
+        if (language == Language.MAKE || language == Language.IDL_PVWAVE) {
             return true;
         } else {
             return false;

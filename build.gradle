@@ -11,6 +11,8 @@ sourceCompatibility = 1.7
 // The main class of the application
 mainClassName = 'com.blackducksoftware.ohcount4j.Ohcount'
 
+archivesBaseName="${name.replaceAll('\\.', '-').toLowerCase()}"
+
 buildscript {
     repositories {
         mavenCentral()
@@ -43,7 +45,7 @@ task oneJar(type: OneJar) {
     additionalDir = file('src/main/resources') // adds log4j.properties to the combined jar
     doLast {
     	// renaming ohcount4j-project.version-standalone.jar to ohcount4j-standalone.jar
-    	file('build/libs/ohcount4j-'+ project.version + '-standalone.jar').renameTo(file('build/libs/ohcount4j-standalone.jar'))
+    	file('build/libs/' + archivesBaseName + '-' +project.version + '-standalone.jar').renameTo(file('build/libs/ohcount4j-standalone.jar'))
     }
 }
 
@@ -109,7 +111,5 @@ jacocoTestReport {
 		html.destination "${buildDir}/jacocoHtml"
 	}
 }
-
-archivesBaseName="${name.replaceAll('\\.', '-').toLowerCase()}"
 
 task wrapper(type: Wrapper) { gradleVersion = '2.10' }
