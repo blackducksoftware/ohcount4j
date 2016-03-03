@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Black Duck Software, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,10 +23,6 @@ import static com.blackducksoftware.ohcount4j.Language.AUTOCONF;
 
 import org.testng.annotations.Test;
 
-/**
- * @author mpujari
- *
- */
 public class AutoconfScannerTest extends AbstractBaseScannerTest {
 
     @Test

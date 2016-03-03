@@ -1,12 +1,12 @@
-/**
+/*
  * Copyright 2016 Black Duck Software, Inc.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -60,13 +60,31 @@ public class DetectorTest {
                 { Language.CHAISCRIPT, Arrays.asList("main.chai") },
                 { Language.COQ, Arrays.asList("foo.v") },
                 { Language.CUDA, Arrays.asList("foo.cu", "foo.cuh") },
-                { Language.BLITZMAX, Arrays.asList("main.bmx") }
-
+                { Language.BLITZMAX, Arrays.asList("main.bmx") },
+                { Language.D, Arrays.asList("foo.d") },
+                { Language.DYLAN, Arrays.asList("foo.dylan") },
+                { Language.DCL, Arrays.asList("foo.COM") },
+                { Language.EC, Arrays.asList("foo.ec", "foo.eh") },
+                { Language.EBUILD, Arrays.asList("foo.ebuild", "foo.kdebuild-1", "foo.eclass") },
+                { Language.EMACSLISP, Arrays.asList("foo.el") },
+                { Language.EXHERES, Arrays.asList("foo.exheres-0", "foo.exheres-1", "foo.exlib") },
+                { Language.FACTOR, Arrays.asList("foo.factor") },
+                { Language.FORTH, Arrays.asList("foo.fr", "foo.4th") },
+                { Language.GENIE, Arrays.asList("foo.gs") },
+                { Language.GLSL, Arrays.asList("foo.frag", "foo.glsl", "foo.vert") },
+                { Language.HAXE, Arrays.asList("main.hx") },
+                { Language.HAML, Arrays.asList("main.haml") },
+                { Language.JAM, Arrays.asList("Jamfile") },
+                { Language.JAM, Arrays.asList("Jamrules") },
+                { Language.METAPOST, Arrays.asList("main.mp") },
+                { Language.METAFONT, Arrays.asList("main.mf") },
         };
     }
 
     @Test
     public void detectByFilenameTest() throws IOException {
+        assertDetect("Jamfile", Language.JAM);
+        assertDetect("Jamrules", Language.JAM);
         assertDetect("Makefile", Language.MAKE);
         assertDetect("Gemfile", Language.RUBY);
         assertDetect("Rakefile", Language.RUBY);

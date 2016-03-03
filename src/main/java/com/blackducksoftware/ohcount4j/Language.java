@@ -1,12 +1,12 @@
-/**
+/*
  * Copyright 2016 Black Duck Software, Inc.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,20 +40,27 @@ import com.blackducksoftware.ohcount4j.scan.CobolScanner;
 import com.blackducksoftware.ohcount4j.scan.ColdFusionScanner;
 import com.blackducksoftware.ohcount4j.scan.CoqScanner;
 import com.blackducksoftware.ohcount4j.scan.DScanner;
+import com.blackducksoftware.ohcount4j.scan.DclScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
+import com.blackducksoftware.ohcount4j.scan.FactorScanner;
+import com.blackducksoftware.ohcount4j.scan.ForthScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFixedScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFreeScanner;
 import com.blackducksoftware.ohcount4j.scan.GenericCodeScanner;
 import com.blackducksoftware.ohcount4j.scan.HTMLScanner;
+import com.blackducksoftware.ohcount4j.scan.HamlScanner;
 import com.blackducksoftware.ohcount4j.scan.HaskellScanner;
+import com.blackducksoftware.ohcount4j.scan.IdlPvwaveScanner;
 import com.blackducksoftware.ohcount4j.scan.JspScanner;
 import com.blackducksoftware.ohcount4j.scan.LispScanner;
 import com.blackducksoftware.ohcount4j.scan.LuaScanner;
 import com.blackducksoftware.ohcount4j.scan.MakeScanner;
 import com.blackducksoftware.ohcount4j.scan.MathematicaScanner;
 import com.blackducksoftware.ohcount4j.scan.MatlabScanner;
+import com.blackducksoftware.ohcount4j.scan.MetapostWithTexScanner;
+import com.blackducksoftware.ohcount4j.scan.MetafontScanner;
 import com.blackducksoftware.ohcount4j.scan.ModulaScanner;
 import com.blackducksoftware.ohcount4j.scan.OCamlScanner;
 import com.blackducksoftware.ohcount4j.scan.PascalScanner;
@@ -115,16 +122,30 @@ public enum Language implements LanguageCategory {
     CSS("CSS", MARKUP, CStyleScanner.class),
     CUDA("CUDA", LOGIC, CStyleScanner.class),
     D("D", LOGIC, DScanner.class),
+    DYLAN("Dylan", LOGIC, CStyleScanner.class),
+    DCL("DCL", LOGIC, DclScanner.class),
+    EBUILD("Ebuild", BUILD, ShellScanner.class),
+    EC("eC", LOGIC, CStyleScanner.class),
     ECMASCRIPT("ECMAScript", LOGIC, CStyleScanner.class),
     EIFFEL("Eiffel", LOGIC, EiffelScanner.class),
+    EMACSLISP("Emacs Lisp", LOGIC, LispScanner.class),
     ERLANG("Erlang", LOGIC, ErlangScanner.class),
+    FACTOR("Factor", LOGIC, FactorScanner.class),
+    EXHERES("Exheres", LOGIC, ShellScanner.class),
+    FORTH("Forth", LOGIC, ForthScanner.class),
     FORTRANFIXED("Fortran (Fixed-Format)", LOGIC, FortranFixedScanner.class),
     FORTRANFREE("Fortran (Free-Format)", LOGIC, FortranFreeScanner.class),
     FSHARP("F#", LOGIC, FSharpScanner.class),
+    GENIE("Genie", LOGIC, CStyleScanner.class),
+    GLSL("OpenGL Shading Language", LOGIC, CStyleScanner.class),
     GOLANG("Go", LOGIC, CStyleScanner.class),
     GROOVY("Groovy", LOGIC, CStyleScanner.class),
+    HAML("Haml", MARKUP, HamlScanner.class),
+    HAXE("HaXe", LOGIC, CStyleScanner.class),
     HTML("HTML", MARKUP, HTMLScanner.class),
     HASKELL("Haskell", LOGIC, HaskellScanner.class),
+    IDL_PVWAVE("IDL/PV-WAVE/GDL", LOGIC, IdlPvwaveScanner.class),
+    JAM("Jam", BUILD, ShellScanner.class),
     JAVA("Java", LOGIC, CStyleScanner.class),
     JAVASCRIPT("JavaScript", LOGIC, CStyleScanner.class),
     LIMBO("Limbo", LOGIC, CStyleScanner.class),
@@ -134,6 +155,8 @@ public enum Language implements LanguageCategory {
     MAKE("Make", BUILD, MakeScanner.class),
     MATHEMATICA("Mathematica", LOGIC, MathematicaScanner.class),
     MATLAB("Matlab", LOGIC, MatlabScanner.class),
+    METAPOST("MetaPost", MARKUP, MetapostWithTexScanner.class),
+    METAFONT("MetaFont", MARKUP, MetafontScanner.class),
     MODULA2("Modula 2", LOGIC, ModulaScanner.class),
     MODULA3("Modula 3", LOGIC, ModulaScanner.class),
     OBJECTIVE_C("Objective-C", LOGIC, CStyleScanner.class),
@@ -143,7 +166,6 @@ public enum Language implements LanguageCategory {
     PERL("Perl", LOGIC, PerlScanner.class),
     PHP("Php", LOGIC, PhpScanner.class),
     PUPPET("Puppet", LOGIC, GenericCodeScanner.class), // TODO.
-    PVWAVE("IDL/PV-WAVE/GDL", LOGIC, GenericCodeScanner.class), // TODO.
     PROLOG("Prolog", LOGIC, PrologScanner.class),
     PYTHON("Python", LOGIC, PythonScanner.class),
     R("R", LOGIC, GenericCodeScanner.class), // TODO.
@@ -208,16 +230,29 @@ public enum Language implements LanguageCategory {
         CSS.extension("css");
         CUDA.extensions("cu", "cuh");
         D.extension("d");
+        DYLAN.extension("dylan");
+        DCL.extension("com");
+        EBUILD.extensions("ebuild", "kdebuild-1", "eclass");
+        EC.extensions("ec", "eh");
         ECMASCRIPT.extension("es");
         EIFFEL.extension("e");
+        EMACSLISP.extension("el");
         ERLANG.extension("erl");
+        EXHERES.extensions("exheres-0", "exheres-1", "exlib");
+        FACTOR.extension("factor");
+        FORTH.extensions("fr", "4th");
         FORTRANFIXED.extensions("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FORTRANFREE.extensions("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn");
         FSHARP.extension("fs");
+        GENIE.extension("gs");
+        GLSL.extensions("frag", "glsl", "vert");
         GOLANG.extensions("go");
         GROOVY.extension("groovy");
+        HAML.extension("haml");
+        HAXE.extension("hx");
         HTML.extensions("htm", "html");
         HASKELL.extensions("hs", "lhs");
+        JAM.filenames("Jamfile", "Jamrules");
         JAVA.extension("java");
         JAVASCRIPT.alias("js").extension("js");
         JSP.extension("jsp");
@@ -225,6 +260,8 @@ public enum Language implements LanguageCategory {
         LUA.extension("lua");
         MAKE.filename("Makefile").extensions("mk", "pro");
         MATHEMATICA.extensions("nb", "nbs");
+        METAPOST.extension("mp");
+        METAFONT.extensions("mf");
         MODULA2.extensions("mod", "m2");
         MODULA3.extensions("m3", "i3");
         OBJECTIVE_C.extensions("m", "h");
@@ -233,7 +270,7 @@ public enum Language implements LanguageCategory {
         PASCAL.extensions("pas", "pp");
         PERL.extensions("p6", "perl", "ph", "pl", "pm", "pod", "t");
         PHP.extensions("inc", "php", "phtml", "php4", "php3", "php5", "phps");
-        PVWAVE.extension("pro");
+        IDL_PVWAVE.extension("pro");
         PROLOG.extension("pl");
         PUPPET.extension("pp");
         PYTHON.extension("py");

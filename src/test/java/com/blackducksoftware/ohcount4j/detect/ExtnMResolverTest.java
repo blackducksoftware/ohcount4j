@@ -1,12 +1,12 @@
-/**
+/*
  * Copyright 2016 Black Duck Software, Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -63,10 +63,10 @@ public class ExtnMResolverTest {
 
         assertEquals(3, r.countLimbo(new SourceFile("main.m",
                 "Foo: module {\n" +
-                        "\tPATH:\tcon \"foo\"\n" +
-                        "\n" +
-                        "\tinit: fn ();\n" +
-                        "}")));
+                      "\tPATH:\tcon \"foo\"\n" +
+                      "\n" +
+                      "\tinit: fn ();\n" +
+                "}")));
     }
 
     @Test
@@ -105,14 +105,14 @@ public class ExtnMResolverTest {
     public void resolveObjectiveCExample() throws IOException {
         SourceFile s = new SourceFile("foo.m",
                 "#include <stdio.h>\n" +
-                        "#include \"Foo.h\"\n" +
-                        "\n" +
-                        "@implementation Foo : Object\n" +
-                        "+ test: (int)n\n" +
-                        "{\n" +
-                        "  return [[self alloc] init: n];" +
-                        "}\n" +
-                        "@end");
+                "#include \"Foo.h\"\n" +
+                "\n" +
+                "@implementation Foo : Object\n" +
+                "+ test: (int)n\n" +
+                "{\n" +
+                "  return [[self alloc] init: n];" +
+                "}\n" +
+                "@end");
         assertEquals(0, r.countMatlab(s));
         assertEquals(0, r.countLimbo(s));
         assertEquals(1, r.countObjectiveC(s));
@@ -123,8 +123,8 @@ public class ExtnMResolverTest {
     public void resolveOctaveExample() throws IOException {
         SourceFile s = new SourceFile("foo.m",
                 "function foo\n" +
-                        "  # line comment\n" +
-                        "endfunction\n");
+                "  # line comment\n" +
+                "endfunction\n");
         assertEquals(Language.OCTAVE, r.resolve(s));
     }
 
@@ -132,8 +132,8 @@ public class ExtnMResolverTest {
     public void resolveMatlabExample() throws IOException {
         SourceFile s = new SourceFile("foo.m",
                 "function foo\n" +
-                        "  % line comment\n" +
-                        "end\n");
+                "  % line comment\n" +
+                "end\n");
         assertEquals(Language.MATLAB, r.resolve(s));
     }
 
@@ -141,8 +141,8 @@ public class ExtnMResolverTest {
     public void resolveLimboExmaple() throws IOException {
         SourceFile s = new SourceFile("foo.m",
                 "Foo: module {\n" +
-                        "\tinit:\tfn();\n" +
-                        "};\n");
+                "\tinit:\tfn();\n" +
+                "};\n");
         assertEquals(Language.LIMBO, r.resolve(s));
     }
 }

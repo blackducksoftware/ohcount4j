@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Black Duck Software, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -45,16 +45,29 @@ import static com.blackducksoftware.ohcount4j.Language.CSHARP;
 import static com.blackducksoftware.ohcount4j.Language.CSS;
 import static com.blackducksoftware.ohcount4j.Language.CUDA;
 import static com.blackducksoftware.ohcount4j.Language.D;
+import static com.blackducksoftware.ohcount4j.Language.DCL;
+import static com.blackducksoftware.ohcount4j.Language.DYLAN;
+import static com.blackducksoftware.ohcount4j.Language.EBUILD;
+import static com.blackducksoftware.ohcount4j.Language.EC;
 import static com.blackducksoftware.ohcount4j.Language.ECMASCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.EIFFEL;
+import static com.blackducksoftware.ohcount4j.Language.EMACSLISP;
 import static com.blackducksoftware.ohcount4j.Language.ERLANG;
+import static com.blackducksoftware.ohcount4j.Language.EXHERES;
+import static com.blackducksoftware.ohcount4j.Language.FACTOR;
+import static com.blackducksoftware.ohcount4j.Language.FORTH;
 import static com.blackducksoftware.ohcount4j.Language.FORTRANFIXED;
 import static com.blackducksoftware.ohcount4j.Language.FORTRANFREE;
 import static com.blackducksoftware.ohcount4j.Language.FSHARP;
+import static com.blackducksoftware.ohcount4j.Language.GENIE;
+import static com.blackducksoftware.ohcount4j.Language.GLSL;
 import static com.blackducksoftware.ohcount4j.Language.GOLANG;
 import static com.blackducksoftware.ohcount4j.Language.GROOVY;
+import static com.blackducksoftware.ohcount4j.Language.HAML;
 import static com.blackducksoftware.ohcount4j.Language.HASKELL;
+import static com.blackducksoftware.ohcount4j.Language.HAXE;
 import static com.blackducksoftware.ohcount4j.Language.HTML;
+import static com.blackducksoftware.ohcount4j.Language.JAM;
 import static com.blackducksoftware.ohcount4j.Language.JAVA;
 import static com.blackducksoftware.ohcount4j.Language.JAVASCRIPT;
 import static com.blackducksoftware.ohcount4j.Language.JSP;
@@ -64,6 +77,8 @@ import static com.blackducksoftware.ohcount4j.Language.LUA;
 import static com.blackducksoftware.ohcount4j.Language.MAKE;
 import static com.blackducksoftware.ohcount4j.Language.MATHEMATICA;
 import static com.blackducksoftware.ohcount4j.Language.MATLAB;
+import static com.blackducksoftware.ohcount4j.Language.METAPOST;
+import static com.blackducksoftware.ohcount4j.Language.METAFONT;
 import static com.blackducksoftware.ohcount4j.Language.MODULA2;
 import static com.blackducksoftware.ohcount4j.Language.MODULA3;
 import static com.blackducksoftware.ohcount4j.Language.OBJECTIVE_C;
@@ -74,7 +89,7 @@ import static com.blackducksoftware.ohcount4j.Language.PERL;
 import static com.blackducksoftware.ohcount4j.Language.PHP;
 import static com.blackducksoftware.ohcount4j.Language.PROLOG;
 import static com.blackducksoftware.ohcount4j.Language.PUPPET;
-import static com.blackducksoftware.ohcount4j.Language.PVWAVE;
+import static com.blackducksoftware.ohcount4j.Language.IDL_PVWAVE;
 import static com.blackducksoftware.ohcount4j.Language.PYTHON;
 import static com.blackducksoftware.ohcount4j.Language.R;
 import static com.blackducksoftware.ohcount4j.Language.REBOL;
@@ -133,20 +148,27 @@ import com.blackducksoftware.ohcount4j.scan.CobolScanner;
 import com.blackducksoftware.ohcount4j.scan.ColdFusionScanner;
 import com.blackducksoftware.ohcount4j.scan.CoqScanner;
 import com.blackducksoftware.ohcount4j.scan.DScanner;
+import com.blackducksoftware.ohcount4j.scan.DclScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
+import com.blackducksoftware.ohcount4j.scan.FactorScanner;
+import com.blackducksoftware.ohcount4j.scan.ForthScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFixedScanner;
 import com.blackducksoftware.ohcount4j.scan.FortranFreeScanner;
 import com.blackducksoftware.ohcount4j.scan.GenericCodeScanner;
 import com.blackducksoftware.ohcount4j.scan.HTMLScanner;
+import com.blackducksoftware.ohcount4j.scan.HamlScanner;
 import com.blackducksoftware.ohcount4j.scan.HaskellScanner;
+import com.blackducksoftware.ohcount4j.scan.IdlPvwaveScanner;
 import com.blackducksoftware.ohcount4j.scan.JspScanner;
 import com.blackducksoftware.ohcount4j.scan.LispScanner;
 import com.blackducksoftware.ohcount4j.scan.LuaScanner;
 import com.blackducksoftware.ohcount4j.scan.MakeScanner;
 import com.blackducksoftware.ohcount4j.scan.MathematicaScanner;
 import com.blackducksoftware.ohcount4j.scan.MatlabScanner;
+import com.blackducksoftware.ohcount4j.scan.MetapostWithTexScanner;
+import com.blackducksoftware.ohcount4j.scan.MetafontScanner;
 import com.blackducksoftware.ohcount4j.scan.ModulaScanner;
 import com.blackducksoftware.ohcount4j.scan.OCamlScanner;
 import com.blackducksoftware.ohcount4j.scan.PascalScanner;
@@ -221,8 +243,8 @@ public class LanguageTest {
                         Arrays.asList("chai"), Arrays.asList() },
                 { CLASSIC_BASIC, "Classic BASIC", "classic_basic", LOGIC, GenericCodeScanner.class,
                         Arrays.asList("b", "bas"), Arrays.asList() },
-                { CLEARSILVER, "ClearSilver", "clearsilver", LOGIC, ClearSilverTemplateScanner.class, 
-                            Arrays.asList("cs"), Arrays.asList() },
+                { CLEARSILVER, "ClearSilver", "clearsilver", LOGIC, ClearSilverTemplateScanner.class,
+                        Arrays.asList("cs"), Arrays.asList() },
                 { CLOJURE, "Clojure", "clojure", LOGIC, ClojureScanner.class,
                         Arrays.asList("clj", "cljs", "cljc"), Arrays.asList() },
                 { COBOL, "COBOL", "cobol", LOGIC, CobolScanner.class,
@@ -243,26 +265,54 @@ public class LanguageTest {
                         Arrays.asList("cu", "cuh"), Arrays.asList() },
                 { D, "D", "d", LOGIC, DScanner.class,
                         Arrays.asList("d"), Arrays.asList() },
+                { DYLAN, "Dylan", "dylan", LOGIC, CStyleScanner.class,
+                        Arrays.asList("dylan"), Arrays.asList() },
+                { DCL, "DCL", "dcl", LOGIC, DclScanner.class,
+                        Arrays.asList("com"), Arrays.asList() },
+                { EBUILD, "Ebuild", "ebuild", BUILD, ShellScanner.class,
+                        Arrays.asList("ebuild", "eclass", "kdebuild-1"), Arrays.asList() },
+                { EC, "eC", "ec", LOGIC, CStyleScanner.class,
+                        Arrays.asList("ec", "eh"), Arrays.asList() },
                 { ECMASCRIPT, "ECMAScript", "ecmascript", LOGIC, CStyleScanner.class,
                         Arrays.asList("es"), Arrays.asList() },
                 { EIFFEL, "Eiffel", "eiffel", LOGIC, EiffelScanner.class,
                         Arrays.asList("e"), Arrays.asList() },
+                { EMACSLISP, "Emacs Lisp", "emacslisp", LOGIC, LispScanner.class,
+                        Arrays.asList("el"), Arrays.asList() },
                 { ERLANG, "Erlang", "erlang", LOGIC, ErlangScanner.class,
                         Arrays.asList("erl"), Arrays.asList() },
+                { EXHERES, "Exheres", "exheres", LOGIC, ShellScanner.class,
+                        Arrays.asList("exheres-0", "exheres-1", "exlib"), Arrays.asList() },
+                { FORTH, "Forth", "forth", LOGIC, ForthScanner.class,
+                        Arrays.asList("fr", "4th"), Arrays.asList() },
+                { FACTOR, "Factor", "factor", LOGIC, FactorScanner.class,
+                        Arrays.asList("factor"), Arrays.asList() },
                 { FORTRANFIXED, "Fortran (Fixed-Format)", "fortranfixed", LOGIC, FortranFixedScanner.class,
                         Arrays.asList("i", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn"), Arrays.asList() },
                 { FORTRANFREE, "Fortran (Free-Format)", "fortranfree", LOGIC, FortranFreeScanner.class,
                         Arrays.asList("i90", "f", "f03", "f08", "f77", "f90", "f95", "for", "fpp", "ftn"), Arrays.asList() },
                 { FSHARP, "F#", "fsharp", LOGIC, FSharpScanner.class,
                         Arrays.asList("fs"), Arrays.asList() },
+                { GENIE, "Genie", "genie", LOGIC, CStyleScanner.class,
+                        Arrays.asList("gs"), Arrays.asList() },
+                { GLSL, "OpenGL Shading Language", "glsl", LOGIC, CStyleScanner.class,
+                        Arrays.asList("frag", "glsl", "vert"), Arrays.asList() },
                 { GOLANG, "Go", "golang", LOGIC, CStyleScanner.class,
                         Arrays.asList("go"), Arrays.asList() },
                 { GROOVY, "Groovy", "groovy", LOGIC, CStyleScanner.class,
                         Arrays.asList("groovy"), Arrays.asList() },
+                { HAML, "Haml", "haml", MARKUP, HamlScanner.class,
+                        Arrays.asList("haml"), Arrays.asList() },
+                { HAXE, "HaXe", "haxe", LOGIC, CStyleScanner.class,
+                        Arrays.asList("hx"), Arrays.asList() },
                 { HTML, "HTML", "html", MARKUP, HTMLScanner.class,
                         Arrays.asList("htm", "html"), Arrays.asList() },
                 { HASKELL, "Haskell", "haskell", LOGIC, HaskellScanner.class,
                         Arrays.asList("hs", "lhs"), Arrays.asList() },
+                { IDL_PVWAVE, "IDL/PV-WAVE/GDL", "idl_pvwave", LOGIC, IdlPvwaveScanner.class,
+                            Arrays.asList("pro"), Arrays.asList() },
+                { JAM, "Jam", "jam", BUILD, ShellScanner.class,
+                        Arrays.asList(), Arrays.asList("Jamfile", "Jamrules") },
                 { JAVA, "Java", "java", LOGIC, CStyleScanner.class,
                         Arrays.asList("java"), Arrays.asList() },
                 { JAVASCRIPT, "JavaScript", "javascript", LOGIC, CStyleScanner.class,
@@ -281,6 +331,10 @@ public class LanguageTest {
                         Arrays.asList("nb", "nbs"), Arrays.asList() },
                 { MATLAB, "Matlab", "matlab", LOGIC, MatlabScanner.class,
                         Arrays.asList(), Arrays.asList() },
+                { METAPOST, "MetaPost", "metapost", MARKUP, MetapostWithTexScanner.class,
+                        Arrays.asList("mp"), Arrays.asList() },
+                { METAFONT, "MetaFont", "metafont", MARKUP, MetafontScanner.class,
+                            Arrays.asList("mf"), Arrays.asList() },
                 { MODULA2, "Modula 2", "modula2", LOGIC, ModulaScanner.class,
                         Arrays.asList("mod", "m2"), Arrays.asList() },
                 { MODULA3, "Modula 3", "modula3", LOGIC, ModulaScanner.class,
@@ -299,8 +353,6 @@ public class LanguageTest {
                         Arrays.asList("inc", "php", "phtml", "php4", "php3", "php5", "phps"), Arrays.asList() },
                 { PUPPET, "Puppet", "puppet", LOGIC, GenericCodeScanner.class,
                         Arrays.asList("pp"), Arrays.asList() },
-                { PVWAVE, "IDL/PV-WAVE/GDL", "pvwave", LOGIC, GenericCodeScanner.class,
-                        Arrays.asList("pro"), Arrays.asList() },
                 { PROLOG, "Prolog", "prolog", LOGIC, PrologScanner.class,
                         Arrays.asList("pl"), Arrays.asList() },
                 { PYTHON, "Python", "python", LOGIC, PythonScanner.class,

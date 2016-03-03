@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Black Duck Software, Inc.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,24 +14,33 @@
  * limitations under the License.
  */
 
-package com.blackducksoftware.ohcount4j;
+package com.blackducksoftware.ohcount4j.scan;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
+public class IdlPvwaveScanner extends BaseScanner{
 
-public class FileListCounter {
-    protected Count count = new Count();
+	%%{
 
-    public Count count(List<File> files, List<String> filenames) throws IOException {
-        for (File file : files) {
-            Count c = new FileCounter(new SourceFile(file), filenames).count();
-            count.add(c);
-        }
-        return count;
-    }
+	machine idl_pvwave;
+	include common "common.rl";
 
-    public Count count() {
-        return count;
-    }
+	idl_pvwave_comment = ';' @comment nonnewline*;
+
+    idl_pvwave_line := |*
+      spaces;
+      newline;
+      idl_pvwave_comment;
+      (any - newline) => code;
+    *|;
+
+	}%%
+
+	%% write data;
+
+	@Override
+	public void doScan(){
+		// variables and data is set up in BaseScanner
+		%% write init;
+		init();
+		%% write exec;
+	}
 }

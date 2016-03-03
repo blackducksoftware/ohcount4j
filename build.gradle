@@ -1,46 +1,57 @@
-buildscript{
-    repositories{
-        maven{url 'http://***REMOVED***/artifactory/blackduck-builder-repos'}
-    }
-    dependencies{
-    	classpath 'com.blackducksoftware.gradle.plugins:gradle-management-plugins:1.1.0'
-        classpath 'com.blackducksoftware.gradle.plugins:gradle-plugins:1.55'
-    }
-}
-
 apply plugin: 'java'
+apply plugin: "jacoco"
 apply plugin: 'idea'
 apply plugin: 'maven'
-apply plugin: 'release'
+apply plugin: 'gradle-one-jar'
+apply plugin: 'application'
 
 sourceCompatibility = 1.7
 
-repositories {
-    maven { url "http://***REMOVED***/artifactory/blackduck-staging-repos" }
+
+// The main class of the application
+mainClassName = 'com.blackducksoftware.ohcount4j.Ohcount'
+
+archivesBaseName="${name.replaceAll('\\.', '-').toLowerCase()}"
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+    }
+}
+
+repositories { 
+	mavenCentral()
 }
 
 dependencies {
     compile 'args4j:args4j:2.0.16'
     compile 'net.java.dev.jna:jna:3.3.0'
     compile 'commons-io:commons-io:2.4'
-    compile 'org.slf4j:slf4j-api:1.6.6'
+    compile 'org.slf4j:slf4j-api:1.7.14'
+    compile 'org.slf4j:slf4j-log4j12:1.7.14'
     compile 'com.googlecode.java-diff-utils:diffutils:1.3.0'
-    compile 'commons-logging:commons-logging:1.1.1'
     compile 'org.apache.commons:commons-lang3:3.4'
     testCompile 'org.mockito:mockito-all:1.9.0'
     testCompile 'org.testng:testng:6.8.7'
 }
 
-ext.useCodeCoverage = System.properties['useCodeCoverage'] == null ? false : true
 
-if (useCodeCoverage) {
-    configurations {
-        jacoco
+// Configure the oneJar task
+task oneJar(type: OneJar) {
+    mainClass = mainClassName
+    additionalDir = file('src/main/resources') // adds log4j.properties to the combined jar
+    doLast {
+    	// renaming ohcount4j-project.version-standalone.jar to ohcount4j-standalone.jar
+    	file('build/libs/' + archivesBaseName + '-' +project.version + '-standalone.jar').renameTo(file('build/libs/ohcount4j-standalone.jar'))
     }
+}
 
-    dependencies {
-        jacoco 'org.jacoco:agent:0.5.10.201208310627:runtime@jar'
-    }
+build.doLast {
+	// execute oneJar
+	oneJar.execute()
 }
 
 task generateScanSources() {
@@ -78,32 +89,27 @@ compileJava.dependsOn generateScanSources
 clean.dependsOn cleanGenerateScanSources
 
 task sourcesJar(type:Jar){
-    from sourceSets.main.allSource
-    from sourceSets.generated.allSource
-    classifier = 'sources'
+	from sourceSets.main.allSource
+	from sourceSets.generated.allSource
+	classifier = 'sources'
 }
 
-artifacts {
-    archives sourcesJar
-}
+artifacts { archives sourcesJar }
 
 test {
-    if (useCodeCoverage) {
-        jvmArgs "-javaagent:" + configurations.jacoco.asPath + "=destfile=" + buildDir + "/jacoco.exec,includes=com/blackducksoftware.*"
-    }
-    useTestNG()
+	useTestNG()
+	jacoco{
+		destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+		classDumpFile = file("$buildDir/jacoco/classpathdumps")
+	}
 }
 
-archivesBaseName="${name.replaceAll('\\.', '-').toLowerCase()}"
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: 'http://***REMOVED***/artifactory/bds-suite-repo') {
-                authentication(userName: "builder", password: "builder")
-            }
-        }
-    }
+jacocoTestReport {
+	reports {
+		xml.enabled false
+		csv.enabled false
+		html.destination "${buildDir}/jacocoHtml"
+	}
 }
 
-task wrapper(type: Wrapper) { gradleVersion = '2.4' }
+task wrapper(type: Wrapper) { gradleVersion = '2.10' }

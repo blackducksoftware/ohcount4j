@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Black Duck Software, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,10 +28,6 @@ import org.testng.annotations.Test;
 
 import com.blackducksoftware.ohcount4j.SourceFile;
 
-/**
- * @author mpujari
- *
- */
 public class BaseScannerTest extends AbstractBaseScannerTest {
 
     @Test(expectedExceptions = FileNotFoundException.class)
