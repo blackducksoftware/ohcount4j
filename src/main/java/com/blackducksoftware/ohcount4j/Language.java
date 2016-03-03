@@ -42,6 +42,7 @@ import com.blackducksoftware.ohcount4j.scan.CoqScanner;
 import com.blackducksoftware.ohcount4j.scan.DScanner;
 import com.blackducksoftware.ohcount4j.scan.DclScanner;
 import com.blackducksoftware.ohcount4j.scan.EiffelScanner;
+import com.blackducksoftware.ohcount4j.scan.ElixirScanner;
 import com.blackducksoftware.ohcount4j.scan.ErlangScanner;
 import com.blackducksoftware.ohcount4j.scan.FSharpScanner;
 import com.blackducksoftware.ohcount4j.scan.FactorScanner;
@@ -128,6 +129,7 @@ public enum Language implements LanguageCategory {
     EC("eC", LOGIC, CStyleScanner.class),
     ECMASCRIPT("ECMAScript", LOGIC, CStyleScanner.class),
     EIFFEL("Eiffel", LOGIC, EiffelScanner.class),
+    ELIXIR("Elixir", LOGIC, ElixirScanner.class),
     EMACSLISP("Emacs Lisp", LOGIC, LispScanner.class),
     ERLANG("Erlang", LOGIC, ErlangScanner.class),
     FACTOR("Factor", LOGIC, FactorScanner.class),
@@ -236,6 +238,7 @@ public enum Language implements LanguageCategory {
         EC.extensions("ec", "eh");
         ECMASCRIPT.extension("es");
         EIFFEL.extension("e");
+        ELIXIR.extensions("ex", "exs");
         EMACSLISP.extension("el");
         ERLANG.extension("erl");
         EXHERES.extensions("exheres-0", "exheres-1", "exlib");
