@@ -39,12 +39,12 @@ public class ExtnPROResolverTest {
     public void canResolvetest() {
         assertFalse(r.canResolve(Language.RUBY));
         assertTrue(r.canResolve(Language.MAKE));
-        assertTrue(r.canResolve(Language.PVWAVE));
+        assertTrue(r.canResolve(Language.IDL_PVWAVE));
     }
 
     @Test
     public void returnsPvWaveByDefaultTest() throws IOException {
-        assertEquals(Language.PVWAVE, r.resolve(new SourceFile("foo.pro", "")));
+        assertEquals(Language.IDL_PVWAVE, r.resolve(new SourceFile("foo.pro", "")));
     }
 
     @Test
@@ -64,10 +64,10 @@ public class ExtnPROResolverTest {
 
     @Test
     public void pvWaveExample() throws IOException {
-        assertEquals(Language.PVWAVE, r.resolve(new SourceFile("foo.pro",
+        assertEquals(Language.IDL_PVWAVE, r.resolve(new SourceFile("foo.pro",
                 "pro foo\n\n    print, 'hello world'\nend\n\n")));
 
-        assertEquals(Language.PVWAVE, r.resolve(new SourceFile("foo.pro",
+        assertEquals(Language.IDL_PVWAVE, r.resolve(new SourceFile("foo.pro",
                 "; comment")));
     }
 

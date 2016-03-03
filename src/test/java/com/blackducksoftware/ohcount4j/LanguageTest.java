@@ -77,6 +77,7 @@ import static com.blackducksoftware.ohcount4j.Language.LUA;
 import static com.blackducksoftware.ohcount4j.Language.MAKE;
 import static com.blackducksoftware.ohcount4j.Language.MATHEMATICA;
 import static com.blackducksoftware.ohcount4j.Language.MATLAB;
+import static com.blackducksoftware.ohcount4j.Language.METAFONT;
 import static com.blackducksoftware.ohcount4j.Language.MODULA2;
 import static com.blackducksoftware.ohcount4j.Language.MODULA3;
 import static com.blackducksoftware.ohcount4j.Language.OBJECTIVE_C;
@@ -87,7 +88,7 @@ import static com.blackducksoftware.ohcount4j.Language.PERL;
 import static com.blackducksoftware.ohcount4j.Language.PHP;
 import static com.blackducksoftware.ohcount4j.Language.PROLOG;
 import static com.blackducksoftware.ohcount4j.Language.PUPPET;
-import static com.blackducksoftware.ohcount4j.Language.PVWAVE;
+import static com.blackducksoftware.ohcount4j.Language.IDL_PVWAVE;
 import static com.blackducksoftware.ohcount4j.Language.PYTHON;
 import static com.blackducksoftware.ohcount4j.Language.R;
 import static com.blackducksoftware.ohcount4j.Language.REBOL;
@@ -158,12 +159,14 @@ import com.blackducksoftware.ohcount4j.scan.GenericCodeScanner;
 import com.blackducksoftware.ohcount4j.scan.HTMLScanner;
 import com.blackducksoftware.ohcount4j.scan.HamlScanner;
 import com.blackducksoftware.ohcount4j.scan.HaskellScanner;
+import com.blackducksoftware.ohcount4j.scan.IdlPvwaveScanner;
 import com.blackducksoftware.ohcount4j.scan.JspScanner;
 import com.blackducksoftware.ohcount4j.scan.LispScanner;
 import com.blackducksoftware.ohcount4j.scan.LuaScanner;
 import com.blackducksoftware.ohcount4j.scan.MakeScanner;
 import com.blackducksoftware.ohcount4j.scan.MathematicaScanner;
 import com.blackducksoftware.ohcount4j.scan.MatlabScanner;
+import com.blackducksoftware.ohcount4j.scan.MetafontScanner;
 import com.blackducksoftware.ohcount4j.scan.ModulaScanner;
 import com.blackducksoftware.ohcount4j.scan.OCamlScanner;
 import com.blackducksoftware.ohcount4j.scan.PascalScanner;
@@ -304,6 +307,8 @@ public class LanguageTest {
                         Arrays.asList("htm", "html"), Arrays.asList() },
                 { HASKELL, "Haskell", "haskell", LOGIC, HaskellScanner.class,
                         Arrays.asList("hs", "lhs"), Arrays.asList() },
+                { IDL_PVWAVE, "IDL/PV-WAVE/GDL", "idl_pvwave", LOGIC, IdlPvwaveScanner.class,
+                            Arrays.asList("pro"), Arrays.asList() },
                 { JAM, "Jam", "jam", BUILD, ShellScanner.class,
                         Arrays.asList(), Arrays.asList("Jamfile", "Jamrules") },
                 { JAVA, "Java", "java", LOGIC, CStyleScanner.class,
@@ -324,6 +329,8 @@ public class LanguageTest {
                         Arrays.asList("nb", "nbs"), Arrays.asList() },
                 { MATLAB, "Matlab", "matlab", LOGIC, MatlabScanner.class,
                         Arrays.asList(), Arrays.asList() },
+                { METAFONT, "MetaFont", "metafont", MARKUP, MetafontScanner.class,
+                            Arrays.asList("mf"), Arrays.asList() },
                 { MODULA2, "Modula 2", "modula2", LOGIC, ModulaScanner.class,
                         Arrays.asList("mod", "m2"), Arrays.asList() },
                 { MODULA3, "Modula 3", "modula3", LOGIC, ModulaScanner.class,
@@ -342,8 +349,6 @@ public class LanguageTest {
                         Arrays.asList("inc", "php", "phtml", "php4", "php3", "php5", "phps"), Arrays.asList() },
                 { PUPPET, "Puppet", "puppet", LOGIC, GenericCodeScanner.class,
                         Arrays.asList("pp"), Arrays.asList() },
-                { PVWAVE, "IDL/PV-WAVE/GDL", "pvwave", LOGIC, GenericCodeScanner.class,
-                        Arrays.asList("pro"), Arrays.asList() },
                 { PROLOG, "Prolog", "prolog", LOGIC, PrologScanner.class,
                         Arrays.asList("pl"), Arrays.asList() },
                 { PYTHON, "Python", "python", LOGIC, PythonScanner.class,
