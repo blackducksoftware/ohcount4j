@@ -37,13 +37,11 @@ abstract class AbstractExtnResolver implements Resolver {
     }
 
     protected char[] getContents(SourceFile sourceFile) throws IOException {
-        char[] contents = SourceFileUtils.getContents(sourceFile);
-		return contents != null ? contents : new char[0];
+        return SourceFileUtils.getContents(sourceFile);
     }
     
     protected String getContentsAsString(SourceFile sourceFile) throws IOException {
-        char[] contents = SourceFileUtils.getContents(sourceFile);
-		return contents != null ? new String(contents) : new String();
+        return new String(this.getContents(sourceFile));
     }
 
 }
