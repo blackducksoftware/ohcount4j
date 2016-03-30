@@ -45,21 +45,32 @@ public final class SourceFileUtils {
             try (SourceFile srcFile = new SourceFile(sourceFile.getPath())) {
                 return srcFile.head(HEAD_SIZE);
             }
-        } else if (sourceFile.getContents() != null) {
-            // the source is not from the file, so we got to have content initialized
-            return new String(sourceFile.getContents());
         } else {
-            return null;
+        	char contents[] = sourceFile.getContents() != null ? sourceFile.getContents() : new char[0];
+        	// the source is not from the file, so we got to have content initialized
+        	return new String(contents);
         }
 
     }
 
     public static CharSequence getCharSequence(SourceFile sourceFile) throws IOException {
-        return sourceFile.getCharSequence();
+        return new String(getContents(sourceFile));
     }
 
     public static char[] getContents(SourceFile sourceFile) throws IOException {
-        return sourceFile.getContents();
+    	char contents[];
+    	if(sourceFile.isContentsFromFile()) {
+    		/*
+             * we have a reader initialized, we should not use it as it will
+             * forward the reader and we don't want that
+             */
+    		try(SourceFile file = new SourceFile(sourceFile.getPath())) {
+    			contents = file.getContents();
+        	}
+    	} else {
+    		contents = sourceFile.getContents();
+    	}
+    	return contents != null ? contents : new char[0];
     }
 
 }
