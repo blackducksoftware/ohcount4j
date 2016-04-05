@@ -39,7 +39,15 @@ import difflib.Patch;
  */
 public class DiffSourceFile {
 
-    /**
+	/* array offsets to line change categories */
+	private static final int CODE_LINES_ADDED=0;
+	private static final int CODE_LINES_REMOVED=1;
+	private static final int COMMENT_LINES_ADDED=2;
+	private static final int COMMENT_LINES_REMOVED=3;
+	private static final int BLANK_LINES_ADDED=4;
+	private static final int BLANK_LINES_REMOVED=5;
+	
+	/**
      * Returns the list of {@link LanguageDiff}s for the difference.
      *
      * @param from
@@ -102,12 +110,12 @@ public class DiffSourceFile {
         for (Map.Entry<Language, MutableInt[]> element : languageMap.entrySet()) {
             MutableInt[] value = element.getValue();
             languageDiffs.add(new LanguageDiff(element.getKey(),
-                    value[0].intValue(), // Code Added
-                    value[1].intValue(), // Code Removed
-                    value[2].intValue(), // Comments Added
-                    value[3].intValue(), // Comments Removed
-                    value[4].intValue(), // Blanks Added
-                    value[5].intValue())); // Blanks Removed
+                    value[CODE_LINES_ADDED].intValue(),
+                    value[CODE_LINES_REMOVED].intValue(),
+                    value[COMMENT_LINES_ADDED].intValue(),
+                    value[COMMENT_LINES_REMOVED].intValue(),
+                    value[BLANK_LINES_ADDED].intValue(),
+                    value[BLANK_LINES_REMOVED].intValue()));
         }
 
         return languageDiffs;
@@ -152,23 +160,23 @@ public class DiffSourceFile {
         switch (line.getEntity()) {
         case CODE:
             if (added) {
-                diff[0].increment();// Code Added
+                diff[CODE_LINES_ADDED].increment();
             } else {
-                diff[1].increment(); // Code removed
+                diff[CODE_LINES_REMOVED].increment();
             }
             break;
         case COMMENT:
             if (added) {
-                diff[2].increment();// Comments Added
+                diff[COMMENT_LINES_ADDED].increment();
             } else {
-                diff[3].increment();// Comments Removed
+                diff[COMMENT_LINES_REMOVED].increment();
             }
             break;
         case BLANK:
             if (added) {
-                diff[4].increment(); // Blanks Added
+                diff[BLANK_LINES_ADDED].increment();
             } else {
-                diff[5].increment();// Blanks Removed
+                diff[BLANK_LINES_REMOVED].increment();
             }
             break;
         }
