@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 
 import com.blackducksoftware.ohcount4j.Language;
 import com.blackducksoftware.ohcount4j.SourceFile;
+import com.blackducksoftware.ohcount4j.SourceFileUtils;
 
 public class ExtnINCResolver extends AbstractExtnResolver {
 
@@ -33,7 +34,7 @@ public class ExtnINCResolver extends AbstractExtnResolver {
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
-        Matcher m = PHP_PATTERN.matcher(getCharSequence(sourceFile));
+        Matcher m = PHP_PATTERN.matcher(SourceFileUtils.getCharSequence(sourceFile));
         if (m.find()) {
             return Language.PHP;
         } else {

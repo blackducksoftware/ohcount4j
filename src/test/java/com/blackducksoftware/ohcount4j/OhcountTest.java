@@ -27,24 +27,24 @@ public class OhcountTest extends AbstractOhcount4jTest {
 	@Test
 	public void testSummary() throws Exception {
 		String sourceCodePath = getSourceCodePath("cStyle-issue-18");
-        FileFinder ff = new FileFinder();
-        ff.addPath(sourceCodePath);
-        ArrayList<File> files = ff.getFiles();
-        System.out.println(files);
-        Count count = new ThreadedFileListCounter(4).count(files, getFilenames(files));
-        
-        LanguageCount cLang = getLanguageCountByLang(count, Language.C);
-        Assert.assertNotNull(cLang);
-        Assert.assertEquals(cLang.getFileCount(), 2); // c and h
-        Assert.assertEquals(cLang.getCode(), 12);
-        Assert.assertEquals(cLang.getComment(), 3);
-        Assert.assertEquals(cLang.getBlank(), 5);
-        Assert.assertEquals(cLang.getTotal(), 20);
+		FileFinder ff = new FileFinder();
+		ff.addPath(sourceCodePath);
+		ArrayList<File> files = ff.getFiles();
+		System.out.println(files);
+		Count count = new ThreadedFileListCounter(4).count(files, getFilenames(files));
+
+		LanguageCount cLang = getLanguageCountByLang(count, Language.C);
+		Assert.assertNotNull(cLang);
+		Assert.assertEquals(cLang.getFileCount(), 2); // c and h
+		Assert.assertEquals(cLang.getCode(), 12);
+		Assert.assertEquals(cLang.getComment(), 3);
+		Assert.assertEquals(cLang.getBlank(), 5);
+		Assert.assertEquals(cLang.getTotal(), 20);
 	}
-	
+
 	private LanguageCount getLanguageCountByLang(Count count, Language language) {
 		for (LanguageCount lc : count.getLanguageCounts()) {
-			if(lc.language == language) {
+			if (lc.language == language) {
 				return lc;
 			}
 		}
@@ -52,11 +52,11 @@ public class OhcountTest extends AbstractOhcount4jTest {
 	}
 
 	private List<String> getFilenames(List<File> files) {
-        ArrayList<String> result = new ArrayList<String>();
-        for (File file : files) {
-            result.add(file.getPath());
-        }
-        return result;
-    }
+		ArrayList<String> result = new ArrayList<String>();
+		for (File file : files) {
+			result.add(file.getPath());
+		}
+		return result;
+	}
 
 }
