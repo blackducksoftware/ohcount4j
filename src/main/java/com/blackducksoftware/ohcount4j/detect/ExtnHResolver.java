@@ -30,7 +30,6 @@ import java.util.regex.Pattern;
 
 import com.blackducksoftware.ohcount4j.Language;
 import com.blackducksoftware.ohcount4j.SourceFile;
-import com.blackducksoftware.ohcount4j.SourceFileUtils;
 
 public class ExtnHResolver extends AbstractExtnResolver {
 
@@ -101,7 +100,7 @@ public class ExtnHResolver extends AbstractExtnResolver {
     public List<String> findIncludes(SourceFile source) throws IOException {
         ArrayList<String> result = new ArrayList<String>();
 
-        Matcher m = INCLUDE_PATTERN.matcher(new String(SourceFileUtils.getContents(source)));
+        Matcher m = INCLUDE_PATTERN.matcher(getContentsAsString(source));
         while (m.find()) {
             result.add(m.group(1));
         }

@@ -32,11 +32,16 @@ abstract class AbstractExtnResolver implements Resolver {
     }
 
     protected CharSequence getCharSequence(SourceFile sourceFile) throws IOException {
-        return sourceFile.getCharSequence();
+        CharSequence charSequence = sourceFile.getCharSequence();
+		return charSequence != null ? charSequence : new String();
     }
 
     protected char[] getContents(SourceFile sourceFile) throws IOException {
         return SourceFileUtils.getContents(sourceFile);
+    }
+    
+    protected String getContentsAsString(SourceFile sourceFile) throws IOException {
+        return new String(this.getContents(sourceFile));
     }
 
 }

@@ -26,7 +26,7 @@ public class ExtnCSResolver extends AbstractExtnResolver {
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
-        String contents = new String(getContents(sourceFile));
+        String contents = getContentsAsString(sourceFile);
         // ClearSilver contains "<?cs".
         if (contents.contains("<?cs")) {
             return Language.CLEARSILVER;

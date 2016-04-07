@@ -59,7 +59,9 @@ public final class SourceFileUtils {
     }
 
     public static char[] getContents(SourceFile sourceFile) throws IOException {
-        return sourceFile.getContents();
+        char[] contents = sourceFile.getContents();
+        contents = contents != null ? contents : new char[0];
+        return contents;
     }
 
 }
