@@ -16,32 +16,10 @@
 
 package com.blackducksoftware.ohcount4j.detect;
 
-import java.io.IOException;
-
-import com.blackducksoftware.ohcount4j.SourceFile;
-import com.blackducksoftware.ohcount4j.SourceFileUtils;
-
 /**
  * @author mpujari
  *
  */
 abstract class AbstractExtnResolver implements Resolver {
-
-    protected String headContent(SourceFile sourceFile) throws IOException {
-        return SourceFileUtils.head(sourceFile);
-    }
-
-    protected CharSequence getCharSequence(SourceFile sourceFile) throws IOException {
-        CharSequence charSequence = sourceFile.getCharSequence();
-		return charSequence != null ? charSequence : new String();
-    }
-
-    protected char[] getContents(SourceFile sourceFile) throws IOException {
-        return SourceFileUtils.getContents(sourceFile);
-    }
-    
-    protected String getContentsAsString(SourceFile sourceFile) throws IOException {
-        return new String(this.getContents(sourceFile));
-    }
 
 }

@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
 
 import com.blackducksoftware.ohcount4j.Language;
 import com.blackducksoftware.ohcount4j.SourceFile;
+import com.blackducksoftware.ohcount4j.SourceFileUtils;
 
 public class ExtnMResolver extends AbstractExtnResolver {
 
@@ -99,7 +100,7 @@ public class ExtnMResolver extends AbstractExtnResolver {
     }
 
     private int countMatches(Pattern p, SourceFile sourceFile) throws IOException {
-        Matcher m = p.matcher(getCharSequence(sourceFile));
+        Matcher m = p.matcher(SourceFileUtils.getCharSequence(sourceFile));
         int result = 0;
         int mark = 0;
         while (m.find(mark)) {
