@@ -56,7 +56,7 @@ public class Ohcount {
         }
 
         try {
-            FileFinder ff = new FileFinder();
+            FileFinder ff = new FileFinder(opts.processSymbolicLink);
             for (String path : opts.targets) {
                 ff.addPath(path);
             }
@@ -143,6 +143,9 @@ public class Ohcount {
 
         @Option(name = "-l", usage = "show supported languages")
         boolean supportedLanguages = false;
+
+        @Option(name = "-nl", usage = "include symbolck links in processing")
+        boolean processSymbolicLink = false;
     }
 
 }
