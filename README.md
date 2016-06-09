@@ -50,100 +50,105 @@ Ohcount4j is licensed under [Apache 2](http://www.apache.org/licenses/LICENSE-2.
 Ohcount4j supported languages
 
 ----------------------------------
-  Name              Nice name         
+  Name              Nice name
 ----------------------------------
-  actionscript      ActionScript      
-  ada               Ada               
-  aspx_csharp       ASP.NET (C#)      
-  aspx_vb           ASP.NET (VB)      
-  assembly          Assembly          
-  augeas            Augeas            
-  autoconf          Autoconf          
-  automake          Automake          
-  awk               Awk               
-  bat               Windows Batch     
-  bfpp              Brainfuck++       
-  binary            Binary            
-  blitzmax          BlitzMax          
-  boo               Boo               
-  brainfuck         Brainfuck         
-  c                 C                 
-  chaiscript        ChaiScript        
-  classic_basic     Classic BASIC     
-  clearsilver       ClearSilver       
-  clojure           Clojure           
-  cobol             COBOL             
-  coldfusion        ColdFusion        
-  cpp               C++               
-  cmake             CMake             
-  csharp            C#                
-  coq               Coq               
-  css               CSS               
-  cuda              CUDA              
-  d                 D                 
-  dylan             Dylan             
-  dcl               DCL               
-  ebuild            Ebuild            
-  ec                eC                
-  ecmascript        ECMAScript        
-  eiffel            Eiffel            
-  emacslisp         Emacs Lisp        
-  erlang            Erlang            
-  factor            Factor            
-  exheres           Exheres           
-  forth             Forth             
+  actionscript      ActionScript
+  ada               Ada
+  aspx_csharp       ASP.NET (C#)
+  aspx_vb           ASP.NET (VB)
+  assembly          Assembly
+  augeas            Augeas
+  autoconf          Autoconf
+  automake          Automake
+  awk               Awk
+  bat               Windows Batch
+  bfpp              Brainfuck++
+  binary            Binary
+  blitzmax          BlitzMax
+  boo               Boo
+  brainfuck         Brainfuck
+  c                 C
+  chaiscript        ChaiScript
+  classic_basic     Classic BASIC
+  clearsilver       ClearSilver
+  clojure           Clojure
+  cobol             COBOL
+  coldfusion        ColdFusion
+  cpp               C++
+  cmake             CMake
+  csharp            C#
+  coq               Coq
+  css               CSS
+  cuda              CUDA
+  d                 D
+  dylan             Dylan
+  dcl               DCL
+  ebuild            Ebuild
+  ec                eC
+  ecmascript        ECMAScript
+  eiffel            Eiffel
+  elixir            Elixir
+  emacslisp         Emacs Lisp
+  erlang            Erlang
+  factor            Factor
+  exheres           Exheres
+  forth             Forth
   fortranfixed      Fortran (Fixed-Format)
   fortranfree       Fortran (Free-Format)
-  fsharp            F#                
+  fsharp            F#
+  genie             Genie
   glsl              OpenGL Shading Language
-  golang            Go                
-  groovy            Groovy            
-  haxe              HaXe              
-  html              HTML              
-  haskell           Haskell           
-  java              Java              
-  javascript        JavaScript        
-  limbo             Limbo             
-  jsp               JSP               
-  lisp              Lisp              
-  lua               Lua               
-  make              Make              
-  mathematica       Mathematica       
-  matlab            Matlab            
-  modula2           Modula 2          
-  modula3           Modula 3          
-  objective_c       Objective-C       
-  ocaml             OCaml             
-  octave            Octave            
-  pascal            Pascal            
-  perl              Perl              
-  php               Php               
-  puppet            Puppet            
-  pvwave            IDL/PV-WAVE/GDL   
-  prolog            Prolog            
-  python            Python            
-  r                 R                 
-  rebol             REBOL             
-  rexx              Rexx              
-  ruby              Ruby              
-  scala             Scala             
-  swift             Swift             
-  scheme            Scheme            
-  shell             Shell             
-  smalltalk         Smalltalk         
-  sql               SQL               
-  structured_basic  Structured Basic  
-  tcl               Tcl               
-  tex               TeX/LaTeX         
-  unknown           Unknown           
-  vb                VisualBasic       
-  vbscript          VBScript          
-  vimscript         Vimscript         
-  xml               XML               
-  xmlschema         XML Schema        
+  golang            Go
+  groovy            Groovy
+  haml              Haml
+  haxe              HaXe
+  html              HTML
+  haskell           Haskell
+  idl_pvwave        IDL/PV-WAVE/GDL
+  jam               Jam
+  java              Java
+  javascript        JavaScript
+  limbo             Limbo
+  jsp               JSP
+  lisp              Lisp
+  lua               Lua
+  make              Make
+  mathematica       Mathematica
+  matlab            Matlab
+  metapost          MetaPost
+  metafont          MetaFont
+  modula2           Modula 2
+  modula3           Modula 3
+  objective_c       Objective-C
+  ocaml             OCaml
+  octave            Octave
+  pascal            Pascal
+  perl              Perl
+  php               Php
+  puppet            Puppet
+  prolog            Prolog
+  python            Python
+  r                 R
+  rebol             REBOL
+  rexx              Rexx
+  ruby              Ruby
+  scala             Scala
+  swift             Swift
+  scheme            Scheme
+  shell             Shell
+  smalltalk         Smalltalk
+  sql               SQL
+  structured_basic  Structured Basic
+  tcl               Tcl
+  tex               TeX/LaTeX
+  unknown           Unknown
+  vb                VisualBasic
+  vbscript          VBScript
+  vimscript         Vimscript
+  xml               XML
+  xmlschema         XML Schema
   xslt              XSL Transformation
-```
-
+  ```
 # Prerequisite Software
 
 1. Install **Eclispe**
