@@ -151,7 +151,7 @@ Ohcount4j supported languages
   ```
 # Prerequisite Software
 
-1. Install **Eclispe**
+1. Install **Eclipse**
 2. Install **ragel** (minimum: 6.8, recommended 6.9).  For example, to install on Mac OS X via [homebrew](https://github.com/Homebrew/homebrew/blob/master/Library/Formula/ragel.rb):
 
      `brew install ragel`
