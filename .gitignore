@@ -11,5 +11,5 @@ lib/
 *.iml
 *.ipr
 *.iws
-.settings/gradle/
+.settings/
 lib/

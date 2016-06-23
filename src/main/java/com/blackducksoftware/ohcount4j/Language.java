@@ -154,6 +154,7 @@ public enum Language implements LanguageCategory {
     JAVA("Java", LOGIC, CStyleScanner.class),
     JAVASCRIPT("JavaScript", LOGIC, CStyleScanner.class),
     JSP("JSP", LOGIC, JspScanner.class),
+    KOTLIN("Kotlin", LOGIC, CStyleScanner.class),
     LIMBO("Limbo", LOGIC, CStyleScanner.class),
     LISP("Lisp", LOGIC, LispScanner.class),
     LOGTALK("Logtalk", LOGIC, LogtalkScanner.class),
@@ -264,6 +265,7 @@ public enum Language implements LanguageCategory {
         JAVA.extension("java");
         JAVASCRIPT.alias("js").extension("js");
         JSP.extension("jsp");
+        KOTLIN.extensions("kt", "kts");
         LIMBO.extensions("b", "m");
         LOGTALK.extension("lgt");
         LUA.extension("lua");

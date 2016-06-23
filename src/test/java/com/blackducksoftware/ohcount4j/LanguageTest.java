@@ -16,103 +16,7 @@
 
 package com.blackducksoftware.ohcount4j;
 
-import static com.blackducksoftware.ohcount4j.Language.ACTIONSCRIPT;
-import static com.blackducksoftware.ohcount4j.Language.ADA;
-import static com.blackducksoftware.ohcount4j.Language.ASPX_CSHARP;
-import static com.blackducksoftware.ohcount4j.Language.ASPX_VB;
-import static com.blackducksoftware.ohcount4j.Language.ASSEMBLY;
-import static com.blackducksoftware.ohcount4j.Language.AUGEAS;
-import static com.blackducksoftware.ohcount4j.Language.AUTOCONF;
-import static com.blackducksoftware.ohcount4j.Language.AUTOMAKE;
-import static com.blackducksoftware.ohcount4j.Language.AWK;
-import static com.blackducksoftware.ohcount4j.Language.BAT;
-import static com.blackducksoftware.ohcount4j.Language.BFPP;
-import static com.blackducksoftware.ohcount4j.Language.BINARY;
-import static com.blackducksoftware.ohcount4j.Language.BLITZMAX;
-import static com.blackducksoftware.ohcount4j.Language.BOO;
-import static com.blackducksoftware.ohcount4j.Language.BRAINFUCK;
-import static com.blackducksoftware.ohcount4j.Language.C;
-import static com.blackducksoftware.ohcount4j.Language.CHAISCRIPT;
-import static com.blackducksoftware.ohcount4j.Language.CLASSIC_BASIC;
-import static com.blackducksoftware.ohcount4j.Language.CLEARSILVER;
-import static com.blackducksoftware.ohcount4j.Language.CLOJURE;
-import static com.blackducksoftware.ohcount4j.Language.CMake;
-import static com.blackducksoftware.ohcount4j.Language.COBOL;
-import static com.blackducksoftware.ohcount4j.Language.COFFEESCRIPT;
-import static com.blackducksoftware.ohcount4j.Language.COLDFUSION;
-import static com.blackducksoftware.ohcount4j.Language.COQ;
-import static com.blackducksoftware.ohcount4j.Language.CPP;
-import static com.blackducksoftware.ohcount4j.Language.CSHARP;
-import static com.blackducksoftware.ohcount4j.Language.CSS;
-import static com.blackducksoftware.ohcount4j.Language.CUDA;
-import static com.blackducksoftware.ohcount4j.Language.D;
-import static com.blackducksoftware.ohcount4j.Language.DCL;
-import static com.blackducksoftware.ohcount4j.Language.DYLAN;
-import static com.blackducksoftware.ohcount4j.Language.EBUILD;
-import static com.blackducksoftware.ohcount4j.Language.EC;
-import static com.blackducksoftware.ohcount4j.Language.ECMASCRIPT;
-import static com.blackducksoftware.ohcount4j.Language.EIFFEL;
-import static com.blackducksoftware.ohcount4j.Language.EMACSLISP;
-import static com.blackducksoftware.ohcount4j.Language.ERLANG;
-import static com.blackducksoftware.ohcount4j.Language.EXHERES;
-import static com.blackducksoftware.ohcount4j.Language.FACTOR;
-import static com.blackducksoftware.ohcount4j.Language.FORTH;
-import static com.blackducksoftware.ohcount4j.Language.FORTRANFIXED;
-import static com.blackducksoftware.ohcount4j.Language.FORTRANFREE;
-import static com.blackducksoftware.ohcount4j.Language.FSHARP;
-import static com.blackducksoftware.ohcount4j.Language.GENIE;
-import static com.blackducksoftware.ohcount4j.Language.GLSL;
-import static com.blackducksoftware.ohcount4j.Language.GOLANG;
-import static com.blackducksoftware.ohcount4j.Language.GROOVY;
-import static com.blackducksoftware.ohcount4j.Language.HAML;
-import static com.blackducksoftware.ohcount4j.Language.HASKELL;
-import static com.blackducksoftware.ohcount4j.Language.HAXE;
-import static com.blackducksoftware.ohcount4j.Language.HTML;
-import static com.blackducksoftware.ohcount4j.Language.JAM;
-import static com.blackducksoftware.ohcount4j.Language.JAVA;
-import static com.blackducksoftware.ohcount4j.Language.JAVASCRIPT;
-import static com.blackducksoftware.ohcount4j.Language.JSP;
-import static com.blackducksoftware.ohcount4j.Language.LIMBO;
-import static com.blackducksoftware.ohcount4j.Language.LISP;
-import static com.blackducksoftware.ohcount4j.Language.LOGTALK;
-import static com.blackducksoftware.ohcount4j.Language.LUA;
-import static com.blackducksoftware.ohcount4j.Language.MAKE;
-import static com.blackducksoftware.ohcount4j.Language.MATHEMATICA;
-import static com.blackducksoftware.ohcount4j.Language.MATLAB;
-import static com.blackducksoftware.ohcount4j.Language.METAPOST;
-import static com.blackducksoftware.ohcount4j.Language.METAFONT;
-import static com.blackducksoftware.ohcount4j.Language.MODULA2;
-import static com.blackducksoftware.ohcount4j.Language.MODULA3;
-import static com.blackducksoftware.ohcount4j.Language.OBJECTIVE_C;
-import static com.blackducksoftware.ohcount4j.Language.OCAML;
-import static com.blackducksoftware.ohcount4j.Language.OCTAVE;
-import static com.blackducksoftware.ohcount4j.Language.PASCAL;
-import static com.blackducksoftware.ohcount4j.Language.PERL;
-import static com.blackducksoftware.ohcount4j.Language.PHP;
-import static com.blackducksoftware.ohcount4j.Language.PROLOG;
-import static com.blackducksoftware.ohcount4j.Language.PUPPET;
-import static com.blackducksoftware.ohcount4j.Language.IDL_PVWAVE;
-import static com.blackducksoftware.ohcount4j.Language.PYTHON;
-import static com.blackducksoftware.ohcount4j.Language.R;
-import static com.blackducksoftware.ohcount4j.Language.REBOL;
-import static com.blackducksoftware.ohcount4j.Language.REXX;
-import static com.blackducksoftware.ohcount4j.Language.RUBY;
-import static com.blackducksoftware.ohcount4j.Language.SCALA;
-import static com.blackducksoftware.ohcount4j.Language.SCHEME;
-import static com.blackducksoftware.ohcount4j.Language.SHELL;
-import static com.blackducksoftware.ohcount4j.Language.SMALLTALK;
-import static com.blackducksoftware.ohcount4j.Language.SQL;
-import static com.blackducksoftware.ohcount4j.Language.STRUCTURED_BASIC;
-import static com.blackducksoftware.ohcount4j.Language.SWIFT;
-import static com.blackducksoftware.ohcount4j.Language.TCL;
-import static com.blackducksoftware.ohcount4j.Language.TEX;
-import static com.blackducksoftware.ohcount4j.Language.UNKNOWN;
-import static com.blackducksoftware.ohcount4j.Language.VB;
-import static com.blackducksoftware.ohcount4j.Language.VBSCRIPT;
-import static com.blackducksoftware.ohcount4j.Language.VIMSCRIPT;
-import static com.blackducksoftware.ohcount4j.Language.XML;
-import static com.blackducksoftware.ohcount4j.Language.XMLSCHEMA;
-import static com.blackducksoftware.ohcount4j.Language.XSLT;
+import static com.blackducksoftware.ohcount4j.Language.*;
 import static com.blackducksoftware.ohcount4j.LanguageCategory.BUILD;
 import static com.blackducksoftware.ohcount4j.LanguageCategory.LOGIC;
 import static com.blackducksoftware.ohcount4j.LanguageCategory.MARKUP;
@@ -282,7 +186,7 @@ public class LanguageTest {
                         Arrays.asList("ec", "eh"), Arrays.asList() },
                 { ECMASCRIPT, "ECMAScript", "ecmascript", LOGIC, CStyleScanner.class,
                         Arrays.asList("es"), Arrays.asList() },
-                { Language.ELIXIR, "Elixir", "elixir", LOGIC, ElixirScanner.class,
+                { ELIXIR, "Elixir", "elixir", LOGIC, ElixirScanner.class,
                         Arrays.asList("ex", "exs"), Arrays.asList() },
                 { EIFFEL, "Eiffel", "eiffel", LOGIC, EiffelScanner.class,
                         Arrays.asList("e"), Arrays.asList() },
@@ -328,6 +232,8 @@ public class LanguageTest {
                         Arrays.asList("js"), Arrays.asList() },
                 { JSP, "JSP", "jsp", LOGIC, JspScanner.class,
                         Arrays.asList("jsp"), Arrays.asList() },
+                { KOTLIN, "Kotlin", "kotlin", LOGIC, CStyleScanner.class,
+                            Arrays.asList("kt", "kts"), Arrays.asList() },
                 { LIMBO, "Limbo", "limbo", LOGIC, CStyleScanner.class,
                         Arrays.asList("b", "m"), Arrays.asList() },
                 { LISP, "Lisp", "lisp", LOGIC, LispScanner.class,
