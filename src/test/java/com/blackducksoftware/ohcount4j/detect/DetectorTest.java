@@ -47,6 +47,7 @@ public class DetectorTest {
                 { Language.CSS, Arrays.asList("main.css") },
                 { Language.HTML, Arrays.asList("main.htm", "main.html") },
                 { Language.JAVA, Arrays.asList("main.java") },
+                { Language.KOTLIN, Arrays.asList("foo.kt", "foo.kts") },
                 { Language.JAVASCRIPT, Arrays.asList("main.js") },
                 { Language.RUBY, Arrays.asList("main.rb", "config.ru") },
                 { Language.AUTOMAKE, Arrays.asList("make.am", "make.AM") },
