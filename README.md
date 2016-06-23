@@ -73,6 +73,7 @@ Ohcount4j supported languages
   clearsilver       ClearSilver
   clojure           Clojure
   cobol             COBOL
+  coffeescript      CoffeeScript
   coldfusion        ColdFusion
   cpp               C++
   cmake             CMake
@@ -108,9 +109,11 @@ Ohcount4j supported languages
   jam               Jam
   java              Java
   javascript        JavaScript
-  limbo             Limbo
   jsp               JSP
+  kotlin            Kotlin
+  limbo             Limbo
   lisp              Lisp
+  logtalk           Logtalk
   lua               Lua
   make              Make
   mathematica       Mathematica
@@ -148,7 +151,8 @@ Ohcount4j supported languages
   xml               XML
   xmlschema         XML Schema
   xslt              XSL Transformation
-  ```
+```
+
 # Prerequisite Software
 
 1. Install **Eclipse**
