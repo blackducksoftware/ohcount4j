@@ -45,12 +45,12 @@ if (System.getenv('TRAVIS_REPO_SLUG') == 'blackducksoftware/ohcount4j'
 			coveralls {
 				sourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
 				jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
-	  		}
+			}
 			
 			// Run the root report from `script:` instead of `after_success:`
 			apply plugin: 'base'
 			tasks.check.dependsOn jacocoRootReport
-  		}
+		}
 	}
 
 	// Deploy artifacts
@@ -63,7 +63,7 @@ if (System.getenv('TRAVIS_REPO_SLUG') == 'blackducksoftware/ohcount4j'
 			
 			subprojects {
 				apply plugin: org.jfrog.gradle.plugin.artifactory.ArtifactoryPlugin
-		
+				
 				artifactory {
 					publish {
 						contextUrl = 'https://oss.jfrog.org/artifactory'
@@ -77,7 +77,7 @@ if (System.getenv('TRAVIS_REPO_SLUG') == 'blackducksoftware/ohcount4j'
 						}
 					}
 				}
-		
+				
 				afterEvaluate {
 					publish.dependsOn artifactoryPublish
 				}
@@ -86,7 +86,7 @@ if (System.getenv('TRAVIS_REPO_SLUG') == 'blackducksoftware/ohcount4j'
 			// Release version goes to bintray.com
 			subprojects {
 				apply plugin: com.jfrog.bintray.gradle.BintrayPlugin
-		
+				
 				bintray {
 					user = System.getenv('BINTRAY_USER')
 					key = System.getenv('BINTRAY_KEY')
@@ -98,7 +98,7 @@ if (System.getenv('TRAVIS_REPO_SLUG') == 'blackducksoftware/ohcount4j'
 						userOrg = 'bds'
 					}
 				}
-		
+				
 				afterEvaluate {
 					publish.dependsOn bintrayUpload
 				}

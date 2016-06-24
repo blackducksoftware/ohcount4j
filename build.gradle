@@ -111,8 +111,8 @@ publishing {
 			from components.java
 			
 			artifact sourcesJar {
-                classifier 'sources'
-            }
+				classifier 'sources'
+			}
 		}
 	}
 }
