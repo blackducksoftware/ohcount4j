@@ -25,31 +25,22 @@ if (System.getenv('TRAVIS_REPO_SLUG') == 'blackducksoftware/ohcount4j'
 
 	// Run Jacoco coverage and publish to Coveralls
 	projectsEvaluated {
-		allprojects {
-			apply plugin: 'jacoco'
-		}
-		
 		rootProject {
-			// Generate the aggregate report from all the subprojects
+			// Publish coverage information
 			apply plugin: org.kt3k.gradle.plugin.CoverallsPlugin
-			task jacocoRootReport(type: JacocoReport) {
-				dependsOn = subprojects.test
-				sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
-				classDirectories = files(subprojects.sourceSets.main.output)
-				executionData = files(subprojects.jacocoTestReport.executionData)
+			jacocoTestReport {
+				dependsOn(tasks.test)
 				reports {
-					html.enabled = false
-					xml.enabled = true
+					xml.enabled true
 				}
 			}
 			coveralls {
-				sourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
-				jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
+				jacocoReportPath = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
 			}
 			
 			// Run the root report from `script:` instead of `after_success:`
 			apply plugin: 'base'
-			tasks.check.dependsOn jacocoRootReport
+			tasks.check.dependsOn jacocoTestReport
 		}
 	}
 
@@ -58,50 +49,42 @@ if (System.getenv('TRAVIS_REPO_SLUG') == 'blackducksoftware/ohcount4j'
 		if (version.endsWith('-SNAPSHOT')) {
 			// Snapshot version goes to oss.jfrog.org
 			apply plugin: org.jfrog.gradle.plugin.artifactory.ArtifactoryPlugin
-			
-			artifactoryPublish.skip = true
-			
-			subprojects {
-				apply plugin: org.jfrog.gradle.plugin.artifactory.ArtifactoryPlugin
 				
-				artifactory {
-					publish {
-						contextUrl = 'https://oss.jfrog.org/artifactory'
-						repository {
-							repoKey = 'oss-snapshot-local'
-							username = System.getenv('BINTRAY_USER')
-							password = System.getenv('BINTRAY_KEY')
-						}
-						defaults {
-							publications('nebula')
-						}
+			artifactory {
+				publish {
+					contextUrl = 'https://oss.jfrog.org/artifactory'
+					repository {
+						repoKey = 'oss-snapshot-local'
+						username = System.getenv('BINTRAY_USER')
+						password = System.getenv('BINTRAY_KEY')
+					}
+					defaults {
+						publications('nebula')
 					}
 				}
-				
-				afterEvaluate {
-					publish.dependsOn artifactoryPublish
-				}
+			}
+			
+			afterEvaluate {
+				publish.dependsOn artifactoryPublish
 			}
 		} else {
 			// Release version goes to bintray.com
-			subprojects {
-				apply plugin: com.jfrog.bintray.gradle.BintrayPlugin
-				
-				bintray {
-					user = System.getenv('BINTRAY_USER')
-					key = System.getenv('BINTRAY_KEY')
-					publications = [ 'nebula' ]
-					publish = true
-					pkg {
-						repo = 'oss'
-						name = 'ohcount4j'
-						userOrg = 'bds'
-					}
+			apply plugin: com.jfrog.bintray.gradle.BintrayPlugin
+			
+			bintray {
+				user = System.getenv('BINTRAY_USER')
+				key = System.getenv('BINTRAY_KEY')
+				publications = [ 'nebula' ]
+				publish = true
+				pkg {
+					repo = 'oss'
+					name = 'ohcount4j'
+					userOrg = 'bds'
 				}
-				
-				afterEvaluate {
-					publish.dependsOn bintrayUpload
-				}
+			}
+			
+			afterEvaluate {
+				publish.dependsOn bintrayUpload
 			}
 		}
 	}
