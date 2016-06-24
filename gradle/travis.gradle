@@ -1,0 +1,108 @@
+initscript {
+	repositories { jcenter() }
+	dependencies { classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.0.0' }
+	dependencies { classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6' }
+	dependencies { classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.6.3' }
+}
+
+// Travis inspiration from:
+//  https://github.com/square/okhttp/blob/master/.buildscript/deploy_snapshot.sh
+//  https://coderwall.com/p/9b_lfq
+//  http://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci/
+
+// Jacoco/Coveralls inspiration from:
+//  https://gist.github.com/aalmiray/3e0e70cba66effdb449a
+//  https://github.com/ben-manes/caffeine/blob/master/build.gradle
+
+// Applying plugins must be done by class name instead of plugin identifier:
+//  http://stackoverflow.com/questions/14595606
+
+// It does not seem possible to apply another init script from an init script...
+
+if (System.getenv('TRAVIS_REPO_SLUG') == 'blackducksoftware/ohcount4j'
+	&& System.getenv('TRAVIS_BRANCH') == 'master'
+	&& !Boolean.getBoolean('TRAVIS_PULL_REQUEST')) {
+
+	// Run Jacoco coverage and publish to Coveralls
+	projectsEvaluated {
+		allprojects {
+			apply plugin: 'jacoco'
+		}
+		
+		rootProject {
+			// Generate the aggregate report from all the subprojects
+			apply plugin: org.kt3k.gradle.plugin.CoverallsPlugin
+			task jacocoRootReport(type: JacocoReport) {
+				dependsOn = subprojects.test
+				sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
+				classDirectories = files(subprojects.sourceSets.main.output)
+				executionData = files(subprojects.jacocoTestReport.executionData)
+				reports {
+					html.enabled = false
+					xml.enabled = true
+				}
+			}
+			coveralls {
+				sourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
+				jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
+	  		}
+			
+			// Run the root report from `script:` instead of `after_success:`
+			apply plugin: 'base'
+			tasks.check.dependsOn jacocoRootReport
+  		}
+	}
+
+	// Deploy artifacts
+	rootProject {
+		if (version.endsWith('-SNAPSHOT')) {
+			// Snapshot version goes to oss.jfrog.org
+			apply plugin: org.jfrog.gradle.plugin.artifactory.ArtifactoryPlugin
+			
+			artifactoryPublish.skip = true
+			
+			subprojects {
+				apply plugin: org.jfrog.gradle.plugin.artifactory.ArtifactoryPlugin
+		
+				artifactory {
+					publish {
+						contextUrl = 'https://oss.jfrog.org/artifactory'
+						repository {
+							repoKey = 'oss-snapshot-local'
+							username = System.getenv('BINTRAY_USER')
+							password = System.getenv('BINTRAY_KEY')
+						}
+						defaults {
+							publications('nebula')
+						}
+					}
+				}
+		
+				afterEvaluate {
+					publish.dependsOn artifactoryPublish
+				}
+			}
+		} else {
+			// Release version goes to bintray.com
+			subprojects {
+				apply plugin: com.jfrog.bintray.gradle.BintrayPlugin
+		
+				bintray {
+					user = System.getenv('BINTRAY_USER')
+					key = System.getenv('BINTRAY_KEY')
+					publications = [ 'nebula' ]
+					publish = true
+					pkg {
+						repo = 'oss'
+						name = 'ohcount4j'
+						userOrg = 'bds'
+					}
+				}
+		
+				afterEvaluate {
+					publish.dependsOn bintrayUpload
+				}
+			}
+		}
+	}
+}
