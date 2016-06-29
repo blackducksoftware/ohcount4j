@@ -21,6 +21,7 @@ initscript {
 
 if (System.getenv('TRAVIS_REPO_SLUG') == 'blackducksoftware/ohcount4j'
 	&& System.getenv('TRAVIS_BRANCH') == 'master'
+	&& System.getenv('TRAVIS_JOB_NUMBER') ==~ /\d+\.1$/
 	&& !Boolean.getBoolean('TRAVIS_PULL_REQUEST')) {
 
 	// Run Jacoco coverage and publish to Coveralls
@@ -36,6 +37,9 @@ if (System.getenv('TRAVIS_REPO_SLUG') == 'blackducksoftware/ohcount4j'
 			}
 			coveralls {
 				jacocoReportPath = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+			}
+			afterEvaluate {
+				publish.dependsOn coveralls
 			}
 			
 			// Run the root report from `script:` instead of `after_success:`
