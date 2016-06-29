@@ -1,12 +1,25 @@
-sudo: false
 language: java
+
 jdk:
-    - oraclejdk8
-    - oraclejdk7
-    - openjdk7
+  - oraclejdk8
+  - oraclejdk7
+  - openjdk7
+
+sudo: false
+
 before_cache:
-    - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
-    directories:
-        - $HOME/.gradle/caches/
-        - $HOME/.gradle/wrapper/
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
+env:
+  global:
+    - secure: "X39RQXXZ300u3m0M08kLc4je7ziNdRW+as6uRh8cb1lD6vD4kEHY6F7sRdV8S2yCObXX7gvi9V7dZ0J4u/u1SF3o/aQzbFVip7kpCeoofoBydvOP+2U1hS+5U1D0iIzOTmLNMUZz6vyHnetlb8PiSf2id6p6cibLYESVw+02JrJSIFVUKFsdwrwZ4ZsgUTzppQUDYveHL1BayacQBEcLCiusLxJTfdIyKqU9nHWUps5ov9xzk/VpkG0agl+hrHcnqA72RzcnzqVn9JLJnC2dQVk8sabdSrNX0ydo4W9QxvqLxkMs9oGt+0NqyrPVq+qhPfNhtlju7CvYoZZMLQzOtUMGT0IvdNEZlqfbApLXClCvziTks2MZcXogtj0AKqpEtRg2E7J4BI6+puHN2b0GqIHHReEOAsU/03HUUSspILhABj+VrRwDGeVHwF367NpNUieG3WgNGLNfVWhI8DZFCw97ZJ2ifNYiVXEpmeZX8+84rNYKGlTEX/WWVPcFKzbjCTByvLkMVCQ7EaPlEqWjnB6yFU7x623oBzx06TORam4xQ4uz300yCLnUqlwu/wcQtk7L421e3KVZ4BNiuAPCWG7H9HJLvig7QngVNj5cEH9365pQizRyb48jgJYp4X7tutJismd58N/kjCGYV1zhNNK5l/BSL/u/FC6t0wn9VEw="
+    - secure: "bjHwssN1hlNWJEwkTpw5yPkZ24H5hox07zSKPkbsnDDNwDbbG7JlrGBhrx4JyeRVxLm/FjD+TxWvdKiDVWRaI0u6LpdDuPF2SXHqUjuDZGMNMVHTQcF7JTXikW6dPHrkjZyY2khfYaN5GgnbXUvJZWqhU/QhqjOL1q7QgjkfQEOZAzSYxM1Btit4Cx6WuBaF7vUd4tJHplmZd4iB4ti7DiWe+XMYGtNRF4lEsbvBcW8zE17xDOMUpKtxnZRKPmXrq+CukMIKIwuJ8Y2JXU2NukgG7URPqiEE0WV5cfrBoWzjmkvlF2oW6qv9UV5lWMqrnrah94CpDd5rKumtLDJp22fybLvB5ABxHCagxCr9fARNYPSU3znb6lkux5xynLGsCfuscM1N3OTgBOn+mv1RIocNt3xCVOM5IiosiiGfS75fgEk4W0smmhOaqvG8OB4bsoUk9UTsvJPIWs+auEuV9H4CryPlV+HLvzUdFXBXclmKP5VzlBYPX0VDvNe2qbQR3CKjVxDdS8cqviEdzV5Sv9n1zz9RI+teYayk179Xj3JMVYIw/r5HTGD8H04DX/ttclpqnN8xvC4ZnXS41bp8NHaYmw0AgcgN2u4xG3keREuV4bPLAz76FyGmgiu8wPl2IZij/w6B3hqmkxofQfJAAK7ywgGC0f7HZgAKxkhEzpU="
+
+install: ./gradlew -I gradle/travis.gradle assemble
+script: ./gradlew -I gradle/travis.gradle check
+after_success: ./gradlew -I gradle/travis.gradle coveralls publish

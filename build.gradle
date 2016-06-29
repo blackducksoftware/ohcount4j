@@ -2,6 +2,7 @@ apply plugin: 'java'
 apply plugin: "jacoco"
 apply plugin: 'idea'
 apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'gradle-one-jar'
 apply plugin: 'application'
 
@@ -98,9 +99,17 @@ artifacts { archives sourcesJar }
 
 test {
 	useTestNG()
-	jacoco{
-		destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
-		classDumpFile = file("$buildDir/jacoco/classpathdumps")
+}
+
+publishing {
+	publications {
+		nebula(MavenPublication) {
+			from components.java
+			
+			artifact sourcesJar {
+				classifier 'sources'
+			}
+		}
 	}
 }
 
@@ -112,4 +121,4 @@ jacocoTestReport {
 	}
 }
 
-task wrapper(type: Wrapper) { gradleVersion = '2.10' }
+task wrapper(type: Wrapper) { gradleVersion = '2.14' }
