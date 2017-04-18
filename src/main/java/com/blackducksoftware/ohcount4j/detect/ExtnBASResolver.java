@@ -29,6 +29,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import com.blackducksoftware.ohcount4j.Language;
 import com.blackducksoftware.ohcount4j.SourceFile;
+import com.blackducksoftware.ohcount4j.SourceFileUtils;
 
 public class ExtnBASResolver extends AbstractExtnResolver {
 
@@ -37,7 +38,7 @@ public class ExtnBASResolver extends AbstractExtnResolver {
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
-        if (CLASSIC_BASIC_PATTERN.matcher(getCharSequence(sourceFile)).find()) {
+        if (CLASSIC_BASIC_PATTERN.matcher(SourceFileUtils.getCharSequence(sourceFile)).find()) {
             return CLASSIC_BASIC;
         } else if (vbSpecificExtensions(filenames)) {
             return VB;

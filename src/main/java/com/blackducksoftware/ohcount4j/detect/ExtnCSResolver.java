@@ -21,12 +21,13 @@ import java.util.List;
 
 import com.blackducksoftware.ohcount4j.Language;
 import com.blackducksoftware.ohcount4j.SourceFile;
+import com.blackducksoftware.ohcount4j.SourceFileUtils;
 
 public class ExtnCSResolver extends AbstractExtnResolver {
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
-        String contents = new String(getContents(sourceFile));
+        String contents = new String(SourceFileUtils.getContents(sourceFile));
         // ClearSilver contains "<?cs".
         if (contents.contains("<?cs")) {
             return Language.CLEARSILVER;

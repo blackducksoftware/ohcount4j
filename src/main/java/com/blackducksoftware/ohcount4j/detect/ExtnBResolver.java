@@ -27,6 +27,7 @@ import java.util.regex.Pattern;
 
 import com.blackducksoftware.ohcount4j.Language;
 import com.blackducksoftware.ohcount4j.SourceFile;
+import com.blackducksoftware.ohcount4j.SourceFileUtils;
 
 public class ExtnBResolver extends AbstractExtnResolver {
 
@@ -41,7 +42,7 @@ public class ExtnBResolver extends AbstractExtnResolver {
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
-        if (LIMBO_PATTERN.matcher(getCharSequence(sourceFile)).find()) {
+        if (LIMBO_PATTERN.matcher(SourceFileUtils.getCharSequence(sourceFile)).find()) {
             return Language.LIMBO;
         } else {
             return new ExtnBASResolver().resolve(sourceFile, filenames);
