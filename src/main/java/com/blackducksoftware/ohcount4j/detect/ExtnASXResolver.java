@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 
 import com.blackducksoftware.ohcount4j.Language;
 import com.blackducksoftware.ohcount4j.SourceFile;
+import com.blackducksoftware.ohcount4j.SourceFileUtils;
 
 /*
  * Distinguishes between 6502 Assembly and Advanced Stream Redirector XML files
@@ -33,7 +34,7 @@ public class ExtnASXResolver extends AbstractExtnResolver {
 
     @Override
     public Language resolve(SourceFile sourceFile, List<String> filenames) throws IOException {
-        if (XML_PATTERN.matcher(getCharSequence(sourceFile)).find()) {
+        if (XML_PATTERN.matcher(SourceFileUtils.getCharSequence(sourceFile)).find()) {
             return Language.XML;
         } else {
             return Language.ASSEMBLY;

@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.blackducksoftware.ohcount4j.Language;
 import com.blackducksoftware.ohcount4j.SourceFile;
+import com.blackducksoftware.ohcount4j.SourceFileUtils;
 
 public class ExtnINResolver extends AbstractExtnResolver {
 
@@ -32,7 +33,7 @@ public class ExtnINResolver extends AbstractExtnResolver {
         if (sourceFile.isContentsFromFile()) {
             stripped = new SourceFile(strippedPath, sourceFile.getReader());
         } else {
-            stripped = new SourceFile(strippedPath, new String(sourceFile.getContents()));
+            stripped = new SourceFile(strippedPath, new String(SourceFileUtils.getContents(sourceFile)));
         }
         return Detector.detect(stripped);
     }

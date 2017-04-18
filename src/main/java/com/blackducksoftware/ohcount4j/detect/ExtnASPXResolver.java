@@ -27,6 +27,7 @@ import java.util.regex.Pattern;
 
 import com.blackducksoftware.ohcount4j.Language;
 import com.blackducksoftware.ohcount4j.SourceFile;
+import com.blackducksoftware.ohcount4j.SourceFileUtils;
 
 public class ExtnASPXResolver extends AbstractExtnResolver {
 
@@ -59,7 +60,7 @@ public class ExtnASPXResolver extends AbstractExtnResolver {
     }
 
     private String pageLanguage(SourceFile sourceFile) throws IOException {
-        Matcher m = ASPX_PATTERN.matcher(headContent(sourceFile));
+        Matcher m = ASPX_PATTERN.matcher(SourceFileUtils.head(sourceFile));
         if (m.find()) {
             return m.group(1);
         } else {

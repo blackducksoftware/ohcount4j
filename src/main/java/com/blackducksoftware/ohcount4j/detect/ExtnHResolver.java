@@ -87,7 +87,7 @@ public class ExtnHResolver extends AbstractExtnResolver {
     }
 
     private Language resolveByKeywords(SourceFile source) throws IOException {
-        Matcher m = CPP_KEYWORDS_PATTERN.matcher(new String(getContents(source)));
+        Matcher m = CPP_KEYWORDS_PATTERN.matcher(new String(SourceFileUtils.getContents(source)));
         if (m.find()) {
             return Language.CPP;
         } else {
@@ -100,7 +100,6 @@ public class ExtnHResolver extends AbstractExtnResolver {
      */
     public List<String> findIncludes(SourceFile source) throws IOException {
         ArrayList<String> result = new ArrayList<String>();
-
         Matcher m = INCLUDE_PATTERN.matcher(new String(SourceFileUtils.getContents(source)));
         while (m.find()) {
             result.add(m.group(1));
