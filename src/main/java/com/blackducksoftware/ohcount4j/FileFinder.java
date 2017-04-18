@@ -18,6 +18,7 @@ package com.blackducksoftware.ohcount4j;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -27,34 +28,59 @@ import org.apache.commons.io.filefilter.HiddenFileFilter;
 import org.apache.commons.io.filefilter.IOFileFilter;
 
 public class FileFinder extends DirectoryWalker<File> {
-    protected ArrayList<File> results;
 
-    private static final IOFileFilter dirFilter = HiddenFileFilter.VISIBLE;
+	protected ArrayList<File> results;
 
-    private static final IOFileFilter fileFilter =
-            FileFilterUtils.and(HiddenFileFilter.VISIBLE,
-                    FileFilterUtils.sizeFileFilter(1000000, false));
+	private boolean processSymbolicLinks;
 
-    public FileFinder() {
-        super(dirFilter, fileFilter, -1);
-        results = new ArrayList<File>();
-    }
+	private static final IOFileFilter dirFilter = HiddenFileFilter.VISIBLE;
 
-    public ArrayList<File> getFiles() {
-        return results;
-    }
+	private static final IOFileFilter fileFilter = FileFilterUtils.and(HiddenFileFilter.VISIBLE,
+			FileFilterUtils.sizeFileFilter(1000000, false));
 
-    public void addPath(String path) throws IOException {
-        File f = new File(path);
-        if (f.isDirectory()) {
-            walk(f, results);
-        } else {
-            results.add(f);
-        }
-    }
+	public FileFinder() {
+		this(false); // by default we don't process symbolic links, they are
+						// ignored.
+	}
 
-    @Override
-    protected void handleFile(File file, int depth, Collection<File> results) throws IOException {
-        results.add(file);
-    }
+	public FileFinder(boolean processSymbolicLinks) {
+		super(dirFilter, fileFilter, -1);
+		this.processSymbolicLinks = processSymbolicLinks;
+		results = new ArrayList<File>();
+	}
+
+	public ArrayList<File> getFiles() {
+		return results;
+	}
+
+	public void addPath(String path) throws IOException {
+		File file = new File(path);
+		if (file.isDirectory()) {
+			if (canAddDirectoryForProcessing(file)) {
+				walk(file, results);
+			}
+		} else {
+			results.add(file);
+		}
+	}
+
+	@Override
+	protected boolean handleDirectory(File directory, int depth, Collection<File> results) throws IOException {
+		return canAddDirectoryForProcessing(directory);
+	}
+
+	private boolean canAddDirectoryForProcessing(File directory) {
+		boolean isSymbolicLink = Files.isSymbolicLink(directory.toPath());
+		if(isSymbolicLink) {
+			return processSymbolicLinks;
+		} else {
+			return true;
+		}
+	}
+
+	@Override
+	protected void handleFile(File file, int depth, Collection<File> results) throws IOException {
+		results.add(file);
+	}
+
 }
