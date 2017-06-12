@@ -23,4 +23,9 @@ env:
 
 install: ./gradlew -I gradle/travis.gradle assemble
 script: ./gradlew -I gradle/travis.gradle check
-after_success: ./gradlew -I gradle/travis.gradle publish
+after_success:
+  - ./gradlew -I gradle/travis.gradle publish
+  - curl https://copilot.blackducksoftware.com/scripts/init/gradle -o bds_init.gradle
+  - ./gradlew --init-script bds_init.gradle buildBom -DbdsPluginVersion=5.0.0
+  - bash <(curl -s https://copilot.blackducksoftware.com/bash/travis) ./build/blackduck/*_bdio.jsonld
+
