@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/blackducksoftware/ohcount4j.svg?branch=master)](https://travis-ci.org/blackducksoftware/ohcount4j) [![Coverage Status](https://coveralls.io/repos/github/blackducksoftware/ohcount4j/badge.svg?branch=master)](https://coveralls.io/github/blackducksoftware/ohcount4j?branch=master) [ ![Download](https://api.bintray.com/packages/bds/oss/ohcount4j/images/download.svg) ](https://bintray.com/bds/oss/ohcount4j/_latestVersion)
+[![Black Duck Security Risk](https://copilot.blackducksoftware.com/github/groups/blackducksoftware/locations/ohcount4j/public/results/branches/master/badge-risk.svg)](https://copilot.blackducksoftware.com/github/groups/blackducksoftware/locations/ohcount4j/public/results/branches/master)
 
 # Overview
 
