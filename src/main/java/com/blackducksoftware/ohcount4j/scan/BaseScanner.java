@@ -93,6 +93,11 @@ public abstract class BaseScanner implements Scanner {
     public final void scan(SourceFile source, LineHandler handler) throws IOException {
         Reader reader = source.getReader();
         try {
+            if (!source.isContentsFromFile()) {
+                scan(source.getContents(), handler);
+                return;
+            }
+
             int buflen = getBlockSize(source, handler);
             if (buflen == -1) {
                 return; // do nothing

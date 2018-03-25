@@ -279,7 +279,7 @@ public enum Language implements LanguageCategory {
         OCAML.extensions("ml", "mli");
         OCTAVE.extensions("m", "octave");
         PASCAL.extensions("pas", "pp");
-        PERL.extensions("pl", "pm");
+        PERL.extensions("p6", "perl", "ph", "pl", "pm", "pod", "t");
         PHP.extensions("inc", "php", "phtml", "php4", "php3", "php5", "phps");
         IDL_PVWAVE.extension("pro");
         PROLOG.extension("pl");
