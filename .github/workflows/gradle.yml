@@ -26,3 +26,7 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
+     -
+      name: Upload to CoPilot
+      if: github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+      run: bash <(curl -s https://copilot.blackducksoftware.com/ci/githubactions/scripts/upload)
