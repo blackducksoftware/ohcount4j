@@ -26,3 +26,10 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
+    
+    - name: Aqua Security Trivy
+      uses: aquasecurity/trivy-action@0.8.0
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        trivy-config: trivy.yaml
