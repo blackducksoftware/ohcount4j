@@ -32,4 +32,5 @@ jobs:
       with:
         scan-type: 'fs'
         scan-ref: '.'
+        severity: 'MEDIUM,HIGH,CRITICAL'
         trivy-config: trivy.yaml
