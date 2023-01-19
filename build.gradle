@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    compile 'args4j:args4j:2.0.16'
+    compile 'args4j:args4j:2.33'
     compile 'net.java.dev.jna:jna:3.3.0'
     compile 'commons-io:commons-io:2.4'
     compile 'org.slf4j:slf4j-api:1.7.14'
