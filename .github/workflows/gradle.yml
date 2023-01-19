@@ -34,4 +34,5 @@ jobs:
         scan-ref: '.'
         severity: 'MEDIUM,HIGH,CRITICAL'
         hide-progress: false
+        security-checks: 'vuln,secret,config'
         trivy-config: trivy.yaml
