@@ -27,7 +27,3 @@ jobs:
       with:
         arguments: build
     # Add Post build steps here
-    - name: Upload to Synopsys CoPilot
-      if: github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
-      run: bash <(curl -s https://copilot.blackducksoftware.com/ci/githubactions/scripts/upload)
- 
